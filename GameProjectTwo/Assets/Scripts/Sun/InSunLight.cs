@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class InSunLight : MonoBehaviour
 {
+    [Header("Debug")]
+    public bool debugRay;
+
+
+    [Header("Settings")]
     [SerializeField]
     private LayerMask layerMask;
     [SerializeField]
@@ -108,7 +113,10 @@ public class InSunLight : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(pos, dir, out hit, lightSourceDist, layerMask))
         {
-            Debug.DrawRay(pos, dir * lightSourceDist, Color.black);
+
+            if (debugRay)
+                Debug.DrawRay(pos, dir * lightSourceDist, Color.black);
+            
             if (hit.collider == dracula.gameObject.GetComponent<Collider>())
             {
                 Debug.Log("<color=red>Dracula hit self</color>");
@@ -116,7 +124,9 @@ public class InSunLight : MonoBehaviour
             return false;
         }
 
-        Debug.DrawRay(pos, dir * lightSourceDist, Color.yellow);
+        if (debugRay)
+            Debug.DrawRay(pos, dir * lightSourceDist, Color.yellow);
+
         return true;
     }
 }
