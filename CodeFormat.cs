@@ -100,5 +100,8 @@ public class Class1
 	public interface IAmExample1
 	public interface IAmExample2
 
+	//Enums
+	public enum states { Walk, Run, Jump}
+
 
 }
