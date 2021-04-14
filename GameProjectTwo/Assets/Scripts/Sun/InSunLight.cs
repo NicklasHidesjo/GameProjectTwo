@@ -5,23 +5,19 @@ using UnityEngine;
 public class InSunLight : MonoBehaviour
 {
     [Header("Debug")]
-    public bool debugRay;
-
+    [SerializeField] bool debugRay;
 
     [Header("Settings")]
-    [SerializeField]
-    private LayerMask layerMask;
-    [SerializeField]
-    private Transform linearLightSun;
-    [SerializeField]
-    private Transform dracula;
+    [SerializeField] LayerMask layerMask;
+    [SerializeField] Transform linearLightSun;
+    [SerializeField] Transform dracula;
 
     private float WidthOff = 0.0f;
     private float hightOff = 0.0f;
 
-    public float lightSourceDist = 100f;
-    public float inSkin = -0.05f;
-    public bool inSunlight;
+    [SerializeField] float lightSourceDist = 100f;
+    [SerializeField] float inSkin = -0.05f;
+    [SerializeField] bool inSunlight;
 
     // Start is called before the first frame update
     void Start()
@@ -103,7 +99,6 @@ public class InSunLight : MonoBehaviour
             {
                 return true;
             }
-
         }
         return false;
     }
