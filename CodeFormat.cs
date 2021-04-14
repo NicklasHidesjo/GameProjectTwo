@@ -7,37 +7,39 @@ public class Class1
 	// variable naming
 	// private camelCase
 	// beskrivande
-	private int	korvMedBröd; // ex
+	private int	exempelInt; // ex
 	// public 
 
 	// för unity 
 	[SerializedField] int health = 100;
-	[SerializedField] string blabla = "";
+	[SerializedField] string exempelSträng = "";
 
 	// enkla gets på detta sätt (set är alltid en funktion)
-	public int AsdKorv { get { return korvMedBröd; }}
+	public int exempelProperty { get { return exempelInt; }}
 
 	// const = ALLCAPS 
-	private const int ASDKORV;
+	private const int EXEMPELCONST;
 
 	// function format
 	// PascalCase
 	// Radbryt innan måsvinge
 	// skriv ut private  o public innan functionen
-	public void BlaaaBla()
+	public void ExempelMetod1()
 	{
 
 	}
-	private void BlaBla()
+	private void ExempelMetod2()
 	{
 
 	}
 
 	// if- statements
-	private void ifStatements()
+	private void ExempelIfStatement()
 	{
 		// om vi inte ska göra något ifall bool inte är sann/ är sann.
 		if(isJumping) { return; }
+
+		// undvik pyramid of death och långa if-satser bryt up i flera om möjligt.
 
 		if (canJump)
 		{
@@ -49,17 +51,18 @@ public class Class1
 		}
 	}
 
-	// parameters naming, tydliga.
-	public void functionStuff(int korvMedBröd)
+	// parameters namn: tydliga, gör inget om de heter samma som klassen då vi använder this. isåfall
+	public void ExempelMetod3(int ExempelInt)
 	{
-		this.korvMedBröd = korvMedBröd;
+		this.exempelInt = ExempelInt;
 	}
 
 
 	// använd denna för att sätta värdet gör inte variablen public.
-	public void SetAsdKorv(int value)
+	public void SetExempelInt(int value)
 	{
-		AsdKorv += value;
+		exempelInt = value;
+		// här gör vi allting som sätter värdet på variabeln korvMedBröd för användning i propertien.
 	}
 	// bools
 	// gör dem beskrivande 
@@ -70,7 +73,7 @@ public class Class1
 	// ska bara göra en sak
 	// max 4 parametrar in.
 	// om funktionen anropar en massa andra funktioner relaterade till det så döp den till handle[vad funktionen hanterar]
-	public void HandleScoreIncrease(int korvar)
+	public void HandleMetodExempel(int ScoreIncrease)
 	{
 		IncreaseScore();
 		UpdateScore();
@@ -79,7 +82,7 @@ public class Class1
 	}
 
 	// singletons format
-	public static KorvManager instance;
+	public static SingletonExempel instance;
 	private void Awake()
 	{
 		if (instance == null)
@@ -94,8 +97,8 @@ public class Class1
 	// interface naming
 	// stort I i början
 	// beskrivande namn
-	public interface IAmHotDog
-	public interface IAmJoakim
+	public interface IAmExample1
+	public interface IAmExample2
 
 
 }
