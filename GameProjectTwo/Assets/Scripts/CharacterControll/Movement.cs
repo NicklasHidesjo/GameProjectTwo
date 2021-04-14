@@ -33,7 +33,7 @@ public class Movement : MonoBehaviour
     }
     void Update()
     {
-        MoveCharacter();
+      //  MoveCharacter();
     }
 
     private void Init()
@@ -56,7 +56,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void MoveCharacter()
+    public void MoveCharacter()
     {
         applyedGravity = normalGravity;
 
@@ -69,17 +69,17 @@ public class Movement : MonoBehaviour
         {
             AirialControll();
         }
-
-            playerVelocity.y -= applyedGravity * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
-
-        if (debugRays)
-        {
-            Debug.DrawRay(transform.position, alienedX * playerVelocity.x * 5, Color.red);
-            Debug.DrawRay(transform.position, alienedZ * playerVelocity.z * 5, Color.blue);
-            Debug.DrawRay(transform.position, Vector3.up * playerVelocity.y * 5, Color.green);
-        }
+        AddGravity();
+        ExecuteMove();
     }
+
+    public void UpdateCharacter()
+    {
+        applyedGravity = normalGravity;
+        AddGravity();
+        ExecuteMove();
+    }
+
 
     void GroundControll()
     {
@@ -97,7 +97,16 @@ public class Movement : MonoBehaviour
             inputFormplayer.y = jumpForce;
         }
     }
+    void AlignControllerToCamera()
+    {
+        temp = cam.right;
+        temp.y = 0;
+        alienedX = temp.normalized;
 
+        temp = cam.forward;
+        temp.y = 0;
+        alienedZ = temp.normalized;
+    }
 
     void AirialControll()
     {
@@ -113,16 +122,21 @@ public class Movement : MonoBehaviour
             }
         }
     }
-    void AlignControllerToCamera()
+
+    void AddGravity()
     {
-        temp = cam.right;
-        temp.y = 0;
-        alienedX = temp.normalized;
+        playerVelocity.y -= applyedGravity * Time.deltaTime;
+    }
 
-        temp = cam.forward;
-        temp.y = 0;
-        alienedZ = temp.normalized;
+    void ExecuteMove()
+    {
+        controller.Move(playerVelocity * Time.deltaTime);
 
-
+        if (debugRays)
+        {
+            Debug.DrawRay(transform.position, alienedX * playerVelocity.x * 5, Color.red);
+            Debug.DrawRay(transform.position, alienedZ * playerVelocity.z * 5, Color.blue);
+            Debug.DrawRay(transform.position, Vector3.up * playerVelocity.y * 5, Color.green);
+        }
     }
 }
