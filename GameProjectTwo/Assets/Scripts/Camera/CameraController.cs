@@ -19,6 +19,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] float camDistance = 10;
     [SerializeField] float rotSpeed = 10;
 
+    [SerializeField] LayerMask checkLayer;
+
+
     private Vector3 camEulerAngle;
     private Vector3 offsett;
     private Vector3 trueTarget;
@@ -78,12 +81,10 @@ public class CameraController : MonoBehaviour
     {
         rayDir = pos - t;
 
-        //TODO : Remove -2 and use layermask instead//////////////////////////////////////////////////
         boxSize.z = (pos - t).magnitude * 0.5f;
-        boxSize.z -= 1;
 
         RaycastHit hit;
-        if (Physics.BoxCast(t + rayDir * 0.5f + Vector3.up * maxTowerHight, boxSize, Vector3.down, out hit, Quaternion.Euler(camEulerAngle), maxTowerHight))
+        if (Physics.BoxCast(t + rayDir * 0.5f + Vector3.up * maxTowerHight, boxSize, Vector3.down, out hit, Quaternion.Euler(camEulerAngle), maxTowerHight, checkLayer))
         {
             Vector3 ang = hit.point - t;
             camEulerAngle.x = 90 - Vector3.Angle(Vector3.up, ang.normalized);
