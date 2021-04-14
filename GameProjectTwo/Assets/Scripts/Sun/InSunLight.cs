@@ -8,7 +8,7 @@ public class InSunLight : MonoBehaviour
     [SerializeField] bool debugRay;
 
     [Header("Settings")]
-    [SerializeField] LayerMask layerMask;
+    [SerializeField] LayerMask checkLayers;
     [SerializeField] Transform linearLightSun;
     [SerializeField] Transform dracula;
 
@@ -106,7 +106,7 @@ public class InSunLight : MonoBehaviour
     private bool RaycastSunToCharacter(Vector3 pos, Vector3 dir)
     {
         RaycastHit hit;
-        if (Physics.Raycast(pos, dir, out hit, lightSourceDist, layerMask))
+        if (Physics.Raycast(pos, dir, out hit, lightSourceDist, checkLayers))
         {
 
             if (debugRay)
