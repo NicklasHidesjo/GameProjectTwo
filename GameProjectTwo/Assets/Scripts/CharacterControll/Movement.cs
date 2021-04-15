@@ -11,11 +11,11 @@ public class Movement : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private Transform cam;
 
-    [SerializeField] private float playerSpeed = 4.0f;
-    [SerializeField] private float jumpForce = 4.0f;
-    [SerializeField] private float normalGravity = 20f;
-    [SerializeField] private float holdJumpGravityUp = 6f;
-    [SerializeField] private float holdJumpGravityDown = 16f;
+    [SerializeField] float playerSpeed = 4.0f;
+    [SerializeField] float jumpForce = 4.0f;
+    [SerializeField] float normalGravity = 20f;
+    [SerializeField] float holdJumpGravityUp = 6f;
+    [SerializeField] float holdJumpGravityDown = 16f;
     
     //Alignment
     private Vector3 alienedX;
@@ -33,7 +33,7 @@ public class Movement : MonoBehaviour
     }
     void Update()
     {
-        MoveCharacter();
+        //MoveCharacter();
     }
 
     private void Init()
@@ -56,7 +56,7 @@ public class Movement : MonoBehaviour
         }
     }
 
-    private void MoveCharacter()
+    public void MoveCharacter()
     {
         applyedGravity = normalGravity;
 
@@ -69,16 +69,15 @@ public class Movement : MonoBehaviour
         {
             AirialControll();
         }
+        AddGravity();
+        ExecuteMove();
+    }
 
-            playerVelocity.y -= applyedGravity * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
-
-        if (debugRays)
-        {
-            Debug.DrawRay(transform.position, alienedX * playerVelocity.x * 5, Color.red);
-            Debug.DrawRay(transform.position, alienedZ * playerVelocity.z * 5, Color.blue);
-            Debug.DrawRay(transform.position, Vector3.up * playerVelocity.y * 5, Color.green);
-        }
+    public void UpdateCharacter()
+    {
+        applyedGravity = normalGravity;
+        AddGravity();
+        ExecuteMove();
     }
 
     void GroundControll()
@@ -98,6 +97,16 @@ public class Movement : MonoBehaviour
         }
     }
 
+    void AlignControllerToCamera()
+    {
+        temp = cam.right;
+        temp.y = 0;
+        alienedX = temp.normalized;
+
+        temp = cam.forward;
+        temp.y = 0;
+        alienedZ = temp.normalized;
+    }
 
     void AirialControll()
     {
@@ -113,16 +122,21 @@ public class Movement : MonoBehaviour
             }
         }
     }
-    void AlignControllerToCamera()
+
+    void AddGravity()
     {
-        temp = cam.right;
-        temp.y = 0;
-        alienedX = temp.normalized;
+        playerVelocity.y -= applyedGravity * Time.deltaTime;
+    }
 
-        temp = cam.forward;
-        temp.y = 0;
-        alienedZ = temp.normalized;
+    void ExecuteMove()
+    {
+        controller.Move(playerVelocity * Time.deltaTime);
 
-
+        if (debugRays)
+        {
+            Debug.DrawRay(transform.position, alienedX * playerVelocity.x * 5, Color.red);
+            Debug.DrawRay(transform.position, alienedZ * playerVelocity.z * 5, Color.blue);
+            Debug.DrawRay(transform.position, Vector3.up * playerVelocity.y * 5, Color.green);
+        }
     }
 }
