@@ -18,8 +18,10 @@ public class CameraController : MonoBehaviour
     [SerializeField] float camSpeedMultiplyer = 0.75f;
     [SerializeField] float camDistance = 10;
     [SerializeField] float rotSpeed = 10;
-
     [SerializeField] LayerMask checkLayer;
+
+    public enum cameraPriority { low, Medium, high }
+    private cameraPriority currentPrio = cameraPriority.low;
 
 
     private Vector3 camEulerAngle;
@@ -27,6 +29,7 @@ public class CameraController : MonoBehaviour
     private Vector3 trueTarget;
     private float camSpeed;
     private Vector3 rayDir;
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +39,10 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        CameraControll();
+        if (target)
+            CameraControll();
+
+        currentPrio = cameraPriority.low;
     }
 
     public void Init()
@@ -45,15 +51,12 @@ public class CameraController : MonoBehaviour
         if (!cam)
         {
             cam = Camera.main;
-
-            Debug.Log("<color=red> Camara is missing. Auto assigned : </color>" + cam.name);
+           // Debug.Log("<color=red> Camara is missing. Auto assigned : </color>" + cam.name);
         }
 
         if (!target)
         {
-            target = FindObjectOfType<CharacterController>().transform;
-
-            Debug.Log("<color=red> Target is missing. Auto assigned : </color>" + target.name);
+            Debug.Log("<color=red> Target is missing. </color>");
         }
     }
 
@@ -98,5 +101,23 @@ public class CameraController : MonoBehaviour
             return offsettFromTarget;
         }
         return pos;
+    }
+
+    //Camera Targets
+
+    //Set new camera target
+    public void SetNewTarget(cameraPriority prio, Transform target)
+    {
+        this.target = target;
+        currentPrio = prio;
+    }
+    public Transform OverrideSetTarget(cameraPriority prio, Transform target)
+    {
+        Transform oldTarget = this.target;
+        if (prio > currentPrio)
+        {
+            this.target = target;
+        }
+        return oldTarget;
     }
 }

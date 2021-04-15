@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class DraculaMovement : MonoBehaviour
 {
     [Header("DEBUG")]
     [SerializeField] private bool debugRays = true;
@@ -52,7 +52,6 @@ public class Movement : MonoBehaviour
                 gameObject.AddComponent<CharacterController>();
                 Debug.Log("<color=red>CharacterController not assigned to :" + transform.name + "  (AutoCreated)</color>");
             }
-
         }
     }
 
