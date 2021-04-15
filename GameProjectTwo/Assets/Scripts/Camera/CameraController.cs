@@ -83,14 +83,23 @@ public class CameraController : MonoBehaviour
     Vector3 RayCheckPosition(Vector3 pos, Vector3 t)
     {
         rayDir = pos - t;
-
         boxSize.z = (pos - t).magnitude * 0.5f;
 
         RaycastHit hit;
-        if (Physics.BoxCast(t + rayDir * 0.5f + Vector3.up * maxTowerHight, boxSize, Vector3.down, out hit, Quaternion.Euler(camEulerAngle), maxTowerHight, checkLayer))
+        if (Physics.BoxCast(t + rayDir * 0.5f + Vector3.up * maxTowerHight, boxSize, Vector3.down, out hit, Quaternion.Euler(camEulerAngle), maxTowerHight -1, checkLayer))
         {
             Vector3 ang = hit.point - t;
+            Vector3 flatAng = ang;
+            //flatAng.y = 0;
+            //flatAng = flatAng.normalized;
+
+
+
             camEulerAngle.x = 90 - Vector3.Angle(Vector3.up, ang.normalized);
+
+            //camEulerAngle.x = Vector3.Angle(flatAng, ang);
+
+
             Vector3 offsettFromTarget = Quaternion.Euler(camEulerAngle.x, camEulerAngle.y, 0) * offsett + target.position;
 
             if (debugRays)

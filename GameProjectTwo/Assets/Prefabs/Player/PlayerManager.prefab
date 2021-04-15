@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2656486698216491673}
   - component: {fileID: 3684600817813889341}
   - component: {fileID: 5555537688927047023}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SpawPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,9 +92,9 @@ GameObject:
   - component: {fileID: 1361615660955361217}
   - component: {fileID: 3741368434606493832}
   - component: {fileID: 3613435800765331158}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerManager
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -127,8 +127,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 2656486698216491673}
+  playerCam: {fileID: 0}
   draculaPreFab: {fileID: 6337708183196167810, guid: 914620d1d91ea2b45803e54ded1020b9, type: 3}
   batPreFab: {fileID: 4996842985696655279, guid: 366f3e09b1e8aed469f043b2a4726197, type: 3}
+  transformME: 0
 --- !u!114 &3613435800765331158
 MonoBehaviour:
   m_ObjectHideFlags: 0
