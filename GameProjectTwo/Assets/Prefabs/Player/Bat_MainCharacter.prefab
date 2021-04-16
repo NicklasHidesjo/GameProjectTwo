@@ -129,9 +129,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugRays: 1
-  flySpeed: 10
+  flySpeed: 1
   checkLayerForFlight:
     serializedVersion: 2
     m_Bits: 1
   steerSpeed: 100
-  downForce: 4
+  downForce: 0.25

@@ -10,7 +10,7 @@ public class BatMovement : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] float flySpeed = 10f;
-     float flightHight = 2;
+    float flightHight = 2;
     [SerializeField] LayerMask checkLayerForFlight;
 
     [SerializeField] float steerSpeed = 100;
@@ -23,13 +23,17 @@ public class BatMovement : MonoBehaviour
     private Vector3 inputFormplayer;
 
     private Vector3 lastHitNormal;
+    private Vector3 lastHitPoint;
+    private Vector3 lastDir;
     private bool grounded;
 
     private Transform spawnPoint;
 
+    float upForce;
+
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
- 
+
     }
 
     private void Start()
@@ -57,6 +61,7 @@ public class BatMovement : MonoBehaviour
     public void StartMove(Vector3 direction)
     {
         dir = direction;
+        lastDir = direction;
     }
 
     public void MoveBat()
@@ -70,10 +75,11 @@ public class BatMovement : MonoBehaviour
     {
         dir = Quaternion.Euler(0, Input.GetAxis("Horizontal") * steerSpeed * Time.deltaTime, 0) * dir;
 
-        inputFormplayer = dir * flySpeed;
-        inputFormplayer = Quaternion.FromToRotation(transform.up, lastHitNormal) * inputFormplayer;
-
         SphareCastGround();
+        inputFormplayer = dir * flySpeed;
+//        inputFormplayer = Quaternion.FromToRotation(dir, lastDir) * inputFormplayer;
+        inputFormplayer = (dir + lastDir) * flySpeed * 0.5f;
+
 
         if (grounded)
         {
@@ -84,7 +90,7 @@ public class BatMovement : MonoBehaviour
         }
         else
         {
-            inputFormplayer.y = playerVelocity.y - downForce * Time.deltaTime;
+            lastDir.y -= downForce * Time.deltaTime;
 
             if (debugRays)
             {
@@ -97,21 +103,17 @@ public class BatMovement : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (Physics.SphereCast(transform.position, controller.radius, -transform.up, out hit, flightHight, checkLayerForFlight))
+        grounded = false;
+        if (Physics.SphereCast(transform.position + Vector3.up * controller.radius, controller.radius, -transform.up, out hit, controller.radius + flightHight, checkLayerForFlight))
         {
-            Debug.DrawRay(transform.position, Vector3.up, Color.green, 10);
-            grounded = true;
-            lastHitNormal = hit.normal;
-
-            if (hit.distance > flightHight - 0.1f)
-                inputFormplayer.y = (flightHight - hit.distance) * 10;
-            else
-                inputFormplayer.y = 0;
+            if (hit.point != lastHitPoint)
+            {
+                Vector3 point = hit.point + Vector3.up * hit.normal.y * flightHight;
+                Debug.DrawLine(hit.point, point, Color.cyan, 10);
+                lastDir = Vector3.MoveTowards(lastDir, (point - lastHitPoint).normalized, 2f * Time.deltaTime);
+                lastHitPoint = transform.position;
+                grounded = true;
+            }
         }
-        else
-        {
-            grounded = false;
-        }
-
     }
 }
