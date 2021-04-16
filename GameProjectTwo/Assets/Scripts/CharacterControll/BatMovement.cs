@@ -9,27 +9,24 @@ public class BatMovement : MonoBehaviour
     private CharacterController controller;
 
     [Header("Settings")]
-    [SerializeField] float flySpeed = 10f;
-    float flightHight = 2;
+    [SerializeField] float flySpeed = 5.0f;
+    [SerializeField] float flightHight = 2.0f;
     [SerializeField] LayerMask checkLayerForFlight;
 
+    [Header("Tweeks")]
     [SerializeField] float steerSpeed = 100;
-    [SerializeField] private float downForce = 4f;
+    [SerializeField] private float downForce = 10.0f;
+    [SerializeField] float damping = 2.0f;
 
-    private Vector3 dir;
 
     //Movent Vector
-    private Vector3 playerVelocity;
+    private Vector3 controllerDir;
     private Vector3 inputFormplayer;
+    private Vector3 playerVelocity;
 
-    private Vector3 lastHitNormal;
-    private Vector3 lastHitPoint;
-    private Vector3 lastDir;
-    private bool grounded;
+    private Vector3 smoothDir;
+    private bool RayHit;
 
-    private Transform spawnPoint;
-
-    float upForce;
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
@@ -60,8 +57,8 @@ public class BatMovement : MonoBehaviour
 
     public void StartMove(Vector3 direction)
     {
-        dir = direction;
-        lastDir = direction;
+        controllerDir = direction;
+        smoothDir = direction;
     }
 
     public void MoveBat()
@@ -73,28 +70,27 @@ public class BatMovement : MonoBehaviour
 
     void BatControll()
     {
-        dir = Quaternion.Euler(0, Input.GetAxis("Horizontal") * steerSpeed * Time.deltaTime, 0) * dir;
-
+        controllerDir = Quaternion.Euler(0, Input.GetAxis("Horizontal") * steerSpeed * Time.deltaTime, 0) * controllerDir;
         SphareCastGround();
-        inputFormplayer = dir * flySpeed;
-//        inputFormplayer = Quaternion.FromToRotation(dir, lastDir) * inputFormplayer;
-        inputFormplayer = (dir + lastDir) * flySpeed * 0.5f;
+        controllerDir.y = smoothDir.y;
+        inputFormplayer = (controllerDir.normalized) * flySpeed;
 
 
-        if (grounded)
+        if (debugRays)
         {
-            if (debugRays)
+            if (RayHit)
             {
-                Debug.DrawRay(transform.position, inputFormplayer * Time.deltaTime, Color.green, 10);
+                if (debugRays)
+                {
+                    Debug.DrawRay(transform.position, inputFormplayer * Time.deltaTime, Color.green, 10);
+                }
             }
-        }
-        else
-        {
-            lastDir.y -= downForce * Time.deltaTime;
-
-            if (debugRays)
+            else
             {
-                Debug.DrawRay(transform.position, inputFormplayer * Time.deltaTime, Color.magenta, 10);
+                if (debugRays)
+                {
+                    Debug.DrawRay(transform.position, inputFormplayer * Time.deltaTime, Color.magenta, 10);
+                }
             }
         }
     }
@@ -103,17 +99,30 @@ public class BatMovement : MonoBehaviour
     {
         RaycastHit hit;
 
-        grounded = false;
-        if (Physics.SphereCast(transform.position + Vector3.up * controller.radius, controller.radius, -transform.up, out hit, controller.radius + flightHight, checkLayerForFlight))
+        RayHit = false;
+        if (Physics.SphereCast(transform.position + Vector3.up * controller.radius, controller.radius, -transform.up, out hit, flightHight, checkLayerForFlight))
         {
-            if (hit.point != lastHitPoint)
+            //WARNING : Check for standing still (Never happens)
+
+
+            if (hit.point != transform.position - Vector3.up * flightHight)
             {
-                Vector3 point = hit.point + Vector3.up * hit.normal.y * flightHight;
-                Debug.DrawLine(hit.point, point, Color.cyan, 10);
-                lastDir = Vector3.MoveTowards(lastDir, (point - lastHitPoint).normalized, 2f * Time.deltaTime);
-                lastHitPoint = transform.position;
-                grounded = true;
+                Vector3 desiredPos = hit.point + Vector3.up * hit.normal.y * flightHight;
+                float hightOff = desiredPos.y - transform.position.y;
+                
+                hightOff *= hightOff;
+
+                smoothDir.y += (hightOff + Mathf.Abs(playerVelocity.y)) * Time.deltaTime;
+                smoothDir.y += hightOff * Time.deltaTime;
+                smoothDir.y *= 1 - damping* Time.deltaTime;
+
+                //WARNING : Only for debug
+                RayHit = true;
             }
+        }
+        else
+        {
+            smoothDir.y -= downForce * Time.deltaTime;
         }
     }
 }
