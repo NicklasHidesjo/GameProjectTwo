@@ -7,7 +7,7 @@ public class DraculaMovement : MonoBehaviour
     [Header("DEBUG")]
     [SerializeField] private bool debugRays = true;
     private CharacterController controller;
-    
+
     [Header("Settings")]
     [SerializeField] private Transform cam;
 
@@ -16,7 +16,7 @@ public class DraculaMovement : MonoBehaviour
     [SerializeField] float normalGravity = 20f;
     [SerializeField] float holdJumpGravityUp = 6f;
     [SerializeField] float holdJumpGravityDown = 16f;
-    
+
     //Alignment
     private Vector3 alienedX;
     private Vector3 alienedZ;
@@ -28,10 +28,20 @@ public class DraculaMovement : MonoBehaviour
     private Vector3 temp;
 
     private Vector3 forwardFromMovement;
+    private bool jump;
+
 
     private void Start()
     {
         Init();
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            jump = true;
+        }
     }
 
     private void Init()
@@ -83,8 +93,8 @@ public class DraculaMovement : MonoBehaviour
     {
         forwardFromMovement = playerVelocity;
         forwardFromMovement.y = 0;
-        
-        if(forwardFromMovement.sqrMagnitude > 0)
+
+        if (forwardFromMovement.sqrMagnitude > 0)
         {
             transform.forward = forwardFromMovement;
         }
@@ -97,13 +107,10 @@ public class DraculaMovement : MonoBehaviour
 
         AlignControllerToCamera();
 
-        if (playerVelocity.y < 0)
-        {
-            inputFormplayer.y = -applyedGravity * Time.deltaTime;
-        }
-        if (Input.GetButtonDown("Jump"))
+        if (jump)
         {
             inputFormplayer.y = jumpForce;
+            jump = false;
         }
     }
 
@@ -131,16 +138,17 @@ public class DraculaMovement : MonoBehaviour
                 applyedGravity = holdJumpGravityDown;
             }
         }
+        jump = false;
     }
 
     void AddGravity()
     {
-        playerVelocity.y -= applyedGravity * Time.deltaTime;
+        playerVelocity.y -= applyedGravity * Time.fixedDeltaTime;
     }
 
     void ExecuteMove()
     {
-        controller.Move(playerVelocity * Time.deltaTime);
+        controller.Move(playerVelocity * Time.fixedDeltaTime);
 
         if (debugRays)
         {

@@ -103,8 +103,6 @@ public class BatMovement : MonoBehaviour
         if (Physics.SphereCast(transform.position + Vector3.up * controller.radius, controller.radius, -transform.up, out hit, flightHight, checkLayerForFlight))
         {
             //WARNING : Check for standing still (Never happens)
-
-
             if (hit.point != transform.position - Vector3.up * flightHight)
             {
                 Vector3 desiredPos = hit.point + Vector3.up * hit.normal.y * flightHight;

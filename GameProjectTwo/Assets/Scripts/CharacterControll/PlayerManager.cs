@@ -13,10 +13,8 @@ public class PlayerManager : MonoBehaviour
     GameObject draculaGO;
     GameObject batGO;
 
-    /// <summary>
-    /// TODO : Remove this function
-    /// </summary>
-    /// 
+  
+    /// TODO : Remove this function when Test is over
     public bool transformME;
     void TestTransform()
     {
@@ -32,10 +30,6 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public Transform GetSpawn()
-    {
-        return spawnPoint;
-    } 
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +43,10 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         TestTransform();
+    }
+
+    private void FixedUpdate()
+    {
         playerState.UpdateByState();
     }
 
@@ -65,6 +63,10 @@ public class PlayerManager : MonoBehaviour
         playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
     }
 
+    public Transform GetSpawnPoint()
+    {
+        return spawnPoint;
+    } 
     public void SpawnNewPlayer()
     {
         draculaGO = Instantiate(draculaPreFab, spawnPoint.position, Quaternion.identity);

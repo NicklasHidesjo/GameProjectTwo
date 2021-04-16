@@ -53,7 +53,7 @@ public class PlayerState : MonoBehaviour
             case playerStates.TransformToBat:
                 {
                     playerManeger.ActivateBat();
-                    batMovement.StartMove(playerManeger.GetSpawn().forward);
+                    batMovement.StartMove(playerManeger.GetSpawnPoint().forward);
                     break;
                 }
             case playerStates.FlyBat:
