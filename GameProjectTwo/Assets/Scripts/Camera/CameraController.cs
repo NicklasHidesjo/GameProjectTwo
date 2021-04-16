@@ -36,13 +36,20 @@ public class CameraController : MonoBehaviour
     {
         Init();
     }
+
+    private void FixedUpdate()
+    {
+        if (target)
+            CameraControll();
+    }
+    /*
     // Update is called once per frame
     void LateUpdate()
     {
         if (target)
             CameraControll();
     }
-
+    */
     public void Init()
     {
         offsett = new Vector3(0, 0, -camDistance);
