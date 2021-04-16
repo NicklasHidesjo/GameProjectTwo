@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerStatsManager : MonoBehaviour
 {
     private HealthManager healthManager;
     private PlayerHealthBar playerHealthBar;
 
     private bool isDead = false;
-    
     void Start()
     {
         healthManager = GetComponent<HealthManager>();
