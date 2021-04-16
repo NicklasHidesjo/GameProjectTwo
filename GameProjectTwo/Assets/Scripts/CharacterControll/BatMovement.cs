@@ -65,12 +65,12 @@ public class BatMovement : MonoBehaviour
     {
         BatControll();
         playerVelocity = inputFormplayer;
-        controller.Move(playerVelocity * Time.deltaTime);
+        controller.Move(playerVelocity * Time.fixedDeltaTime);
     }
 
     void BatControll()
     {
-        controllerDir = Quaternion.Euler(0, Input.GetAxis("Horizontal") * steerSpeed * Time.deltaTime, 0) * controllerDir;
+        controllerDir = Quaternion.Euler(0, Input.GetAxis("Horizontal") * steerSpeed * Time.fixedDeltaTime, 0) * controllerDir;
         SphareCastGround();
         controllerDir.y = smoothDir.y;
         inputFormplayer = (controllerDir.normalized) * flySpeed;
@@ -82,14 +82,14 @@ public class BatMovement : MonoBehaviour
             {
                 if (debugRays)
                 {
-                    Debug.DrawRay(transform.position, inputFormplayer * Time.deltaTime, Color.green, 10);
+                    Debug.DrawRay(transform.position, inputFormplayer * Time.fixedDeltaTime, Color.green, 10);
                 }
             }
             else
             {
                 if (debugRays)
                 {
-                    Debug.DrawRay(transform.position, inputFormplayer * Time.deltaTime, Color.magenta, 10);
+                    Debug.DrawRay(transform.position, inputFormplayer * Time.fixedDeltaTime, Color.magenta, 10);
                 }
             }
         }
@@ -110,9 +110,9 @@ public class BatMovement : MonoBehaviour
                 
                 hightOff *= hightOff;
 
-                smoothDir.y += (hightOff + Mathf.Abs(playerVelocity.y)) * Time.deltaTime;
-                smoothDir.y += hightOff * Time.deltaTime;
-                smoothDir.y *= 1 - damping* Time.deltaTime;
+                smoothDir.y += (hightOff + Mathf.Abs(playerVelocity.y)) * Time.fixedDeltaTime;
+                smoothDir.y += hightOff * Time.fixedDeltaTime;
+                smoothDir.y *= 1 - damping* Time.fixedDeltaTime;
 
                 //WARNING : Only for debug
                 RayHit = true;
@@ -120,7 +120,7 @@ public class BatMovement : MonoBehaviour
         }
         else
         {
-            smoothDir.y -= downForce * Time.deltaTime;
+            smoothDir.y -= downForce * Time.fixedDeltaTime;
         }
     }
 }
