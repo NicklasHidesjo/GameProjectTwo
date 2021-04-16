@@ -22,10 +22,12 @@ public class PlayerState : MonoBehaviour
     {
         playerState = newState;
     }
+    
     public playerStates GetCurrentState()
     {
         return playerState;
     }
+
     public void UpdateByState()
     {
         switch (playerState)

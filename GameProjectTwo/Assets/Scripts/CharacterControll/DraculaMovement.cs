@@ -65,16 +65,14 @@ public class DraculaMovement : MonoBehaviour
 
     public void MoveCharacter()
     {
-        applyedGravity = normalGravity;
-
         if (controller.isGrounded)
         {
-            GroundControll();
+            GroundControl();
             playerVelocity = inputFormplayer;
         }
         else
         {
-            AirialControll();
+            AerialControl();
         }
         AddGravity();
         ExecuteMove();
@@ -100,7 +98,7 @@ public class DraculaMovement : MonoBehaviour
         }
     }
 
-    void GroundControll()
+    void GroundControl()
     {
         inputFormplayer = Input.GetAxis("Horizontal") * alienedX + Input.GetAxis("Vertical") * alienedZ;
         inputFormplayer *= playerSpeed;
@@ -125,7 +123,7 @@ public class DraculaMovement : MonoBehaviour
         alienedZ = temp.normalized;
     }
 
-    void AirialControll()
+    void AerialControl()
     {
         if (Input.GetButton("Jump"))
         {
@@ -144,6 +142,7 @@ public class DraculaMovement : MonoBehaviour
     void AddGravity()
     {
         playerVelocity.y -= applyedGravity * Time.fixedDeltaTime;
+        applyedGravity = normalGravity;
     }
 
     void ExecuteMove()

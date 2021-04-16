@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class BatMovement : MonoBehaviour
 {
     [Header("DEBUG")]
@@ -21,7 +23,7 @@ public class BatMovement : MonoBehaviour
 
     //Movent Vector
     private Vector3 controllerDir;
-    private Vector3 inputFormplayer;
+    private Vector3 inputFromplayer;
     private Vector3 playerVelocity;
 
     private Vector3 smoothDir;
@@ -30,7 +32,7 @@ public class BatMovement : MonoBehaviour
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-
+        //TODO : Set back to Dracula
     }
 
     private void Start()
@@ -63,17 +65,17 @@ public class BatMovement : MonoBehaviour
 
     public void MoveBat()
     {
-        BatControll();
-        playerVelocity = inputFormplayer;
+        BatControl();
+        playerVelocity = inputFromplayer;
         controller.Move(playerVelocity * Time.fixedDeltaTime);
     }
 
-    void BatControll()
+    void BatControl()
     {
         controllerDir = Quaternion.Euler(0, Input.GetAxis("Horizontal") * steerSpeed * Time.fixedDeltaTime, 0) * controllerDir;
         SphareCastGround();
         controllerDir.y = smoothDir.y;
-        inputFormplayer = (controllerDir.normalized) * flySpeed;
+        inputFromplayer = (controllerDir.normalized) * flySpeed;
 
 
         if (debugRays)
@@ -82,14 +84,14 @@ public class BatMovement : MonoBehaviour
             {
                 if (debugRays)
                 {
-                    Debug.DrawRay(transform.position, inputFormplayer * Time.fixedDeltaTime, Color.green, 10);
+                    Debug.DrawRay(transform.position, inputFromplayer * Time.fixedDeltaTime, Color.green, 10);
                 }
             }
             else
             {
                 if (debugRays)
                 {
-                    Debug.DrawRay(transform.position, inputFormplayer * Time.fixedDeltaTime, Color.magenta, 10);
+                    Debug.DrawRay(transform.position, inputFromplayer * Time.fixedDeltaTime, Color.magenta, 10);
                 }
             }
         }

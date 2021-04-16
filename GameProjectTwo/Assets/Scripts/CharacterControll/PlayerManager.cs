@@ -8,10 +8,12 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] Camera playerCam;
     [SerializeField] GameObject draculaPreFab;
     [SerializeField] GameObject batPreFab;
+    [SerializeField] GameObject ragdollPrefab;
 
     PlayerState playerState;
     GameObject draculaGO;
     GameObject batGO;
+    GameObject Ragdoll;
 
   
     /// TODO : Remove this function when Test is over
