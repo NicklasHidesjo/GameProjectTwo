@@ -10,6 +10,9 @@ public class BatMovement : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] float flySpeed = 10f;
+     float flightHight = 2;
+    [SerializeField] LayerMask checkLayerForFlight;
+
     [SerializeField] float steerSpeed = 100;
     [SerializeField] private float downForce = 4f;
 
@@ -26,21 +29,13 @@ public class BatMovement : MonoBehaviour
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        lastHitNormal = hit.normal;
-        if (Vector3.Dot(lastHitNormal, Vector3.up) < 0.5)
-        {
-            //Revert to batman
-            Debug.Log("NoBats");
-        }
-        
-        grounded = true;
+ 
     }
 
     private void Start()
     {
         Init();
     }
-
 
     private void Init()
     {
@@ -78,10 +73,10 @@ public class BatMovement : MonoBehaviour
         inputFormplayer = dir * flySpeed;
         inputFormplayer = Quaternion.FromToRotation(transform.up, lastHitNormal) * inputFormplayer;
 
+        SphareCastGround();
+
         if (grounded)
         {
-            playerVelocity.y = 0;
-
             if (debugRays)
             {
                 Debug.DrawRay(transform.position, inputFormplayer * Time.deltaTime, Color.green, 10);
@@ -96,6 +91,27 @@ public class BatMovement : MonoBehaviour
                 Debug.DrawRay(transform.position, inputFormplayer * Time.deltaTime, Color.magenta, 10);
             }
         }
-        grounded = false;
+    }
+
+    void SphareCastGround()
+    {
+        RaycastHit hit;
+
+        if (Physics.SphereCast(transform.position, controller.radius, -transform.up, out hit, flightHight, checkLayerForFlight))
+        {
+            Debug.DrawRay(transform.position, Vector3.up, Color.green, 10);
+            grounded = true;
+            lastHitNormal = hit.normal;
+
+            if (hit.distance > flightHight - 0.1f)
+                inputFormplayer.y = (flightHight - hit.distance) * 10;
+            else
+                inputFormplayer.y = 0;
+        }
+        else
+        {
+            grounded = false;
+        }
+
     }
 }

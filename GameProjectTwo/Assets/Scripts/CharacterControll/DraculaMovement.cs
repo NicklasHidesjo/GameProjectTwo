@@ -27,13 +27,11 @@ public class DraculaMovement : MonoBehaviour
     private Vector3 inputFormplayer;
     private Vector3 temp;
 
+    private Vector3 forwardFromMovement;
+
     private void Start()
     {
         Init();
-    }
-    void Update()
-    {
-        //MoveCharacter();
     }
 
     private void Init()
@@ -70,6 +68,7 @@ public class DraculaMovement : MonoBehaviour
         }
         AddGravity();
         ExecuteMove();
+        ForwardFromMovement();
     }
 
     public void UpdateCharacter()
@@ -77,6 +76,18 @@ public class DraculaMovement : MonoBehaviour
         applyedGravity = normalGravity;
         AddGravity();
         ExecuteMove();
+
+    }
+
+    private void ForwardFromMovement()
+    {
+        forwardFromMovement = playerVelocity;
+        forwardFromMovement.y = 0;
+        
+        if(forwardFromMovement.sqrMagnitude > 0)
+        {
+            transform.forward = forwardFromMovement;
+        }
     }
 
     void GroundControll()
