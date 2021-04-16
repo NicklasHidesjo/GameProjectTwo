@@ -41,8 +41,6 @@ public class CameraController : MonoBehaviour
     {
         if (target)
             CameraControll();
-
-        currentPrio = cameraPriority.low;
     }
 
     public void Init()
