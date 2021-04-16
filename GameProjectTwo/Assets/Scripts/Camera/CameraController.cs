@@ -37,26 +37,13 @@ public class CameraController : MonoBehaviour
         Init();
     }
 
-    private void FixedUpdate()
-    {
-        if (target)
-            CameraControll();
-    }
-    /*
-    // Update is called once per frame
-    void LateUpdate()
-    {
-        if (target)
-            CameraControll();
-    }
-    */
     public void Init()
     {
         offsett = new Vector3(0, 0, -camDistance);
         if (!cam)
         {
             cam = Camera.main;
-           // Debug.Log("<color=red> Camara is missing. Auto assigned : </color>" + cam.name);
+            Debug.Log("<color=red> Camara is missing. Auto assigned : </color>" + cam.name);
         }
 
         if (!target)
@@ -65,6 +52,11 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (target)
+            CameraControll();
+    }
 
     public void CameraControll()
     {
