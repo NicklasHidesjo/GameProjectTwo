@@ -7,14 +7,14 @@ public class HungerManager : MonoBehaviour
 {
     private int hunger;
 
-    public PlayerHungerMeter playerHungerMeter;
+    public BarController barController;
     public int Hunger { get { return hunger; } }
 
     private void Start()
     {
-        playerHungerMeter = GameObject.FindGameObjectWithTag("HungerMeter").GetComponent<PlayerHungerMeter>();
-        playerHungerMeter.SetMaxHungerValue(3);
-        playerHungerMeter.ChangeHungerValue(0);
+        barController = GameObject.FindGameObjectWithTag("HungerMeter").GetComponent<BarController>();
+        barController.SetMaxBarValue(3);
+        barController.SetCurrentBarValue(0);
     }
 
     void Update()
@@ -30,6 +30,6 @@ public class HungerManager : MonoBehaviour
     public void SetHunger(int newHunger)
     {
         hunger = newHunger;
-        playerHungerMeter.ChangeHungerValue(hunger);
+        barController.SetCurrentBarValue(hunger);
     }
 }

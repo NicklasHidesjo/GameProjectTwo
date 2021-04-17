@@ -23,8 +23,8 @@ public class EndLevelCheck : MonoBehaviour
 			if (levelPassed)
 			{
 				other.GetComponent<HungerManager>().SetHunger(0);
-				other.GetComponent<HungerManager>().playerHungerMeter.
-					SetMaxHungerValue(levelPassedThreshold[currentLevel]);
+				other.GetComponent<HungerManager>().barController.
+					SetMaxBarValue(levelPassedThreshold[currentLevel]);
 				levelPassed = false;
 			}
 		}

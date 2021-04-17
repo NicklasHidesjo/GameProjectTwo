@@ -177,7 +177,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900b1006ada9d14419132a1006cce6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hungerMeterFill: {fileID: 582692030}
 --- !u!1 &737185285
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,7 +363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5588724689043220105}
   - component: {fileID: 5588724689043220107}
-  - component: {fileID: 5588724689043220104}
+  - component: {fileID: 1144295511}
   m_Layer: 5
   m_Name: Health bar
   m_TagString: HealthBar
@@ -444,7 +443,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5588724689043220104
+--- !u!114 &1144295511
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -453,10 +452,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5588724689043220214}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17e628cc420605743b51cc46dcab3db2, type: 3}
+  m_Script: {fileID: 11500000, guid: 900b1006ada9d14419132a1006cce6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBarFill: {fileID: 5588724689043220107}
 --- !u!1 &5588724689155700209
 GameObject:
   m_ObjectHideFlags: 0
