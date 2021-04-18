@@ -9,7 +9,7 @@ public class DraculaMovement : MonoBehaviour
     private CharacterController controller;
 
     [Header("Settings")]
-    [SerializeField] private Transform cam;
+    [SerializeField] private Transform alignTo;
 
     [SerializeField] float playerSpeed = 4.0f;
     [SerializeField] float jumpForce = 4.0f;
@@ -17,36 +17,15 @@ public class DraculaMovement : MonoBehaviour
     [SerializeField] float holdJumpGravityUp = 6f;
     [SerializeField] float holdJumpGravityDown = 16f;
 
-    //Alignment
-    private Vector3 alienedX;
-    private Vector3 alienedZ;
-
     //Movent Vector
     private Vector3 playerVelocity;
-    private float applyedGravity;
-    private Vector3 inputFormplayer;
-    private Vector3 temp;
-
-    private Vector3 forwardFromMovement;
     private bool jump;
-
+    private PlayerState playerState;
 
     private void Start()
     {
-        Init();
-    }
-
-    private void Update()
-    {
-        if (Input.GetButtonDown("Jump"))
-        {
-            jump = true;
-        }
-    }
-
-    private void Init()
-    {
-        cam = Camera.main.transform;
+        if(!alignTo)
+            alignTo = Camera.main.transform;
 
         if (!controller)
         {
@@ -63,33 +42,95 @@ public class DraculaMovement : MonoBehaviour
         }
     }
 
+    //TODO : Decide on Input metod and keys.
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            jump = true;
+        }
+
+        if (Input.GetButtonDown("Fire1"))
+        {
+            playerState.SetState(PlayerState.playerStates.TransformToBat);
+        }
+    }
+
+    public void Init(PlayerState playerState, Transform cam)
+    {
+        this.playerState = playerState;
+        this.alignTo = cam;
+    }
+
     public void MoveCharacter()
     {
+        float applyedGravity = normalGravity;
+
         if (controller.isGrounded)
         {
-            GroundControl();
-            playerVelocity = inputFormplayer;
+            playerVelocity = GroundControl();
         }
         else
         {
-            AerialControl();
+            applyedGravity = AerialControl();
         }
-        AddGravity();
-        ExecuteMove();
+        playerVelocity.y -= AddGravity(applyedGravity);
+        controller.Move(playerVelocity * Time.fixedDeltaTime);
+
         ForwardFromMovement();
+
+        DebugRays();
     }
 
-    public void UpdateCharacter()
+    Vector3 FlatAlignTo(Vector3 v)
     {
-        applyedGravity = normalGravity;
-        AddGravity();
-        ExecuteMove();
+        v.y = 0;
+        return v.normalized;
+    }
 
+    Vector3 GroundControl()
+    {
+        Vector3 inputFormplayer = 
+            Input.GetAxis("Horizontal") * FlatAlignTo(alignTo.right) + 
+            Input.GetAxis("Vertical") * FlatAlignTo(alignTo.forward);
+        
+        inputFormplayer *= playerSpeed;
+
+        if (jump)
+        {
+            inputFormplayer.y = jumpForce;
+            jump = false;
+        }
+        return inputFormplayer;
+    }
+
+    float AerialControl()
+    {
+        if (Input.GetButton("Jump"))
+        {
+            if (playerVelocity.y < 0)
+            {
+                return holdJumpGravityUp;
+            }
+            else
+            {
+                return holdJumpGravityDown;
+            }
+        }
+        else
+        {
+            return normalGravity;
+        }
+    }
+
+    float AddGravity(float g)
+    {
+        return g * Time.fixedDeltaTime;
     }
 
     private void ForwardFromMovement()
     {
-        forwardFromMovement = playerVelocity;
+        Vector3 forwardFromMovement = playerVelocity;
         forwardFromMovement.y = 0;
 
         if (forwardFromMovement.sqrMagnitude > 0)
@@ -98,62 +139,12 @@ public class DraculaMovement : MonoBehaviour
         }
     }
 
-    void GroundControl()
+    //TODO : Remove when Done
+    void DebugRays()
     {
-        inputFormplayer = Input.GetAxis("Horizontal") * alienedX + Input.GetAxis("Vertical") * alienedZ;
-        inputFormplayer *= playerSpeed;
-
-        AlignControllerToCamera();
-
-        if (jump)
-        {
-            inputFormplayer.y = jumpForce;
-            jump = false;
-        }
-    }
-
-    void AlignControllerToCamera()
-    {
-        temp = cam.right;
-        temp.y = 0;
-        alienedX = temp.normalized;
-
-        temp = cam.forward;
-        temp.y = 0;
-        alienedZ = temp.normalized;
-    }
-
-    void AerialControl()
-    {
-        if (Input.GetButton("Jump"))
-        {
-            if (playerVelocity.y < 0)
-            {
-                applyedGravity = holdJumpGravityUp;
-            }
-            else
-            {
-                applyedGravity = holdJumpGravityDown;
-            }
-        }
-        jump = false;
-    }
-
-    void AddGravity()
-    {
-        playerVelocity.y -= applyedGravity * Time.fixedDeltaTime;
-        applyedGravity = normalGravity;
-    }
-
-    void ExecuteMove()
-    {
-        controller.Move(playerVelocity * Time.fixedDeltaTime);
-
         if (debugRays)
         {
-            Debug.DrawRay(transform.position, alienedX * playerVelocity.x * 5, Color.red);
-            Debug.DrawRay(transform.position, alienedZ * playerVelocity.z * 5, Color.blue);
-            Debug.DrawRay(transform.position, Vector3.up * playerVelocity.y * 5, Color.green);
+            Debug.DrawRay(transform.position, playerVelocity * 5, Color.green);
         }
     }
 }

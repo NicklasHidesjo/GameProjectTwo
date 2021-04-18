@@ -20,27 +20,22 @@ public class BatMovement : MonoBehaviour
     [SerializeField] private float downForce = 10.0f;
     [SerializeField] float damping = 2.0f;
 
+    private PlayerState playerState;
 
     //Movent Vector
-    private Vector3 controllerDir;
-    private Vector3 inputFromplayer;
     private Vector3 playerVelocity;
 
-    private Vector3 smoothDir;
+    //WARNING : For debug only 
     private bool RayHit;
 
 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         //TODO : Set back to Dracula
+        playerState.SetState(PlayerState.playerStates.TransformToDracula);
     }
 
     private void Start()
-    {
-        Init();
-    }
-
-    private void Init()
     {
         if (!controller)
         {
@@ -57,64 +52,66 @@ public class BatMovement : MonoBehaviour
         }
     }
 
-    public void StartMove(Vector3 direction)
+    //TODO : Decide on Input metod and keys.
+    private void Update()
     {
-        controllerDir = direction;
-        smoothDir = direction;
+        if (Input.GetButtonDown("Fire1"))
+            playerState.SetState(PlayerState.playerStates.TransformToDracula);
+    }
+    public void Init(PlayerState playerState)
+    {
+        this.playerState = playerState;
+    }
+
+    public void StartMove(Vector3 direction, PlayerState plState)
+    {
+        playerVelocity = direction;
+        transform.forward = direction;
+        this.playerState = plState;
     }
 
     public void MoveBat()
     {
-        BatControl();
-        playerVelocity = inputFromplayer;
+
+        playerVelocity = BatControl();
         controller.Move(playerVelocity * Time.fixedDeltaTime);
+        SetFaceForward();
+
+        DebugRays();
     }
 
-    void BatControl()
+    private void SetFaceForward()
     {
-        controllerDir = Quaternion.Euler(0, Input.GetAxis("Horizontal") * steerSpeed * Time.fixedDeltaTime, 0) * controllerDir;
-        SphareCastGround();
-        controllerDir.y = smoothDir.y;
-        inputFromplayer = (controllerDir.normalized) * flySpeed;
-
-
-        if (debugRays)
-        {
-            if (RayHit)
-            {
-                if (debugRays)
-                {
-                    Debug.DrawRay(transform.position, inputFromplayer * Time.fixedDeltaTime, Color.green, 10);
-                }
-            }
-            else
-            {
-                if (debugRays)
-                {
-                    Debug.DrawRay(transform.position, inputFromplayer * Time.fixedDeltaTime, Color.magenta, 10);
-                }
-            }
-        }
+        transform.forward = playerVelocity;
     }
 
-    void SphareCastGround()
+    Vector3 BatControl()
+    {
+        Vector3 controllerDir = Quaternion.Euler(0, Input.GetAxis("Horizontal") * steerSpeed * Time.fixedDeltaTime, 0) * transform.forward;
+        controllerDir = (controllerDir) * flySpeed;
+        controllerDir.y = SphareCastGround();
+        return controllerDir;
+    }
+    
+    float SphareCastGround()
     {
         RaycastHit hit;
 
         RayHit = false;
-        if (Physics.SphereCast(transform.position + Vector3.up * controller.radius, controller.radius, -transform.up, out hit, flightHight, checkLayerForFlight))
+        float yAxisSmoothAdjust = playerVelocity.y;
+
+        if (Physics.SphereCast(transform.position + Vector3.up * controller.radius, controller.radius, -Vector3.up, out hit, flightHight, checkLayerForFlight))
         {
-            //WARNING : Check for standing still (Never happens)
+            //WARNING : Checking for standing still (Never happens)
             if (hit.point != transform.position - Vector3.up * flightHight)
             {
                 Vector3 desiredPos = hit.point + Vector3.up * hit.normal.y * flightHight;
-                float hightOff = desiredPos.y - transform.position.y;
-                
+                float hightOff = 1/flightHight * (desiredPos.y - transform.position.y);
+
                 hightOff *= hightOff;
 
-                smoothDir.y += (hightOff + Mathf.Abs(playerVelocity.y)) * Time.fixedDeltaTime;
-                smoothDir.y += hightOff * Time.fixedDeltaTime;
-                smoothDir.y *= 1 - damping* Time.fixedDeltaTime;
+                yAxisSmoothAdjust += hightOff + (Mathf.Abs(playerVelocity.y)) * Time.fixedDeltaTime;
+                yAxisSmoothAdjust *= 1 - damping * Time.fixedDeltaTime;
 
                 //WARNING : Only for debug
                 RayHit = true;
@@ -122,7 +119,31 @@ public class BatMovement : MonoBehaviour
         }
         else
         {
-            smoothDir.y -= downForce * Time.fixedDeltaTime;
+            yAxisSmoothAdjust -= downForce * Time.fixedDeltaTime;
         }
+
+        return yAxisSmoothAdjust;
+    }
+    
+    void DebugRays()
+    {
+        if (debugRays)
+        {
+            if (RayHit)
+            {
+                if (debugRays)
+                {
+                    Debug.DrawRay(transform.position, playerVelocity * Time.fixedDeltaTime, Color.green, 10);
+                }
+            }
+            else
+            {
+                if (debugRays)
+                {
+                    Debug.DrawRay(transform.position, playerVelocity * Time.fixedDeltaTime, Color.magenta, 10);
+                }
+            }
+        }
+
     }
 }
