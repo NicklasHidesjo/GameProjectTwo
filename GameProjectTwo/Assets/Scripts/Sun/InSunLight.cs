@@ -57,7 +57,7 @@ public class InSunLight : MonoBehaviour
         if (dracula == null)
         {
             dracula = FindObjectOfType<CharacterController>().transform;
-            Debug.Log("<color=red> dracula is missing. Auto assigned : </color>" + dracula.name);
+           // Debug.Log("<color=red> dracula is missing. Auto assigned : </color>" + dracula.name);
         }
 
         GetOffsettFromCollider();
