@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//WARNING : OLD REFRENCE
+//TODO : Remove
+/*
 public class Movement : MonoBehaviour
 {
     [Header("DEBUG")]
@@ -140,3 +144,4 @@ public class Movement : MonoBehaviour
         }
     }
 }
+*/

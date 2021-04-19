@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6337708183196167806}
   - component: {fileID: 6337708183196167805}
   - component: {fileID: 6337708183196167804}
-  - component: {fileID: 6337708183196167811}
+  - component: {fileID: 4017376484349768}
   - component: {fileID: 6337708183196167801}
   m_Layer: 6
   m_Name: Dracula_MainCharacter
@@ -118,7 +118,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6337708183196167811
+--- !u!114 &4017376484349768
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6337708183196167810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ceb96feb303d9740b576885d1f77dfb, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e83e565b24ba884ab9e0ac8c7d5e1c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   debugRays: 1
