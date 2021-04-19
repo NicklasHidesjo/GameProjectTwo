@@ -12,8 +12,11 @@ public class FieldOfView : MonoBehaviour
     public LayerMask targetMask;
     public LayerMask obstacleMask;
 
-    int suspicionMeter = 0;
+    //float suspicionMeter = 0;
+    int undetectedTimer = 50;
     int infrontOfEnemyFactor = 2;
+
+    NPC npc;
 
     [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
@@ -22,9 +25,30 @@ public class FieldOfView : MonoBehaviour
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine("FindTargetsWithDelay", .2f);
+        npc = GetComponent<NPC>();
         //StartCoroutine("CheckForVampires", .2f);
     }
 
+    private void Update()
+    {
+        if (npc.Alertness ==0)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(false);
+        }
+        else if (npc.Alertness > 0 && npc.Alertness < 50)
+        {
+            transform.GetChild(0).gameObject.SetActive(true);
+            transform.GetChild(1).gameObject.SetActive(false);
+        }
+
+        else if (npc.Alertness > 50)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(true);
+        }
+        
+    }
 
     IEnumerator FindTargetsWithDelay(float delay)
     {
@@ -60,14 +84,28 @@ public class FieldOfView : MonoBehaviour
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
                 {
                     visibleTargets.Add(target);
-                    Debug.Log("Player visible in front of Enemy!");
+                   // Debug.Log("Player visible in front of Enemy!");
                 }
             }
         }
         if(targetsInViewRadius.Length > 0)
         {
             CheckForVampiresInRange();
+
         }
+        if (undetectedTimer < 50)
+        {
+            undetectedTimer++;
+        }
+        if (undetectedTimer == 50)
+        {
+           // Debug.Log("Undetected and suspicion decreasing");
+            if (npc.Alertness > 0)
+            {
+                npc.Alertness--;
+            }
+        }
+
     }
 
     void CheckForVampiresInRange()
@@ -82,16 +120,19 @@ public class FieldOfView : MonoBehaviour
             {
                 if (visibleTargets.Count > 0)
                 {
-                    suspicionMeter += infrontOfEnemyFactor;
-                    Debug.Log($"Player visible in front of Enemy. Suspicion increased by {infrontOfEnemyFactor} to {suspicionMeter}");
+                    npc.Alertness += infrontOfEnemyFactor;
+                    //Debug.Log($"Player visible in front of Enemy. Suspicion increased by {infrontOfEnemyFactor} to {suspicionMeter}");
+                    undetectedTimer = 0;
                 }
                 else
                 {
-                    suspicionMeter++;
-                    Debug.Log($"Suspicion increased to {suspicionMeter}");
+                    npc.Alertness++;
+                    //Debug.Log($"Suspicion increased to {suspicionMeter}");
+                    undetectedTimer = 0;
                 }
             }
         }
+
     }
 
 
