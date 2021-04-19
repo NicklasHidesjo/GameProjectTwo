@@ -6,8 +6,7 @@ TagManager:
   tags:
   - Wall
   - HealthBar
-  - POI
-  - Waypoint
+  - HungerMeter
   layers:
   - Default
   - TransparentFX
