@@ -67,6 +67,10 @@ public class InteractableScanner : MonoBehaviour
 
     public void AddInteractableToList(Interactable newInteractable)
     {
+        if (interactables.Contains(newInteractable))
+        {
+            return;
+        }
         interactables.Add(newInteractable);
         
     }
