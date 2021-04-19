@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc3e40b5f6e139439f618a792a49487, type: 3}
+  m_Name: Guard Suspicious
+  m_EditorClassIdentifier: 
+  enterActions:
+  - {fileID: 11400000, guid: 89a19419d1a9da24587c5c995d629799, type: 2}
+  - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}
+  executeActions:
+  - {fileID: 11400000, guid: e84ab536d49c6e649a28b91582f858c2, type: 2}
+  - {fileID: 11400000, guid: 99c10a7bd000f0e44a1f68c8089d022f, type: 2}
+  exitActions:
+  - {fileID: 11400000, guid: 9d4b0457f62f2724087398c8ae4bb98d, type: 2}
+  - {fileID: 11400000, guid: 9c26ab42bd53e7d44b1ea9ac1e9a2fd0, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 0aa198543c7b0d24b89c900317abf097, type: 2}
+    newState: {fileID: 11400000, guid: ad52ae0c6422a73469c2e9317523e5e5, type: 2}
+  - decision: {fileID: 11400000, guid: 293de0d155b8c6d48af24ec501d46811, type: 2}
+    newState: {fileID: 11400000, guid: 301b6ecae109322438e63282a5e51a47, type: 2}

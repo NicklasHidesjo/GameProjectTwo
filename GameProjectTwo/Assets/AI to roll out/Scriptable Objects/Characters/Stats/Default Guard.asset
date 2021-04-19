@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0784b2e0e94990544a2b77daf4ff97f0, type: 3}
+  m_Name: Default Guard
+  m_EditorClassIdentifier: 
+  ChangeDuration: 2
+  SightLenght: 10
+  MaxAlerted: 100
+  CautiousThreshold: 50
+  AlertDecrease: 1
+  AlertIncrease: 1
+  IdleTime: 2
+  SearchAngle: 90
+  SuspisciousSpeed: 0.5
+  WalkSpeed: 3.5
+  RunSpeed: 5
+  FleeAngle: 45
+  MaxFleeDistance: 40
+  MinFleeDistance: 5
+  BackAwaySpeed: 0.5
+  FollowRange: 10
+  RotationSpeed: 30
+  AttacksPerSecond: 1
+  SuspicionTime: 2
+  IntuitionTime: 1
