@@ -82,27 +82,25 @@ public class CameraController : MonoBehaviour
         rayDir = pos - t;
         boxSize.z = (pos - t).magnitude * 0.5f;
 
+        if (debugRays)
+        {
+            DebugBox(t, t + rayDir * 0.5f + Vector3.up, boxSize, Quaternion.Euler(camEulerAngle), (Color.cyan + Color.clear)*0.5f);
+        }
+
+
         RaycastHit hit;
-        if (Physics.BoxCast(t + rayDir * 0.5f + Vector3.up * maxTowerHight, boxSize, Vector3.down, out hit, Quaternion.Euler(camEulerAngle), maxTowerHight -1, checkLayer))
+        if (Physics.BoxCast(t + rayDir * 0.5f + Vector3.up * maxTowerHight, boxSize, Vector3.down, out hit, Quaternion.Euler(camEulerAngle), maxTowerHight - 1, checkLayer))
         {
             Vector3 ang = hit.point - t;
-            Vector3 flatAng = ang;
-            //flatAng.y = 0;
-            //flatAng = flatAng.normalized;
-
-
 
             camEulerAngle.x = 90 - Vector3.Angle(Vector3.up, ang.normalized);
-
-            //camEulerAngle.x = Vector3.Angle(flatAng, ang);
-
 
             Vector3 offsettFromTarget = Quaternion.Euler(camEulerAngle.x, camEulerAngle.y, 0) * offsett + target.position;
 
             if (debugRays)
             {
+                DebugBox(t, t + rayDir * 0.5f + Vector3.up, boxSize, Quaternion.Euler(camEulerAngle.x, camEulerAngle.y, 0), Color.red);
                 Debug.DrawRay(hit.point, hit.normal, Color.red, 0.25f);
-                Debug.DrawRay(hit.point, ang, Color.blue, 0.25f);
             }
             return offsettFromTarget;
         }
@@ -117,6 +115,7 @@ public class CameraController : MonoBehaviour
         this.target = target;
         currentPrio = prio;
     }
+
     public Transform OverrideSetTarget(cameraPriority prio, Transform target)
     {
         Transform oldTarget = this.target;
@@ -126,4 +125,60 @@ public class CameraController : MonoBehaviour
         }
         return oldTarget;
     }
+
+    void DebugBox(Vector3 rotateAround, Vector3 center, Vector3 size, Quaternion rotation, Color col)
+    {
+        Vector3[] dirs = new Vector3[24];
+        dirs[0] = new Vector3(size.x, size.y, size.z);
+        dirs[1] = new Vector3(-size.x, size.y, size.z);
+
+        dirs[2] = new Vector3(-size.x, size.y, size.z);
+        dirs[3] = new Vector3(-size.x, -size.y, size.z);
+
+        dirs[4] = new Vector3(-size.x, -size.y, size.z);
+        dirs[5] = new Vector3(size.x, -size.y, size.z);
+
+        dirs[6] = new Vector3(size.x, -size.y, size.z);
+        dirs[7] = new Vector3(size.x, size.y, size.z);
+
+
+        dirs[8] = new Vector3(size.x, size.y, size.z);
+        dirs[9] = new Vector3(size.x, size.y, -size.z);
+
+        dirs[10] = new Vector3(-size.x, size.y, size.z);
+        dirs[11] = new Vector3(-size.x, size.y, -size.z);
+
+        dirs[12] = new Vector3(-size.x, -size.y, size.z);
+        dirs[13] = new Vector3(-size.x, -size.y, -size.z);
+
+        dirs[14] = new Vector3(size.x, -size.y, size.z);
+        dirs[15] = new Vector3(size.x, -size.y, -size.z);
+
+
+        dirs[16] = new Vector3(size.x, size.y, -size.z);
+        dirs[17] = new Vector3(-size.x, size.y, -size.z);
+
+        dirs[18] = new Vector3(-size.x, size.y, -size.z);
+        dirs[19] = new Vector3(-size.x, -size.y, -size.z);
+
+        dirs[20] = new Vector3(-size.x, -size.y, -size.z);
+        dirs[21] = new Vector3(size.x, -size.y, -size.z);
+
+        dirs[22] = new Vector3(size.x, -size.y, -size.z);
+        dirs[23] = new Vector3(size.x, size.y, -size.z);
+
+
+        Vector3 offdir = (rotateAround - center);
+        for (int i = 0; i < dirs.Length; i++)
+        {
+            dirs[i] -= Vector3.forward * boxSize.z;
+            dirs[i] = rotation * dirs[i];
+            dirs[i] += center + offdir;
+        }
+
+        for (int y = 0; y < dirs.Length; y += 2)
+            Debug.DrawLine(dirs[y], dirs[y + 1], col);
+    }
+
+
 }

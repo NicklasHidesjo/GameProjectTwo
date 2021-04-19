@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugRays: 1
-  cam: {fileID: 0}
+  alignTo: {fileID: 0}
   playerSpeed: 4
   jumpForce: 4
   normalGravity: 20
@@ -169,7 +169,6 @@ GameObject:
   - component: {fileID: 5503642537140240024}
   - component: {fileID: 3722580301817526987}
   - component: {fileID: 8319464946726092866}
-  - component: {fileID: 2280165752317268726}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -240,16 +239,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2280165752317268726
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7039620729283678158}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
