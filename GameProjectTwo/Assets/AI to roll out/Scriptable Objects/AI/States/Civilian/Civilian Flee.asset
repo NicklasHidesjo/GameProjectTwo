@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc3e40b5f6e139439f618a792a49487, type: 3}
+  m_Name: Civilian Flee
+  m_EditorClassIdentifier: 
+  enterActions:
+  - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}
+  - {fileID: 11400000, guid: e6bad799f9e30c448bb5c4e7294d74e4, type: 2}
+  executeActions:
+  - {fileID: 11400000, guid: 7016b51d2d7d5094f933080255d156de, type: 2}
+  exitActions:
+  - {fileID: 11400000, guid: 9d4b0457f62f2724087398c8ae4bb98d, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: b40212dbfb3b3674d92be6acd944d1cd, type: 2}
+    newState: {fileID: 11400000, guid: b5d23397c8d7b2442a6455017e231594, type: 2}
