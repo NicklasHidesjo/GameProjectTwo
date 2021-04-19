@@ -5,6 +5,8 @@ using UnityEngine;
 //This is the playerManager it keeps decieds where and what should be spawned and inisialized
 //This is closely linked to "PlayerState"
 [RequireComponent(typeof(PlayerState))]
+[RequireComponent(typeof(InSunLight))]
+[RequireComponent(typeof(PlayerNotoriousLevels))]
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] Transform spawnPoint;
@@ -12,6 +14,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObject draculaPreFab;
     [SerializeField] GameObject batPreFab;
 
+    [SerializeField] float draculaSuspicionLevel = 1;
+    [SerializeField] float batSuspicionLevel = 0.5f;
+
+    private PlayerNotoriousLevels notoriousLevel;
+    private InSunLight inSun;
     private PlayerState playerState;
     private GameObject draculaGO;
     private GameObject batGO;
@@ -29,6 +36,12 @@ public class PlayerManager : MonoBehaviour
             spawnPoint = transform.GetChild(0);
 
         spawnPoint.GetComponent<MeshRenderer>().enabled = false;
+
+        if (!notoriousLevel)
+            notoriousLevel = GetComponent<PlayerNotoriousLevels>();
+
+        if (!inSun)
+            inSun = GetComponent<InSunLight>();
 
         if (!playerState)
             playerState = GetComponent<PlayerState>();
@@ -57,11 +70,21 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         //Update
+        DebugPlayerNotoriousLevels();
     }
 
     private void FixedUpdate()
     {
         playerState.UpdateByState();
+
+        if (inSun.IsInSun())
+        {
+            notoriousLevel.SetPlLuminosity(1);
+        }
+        else
+        {
+            notoriousLevel.SetPlLuminosity(0.25f);
+        }
     }
 
     public Transform GetSpawnPoint()
@@ -74,6 +97,9 @@ public class PlayerManager : MonoBehaviour
         batGO.SetActive(false);
         SetPooledActive(draculaGO);
 
+
+        notoriousLevel.SetPlSuspiusLevel(draculaSuspicionLevel);
+
         playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
         playerState.SetState(PlayerState.playerStates.MoveDracula);
     }
@@ -82,7 +108,9 @@ public class PlayerManager : MonoBehaviour
     {
         draculaGO.SetActive(false);
         SetPooledActive(batGO);
-        
+
+        notoriousLevel.SetPlSuspiusLevel(batSuspicionLevel);
+
         playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.high, spawnPoint);
         playerState.SetState(PlayerState.playerStates.FlyBat);
     }
@@ -96,11 +124,31 @@ public class PlayerManager : MonoBehaviour
         activateGO.transform.forward = spawnPoint.forward;
         activateGO.SetActive(true);
         spawnPoint.parent = activateGO.transform;
+
+        inSun.SetDracula(activateGO.transform);
     }
 
     public void DestroyPlayer()
     {
         Destroy(draculaGO);
         Destroy(batGO);
+    }
+
+    void DebugPlayerNotoriousLevels()
+    {
+        float range = notoriousLevel.GetPlayerNotoriousLevel() * 10;
+
+        Vector3 Eangel = Vector3.zero;
+        Vector3[] p = new Vector3[36];
+
+        int x = p.Length - 1;
+        p[x] = (Vector3.forward * range);
+        for (int i = 0; i < p.Length; i++)
+        {
+            Eangel.y = 10 * i;
+            p[i] = Quaternion.Euler(Eangel) * (Vector3.forward * range);
+            Debug.DrawLine(spawnPoint.position + p[x], spawnPoint.position + p[i]);
+            x = i;
+        }
     }
 }

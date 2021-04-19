@@ -17,7 +17,6 @@ public class InSunLight : MonoBehaviour
 
     [SerializeField] float lightSourceDist = 100f;
     [SerializeField] float inSkin = -0.05f;
-    [SerializeField] bool inSunlight;
 
     // Start is called before the first frame update
     void Start()
@@ -25,19 +24,20 @@ public class InSunLight : MonoBehaviour
         SunInit();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        inSunlight = InSun();
-    }
 
+    public void SetDracula(Transform newDracula)
+    {
+        dracula = newDracula;
+        GetOffsettFromCollider();
+    }
+    /*
     public void SunInit(Transform dracula, Transform linearLightSun)
     {
         this.dracula = dracula;
         this.linearLightSun = linearLightSun;
         GetOffsettFromCollider();
     }
-
+    */
     public void SunInit()
     {
         if (!linearLightSun)
@@ -53,14 +53,6 @@ public class InSunLight : MonoBehaviour
                 }
             }
         }
-
-        if (dracula == null)
-        {
-            dracula = FindObjectOfType<CharacterController>().transform;
-           // Debug.Log("<color=red> dracula is missing. Auto assigned : </color>" + dracula.name);
-        }
-
-        GetOffsettFromCollider();
     }
 
     void GetOffsettFromCollider()
@@ -73,31 +65,34 @@ public class InSunLight : MonoBehaviour
 
 
     //The meat
-    public bool InSun()
+    public bool IsInSun()
     {
-        //If sun is above horizon, 
-        //Racast to see if hit dracula.
-        //TODO : switch lightdir or filtermask???
-        float scalarTimeOfDay = Vector3.Dot(Vector3.up, linearLightSun.transform.forward);
-
-        if (scalarTimeOfDay < 0)
+        if (dracula != null)
         {
-            // :P
-            if (
-            RaycastSunToCharacter(dracula.position - linearLightSun.transform.forward *
-                lightSourceDist - linearLightSun.transform.right *
-                WidthOff + linearLightSun.transform.up * hightOff,
-                linearLightSun.transform.forward)
-                == true
-            ||
-            RaycastSunToCharacter(dracula.position - linearLightSun.transform.forward *
-                lightSourceDist + linearLightSun.transform.right *
-                WidthOff + linearLightSun.transform.up * hightOff,
-                linearLightSun.transform.forward)
-                == true
-                )
+            //If sun is above horizon, 
+            //Racast to see if hit dracula.
+            //TODO : switch lightdir or filtermask???
+            float scalarTimeOfDay = Vector3.Dot(Vector3.up, linearLightSun.transform.forward);
+
+            if (scalarTimeOfDay < 0)
             {
-                return true;
+                // :P
+                if (
+                RaycastSunToCharacter(dracula.position - linearLightSun.transform.forward *
+                    lightSourceDist - linearLightSun.transform.right *
+                    WidthOff + linearLightSun.transform.up * hightOff,
+                    linearLightSun.transform.forward)
+                    == true
+                ||
+                RaycastSunToCharacter(dracula.position - linearLightSun.transform.forward *
+                    lightSourceDist + linearLightSun.transform.right *
+                    WidthOff + linearLightSun.transform.up * hightOff,
+                    linearLightSun.transform.forward)
+                    == true
+                    )
+                {
+                    return true;
+                }
             }
         }
         return false;
@@ -111,7 +106,7 @@ public class InSunLight : MonoBehaviour
 
             if (debugRay)
                 Debug.DrawRay(pos, dir * lightSourceDist, Color.black);
-            
+
             if (hit.collider == dracula.gameObject.GetComponent<Collider>())
             {
                 Debug.Log("<color=red>Dracula hit self</color>");
