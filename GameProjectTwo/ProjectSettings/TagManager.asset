@@ -9,6 +9,7 @@ TagManager:
   - HungerMeter
   - POI
   - Waypoint
+  - Lair
   layers:
   - Default
   - TransparentFX
