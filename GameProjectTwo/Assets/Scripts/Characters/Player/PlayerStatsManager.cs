@@ -2,31 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStatsManager : MonoBehaviour
+public class PlayerStatsManager : StatsManager
 {
     private BarController barControllerHealth;
     private BarController barControllerHunger;
     private EndLevelCheck endLevelCheck;
-    //private DirectionToLair directionToLair;
+    private DirectionToLair directionToLair;
     
     private int maxSatiation;
     private int currentSatiation;
     public int MaxSatiation { get => maxSatiation; }
     public int CurrentSatiation { get => currentSatiation; }
 
-    [Header("Health Variables")]
-    [Tooltip("This is player health")]
-    [SerializeField] int currentHealth = 0;
-    [SerializeField] int maxHealth = 100;
-    public int CurrentHealth { get => currentHealth; }
-    public int MaxHealth { get => maxHealth; }
-    
-    private bool isDead = false;
-
     void Start()
     {
         endLevelCheck = GameObject.Find("EndOfLevelTrigger").GetComponent<EndLevelCheck>();
-        //directionToLair = GetComponentInChildren<DirectionToLair>();
+        directionToLair = GetComponent<DirectionToLair>();
         
         barControllerHealth = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<BarController>();
         barControllerHunger = GameObject.FindGameObjectWithTag("HungerMeter").GetComponent<BarController>();
@@ -36,7 +27,6 @@ public class PlayerStatsManager : MonoBehaviour
     
     void Update()
     {
-        isDead = DecreaseHealthValue(0);
         //All current IF-statements are for testing purposes.
         if (isDead)
         {
@@ -55,17 +45,16 @@ public class PlayerStatsManager : MonoBehaviour
         barController.SetMaxValue(maxValue);
     }
 
-    public void IncreaseHealthValue(int healthIncrease)
+    public override void IncreaseHealthValue(int healthIncrease)
     {
-        currentHealth = Mathf.Clamp(currentHealth + healthIncrease, 0, maxHealth);
+        base.IncreaseHealthValue(healthIncrease);
         SetCurrentBarValue(barControllerHealth, currentHealth);
     }
 
-    public bool DecreaseHealthValue(int healthDecrease)
+    public override void DecreaseHealthValue(int healthDecrease)
     {
-        currentHealth = Mathf.Clamp(currentHealth - healthDecrease, 0, maxHealth);
+        base.DecreaseHealthValue(healthDecrease);
         SetCurrentBarValue(barControllerHealth, currentHealth);
-        return currentHealth <= 0;
     }
 
     public void IncreaseSatiationValue(int satiationIncrease)
@@ -76,7 +65,7 @@ public class PlayerStatsManager : MonoBehaviour
         if (currentSatiation >= maxSatiation)
         {
             Debug.Log("LairFinder Active");
-            //directionToLair.Activate();
+            directionToLair.Activate();
         }
     }
 
@@ -85,7 +74,7 @@ public class PlayerStatsManager : MonoBehaviour
         currentSatiation = 0;
         maxSatiation = endLevelCheck.LevelPassedThreshold[endLevelCheck.CurrentLevel];
         currentHealth = maxHealth;
-        //directionToLair.Deactivate();
+        directionToLair.Deactivate();
 
 
         SetCurrentBarValue(barControllerHunger, currentSatiation);

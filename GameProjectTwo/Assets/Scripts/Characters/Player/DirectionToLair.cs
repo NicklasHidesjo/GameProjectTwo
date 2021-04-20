@@ -25,12 +25,12 @@ public class DirectionToLair : MonoBehaviour
 
     public void Activate()
     {
-        gameObject.SetActive(true);
+        transform.GetChild(0).gameObject.SetActive(true);
     }
 
     public void Deactivate()
     {
-        gameObject.SetActive(false);
+        transform.GetChild(0).gameObject.SetActive(false);
     }
 
 }

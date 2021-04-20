@@ -3,26 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(StatsManager))]
 public class HealthManager : MonoBehaviour
 {
-    private PlayerStatsManager playerStatsManager;
+    private StatsManager statsManager;
 
     private void Start()
     {
-        if (CompareTag("Player"))
-        {
-            playerStatsManager = GetComponent<PlayerStatsManager>();
-        }
+        statsManager = GetComponent<StatsManager>();
     }
 
     public void LoseHealth(int health)
     {
-        playerStatsManager.DecreaseHealthValue(health);
+        statsManager.DecreaseHealthValue(health);
     }
 
     public void GainHealth(int health)
     {
-        playerStatsManager.IncreaseHealthValue(health);
+        statsManager.IncreaseHealthValue(health);
     }
     
 }
