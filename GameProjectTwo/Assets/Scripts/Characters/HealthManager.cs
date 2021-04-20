@@ -5,32 +5,24 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour
 {
-    [SerializeField] int currentHealth = 0;
-    public int CurrentHealth { get => currentHealth; }
-    
-    [SerializeField] int maxHealth = 100;
-    public int MaxHealth { get => maxHealth; }
+    private PlayerStatsManager playerStatsManager;
 
-    void Start()
+    private void Start()
     {
-        SetHealth(maxHealth);
+        if (CompareTag("Player"))
+        {
+            playerStatsManager = GetComponent<PlayerStatsManager>();
+        }
     }
 
-    private void SetHealth(int health)
+    public void LoseHealth(int health)
     {
-        currentHealth = health;
-    }
-
-    public bool LoseHealth(int health)
-    {
-        currentHealth = Mathf.Clamp(currentHealth - health, 0, maxHealth);
-        return currentHealth <= 0;
+        playerStatsManager.DecreaseHealthValue(health);
     }
 
     public void GainHealth(int health)
     {
-        currentHealth = Mathf.Clamp(currentHealth + health, 0, maxHealth);
+        playerStatsManager.IncreaseHealthValue(health);
     }
-    
     
 }
