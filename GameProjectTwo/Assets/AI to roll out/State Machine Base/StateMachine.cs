@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent), typeof(NPC))]
 public class StateMachine : MonoBehaviour
 {
     private State currentState;

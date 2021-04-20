@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
 
-[RequireComponent(typeof(NavMeshAgent), typeof(StateMachine))]
 public class NPC : MonoBehaviour, ICharacter
 {
 	[SerializeField] NPCStats stats;
@@ -66,7 +65,6 @@ public class NPC : MonoBehaviour, ICharacter
 	public void Attack()
 	{
 		Debug.Log("i am now attacking the player");
-		// add the correct get on the player transform here and do the actual attack.
 	}
 
 	public void Move(Vector3 destination)
