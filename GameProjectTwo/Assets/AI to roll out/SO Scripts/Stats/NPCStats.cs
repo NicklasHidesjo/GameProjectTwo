@@ -32,6 +32,7 @@ public class NPCStats : ScriptableObject
 	public float BackAwaySpeed = 0.5f; // make slider value between .01 - .1 ?
 
 	[Header("Guard only stats")]
+	public int Damage = 10;
 	public float FollowRange = 10f;
 	public float RotationSpeed = 2;
 	[Tooltip("The distance at where the guard will detect a wall or other obstacle(used when searching)")]
