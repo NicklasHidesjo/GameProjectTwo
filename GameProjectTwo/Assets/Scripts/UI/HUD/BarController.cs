@@ -13,13 +13,13 @@ public class BarController : MonoBehaviour
 		barFill = GetComponent<Slider>();
 	}
 
-	public void SetMaxBarValue(int hunger)
+	public void SetMaxValue(int maxValue)
 	{
-		barFill.maxValue = hunger;
+		barFill.maxValue = maxValue;
 	}
 
-	public void SetCurrentBarValue(int hunger)
+	public void SetCurrentValue(int currentValue)
 	{
-		barFill.value = hunger;
+		barFill.value = currentValue;
 	}
 }

@@ -1,35 +1,26 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class HungerManager : MonoBehaviour
 {
-    private int hunger;
-
-    public BarController barController;
-    public int Hunger { get { return hunger; } }
+    private PlayerStatsManager playerStatsManager;
 
     private void Start()
     {
-        barController = GameObject.FindGameObjectWithTag("HungerMeter").GetComponent<BarController>();
-        barController.SetMaxBarValue(3);
-        barController.SetCurrentBarValue(0);
+        playerStatsManager = GetComponent<PlayerStatsManager>();
     }
 
-    void Update()
+    //Incase of need.
+    /*public void LoseSatiation(int satiation)
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            hunger++;
-            SetHunger(hunger);
-            Debug.Log(Hunger);
-        }
-    }
+        playerStatsManager.DecreaseSatiationValue(satiation);
+    }*/
 
-    public void SetHunger(int newHunger)
+    public void GainSatiation(int satiation)
     {
-        hunger = newHunger;
-        barController.SetCurrentBarValue(hunger);
+        playerStatsManager.IncreaseSatiationValue(satiation);
     }
 }

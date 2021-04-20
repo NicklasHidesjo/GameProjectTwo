@@ -9,9 +9,9 @@ public class EndLevelCheck : MonoBehaviour
 
 	public int CurrentLevel { get => currentLevel; }
 
-	public int[] LevelPassedThreshold { get => levelPassedThreshold; }
+	private PlayerStatsManager playerStatsManager;
 
-	private bool levelPassed = false;
+	public int[] LevelPassedThreshold { get => levelPassedThreshold; }
 
 	[SerializeField] int[] levelPassedThreshold = new int [5];
 
@@ -19,24 +19,18 @@ public class EndLevelCheck : MonoBehaviour
 	{
 		if (other.GetComponent<PlayerStatsManager>() != null)
 		{
-			CheckLevelPassed(other.GetComponent<HungerManager>().Hunger);
-			if (levelPassed)
+			playerStatsManager = other.GetComponent<PlayerStatsManager>();
+			
+			if (CheckLevelPassed(playerStatsManager.CurrentSatiation))
 			{
-				other.GetComponent<HungerManager>().SetHunger(0);
-				other.GetComponent<HungerManager>().barController.
-					SetMaxBarValue(levelPassedThreshold[currentLevel]);
-				levelPassed = false;
+				Debug.Log("Level Completed");
+				currentLevel++;
+				playerStatsManager.ResetStats();
 			}
 		}
 	}
-	private void CheckLevelPassed(int hunger)
+	private bool CheckLevelPassed(int satiation)
 	{
-		if (hunger >= levelPassedThreshold[currentLevel])
-		{
-			Debug.Log("Level Completed");
-			currentLevel++;
-			levelPassed = true;
-			//EndOfLevelScreen();
-		}
+		return satiation >= levelPassedThreshold[currentLevel];
 	}
 }
