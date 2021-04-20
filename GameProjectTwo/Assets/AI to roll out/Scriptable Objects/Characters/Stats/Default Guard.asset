@@ -19,16 +19,19 @@ MonoBehaviour:
   AlertDecrease: 1
   AlertIncrease: 1
   IdleTime: 2
-  SearchAngle: 90
+  SearchAngle: 45
   SuspisciousSpeed: 0.5
   WalkSpeed: 3.5
   RunSpeed: 5
+  SearchSpeed: 1.5
   FleeAngle: 45
   MaxFleeDistance: 40
   MinFleeDistance: 5
   BackAwaySpeed: 0.5
   FollowRange: 10
   RotationSpeed: 30
+  ClearanceDistance: 3
   AttacksPerSecond: 1
   SuspicionTime: 2
   IntuitionTime: 1
+  SearchRadius: 3

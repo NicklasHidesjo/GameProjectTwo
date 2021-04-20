@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdc3e40b5f6e139439f618a792a49487, type: 3}
   m_Name: Civilian Idle
   m_EditorClassIdentifier: 
-  enterActions: []
+  enterActions:
+  - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
   executeActions:
-  - {fileID: 11400000, guid: c862e16ffab775d4eafb812bd7d59814, type: 2}
+  - {fileID: 11400000, guid: d82118bf12b88694cbea91153e4dd5ff, type: 2}
   exitActions:
-  - {fileID: 11400000, guid: 2cc2030ce26a4b44691d686c8a308d70, type: 2}
+  - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: 8045b33cc6d86224796c52a1ec982385, type: 2}
     newState: {fileID: 11400000, guid: 8b275f0cdaf7083459ed3c74295c88b2, type: 2}

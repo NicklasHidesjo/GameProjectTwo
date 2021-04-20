@@ -32,10 +32,17 @@ public class NPC : MonoBehaviour, ICharacter
 	public float Alertness { get; set; }
 	public int PathIndex { get; set; }
 
-	public Vector3 LastKnown { get; set; }
+	public Vector3 PlayerLastSeen { get; set; }
+	public bool SeesPlayer { get; set; }
 
-	public bool LookRight { get; set; }
-
+	public Quaternion OriginRot { get; set; }
+	public Quaternion TargetRot { get; set; }
+	public bool InfrontOfWall { get; set; }
+	public float RotationTime { get; set; }
+	public float SearchAngle { get; set; }
+	public float YRotCorrection { get; set; }
+	public float RotationSpeed { get; set; }
+	public bool RotationStarted { get; set ; }
 
 	private void Awake()
 	{
@@ -50,6 +57,9 @@ public class NPC : MonoBehaviour, ICharacter
 		Alertness = 0;
 		StateTime = 0;
 		PathIndex = 0;
+		YRotCorrection = 0;
+		SearchAngle = stats.SearchAngle;
+		RotationSpeed = stats.RotationSpeed;
 		// set the spherecollider radius here using a stat in npc stats?
 	}
 

@@ -14,20 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ChangeDuration: 2
   SightLenght: 10
-  Alertness: 0
   MaxAlerted: 10
   CautiousThreshold: 2
   AlertDecrease: 1
   AlertIncrease: 1
   IdleTime: 2
+  SearchAngle: 45
+  SuspisciousSpeed: 0.5
+  WalkSpeed: 3.5
+  RunSpeed: 5
+  SearchSpeed: 1.5
   FleeAngle: 45
   MaxFleeDistance: 40
   MinFleeDistance: 5
   BackAwaySpeed: 0.1
   FollowRange: 10
   RotationSpeed: 30
+  ClearanceDistance: 3
+  AttacksPerSecond: 1
   SuspicionTime: 2
   IntuitionTime: 1
-  AlertSpeed: 0.5
-  PatrolSpeed: 3.5
-  ChaseSpeed: 5
+  SearchRadius: 3
