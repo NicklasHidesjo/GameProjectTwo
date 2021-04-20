@@ -16,8 +16,23 @@ public class PlayerStatsManager : StatsManager
 
     void Start()
     {
-        endLevelCheck = GameObject.Find("EndOfLevelTrigger").GetComponent<EndLevelCheck>();
-        directionToLair = GetComponent<DirectionToLair>();
+        if (GameObject.Find("EndOfLevelTrigger") != null)
+        {
+            endLevelCheck = GameObject.Find("EndOfLevelTrigger").GetComponent<EndLevelCheck>();
+        }
+        else
+        {
+            Debug.LogWarningFormat("EndOfLevelTrigger not found in scene");
+        }
+
+        if (GetComponent<DirectionToLair>() != null)
+        {
+            directionToLair = GetComponent<DirectionToLair>();
+        }
+        else
+        {
+            Debug.LogWarningFormat("Lair not found");
+        }
         
         barControllerHealth = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<BarController>();
         barControllerHunger = GameObject.FindGameObjectWithTag("HungerMeter").GetComponent<BarController>();
@@ -62,7 +77,7 @@ public class PlayerStatsManager : StatsManager
         currentSatiation = Mathf.Clamp(currentSatiation + satiationIncrease, 0, maxSatiation);
         SetCurrentBarValue(barControllerHunger, currentSatiation);
 
-        if (currentSatiation >= maxSatiation)
+        if (currentSatiation >= maxSatiation && directionToLair != null)
         {
             Debug.Log("LairFinder Active");
             directionToLair.Activate();
@@ -72,10 +87,21 @@ public class PlayerStatsManager : StatsManager
     public void ResetStats()
     {
         currentSatiation = 0;
-        maxSatiation = endLevelCheck.LevelPassedThreshold[endLevelCheck.CurrentLevel];
+        
+        if (GameObject.Find("EndOfLevelTrigger") != null)
+        {
+            maxSatiation = endLevelCheck.LevelPassedThreshold[endLevelCheck.CurrentLevel];
+        }
+        else
+        {
+            maxSatiation = 5;
+        }
         currentHealth = maxHealth;
-        directionToLair.Deactivate();
-
+        
+        if (directionToLair != null)
+        {
+            directionToLair.Deactivate();
+        }
 
         SetCurrentBarValue(barControllerHunger, currentSatiation);
         SetMaxBarValue(barControllerHunger, maxSatiation);
