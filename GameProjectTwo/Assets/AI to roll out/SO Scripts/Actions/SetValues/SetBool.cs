@@ -9,7 +9,7 @@ public class SetBool : Action
 	{
 		switch (setBool)
 		{
-			case NPCBooleans.startedRotation:
+			case NPCBooleans.StartedRotation:
 				character.RotationStarted = value;
 				break;
 		}

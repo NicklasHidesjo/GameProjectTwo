@@ -7,15 +7,12 @@ public class SetSeesPlayer : Action
 	{
 		character.SeesPlayer = false;
 
-		Vector3 dir = character.Player.position - character.Transform.position;
-		Vector3 origin = character.Transform.position;
-		RaycastHit hit;
+		Vector3 direction = character.Player.position - character.Transform.position;
+		if (!character.InFrontOff(direction)) { return; }
 
-		if (Physics.Raycast(origin, dir, out hit, character.Stats.FollowRange))
+		character.SeesPlayer = character.RayHitTag("Player", direction, character.Stats.FollowRange);
+		if (character.SeesPlayer)
 		{
-			if (!hit.collider.gameObject.CompareTag("Player")) { return; }
-			if (!(Vector3.Dot(dir, character.Transform.forward) > 1)) { return; }
-			character.SeesPlayer = true;
 			character.TimeSinceLastSeenPlayer = 0;
 		}
 	}

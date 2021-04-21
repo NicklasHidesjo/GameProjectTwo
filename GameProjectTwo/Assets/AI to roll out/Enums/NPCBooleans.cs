@@ -1,4 +1,6 @@
 public enum NPCBooleans
 {
-	startedRotation,
+	StartedRotation,
+	IsSuckable,
+	ShouldShout
 }
