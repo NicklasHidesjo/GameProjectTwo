@@ -36,7 +36,7 @@ public class PlayerManager : MonoBehaviour
         if (!playerCam)
             playerCam = Camera.main;
 
-        playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
+       // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
     }
     public void SpawnNewPlayer()
     {
@@ -74,7 +74,7 @@ public class PlayerManager : MonoBehaviour
         batGO.SetActive(false);
         SetPooledActive(draculaGO);
 
-        playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
+       // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
         playerState.SetState(PlayerState.playerStates.MoveDracula);
     }
 
@@ -83,7 +83,7 @@ public class PlayerManager : MonoBehaviour
         draculaGO.SetActive(false);
         SetPooledActive(batGO);
         
-        playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.high, spawnPoint);
+       // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.high, spawnPoint);
         playerState.SetState(PlayerState.playerStates.FlyBat);
     }
 
