@@ -36,7 +36,7 @@ public class StateMachine : MonoBehaviour
             currentState.Exit();
         }
 
-        currentState = newState;
+        currentState = Instantiate(newState);
         currentState.Enter(this, character);
     }
 }
