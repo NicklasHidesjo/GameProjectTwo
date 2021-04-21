@@ -20,13 +20,15 @@ public class CameraController : MonoBehaviour
     [SerializeField] float rotSpeed = 10;
     [SerializeField] LayerMask checkLayer;
 
+    [SerializeField] Vector3 targetOffsett = Vector3.one;
+
     public enum cameraPriority { low, Medium, high }
     private cameraPriority currentPrio = cameraPriority.low;
 
 
     private Vector3 camEulerAngle;
     private Vector3 offsett;
-    private Vector3 trueTarget;
+    private Vector3 trueCamPos;
     private float camSpeed;
     private Vector3 rayDir;
 
@@ -65,14 +67,14 @@ public class CameraController : MonoBehaviour
         camEulerAngle.y += Input.GetAxis("Mouse X") * rotSpeed;
 
         //Set true target pos
-        trueTarget = Quaternion.Euler(camEulerAngle) * offsett + target.position;
-        trueTarget = RayCheckPosition(trueTarget, target.position);
+        trueCamPos = Quaternion.Euler(camEulerAngle) * offsett + target.position + targetOffsett;
+        trueCamPos = RayCheckPosition(trueCamPos, target.position);
 
         //Smooth target pos
-        camSpeed = (cam.transform.position - trueTarget).sqrMagnitude * camSpeedMultiplyer;
+        camSpeed = (cam.transform.position - trueCamPos).sqrMagnitude * camSpeedMultiplyer;
 
         //Set Camera pos and look at target
-        cam.transform.position = Vector3.MoveTowards(cam.transform.position, trueTarget, camSpeed * Time.deltaTime);
+        cam.transform.position = Vector3.MoveTowards(cam.transform.position, trueCamPos, camSpeed * Time.deltaTime);
         cam.transform.LookAt(target.position);
     }
 
