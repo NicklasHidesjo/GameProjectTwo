@@ -27,9 +27,6 @@ public class UpdateSearchRotation : Action
 			angle = character.SearchAngle * 2;
 		}
 
-
-
 		character.TargetRot = character.Transform.rotation * Quaternion.AngleAxis(angle, character.Transform.up);
-
 	}
 }

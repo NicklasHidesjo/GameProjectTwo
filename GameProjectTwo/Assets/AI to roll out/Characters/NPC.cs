@@ -50,6 +50,7 @@ public class NPC : MonoBehaviour, ICharacter
 	[SerializeField] private int currentHealth;
 	public int CurrentHealth => currentHealth;
 
+	public bool ShouldShout { get; set; }
 
 	private void Awake()
 	{

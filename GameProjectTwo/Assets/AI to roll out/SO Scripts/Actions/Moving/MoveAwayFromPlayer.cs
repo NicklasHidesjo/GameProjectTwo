@@ -9,19 +9,11 @@ public class MoveAwayFromPlayer : Action
 	// make bools here that we can tick to have different run behaviours from the same action script.
 	public override void Execute(ICharacter character)
 	{
-		if (character.Agent.velocity == Vector3.zero)
+		if(character.Agent.velocity != Vector3.zero) { return; }
+		Vector3 direction = character.Player.position - character.Transform.position;
+		if (character.RayHitTag("Player", direction, character.Stats.SightLenght))
 		{
-			Vector3 dir = character.Player.position - character.Transform.position;
-			Vector3 origin = character.Transform.position;
-			RaycastHit hit;
-
-			if (Physics.Raycast(origin, dir, out hit, character.Stats.SightLenght))
-			{
-				if (hit.collider.CompareTag("Player"))
-				{
-					GetRunDestination(character);
-				}
-			}
+			GetRunDestination(character);
 		}
 	}
 	private void GetRunDestination(ICharacter character)
@@ -37,10 +29,9 @@ public class MoveAwayFromPlayer : Action
 		Vector3 randomPos = (randomDir * distance) + character.Transform.position;
 
 		NavMeshHit hit;
-		NavMesh.SamplePosition(randomPos, out hit, distance, 1);
-
-		character.Agent.destination = hit.position;
-
-		Debug.DrawRay(character.Transform.position, randomDir, Color.black, 5f); // remove this once testing is done
+		if(NavMesh.SamplePosition(randomPos, out hit, 5,NavMesh.AllAreas))
+		{
+			character.Move(hit.position);
+		}
 	}
 }

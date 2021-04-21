@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20f6338237b00440a809c8fcecb2037, type: 3}
-  m_Name: SearchAround
+  m_Script: {fileID: 11500000, guid: 1c27479aacd2c964bbf95c460e3ce338, type: 3}
+  m_Name: SetIsSuckable (true)
   m_EditorClassIdentifier: 
-  spawnObject: {fileID: 4695538487479125509, guid: f38251aa999a192458edb211b5c1a105, type: 3}
+  setBool: 0
+  value: 0
