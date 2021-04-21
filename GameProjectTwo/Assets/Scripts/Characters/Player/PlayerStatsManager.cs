@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStatsManager : StatsManager
+public class PlayerStatsManager : MonoBehaviour
 {
     private BarController barControllerHealth;
     private BarController barControllerHunger;
     private EndLevelCheck endLevelCheck;
     private DirectionToLair directionToLair;
     
-    private int maxSatiation;
-    private int currentSatiation;
+    [Header("Hunger Variables")]
+    [SerializeField] int maxSatiation;
+    [SerializeField] int currentSatiation;
     public int MaxSatiation { get => maxSatiation; }
     public int CurrentSatiation { get => currentSatiation; }
+    
+    [Header("Health Variables")]
+    [SerializeField] int currentHealth = 0;
+    [SerializeField] int maxHealth = 100;
+    public int CurrentHealth { get => currentHealth; }
+    public int MaxHealth { get => maxHealth; }
+    
+    private bool isDead = false;
+    public bool IsDead => isDead;
 
     void Start()
     {
@@ -60,16 +70,17 @@ public class PlayerStatsManager : StatsManager
         barController.SetMaxValue(maxValue);
     }
 
-    public override void IncreaseHealthValue(int healthIncrease)
+    public void IncreaseHealthValue(int healthIncrease)
     {
-        base.IncreaseHealthValue(healthIncrease);
+        currentHealth = Mathf.Clamp(currentHealth + healthIncrease, 0, maxHealth);
         SetCurrentBarValue(barControllerHealth, currentHealth);
     }
 
-    public override void DecreaseHealthValue(int healthDecrease)
+    public void DecreaseHealthValue(int healthDecrease)
     {
-        base.DecreaseHealthValue(healthDecrease);
+        currentHealth = Mathf.Clamp(currentHealth - healthDecrease, 0, maxHealth);
         SetCurrentBarValue(barControllerHealth, currentHealth);
+        isDead = currentHealth <= 0;
     }
 
     public void IncreaseSatiationValue(int satiationIncrease)
