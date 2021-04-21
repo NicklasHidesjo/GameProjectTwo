@@ -43,6 +43,10 @@ public class PlayerManager : MonoBehaviour
         draculaGO = Instantiate(draculaPreFab, spawnPoint.position, Quaternion.identity);
         DraculaMovement draculaMovement = draculaGO.GetComponent<DraculaMovement>();
         draculaMovement.Init(playerState, playerCam.transform);
+
+        draculaGO.GetComponent<PlayerObjectInteract>().playerState = playerState;
+        
+        
         draculaGO.SetActive(false);
 
         batGO = Instantiate(batPreFab, spawnPoint.position, Quaternion.identity);

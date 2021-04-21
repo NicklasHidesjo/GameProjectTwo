@@ -10,7 +10,7 @@ public class PlayerObjectInteract : MonoBehaviour
     InteractableScanner iScanner;
     Interactable interactable;
     Interactable heldInteractable;
-
+    public PlayerState playerState;
     bool tempHiddenState = false;
 
     void Start()
@@ -89,6 +89,7 @@ public class PlayerObjectInteract : MonoBehaviour
                         GetComponent<CharacterController>().enabled = true;
                         tempHiddenState = false;
                         interactable.Interact(gameObject);
+                        
 
                     }
                     else
@@ -99,6 +100,8 @@ public class PlayerObjectInteract : MonoBehaviour
                         tempHiddenState = true;
 
                         interactable.Interact(gameObject);
+                        playerState.SetState(PlayerState.playerStates.Hidden);
+
                     }
                 }
                 break;
@@ -109,6 +112,11 @@ public class PlayerObjectInteract : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void SetState()
+    {
+        playerState.SetState(PlayerState.playerStates.MoveDracula);
     }
 
 

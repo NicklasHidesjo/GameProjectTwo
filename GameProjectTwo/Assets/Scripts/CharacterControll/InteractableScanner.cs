@@ -83,7 +83,7 @@ public class InteractableScanner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
+        
         Interactable i = other.GetComponent<Interactable>();
         
         if (i != null)
