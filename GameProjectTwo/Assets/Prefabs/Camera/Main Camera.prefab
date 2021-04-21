@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5123961040513811512}
   - component: {fileID: 5123961040513811513}
   - component: {fileID: 5123961040513811654}
-  - component: {fileID: 5123961040513811515}
+  - component: {fileID: 958640169}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -84,7 +84,7 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5123961040513811655}
   m_Enabled: 1
---- !u!114 &5123961040513811515
+--- !u!114 &958640169
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,18 +93,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 5123961040513811655}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a36084f440620a4d8acc98b99161171, type: 3}
+  m_Script: {fileID: 11500000, guid: 65f60de05ab325f4983fbdf79a45556d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugRays: 1
-  maxTowerHight: 100
-  boxSize: {x: 0.5, y: 1, z: 1}
-  cam: {fileID: 5123961040513811513}
-  target: {fileID: 0}
-  PreferedAngle: 30
-  camSpeedMultiplyer: 0.75
-  camDistance: 10
-  rotSpeed: 10
-  checkLayer:
+  camera: {fileID: 5123961040513811512}
+  checkLayers:
     serializedVersion: 2
     m_Bits: 1
+  target: {fileID: 0}
+  offsett: {x: 1, y: 1, z: -3}
+  speed: 30
+  mouseSpeed: 6
+  mX: 40
+  mY: 0
+  lockToWindow: 1
