@@ -8,8 +8,6 @@ public class Container : Interactable
     GameObject objectInside;
     public GameObject ObjectInside { get => objectInside; }
 
-    [SerializeField] Material selectedMaterial;
-    Material standardMaterial;
     private bool playerInside = false;
 
 
@@ -19,19 +17,6 @@ public class Container : Interactable
         standardMaterial = GetComponent<MeshRenderer>().material;
     }
 
-    public override void SetSelected(bool isSelected)
-    {
-        if (isSelected)
-        {
-            GetComponent<MeshRenderer>().material = selectedMaterial;
-
-        }
-        else
-        {
-            GetComponent<MeshRenderer>().material = standardMaterial;
-
-        }
-    }
 
     public override void Interact(GameObject obj)
     {

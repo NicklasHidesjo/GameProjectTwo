@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DeadBody : Interactable
 {
-    [SerializeField] Material selectedMaterial;
-    Material standardMaterial;
 
     bool isGrabbed;
     bool isHidden;
@@ -13,6 +11,7 @@ public class DeadBody : Interactable
     private void Start()
     {
         standardMaterial = GetComponent<MeshRenderer>().material;
+        
     }
 
     public override void Interact(GameObject player)
@@ -34,19 +33,7 @@ public class DeadBody : Interactable
         }
     }
 
-    public override void SetSelected(bool isSelected)
-    {
-        if (isSelected)
-        {
-            GetComponent<MeshRenderer>().material = selectedMaterial;
 
-        }
-        else
-        {
-            GetComponent<MeshRenderer>().material = standardMaterial;
-
-        }
-    }
 
     public void SetHidden(bool status)
     {

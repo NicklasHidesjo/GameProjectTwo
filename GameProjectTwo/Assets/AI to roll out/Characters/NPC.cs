@@ -43,11 +43,11 @@ public class NPC : MonoBehaviour, ICharacter
 	public float RotationSpeed { get; set; }
 	public bool RotationStarted { get; set ; }
 	public bool GettingSucked { get; set; }
-
+	public bool IsSuckable { get; set; }
 
 	private bool isDead;
-	public bool IsDead => IsDead;
-	private int currentHealth;
+	public bool IsDead => isDead;
+	[SerializeField] private int currentHealth;
 	public int CurrentHealth => currentHealth;
 
 
@@ -65,6 +65,7 @@ public class NPC : MonoBehaviour, ICharacter
 		agent = GetComponent<NavMeshAgent>();
 		player = GameObject.FindGameObjectWithTag("Player").transform;
 		path = GameObject.FindGameObjectsWithTag(pathTag).Select(f => f.transform).ToArray();
+		IsSuckable = true;
 		isDead = false;
 		currentHealth = stats.MaxHealth;
 		Alertness = 0;
@@ -109,9 +110,10 @@ public class NPC : MonoBehaviour, ICharacter
 	public void DecreaseHealth(int health)
 	{
 		currentHealth -= health;
-		if(health <= 0)
+		if(currentHealth <= 0)
 		{
 			isDead = true;
 		}
+		
 	}
 }

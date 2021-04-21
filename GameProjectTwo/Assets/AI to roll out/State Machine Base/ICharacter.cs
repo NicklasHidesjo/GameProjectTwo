@@ -28,6 +28,8 @@ public interface ICharacter
 	public bool IsDead { get;}
 	public int CurrentHealth { get;}
 
+	public bool IsSuckable { get; set; }
+
 	/// <summary>
 	/// Sets the NavMesh Agents destination to "destination"
 	/// </summary>
