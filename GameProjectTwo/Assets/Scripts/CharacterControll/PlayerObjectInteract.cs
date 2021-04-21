@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,17 +40,19 @@ public class PlayerObjectInteract : MonoBehaviour
                 Physics.IgnoreCollision(heldInteractable.GetComponent<Collider>(), GetComponent<SphereCollider>(), false);
                 heldInteractable = null;
             }
+            
 
         }
 
     }
+
 
     private void InteractWithObject()
     {
 
         switch (interactable)
         {
-            case DeadBody D:
+            case DeadBody D: //checks on player to see if interaction is valid
                 if (heldInteractable != null)
                 {
                     Debug.Log("Need to let go first dude: " + D.gameObject);
@@ -61,7 +64,7 @@ public class PlayerObjectInteract : MonoBehaviour
                 interactable.Interact(gameObject);
                 iScanner.RemoveInteractableFromList(heldInteractable);
                 break;
-            case Container C:
+            case Container C: //checks on player to see if interaction is valid
                 if (C.ObjectInside != null)
                 {
 
@@ -99,7 +102,10 @@ public class PlayerObjectInteract : MonoBehaviour
                     }
                 }
                 break;
+            case BloodSuckTarget B: //see if the object itself can validate interaction
+                interactable.Interact(gameObject);
 
+                break;
             default:
                 break;
         }
@@ -107,25 +113,5 @@ public class PlayerObjectInteract : MonoBehaviour
 
 
 
-    IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time)
-    {
-        //TODO Make Sure there is no player control during animation
-        if (time == 0f)
-        {
-            time = 0.0001f;
-        }
-        Vector3 startPos = targetToMove.position;
-
-
-        float elapsedTime = 0;
-
-        while (elapsedTime < time)
-        {
-            targetToMove.position = Vector3.Lerp(startPos, targetPosition, elapsedTime / time);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-    }
 
 }

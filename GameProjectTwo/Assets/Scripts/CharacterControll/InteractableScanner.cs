@@ -23,8 +23,8 @@ public class InteractableScanner : MonoBehaviour
     
     void Update()
     {
-        SetClosestInteractable();
 
+        SetClosestInteractable();
 
     }
 
@@ -34,10 +34,10 @@ public class InteractableScanner : MonoBehaviour
 
         if (currentInteractable != null)
         {
-            currentInteractable.SetSelected(true);
+            currentInteractable.SetSelected(true, this);
             if (newInteractable != currentInteractable)
             {
-                currentInteractable.SetSelected(false);
+                currentInteractable.SetSelected(false, this);
 
 
             }
@@ -50,7 +50,7 @@ public class InteractableScanner : MonoBehaviour
     {
         Interactable closestContainer = null;
         float closestDistance = Mathf.Infinity;
-
+        interactables.RemoveAll(Interactable => Interactable == null);
         foreach (Interactable i in interactables)
         {
             Vector3 directionToTarget = i.transform.position - transform.position;

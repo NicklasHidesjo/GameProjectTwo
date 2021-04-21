@@ -21,7 +21,7 @@ public class StateMachine : MonoBehaviour
     {
         if (currentState != null)
         {
-            Debug.Log(currentState); // remove this once testing is completed
+            
             currentState.ExecuteState();
         }
     }
