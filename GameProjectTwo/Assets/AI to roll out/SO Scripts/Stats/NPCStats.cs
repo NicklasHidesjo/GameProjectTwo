@@ -9,10 +9,12 @@ public class NPCStats : ScriptableObject
 	// write a tooltip/comment for what every stat do
 
 	[Header("Shared stats")]
+	public int MaxHealth = 100;
 	public float ChangeDuration = 2f;
 	public float SightLenght = 10f;
 	public float MaxAlerted = 10f;
 	public float CautiousThreshold = 2f;
+	public float AlertActionThreshold = 5f;
 	public float AlertDecrease = 1;
 	public float AlertIncrease = 1;
 	public float IdleTime = 2f;
@@ -30,6 +32,8 @@ public class NPCStats : ScriptableObject
 	public float MaxFleeDistance = 40f;
 	public float MinFleeDistance = 5f;
 	public float BackAwaySpeed = 0.5f; // make slider value between .01 - .1 ?
+	[Tooltip("The duration that the Civilian will be stunned after getting their blood sucked")]
+	public float SuckedStun = 2f;
 
 	[Header("Guard only stats")]
 	public int Damage = 10;
@@ -42,6 +46,5 @@ public class NPCStats : ScriptableObject
 
 	public float SuspicionTime = 2f; // this is used for the standing still searching
  	public float IntuitionTime = 1f; // this i might remove and replace with another system.
-
 	public float SearchRadius = 3f; // this might be removed
 }
