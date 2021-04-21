@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Bat
-  m_Shader: {fileID: 10752, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 33a02648cd39b834098a8158c066cf8b, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -76,7 +76,7 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _Specular: 100
     - _SpecularHighlights: 1
-    - _SpecularStr: 1
+    - _SpecularStr: 0
     - _SrcBlend: 1
     - _UVSec: 0
     - _WindQuality: 0
