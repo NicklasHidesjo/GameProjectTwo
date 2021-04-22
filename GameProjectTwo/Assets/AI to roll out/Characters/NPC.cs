@@ -68,6 +68,7 @@ public class NPC : MonoBehaviour, ICharacter
 		path = GameObject.FindGameObjectsWithTag(pathTag).Select(f => f.transform).ToArray();
 		IsSuckable = true;
 		isDead = false;
+		ShouldShout = true;
 		currentHealth = stats.MaxHealth;
 		Alertness = 0;
 		StateTime = 0;
@@ -81,7 +82,7 @@ public class NPC : MonoBehaviour, ICharacter
 	public void Attack()
 	{
 		Debug.Log("i am now attacking the player");
-		player.GetComponent<HealthManager>().LoseHealth(stats.Damage);
+		//player.GetComponent<HealthManager>().LoseHealth(stats.Damage);
 	}
 	public void Move(Vector3 destination)
 	{
@@ -98,6 +99,7 @@ public class NPC : MonoBehaviour, ICharacter
 		{
 			if (hit.collider.CompareTag(tag))
 			{
+				Debug.Log(name + " saw " + tag);
 				return true;
 			}
 		}
@@ -116,5 +118,16 @@ public class NPC : MonoBehaviour, ICharacter
 			isDead = true;
 		}
 		
+	}
+
+	public void ReactToShout()
+	{
+		ShouldShout = false;
+		Alertness = stats.MaxAlerted;
+
+		// check if they need to react (for a guard its always react for civilian 
+		// if they are close enough (within reaction range)
+		// in that method set that they should not shout
+		// set so that the Should shout of each character called is false)
 	}
 }

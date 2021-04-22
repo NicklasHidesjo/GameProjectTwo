@@ -6,7 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent), typeof(NPC))]
 public class StateMachine : MonoBehaviour
 {
-    private State currentState;
+    [SerializeField] private State currentState;
     [SerializeField] State startingState;
     ICharacter character;
 
@@ -21,7 +21,7 @@ public class StateMachine : MonoBehaviour
     {
         if (currentState != null)
         {
-            
+            //Debug.Log(name + " Is in: " + currentState);
             currentState.ExecuteState();
         }
     }

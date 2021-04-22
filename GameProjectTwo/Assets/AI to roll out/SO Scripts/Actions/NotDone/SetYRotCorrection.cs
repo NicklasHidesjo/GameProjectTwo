@@ -50,7 +50,6 @@ public class SetYRotCorrection : Action
 		{
 			if (hit.collider != null)
 			{
-				Debug.Log("Hit something to my: " + direction);
 				return true;
 			}
 		}
