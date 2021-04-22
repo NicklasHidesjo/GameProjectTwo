@@ -18,7 +18,7 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public Transform Transform => transform;
 
-	public Transform Player => player;
+	public Transform Player => pla0yer;
 
 	public NavMeshAgent Agent => agent;
 
@@ -100,7 +100,6 @@ public class NPC : MonoBehaviour, ICharacter
 		{
 			if (hit.collider.CompareTag(tag))
 			{
-				Debug.Log(name + " saw " + tag);
 				return true;
 			}
 		}
