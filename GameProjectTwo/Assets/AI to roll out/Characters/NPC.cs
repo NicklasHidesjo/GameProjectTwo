@@ -70,6 +70,7 @@ public class NPC : MonoBehaviour, ICharacter
 		isDead = false;
 		ShouldShout = true;
 		currentHealth = stats.MaxHealth;
+		agent.speed = stats.WalkSpeed;
 		Alertness = 0;
 		StateTime = 0;
 		PathIndex = 0;
@@ -122,6 +123,11 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public void ReactToShout()
 	{
+		if(gameObject.CompareTag("Civilian"))
+		{
+
+		}
+
 		ShouldShout = false;
 		Alertness = stats.MaxAlerted;
 
