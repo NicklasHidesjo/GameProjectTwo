@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     // singleton
     public static PlayerManager instance;
    
-    [SerializeField] Transform spawnPoint;
+    [SerializeField] Transform playerPointTransform;
     [SerializeField] Camera playerCam;
     [SerializeField] GameObject draculaPreFab;
     [SerializeField] GameObject batPreFab;
@@ -48,10 +48,10 @@ public class PlayerManager : MonoBehaviour
     
     private void Init()
     {
-        if (!spawnPoint)
-            spawnPoint = transform.GetChild(0);
+        if (!playerPointTransform)
+            playerPointTransform = transform.GetChild(0);
 
-        spawnPoint.GetComponent<MeshRenderer>().enabled = false;
+        playerPointTransform.GetComponent<MeshRenderer>().enabled = false;
 
         if (!playerState)
             playerState = GetComponent<PlayerState>();
@@ -63,7 +63,7 @@ public class PlayerManager : MonoBehaviour
     }
     public void SpawnNewPlayer()
     {
-        draculaGO = Instantiate(draculaPreFab, spawnPoint.position, Quaternion.identity);
+        draculaGO = Instantiate(draculaPreFab, playerPointTransform.position, Quaternion.identity);
         DraculaMovement draculaMovement = draculaGO.GetComponent<DraculaMovement>();
         draculaMovement.Init(playerState, playerCam.transform);
 
@@ -72,7 +72,7 @@ public class PlayerManager : MonoBehaviour
         
         draculaGO.SetActive(false);
 
-        batGO = Instantiate(batPreFab, spawnPoint.position, Quaternion.identity);
+        batGO = Instantiate(batPreFab, playerPointTransform.position, Quaternion.identity);
         BatMovement batMovement = batGO.GetComponent<BatMovement>();
         batMovement.Init(playerState);
         batGO.SetActive(false);
@@ -91,9 +91,9 @@ public class PlayerManager : MonoBehaviour
         playerState.UpdateByState();
     }
 
-    public Transform GetSpawnPoint()
+    public Transform GetPlayerPoint()
     {
-        return spawnPoint;
+        return playerPointTransform;
     }
 
     public void ActivateDracula()
@@ -116,13 +116,13 @@ public class PlayerManager : MonoBehaviour
 
     private void SetPooledActive(GameObject activateGO)
     {
-        activateGO.transform.position = spawnPoint.position;
-        Vector3 frw = spawnPoint.forward;
+        activateGO.transform.position = playerPointTransform.position;
+        Vector3 frw = playerPointTransform.forward;
         frw.y = 0;
-        spawnPoint.forward = frw.normalized;
-        activateGO.transform.forward = spawnPoint.forward;
+        playerPointTransform.forward = frw.normalized;
+        activateGO.transform.forward = playerPointTransform.forward;
         activateGO.SetActive(true);
-        spawnPoint.parent = activateGO.transform;
+        playerPointTransform.parent = activateGO.transform;
     }
 
     public void DestroyPlayer()
