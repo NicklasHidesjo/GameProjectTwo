@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    public enum playerStates {Stoped, TransformToDracula, MoveDracula, Hidden, TransformToBat, FlyBat }
-    private playerStates playerState;
+    public enum playerStates { Stoped, TransformToDracula, MoveDracula, Hidden, TransformToBat, FlyBat, Sucking }
+    [SerializeField] playerStates playerState;
 
     private PlayerManager playerManeger;
     private DraculaMovement draculaMovement;
@@ -52,6 +52,10 @@ public class PlayerState : MonoBehaviour
                     break;
                 }
             case playerStates.Hidden:
+                {
+                    break;
+                }
+            case playerStates.Sucking:
                 {
                     break;
                 }

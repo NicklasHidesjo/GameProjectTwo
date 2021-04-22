@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//used to make any object carriable by the player
 public class DeadBody : Interactable
 {
 
