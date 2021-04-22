@@ -17,7 +17,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObject draculaPreFab;
     [SerializeField] GameObject batPreFab;
 
-    [SerializeField] HealthManager health;
+    [SerializeField] public PlayerStatsManager stats { get { return stats; } }
+    [SerializeField] public HealthManager health { get { return health; } }
 
     private PlayerState playerState;
     private GameObject draculaGO;
@@ -41,6 +42,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         Init();
+        GetHealthManager();
         SpawnNewPlayer();
         playerState.SetState(PlayerState.playerStates.TransformToDracula);
     }
@@ -61,6 +63,13 @@ public class PlayerManager : MonoBehaviour
 
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
     }
+    
+    private void GetHealthManager()
+    {
+        gameObject.GetComponent<PlayerStatsManager>();
+        gameObject.GetComponent<HealthManager>();
+    }
+
     public void SpawnNewPlayer()
     {
         draculaGO = Instantiate(draculaPreFab, playerPointTransform.position, Quaternion.identity);

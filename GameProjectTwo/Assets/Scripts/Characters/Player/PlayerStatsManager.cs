@@ -46,7 +46,8 @@ public class PlayerStatsManager : MonoBehaviour
         
         barControllerHealth = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<BarController>();
         barControllerHunger = GameObject.FindGameObjectWithTag("HungerMeter").GetComponent<BarController>();
-
+        barControllerHealth.Init();
+        barControllerHunger.Init();
         ResetStats();
     }
     
@@ -97,6 +98,7 @@ public class PlayerStatsManager : MonoBehaviour
 
     public void ResetStats()
     {
+        
         currentSatiation = 0;
         
         if (GameObject.FindWithTag("Lair") != null)
@@ -113,11 +115,11 @@ public class PlayerStatsManager : MonoBehaviour
         {
             activateLairFinder.Deactivate();
         }
-
-        SetCurrentBarValue(barControllerHunger, currentSatiation);
+        
         SetMaxBarValue(barControllerHunger, maxSatiation);
-        SetCurrentBarValue(barControllerHealth, currentHealth);
         SetMaxBarValue(barControllerHealth, maxHealth);
+        SetCurrentBarValue(barControllerHunger, currentSatiation);
+        SetCurrentBarValue(barControllerHealth, currentHealth);
     }
     
 }

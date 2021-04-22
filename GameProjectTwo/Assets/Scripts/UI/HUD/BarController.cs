@@ -10,10 +10,14 @@ public class BarController : MonoBehaviour
 
 	private void Start()
 	{
-		barFill = GetComponent<Slider>();
 	}
 
-	public void SetMaxValue(int maxValue)
+    public void Init()
+    {
+		barFill = GetComponent<Slider>();
+    }
+
+    public void SetMaxValue(int maxValue)
 	{
 		barFill.maxValue = maxValue;
 	}
