@@ -100,7 +100,6 @@ public class NPC : MonoBehaviour, ICharacter
 		{
 			if (hit.collider.CompareTag(tag))
 			{
-				Debug.Log(name + " saw " + tag);
 				return true;
 			}
 		}
