@@ -83,7 +83,7 @@ public class NPC : MonoBehaviour, ICharacter
 	public void Attack()
 	{
 		Debug.Log("i am now attacking the player");
-		//player.GetComponent<HealthManager>().LoseHealth(stats.Damage);
+		PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>().DecreaseHealthValue(stats.Damage);
 	}
 	public void Move(Vector3 destination)
 	{
