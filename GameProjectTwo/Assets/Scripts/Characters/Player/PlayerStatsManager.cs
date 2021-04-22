@@ -26,7 +26,7 @@ public class PlayerStatsManager : MonoBehaviour
 
     void Start()
     {
-        if (GameObject.Find("EndOfLevelTrigger") != null)
+        if (GameObject.FindWithTag("Lair") != null)
         {
             endLevelCheck = GameObject.FindWithTag("Lair").GetComponent<EndLevelCheck>();
         }
