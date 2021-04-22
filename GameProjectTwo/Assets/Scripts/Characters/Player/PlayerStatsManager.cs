@@ -7,7 +7,6 @@ public class PlayerStatsManager : MonoBehaviour
     private BarController barControllerHealth;
     private BarController barControllerHunger;
     private EndLevelCheck endLevelCheck;
-    private ActivateLairFinder activateLairFinder;
     
     [Header("Hunger Variables")]
     [SerializeField] int maxSatiation;
@@ -18,6 +17,7 @@ public class PlayerStatsManager : MonoBehaviour
     [Header("Health Variables")]
     [SerializeField] int currentHealth = 0;
     [SerializeField] int maxHealth = 100;
+    [SerializeField] GameObject Lairfinder;
     public int CurrentHealth { get => currentHealth; }
     public int MaxHealth { get => maxHealth; }
     
@@ -35,9 +35,8 @@ public class PlayerStatsManager : MonoBehaviour
             Debug.LogWarningFormat("EndOfLevelTrigger not found in scene");
         }
 
-        if (GetComponent<ActivateLairFinder>() != null)
+        if (gameObject.GetComponent<ActivateLairFinder>() != null)
         {
-            activateLairFinder = GetComponent<ActivateLairFinder>();
         }
         else
         {
@@ -89,10 +88,10 @@ public class PlayerStatsManager : MonoBehaviour
         currentSatiation = Mathf.Clamp(currentSatiation + satiationIncrease, 0, maxSatiation);
         SetCurrentBarValue(barControllerHunger, currentSatiation);
 
-        if (currentSatiation >= maxSatiation && activateLairFinder != null)
+        if (currentSatiation >= maxSatiation)
         {
             Debug.Log("LairFinder Active");
-            activateLairFinder.Activate();
+            Lairfinder.SetActive(true);
         }
     }
 
@@ -110,11 +109,9 @@ public class PlayerStatsManager : MonoBehaviour
             maxSatiation = 5;
         }
         currentHealth = maxHealth;
-        
-        if (activateLairFinder != null)
-        {
-            activateLairFinder.Deactivate();
-        }
+ 
+        Lairfinder.SetActive(false);
+       
         
         SetMaxBarValue(barControllerHunger, maxSatiation);
         SetMaxBarValue(barControllerHealth, maxHealth);
