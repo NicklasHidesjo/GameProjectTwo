@@ -70,7 +70,7 @@ public class BatMovement : MonoBehaviour
         this.playerState = plState;
     }
 
-    public void MoveBat()
+    public void FixedUpdate()
     {
 
         playerVelocity = BatControl();

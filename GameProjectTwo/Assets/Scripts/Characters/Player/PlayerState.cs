@@ -48,7 +48,6 @@ public class PlayerState : MonoBehaviour
                 }
             case playerStates.MoveDracula:
                 {
-                    draculaMovement.MoveCharacter();
                     break;
                 }
             case playerStates.Hidden:
@@ -62,7 +61,6 @@ public class PlayerState : MonoBehaviour
                 }
             case playerStates.FlyBat:
                 {
-                    batMovement.MoveBat();
                     break;
                 }
             default:

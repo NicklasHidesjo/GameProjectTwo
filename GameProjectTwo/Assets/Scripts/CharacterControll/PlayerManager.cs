@@ -2,19 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Singelton :
 //This is the playerManager it keeps decieds where and what should be spawned and inisialized
 //This is closely linked to "PlayerState"
+
 [RequireComponent(typeof(PlayerState))]
 public class PlayerManager : MonoBehaviour
 {
+    // singleton
+    public static PlayerManager instance;
+   
     [SerializeField] Transform spawnPoint;
     [SerializeField] Camera playerCam;
     [SerializeField] GameObject draculaPreFab;
     [SerializeField] GameObject batPreFab;
 
+    [SerializeField] HealthManager health;
+
     private PlayerState playerState;
     private GameObject draculaGO;
     private GameObject batGO;
+
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +44,8 @@ public class PlayerManager : MonoBehaviour
         SpawnNewPlayer();
         playerState.SetState(PlayerState.playerStates.TransformToDracula);
     }
+
+    
     private void Init()
     {
         if (!spawnPoint)
