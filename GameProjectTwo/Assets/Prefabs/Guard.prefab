@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8309971089752785326}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Query
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5170690415562793467}
   - component: {fileID: 5170690415562793466}
   - component: {fileID: 5170690415562793461}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,9 +142,9 @@ GameObject:
   - component: {fileID: 5170690415814287712}
   - component: {fileID: 5170690415814287742}
   - component: {fileID: 43043016}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Guard
-  m_TagString: Untagged
+  m_TagString: Guard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,7 +197,7 @@ NavMeshAgent:
   m_Acceleration: 60
   avoidancePriority: 40
   m_AngularSpeed: 360
-  m_StoppingDistance: 0.5
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a1935b8d7498145acbf6340f8d084c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: {fileID: 0}
   startingState: {fileID: 11400000, guid: 85f551a435eee0e4699eb71cbd8abaec, type: 2}
 --- !u!114 &5170690415814287742
 MonoBehaviour:
@@ -245,6 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 29d7810b5c5da0145a05d41333d20b70, type: 2}
   pathTag: Waypoint
+  currentHealth: 0
 --- !u!114 &43043016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,8 +279,7 @@ GameObject:
   - component: {fileID: 5170690415832000523}
   - component: {fileID: 5170690415832000526}
   - component: {fileID: 5170690415832000521}
-  - component: {fileID: 5170690415832000520}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +294,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5170690415832000522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.359, z: 0.778}
+  m_LocalPosition: {x: 0, y: 1, z: 0.778}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 5170690415814287743}
@@ -348,19 +349,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5170690415832000520
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5170690415832000522}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7535553654653437288
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +358,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6314203010584838916}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Following
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,6 +447,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AlertQ_Mesh
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d585c9ec951e2f4a8ed1110c258878a, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d585c9ec951e2f4a8ed1110c258878a, type: 3}
 --- !u!4 &2194561814598074540 stripped
@@ -532,6 +524,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c3025c4b9c0d6ea47ac663d2081f9558, type: 3}
       propertyPath: m_Name
       value: Alert_Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c3025c4b9c0d6ea47ac663d2081f9558, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3025c4b9c0d6ea47ac663d2081f9558, type: 3}

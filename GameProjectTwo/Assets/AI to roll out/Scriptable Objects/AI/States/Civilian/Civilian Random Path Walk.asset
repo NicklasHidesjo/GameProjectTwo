@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Civilian Random Path Walk
   m_EditorClassIdentifier: 
   enterActions:
-  - {fileID: 11400000, guid: a28054b9ade3a724082d32af3e071342, type: 2}
+  - {fileID: 11400000, guid: e3dd01302956d9f449b4b157befe7483, type: 2}
   executeActions: []
   exitActions: []
   transitions:

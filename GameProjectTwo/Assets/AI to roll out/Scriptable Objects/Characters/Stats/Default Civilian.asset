@@ -12,22 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0784b2e0e94990544a2b77daf4ff97f0, type: 3}
   m_Name: Default Civilian
   m_EditorClassIdentifier: 
+  MaxHealth: 100
   ChangeDuration: 2
   SightLenght: 10
   MaxAlerted: 10
   CautiousThreshold: 2
+  AlertActionThreshold: 5
   AlertDecrease: 1
   AlertIncrease: 1
   IdleTime: 2
+  ShoutRange: 5
+  ReactionRange: 3
   SearchAngle: 45
   SuspisciousSpeed: 0.5
-  WalkSpeed: 3.5
-  RunSpeed: 5
+  WalkSpeed: 1.5
+  RunSpeed: 3
   SearchSpeed: 1.5
   FleeAngle: 45
   MaxFleeDistance: 40
   MinFleeDistance: 5
   BackAwaySpeed: 0.1
+  SuckedStun: 2
+  Damage: 10
   FollowRange: 10
   RotationSpeed: 30
   ClearanceDistance: 3

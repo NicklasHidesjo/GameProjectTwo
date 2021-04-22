@@ -33,6 +33,7 @@ public class BloodSuckTarget : Interactable
         //player.GetComponent<InteractableScanner>().RemoveInteractableFromList(this);
         GetComponent<Rigidbody>().isKinematic = false;
         gameObject.AddComponent<DeadBody>();
+        Destroy(GetComponent<SphereCollider>());
         Destroy(GetComponent<StateMachine>());
         Destroy(GetComponent<NavMeshAgent>());
         Destroy(this);
