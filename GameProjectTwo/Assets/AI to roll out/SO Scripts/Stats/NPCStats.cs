@@ -19,7 +19,7 @@ public class NPCStats : ScriptableObject
 	public float AlertIncrease = 1;
 	public float IdleTime = 2f;
 	public float ShoutRange = 5f;
-	public float interactionRange = 3f;
+	public float ReactionRange = 3f;
 
 	[Tooltip("The angle that the player will pan from and to when searching for player (forward +- SearchAngle (DO NOT SET THIS HIGHER THEN 89!!!)")]
 	[Range(0,89)]public int SearchAngle = 45; 

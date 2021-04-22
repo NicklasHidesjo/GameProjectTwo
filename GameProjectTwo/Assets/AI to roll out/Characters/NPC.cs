@@ -64,7 +64,7 @@ public class NPC : MonoBehaviour, ICharacter
 	private void InitializeNPC()
 	{
 		agent = GetComponent<NavMeshAgent>();
-		player = GameObject.FindGameObjectWithTag("Player").transform;
+		player = FindObjectOfType<PlayerManager>().GetPlayerPoint();
 		path = GameObject.FindGameObjectsWithTag(pathTag).Select(f => f.transform).ToArray();
 		IsSuckable = true;
 		isDead = false;
@@ -117,23 +117,16 @@ public class NPC : MonoBehaviour, ICharacter
 		if(currentHealth <= 0)
 		{
 			isDead = true;
-		}
-		
+		}	
 	}
 
 	public void ReactToShout()
-	{
-		if(gameObject.CompareTag("Civilian"))
+	{	
+		if (gameObject.CompareTag("Civilian"))
 		{
-
+			if (Vector3.Distance(transform.position, player.position) > stats.ReactionRange) { return; }
 		}
-
 		ShouldShout = false;
 		Alertness = stats.MaxAlerted;
-
-		// check if they need to react (for a guard its always react for civilian 
-		// if they are close enough (within reaction range)
-		// in that method set that they should not shout
-		// set so that the Should shout of each character called is false)
 	}
 }
