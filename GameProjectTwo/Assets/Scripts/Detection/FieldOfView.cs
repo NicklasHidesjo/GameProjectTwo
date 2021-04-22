@@ -24,7 +24,7 @@ public class FieldOfView : MonoBehaviour
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        StartCoroutine("FindTargetsWithDelay", .2f);
+        StartCoroutine("FindTargetsWithDelay", 1f);
         npc = GetComponent<NPC>();
         //StartCoroutine("CheckForVampires", .2f);
     }
