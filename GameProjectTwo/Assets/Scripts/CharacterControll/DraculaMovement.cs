@@ -62,7 +62,7 @@ public class DraculaMovement : MonoBehaviour
         this.alignTo = cam;
     }
 
-    public void MoveCharacter()
+    public void FixedUpdate()
     {
         float applyedGravity = normalGravity;
 
