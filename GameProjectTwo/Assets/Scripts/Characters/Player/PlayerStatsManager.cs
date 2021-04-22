@@ -7,7 +7,7 @@ public class PlayerStatsManager : MonoBehaviour
     private BarController barControllerHealth;
     private BarController barControllerHunger;
     private EndLevelCheck endLevelCheck;
-    private DirectionToLair directionToLair;
+    private ActivateLairFinder activateLairFinder;
     
     [Header("Hunger Variables")]
     [SerializeField] int maxSatiation;
@@ -37,7 +37,7 @@ public class PlayerStatsManager : MonoBehaviour
 
         if (GetComponent<DirectionToLair>() != null)
         {
-            directionToLair = GetComponent<DirectionToLair>();
+            activateLairFinder = GetComponent<ActivateLairFinder>();
         }
         else
         {
@@ -88,10 +88,10 @@ public class PlayerStatsManager : MonoBehaviour
         currentSatiation = Mathf.Clamp(currentSatiation + satiationIncrease, 0, maxSatiation);
         SetCurrentBarValue(barControllerHunger, currentSatiation);
 
-        if (currentSatiation >= maxSatiation && directionToLair != null)
+        if (currentSatiation >= maxSatiation && activateLairFinder != null)
         {
             Debug.Log("LairFinder Active");
-            directionToLair.Activate();
+            activateLairFinder.Activate();
         }
     }
 
@@ -109,9 +109,9 @@ public class PlayerStatsManager : MonoBehaviour
         }
         currentHealth = maxHealth;
         
-        if (directionToLair != null)
+        if (activateLairFinder != null)
         {
-            directionToLair.Deactivate();
+            activateLairFinder.Deactivate();
         }
 
         SetCurrentBarValue(barControllerHunger, currentSatiation);
