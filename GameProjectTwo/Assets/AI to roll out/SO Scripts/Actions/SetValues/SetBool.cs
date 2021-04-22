@@ -4,13 +4,19 @@ using UnityEngine;
 public class SetBool : Action
 {
 	[SerializeField] NPCBooleans setBool;
-	[SerializeField] bool value;
+	[SerializeField] bool true;
 	public override void Execute(ICharacter character)
 	{
 		switch (setBool)
 		{
 			case NPCBooleans.StartedRotation:
 				character.RotationStarted = value;
+				break;
+			case NPCBooleans.ShouldShout:
+				character.ShouldShout = value;
+				break;
+			case NPCBooleans.IsSuckable:
+				character.IsSuckable = value;
 				break;
 		}
 	}
