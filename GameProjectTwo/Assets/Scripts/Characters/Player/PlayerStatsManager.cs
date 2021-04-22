@@ -28,20 +28,20 @@ public class PlayerStatsManager : MonoBehaviour
     {
         if (GameObject.Find("EndOfLevelTrigger") != null)
         {
-            endLevelCheck = GameObject.Find("EndOfLevelTrigger").GetComponent<EndLevelCheck>();
+            endLevelCheck = GameObject.FindWithTag("Lair").GetComponent<EndLevelCheck>();
         }
         else
         {
             Debug.LogWarningFormat("EndOfLevelTrigger not found in scene");
         }
 
-        if (GetComponent<DirectionToLair>() != null)
+        if (GetComponent<ActivateLairFinder>() != null)
         {
             activateLairFinder = GetComponent<ActivateLairFinder>();
         }
         else
         {
-            Debug.LogWarningFormat("Lair not found");
+            Debug.LogWarningFormat("DirectionToLair not found");
         }
         
         barControllerHealth = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<BarController>();
@@ -99,7 +99,7 @@ public class PlayerStatsManager : MonoBehaviour
     {
         currentSatiation = 0;
         
-        if (GameObject.Find("EndOfLevelTrigger") != null)
+        if (GameObject.FindWithTag("Lair") != null)
         {
             maxSatiation = endLevelCheck.LevelPassedThreshold[endLevelCheck.CurrentLevel];
         }
