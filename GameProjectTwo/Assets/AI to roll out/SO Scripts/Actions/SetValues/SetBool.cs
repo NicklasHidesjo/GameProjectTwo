@@ -10,13 +10,13 @@ public class SetBool : Action
 		switch (setBool)
 		{
 			case NPCBooleans.StartedRotation:
-				character.RotationStarted = value;
+				character.RotationStarted = isTrue;
 				break;
 			case NPCBooleans.ShouldShout:
-				character.ShouldShout = value;
+				character.ShouldShout = isTrue;
 				break;
 			case NPCBooleans.IsSuckable:
-				character.IsSuckable = value;
+				character.IsSuckable = isTrue;
 				break;
 		}
 	}
