@@ -18,19 +18,10 @@ public class DirectionToLair : MonoBehaviour
     {
         if (gameObject.activeSelf == true)
         {
-            transform.LookAt(target);
-            transform.Rotate(90, 0, 0);
+        Vector3 targetPosition = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+        transform.LookAt(targetPosition);
+        transform.Rotate(90, 0, 0);
         }
-    }
-
-    public void Activate()
-    {
-        transform.GetChild(0).gameObject.SetActive(true);
-    }
-
-    public void Deactivate()
-    {
-        transform.GetChild(0).gameObject.SetActive(false);
     }
 
 }
