@@ -22,11 +22,47 @@ public class BloodSuckTarget : Interactable
         {
             npcController.GettingSucked = true;
             this.attacker = player;
-            StartCoroutine(SuckingBlood(10, player.GetComponent<HealthManager>(), 1f));
-            
+            StartCoroutine(SuckingBlood(10, 1f));
+            player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.Sucking);
+        }
+        else
+        {
+            print("target not currently suckable");
         }
     }
 
+
+    public void CancelSucking()
+    {
+        npcController.GettingSucked = false;
+        StopCoroutine("SuckingBlood");        
+        StopAllCoroutines();
+        Debug.Log("sucking Cancel!");
+    }
+
+    private IEnumerator SuckingBlood(int bloodPerSec, float tickRate)
+    {
+        PlayerStatsManager playerStats = PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>();
+
+        while (!npcController.IsDead)
+        {
+            //TODO Increase satiation!
+
+
+            npcController.DecreaseHealth(bloodPerSec);
+            //playerHealth.GainHealth(bloodPerSec);
+            playerStats.IncreaseSatiationValue(bloodPerSec);
+            playerStats.IncreaseHealthValue(bloodPerSec);
+            Debug.Log("Currently sucking!");
+            yield return new WaitForSeconds(tickRate);
+
+        }
+        KillNPC();
+
+        Debug.Log("no longer sucking!");
+        attacker.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.MoveDracula);
+
+    }
     private void KillNPC()
     {
         //kill NPC
@@ -37,32 +73,6 @@ public class BloodSuckTarget : Interactable
         Destroy(GetComponent<StateMachine>());
         Destroy(GetComponent<NavMeshAgent>());
         Destroy(this);
-    }
-
-    public void CancelSucking()
-    {
-        npcController.GettingSucked = false;
-        StopCoroutine("SuckingBlood");        //TODO Check if this works
-        StopAllCoroutines();
-        Debug.Log("sucking Cancel!");
-    }
-
-    private IEnumerator SuckingBlood(int bloodPerSec, HealthManager playerHealth, float tickRate)
-    {
-        
-        while (!npcController.IsDead)
-        {
-            npcController.DecreaseHealth(bloodPerSec);
-            playerHealth.GainHealth(bloodPerSec);
-            Debug.Log("Currently sucking!");
-            yield return new WaitForSeconds(tickRate);
-
-        }
-        KillNPC();
-
-        Debug.Log("no longer sucking!");
-        attacker.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.MoveDracula);
-
     }
 
 }

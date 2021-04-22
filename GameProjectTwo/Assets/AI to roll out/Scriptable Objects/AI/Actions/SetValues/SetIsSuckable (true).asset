@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SetIsSuckable (true)
   m_EditorClassIdentifier: 
   setBool: 1
-  value: 1
+  isTrue: 1

@@ -15,12 +15,18 @@ public class EndLevelCheck : MonoBehaviour
 
 	[SerializeField] int[] levelPassedThreshold = new int [5];
 
-	private void OnTriggerEnter(Collider other)
+    private void Start()
+    {
+		playerStatsManager = PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>();
+	}
+
+    private void OnTriggerEnter(Collider other)
 	{
-		if (other.GetComponent<PlayerStatsManager>() != null)
+		if (other.CompareTag("Player"))
 		{
-			playerStatsManager = other.GetComponent<PlayerStatsManager>();
+			//playerStatsManager = other.GetComponent<PlayerStatsManager>();
 			
+
 			if (CheckLevelPassed(playerStatsManager.CurrentSatiation))
 			{
 				Debug.Log("Level Completed");

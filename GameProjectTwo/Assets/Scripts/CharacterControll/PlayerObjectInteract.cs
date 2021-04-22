@@ -111,7 +111,7 @@ public class PlayerObjectInteract : MonoBehaviour
                 if (playerState.GetCurrentState() != PlayerState.playerStates.Sucking)
                 {
                     interactable.Interact(gameObject);
-                    playerState.SetState(PlayerState.playerStates.Sucking);
+                    
                     transform.LookAt(interactable.transform);
                 }
                 else
