@@ -15,7 +15,6 @@ public class UpdateSearchRotation : Action
 		float angle;
 		if (character.YRotCorrection != 0)
 		{
-			Debug.Log(character.YRotCorrection);
 			character.SearchAngle *= Random.Range(0, 2) * 2 - 1;
 			angle = character.SearchAngle;
 			character.YRotCorrection = 0;
@@ -23,7 +22,6 @@ public class UpdateSearchRotation : Action
 		else
 		{
 			character.SearchAngle *= -1;
-			Debug.Log(character.SearchAngle);
 			angle = character.SearchAngle * 2;
 		}
 

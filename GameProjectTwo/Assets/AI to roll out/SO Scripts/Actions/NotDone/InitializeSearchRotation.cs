@@ -8,7 +8,7 @@ public class InitializeSearchRotation : Action
 		if(character.RotationStarted) { return; }
 		if(character.Agent.velocity != Vector3.zero) { return; }
 		character.Agent.updateRotation = false;
-		Debug.Log("initializing rotation");
+
 		if (character.YRotCorrection != 0)
 		{
 			character.TargetRot = character.Transform.rotation * Quaternion.AngleAxis(character.YRotCorrection, character.Transform.up);
@@ -16,7 +16,6 @@ public class InitializeSearchRotation : Action
 		else
 		{
 			character.SearchAngle *= Random.Range(0, 2) * 2 - 1;
-			Debug.Log(character.SearchAngle);
 			float angle = character.SearchAngle;
 			character.TargetRot = character.Transform.rotation * Quaternion.AngleAxis(angle, character.Transform.up);
 		}

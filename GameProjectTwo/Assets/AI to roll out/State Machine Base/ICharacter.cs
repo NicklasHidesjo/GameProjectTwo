@@ -58,5 +58,7 @@ public interface ICharacter
 	/// <returns></returns>
 	public bool InFrontOff(Vector3 direction);
 
+	public void ReactToShout();
+
 	public void DecreaseHealth(int health);
 }
