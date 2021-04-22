@@ -7,6 +7,11 @@ public class ActivateLairFinder : MonoBehaviour
     //Activates Lairfinder Gameobject if it's a child, slower but no need for index.
     //faster/cheaper with index I presume, but this doesn't run often and we might mod the player more.
 
+    private void Start()
+    {
+        Activate();
+    }
+
     public void Activate()
     {
         transform.Find("LairFinder").gameObject.SetActive(true);

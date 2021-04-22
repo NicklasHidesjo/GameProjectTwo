@@ -19,8 +19,6 @@ GameObject:
   - component: {fileID: 7331964421774849799}
   - component: {fileID: 5001464087638553337}
   - component: {fileID: 5191676359956859180}
-  - component: {fileID: 7681662647128363723}
-  - component: {fileID: 251083602602523170}
   m_Layer: 6
   m_Name: Dracula_MainCharacter
   m_TagString: Player
@@ -221,34 +219,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7681662647128363723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6337708183196167810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 674f2e2071857e04a8cdcd5d8dea0cb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSatiation: 0
-  currentSatiation: 0
-  currentHealth: 0
-  maxHealth: 100
---- !u!114 &251083602602523170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6337708183196167810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d4ebb1832398da4388265826cf87ac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7039620729283678158
 GameObject:
   m_ObjectHideFlags: 0
