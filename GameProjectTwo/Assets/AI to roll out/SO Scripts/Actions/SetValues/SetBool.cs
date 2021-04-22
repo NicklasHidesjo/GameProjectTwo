@@ -4,7 +4,7 @@ using UnityEngine;
 public class SetBool : Action
 {
 	[SerializeField] NPCBooleans setBool;
-	[SerializeField] bool true;
+	[SerializeField] bool isTrue;
 	public override void Execute(ICharacter character)
 	{
 		switch (setBool)
