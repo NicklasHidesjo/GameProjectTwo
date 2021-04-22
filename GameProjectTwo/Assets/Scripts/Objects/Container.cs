@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Used as component to give ability to contain a GameObject like a player or a dead body
 public class Container : Interactable
 {
 
@@ -71,7 +72,7 @@ public class Container : Interactable
     IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time)
     {
         //TODO Make Sure there is no player control during animation!!!
-        // Make sure playerstate allows external position manpulation
+        // Make sure playerstate allows external position manpulation when calling this
         if (time == 0f)
         {
             time = 0.0001f;
@@ -97,20 +98,17 @@ public class Container : Interactable
             time = 0.0001f;
         }
         Vector3 startPos = targetToMove.position;
-        //Rigidbody rb = player.GetComponent<Rigidbody>();
-
 
         float elapsedTime = 0;
 
         while (elapsedTime < time)
         {
-            //rb.MovePosition(Vector3.Lerp(startPos, targetPosition, elapsedTime / time));
             targetToMove.position = Vector3.Lerp(startPos, targetPosition, elapsedTime / time);
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
         Debug.Log("finished moving");
-        player.GetComponent<PlayerObjectInteract>().SetState();
+        player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.MoveDracula);
     }
 
 }

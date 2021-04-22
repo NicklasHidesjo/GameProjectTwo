@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//base class for any object that is interactable
 public abstract class Interactable : MonoBehaviour
 {
     [SerializeField] protected Material selectedMaterial;

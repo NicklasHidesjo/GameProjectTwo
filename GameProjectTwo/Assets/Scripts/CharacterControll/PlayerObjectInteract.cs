@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//Used to interact with objects found with interactable scanner
 [RequireComponent(typeof(InteractableScanner))]
 public class PlayerObjectInteract : MonoBehaviour
 {
@@ -106,7 +108,18 @@ public class PlayerObjectInteract : MonoBehaviour
                 }
                 break;
             case BloodSuckTarget B: //see if the object itself can validate interaction
-                interactable.Interact(gameObject);
+                if (playerState.GetCurrentState() != PlayerState.playerStates.Sucking)
+                {
+                    interactable.Interact(gameObject);
+                    playerState.SetState(PlayerState.playerStates.Sucking);
+                    transform.LookAt(interactable.transform);
+                }
+                else
+                {
+                    B.CancelSucking();
+                    playerState.SetState(PlayerState.playerStates.MoveDracula);
+
+                }
 
                 break;
             default:
@@ -114,9 +127,9 @@ public class PlayerObjectInteract : MonoBehaviour
         }
     }
 
-    public void SetState()
+    public void SetState(PlayerState.playerStates newState)
     {
-        playerState.SetState(PlayerState.playerStates.MoveDracula);
+        playerState.SetState(newState);
     }
 
 
