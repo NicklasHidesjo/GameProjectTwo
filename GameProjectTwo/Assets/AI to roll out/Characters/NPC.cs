@@ -57,7 +57,7 @@ public class NPC : MonoBehaviour, ICharacter
 		if (stats == null)
 		{
 			Debug.LogError("This npc doesnt have any stats: " + gameObject.name);
-			UnityEditor.EditorApplication.isPlaying = false;
+			//UnityEditor.EditorApplication.isPlaying = false;
 		}
 		InitializeNPC();
 	}
