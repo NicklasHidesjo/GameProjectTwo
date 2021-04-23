@@ -17,7 +17,7 @@ public class PlayerStatsManager : MonoBehaviour
     [Header("Health Variables")]
     [SerializeField] int currentHealth = 0;
     [SerializeField] int maxHealth = 100;
-    [SerializeField] GameObject Lairfinder;
+    [SerializeField] ActivateLairFinder Lairfinder;
     public int CurrentHealth { get => currentHealth; }
     public int MaxHealth { get => maxHealth; }
     
@@ -26,6 +26,11 @@ public class PlayerStatsManager : MonoBehaviour
 
     void Start()
     {
+        if (!Lairfinder)
+        {
+            Lairfinder = (ActivateLairFinder)FindObjectOfType(typeof(ActivateLairFinder));
+        }
+
         if (GameObject.FindWithTag("Lair") != null)
         {
             endLevelCheck = GameObject.FindWithTag("Lair").GetComponent<EndLevelCheck>();
@@ -91,7 +96,7 @@ public class PlayerStatsManager : MonoBehaviour
         if (currentSatiation >= maxSatiation)
         {
             Debug.Log("LairFinder Active");
-            Lairfinder.SetActive(true);
+            Lairfinder.Activate();
         }
     }
 
@@ -110,7 +115,7 @@ public class PlayerStatsManager : MonoBehaviour
         }
         currentHealth = maxHealth;
  
-        Lairfinder.SetActive(false);
+        Lairfinder.Deactivate();
        
         
         SetMaxBarValue(barControllerHunger, maxSatiation);

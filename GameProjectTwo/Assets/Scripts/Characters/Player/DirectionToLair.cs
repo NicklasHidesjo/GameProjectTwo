@@ -4,33 +4,37 @@ using UnityEngine;
 
 public class DirectionToLair : MonoBehaviour
 {
-    SpriteRenderer lairFinder;
+    public SpriteRenderer lairFinder;
+    Transform playerPos;
     Transform target;
     PlayerState playerState;
     PlayerManager playerManager;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        lairFinder = gameObject.GetComponent<SpriteRenderer>();
+        if (!playerManager)
+        {
+            playerManager = PlayerManager.instance;
+        }
+        playerPos = playerManager.GetPlayerPoint();
         target = GameObject.FindGameObjectWithTag("Lair").transform;
-        playerState = transform.parent.GetComponent<PlayerState>();
-        playerManager = transform.parent.GetComponent<PlayerManager>();
 
+        // lairFinder = gameObject.GetComponent<SpriteRenderer>();
+        // playerState = transform.parent.GetComponent<PlayerState>();
+
+        /*
+        if (!playerState)
+        {
+            playerState = PlayerManager.instance.playerState;
+        }
+        */
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.activeSelf == true)
-        {
-        Transform playerPos = playerManager.GetPlayerPoint();
-        transform.position = playerPos.position;
-            //get player.state bat or dracula, and set y position after that...-0.7 ca for draculas placeholder.
-            transform.position = transform.position + new Vector3(0, -0.7f, 0);
-        Vector3 targetPosition = new Vector3(target.transform.position.x, playerPos.position.y, target.transform.position.z);
-        transform.LookAt(targetPosition);
-        transform.Rotate(90, 0, 0);
-        }
+        transform.position = playerPos.position + new Vector3(0, -0.7f, 0);
+        transform.forward = target.position - playerPos.position;
     }
 
 }

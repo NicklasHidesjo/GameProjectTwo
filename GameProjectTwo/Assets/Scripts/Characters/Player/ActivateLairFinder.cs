@@ -14,11 +14,12 @@ public class ActivateLairFinder : MonoBehaviour
 
     public void Activate()
     {
-        transform.Find("LairFinder").gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void Deactivate()
     {
-        transform.Find("LairFinder").gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
+
 }

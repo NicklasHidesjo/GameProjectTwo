@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] public PlayerStatsManager stats { get { return stats; } }
     [SerializeField] public HealthManager health { get { return health; } }
 
-    private PlayerState playerState;
+    private PlayerState playerState;// { get { return playerState; } }
     private GameObject draculaGO;
     private GameObject batGO;
 
