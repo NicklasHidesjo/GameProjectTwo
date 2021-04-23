@@ -24,6 +24,7 @@ public class BatMovement : MonoBehaviour
 
     //Movent Vector
     private Vector3 playerVelocity;
+    private float batTime;
 
     //WARNING : For debug only 
     private bool RayHit;
@@ -52,10 +53,17 @@ public class BatMovement : MonoBehaviour
         }
     }
 
+    public void SetBatTime(float time)
+    {
+        batTime = time;
+    }
+
     //TODO : Decide on Input metod and keys.
     private void Update()
     {
-        if (Input.GetButtonDown("TransformShape"))
+        batTime -= Time.deltaTime;
+
+        if (Input.GetButtonDown("TransformShape") || batTime < 0)
             playerState.SetState(PlayerState.playerStates.TransformToDracula);
     }
     public void Init(PlayerState playerState)
