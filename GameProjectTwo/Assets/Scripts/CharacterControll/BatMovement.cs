@@ -24,6 +24,7 @@ public class BatMovement : MonoBehaviour
 
     //Movent Vector
     private Vector3 playerVelocity;
+    private float maxBatTime;
     private float batTime;
 
     //WARNING : For debug only 
@@ -55,6 +56,7 @@ public class BatMovement : MonoBehaviour
 
     public void SetBatTime(float time)
     {
+        maxBatTime = time;
         batTime = time;
     }
 
@@ -62,6 +64,13 @@ public class BatMovement : MonoBehaviour
     private void Update()
     {
         batTime -= Time.deltaTime;
+
+        Renderer[] renderer = gameObject.GetComponentsInChildren<Renderer>();
+
+        foreach(Renderer r in renderer)
+        {
+            r.material.color = Color.Lerp(Color.red, Color.white, (batTime / maxBatTime));
+        }
 
         if (Input.GetButtonDown("TransformShape") || batTime < 0)
             playerState.SetState(PlayerState.playerStates.TransformToDracula);
