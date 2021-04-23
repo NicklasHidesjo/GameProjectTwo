@@ -55,7 +55,7 @@ public class BatMovement : MonoBehaviour
     //TODO : Decide on Input metod and keys.
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("TransformShape"))
             playerState.SetState(PlayerState.playerStates.TransformToDracula);
     }
     public void Init(PlayerState playerState)
