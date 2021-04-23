@@ -15,6 +15,7 @@ public class FieldOfView : MonoBehaviour
     //float suspicionMeter = 0;
     int undetectedTimer = 50;
     int infrontOfEnemyFactor = 2;
+    float deathTimer;
 
     NPC npc;
 
@@ -31,21 +32,37 @@ public class FieldOfView : MonoBehaviour
 
     private void Update()
     {
-        if (npc.Alertness ==0)
+        if (npc.IsDead && deathTimer > 5.0)
         {
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(false);
+            transform.GetChild(2).gameObject.SetActive(false);
         }
-        else if (npc.Alertness > 0 && npc.Alertness < 50)
+        else if (npc.IsDead)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(false);
+            transform.GetChild(2).gameObject.SetActive(true);
+            deathTimer += Time.deltaTime;
+        }
+        else if (!npc.IsDead && npc.Alertness ==0)
+        {
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(false);
+            transform.GetChild(2).gameObject.SetActive(false);
+        }
+        else if (!npc.IsDead && npc.Alertness > 0 && npc.Alertness < 50)
         {
             transform.GetChild(0).gameObject.SetActive(true);
             transform.GetChild(1).gameObject.SetActive(false);
+            transform.GetChild(2).gameObject.SetActive(false);
         }
 
-        else if (npc.Alertness > 50)
+        else if (!npc.IsDead && npc.Alertness > 50)
         {
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(true);
+            transform.GetChild(2).gameObject.SetActive(false);
         }
         
     }
