@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4489469258046233606}
   - component: {fileID: 4489469258046233605}
   - component: {fileID: 4489469258046233604}
-  - component: {fileID: 4489469258046233660}
   - component: {fileID: 4489469258046233602}
   - component: {fileID: 4489469258046233601}
   - component: {fileID: 4954188691278848498}
@@ -129,19 +128,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!135 &4489469258046233660
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4489469258046233610}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 5
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &4489469258046233602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,15 +198,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e13631db5408ed49a73f1f1f46f6c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewRadius: 8
-  viewAngle: 40
   targetMask:
     serializedVersion: 2
     m_Bits: 64
   obstacleMask:
     serializedVersion: 2
-    m_Bits: 0
-  visibleTargets: []
+    m_Bits: 256
 --- !u!1 &4489469258835064063
 GameObject:
   m_ObjectHideFlags: 0

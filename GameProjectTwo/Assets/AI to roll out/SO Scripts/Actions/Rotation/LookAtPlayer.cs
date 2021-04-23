@@ -7,6 +7,10 @@ public class LookAtPlayer : Action
 {
 	public override void Execute(ICharacter character)
 	{
+		if(!character.SeesPlayer)
+		{
+			return;
+		}
 		character.LookAt(character.Player.position);
 	}
 }

@@ -21,6 +21,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] public HealthManager health { get { return health; } }
 
     private PlayerState playerState;
+    public PlayerState PlayerState => playerState;
+
     private GameObject draculaGO;
     private GameObject batGO;
 

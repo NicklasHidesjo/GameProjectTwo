@@ -10,6 +10,7 @@ public class PlayerState : MonoBehaviour
 {
     public enum playerStates { Stoped, TransformToDracula, MoveDracula, Hidden, TransformToBat, FlyBat, Sucking }
     [SerializeField] playerStates playerState;
+    public playerStates CurrentState => playerState;
     [SerializeField] float batMaxTime = 5.0f;
 
     private PlayerManager playerManeger;
