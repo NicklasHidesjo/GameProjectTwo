@@ -50,7 +50,7 @@ public class DraculaMovement : MonoBehaviour
             jump = true;
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("TransformShape"))
         {
             playerState.SetState(PlayerState.playerStates.TransformToBat);
         }

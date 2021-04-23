@@ -63,7 +63,7 @@ public class BatMovement : MonoBehaviour
     {
         batTime -= Time.deltaTime;
 
-        if (Input.GetButtonDown("Fire1") || batTime < 0)
+        if (Input.GetButtonDown("TransformShape") || batTime < 0)
             playerState.SetState(PlayerState.playerStates.TransformToDracula);
     }
     public void Init(PlayerState playerState)
