@@ -47,6 +47,16 @@ public class OverShoulderCam : MonoBehaviour
         mY += Input.GetAxis("Mouse X") * mouseSpeed;
         dummy.rotation = Quaternion.Euler(mX, mY, 0);
 
+        RaycastHit hit;
+        Vector3 tDir = camera.rotation * (Vector2)offsett;
+        if (Physics.Raycast(target.position, tDir, out hit, Mathf.Abs( offsett.x), checkLayers))
+        {
+            offsett.x *= -1;
+        }
+
+
+
+
         dummy.position = target.position + dummy.rotation * offsett;
         Vector2 off = offsett;
         Vector3 lookAtTarget = target.position + dummy.rotation * off;
@@ -85,8 +95,10 @@ public class OverShoulderCam : MonoBehaviour
             return new Vector3(offsett.x, offsett.y, Mathf.Lerp(offsett.z, hit.distance, smooth));
         }
         /*/
+       
+
         //WORKS!!!
-        if (Physics.SphereCast(ray, 0.5f, out hit, offsett.z *-1, checkLayers))
+        if (Physics.SphereCast(ray, 0.45f, out hit, offsett.z *-1, checkLayers))
         {
             Debug.DrawRay(ray.origin, ray.direction * offsett.z * -1, Color.red);
             return new Vector3(offsett.x, offsett.y, -hit.distance);
