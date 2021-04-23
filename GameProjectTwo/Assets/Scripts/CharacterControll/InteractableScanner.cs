@@ -12,7 +12,7 @@ public class InteractableScanner : MonoBehaviour
     [SerializeField] Interactable currentInteractable;
     public Interactable CurrentInteractable { get => currentInteractable;}
 
-    private float interactRange;
+    [SerializeField] float interactRange;
 
     public float InteractRange { get => interactRange;}
 
@@ -50,7 +50,7 @@ public class InteractableScanner : MonoBehaviour
     private Interactable GetClosestInteractable()
     {
         Interactable closestContainer = null;
-        float closestDistance = Mathf.Infinity;
+        float closestDistance = interactRange;
         interactables.RemoveAll(Interactable => Interactable == null);
         foreach (Interactable i in interactables)
         {

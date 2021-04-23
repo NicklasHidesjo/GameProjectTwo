@@ -16,8 +16,8 @@ MonoBehaviour:
   ChangeDuration: 2
   SightLenght: 10
   MaxAlerted: 20
-  CautiousThreshold: 10
-  AlertActionThreshold: 5
+  CautiousThreshold: 5
+  AlertActionThreshold: 10
   AlertDecrease: 1
   AlertIncrease: 1
   IdleTime: 2

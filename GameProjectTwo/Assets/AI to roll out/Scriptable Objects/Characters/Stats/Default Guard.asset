@@ -15,9 +15,9 @@ MonoBehaviour:
   MaxHealth: 100
   ChangeDuration: 2
   SightLenght: 10
-  MaxAlerted: 100
-  CautiousThreshold: 50
-  AlertActionThreshold: 5
+  MaxAlerted: 5
+  CautiousThreshold: 1.5
+  AlertActionThreshold: 3
   AlertDecrease: 1
   AlertIncrease: 1
   IdleTime: 2

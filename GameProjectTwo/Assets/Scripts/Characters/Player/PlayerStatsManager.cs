@@ -34,14 +34,6 @@ public class PlayerStatsManager : MonoBehaviour
         {
             Debug.LogWarningFormat("EndOfLevelTrigger not found in scene");
         }
-
-        if (gameObject.GetComponent<ActivateLairFinder>() != null)
-        {
-        }
-        else
-        {
-            Debug.LogWarningFormat("DirectionToLair not found");
-        }
         
         barControllerHealth = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<BarController>();
         barControllerHunger = GameObject.FindGameObjectWithTag("HungerMeter").GetComponent<BarController>();

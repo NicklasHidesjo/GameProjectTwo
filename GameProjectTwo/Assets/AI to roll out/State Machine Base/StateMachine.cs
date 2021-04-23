@@ -36,6 +36,12 @@ public class StateMachine : MonoBehaviour
             currentState.Exit();
         }
 
+        if (character.Alertness > character.Stats.CautiousThreshold)
+        {
+            print(name + " has entered " + newState);
+
+        }
+
         currentState = Instantiate(newState);
         currentState.Enter(this, character);
     }
