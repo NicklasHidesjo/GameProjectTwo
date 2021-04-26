@@ -4,111 +4,119 @@ using UnityEngine;
 
 public class OverShoulderCam : MonoBehaviour
 {
-    [SerializeField] Transform camera;
+    [Header("DEBUG")]
+    [SerializeField] bool debugRays;
+    [Header("Settings")]
+    [SerializeField] Transform cam;
     [SerializeField] LayerMask checkLayers;
     [SerializeField] Transform target;
-    [SerializeField] Vector3 offsett;
-    [SerializeField] float speed = 30;
-    [SerializeField] float mouseSpeed = 3;
-
-    Transform dummy;
-
-    Vector3 trueOffset;
-    [SerializeField] float mX = 40;
-    [SerializeField] float mY;
+    [SerializeField] Vector3 maxOffsett = new Vector3(2, 1.5f, -10);
+    [SerializeField] float leanSpeed = 2.0f;
+    [SerializeField] float speed = 60;
+    [SerializeField] float mouseSpeed = 6;
+    [SerializeField] float maxTilt = 80;
+    [SerializeField] float minTilt = 10;
 
     //Debug options
     [SerializeField] bool lockToWindow;
 
-    float smooth;
+    private float lean;
+    Transform dummy;
 
     // Start is called before the first frame update
     void Start()
     {
-        if(lockToWindow)
-        Cursor.lockState = CursorLockMode.Confined;
+        if (lockToWindow)
+            Cursor.lockState = CursorLockMode.Confined;
+
         dummy = new GameObject().transform;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        mX -= Input.GetAxis("Mouse Y") * mouseSpeed;
-        if (mX > 80)
+        dummy.rotation = MouseRotation(dummy.eulerAngles);
+
+        Vector3 offsett = maxOffsett;
+        offsett = Lean(offsett);
+
+        //Rotate offsett
+        Vector3 tOffsett = target.position + dummy.rotation * new Vector3(offsett.x, offsett.y, 0);
+        offsett = target.position + dummy.rotation * offsett;
+        offsett = RayCam(tOffsett, offsett);
+        dummy.position = offsett;
+
+        cam.position = Vector3.MoveTowards(cam.position, offsett, speed * Time.deltaTime);
+        cam.LookAt(tOffsett);
+    }
+
+    Quaternion MouseRotation(Vector3 camEuler)
+    {
+        camEuler.y += Input.GetAxis("Mouse X") * mouseSpeed;
+        camEuler.x -= Input.GetAxis("Mouse Y") * mouseSpeed;
+        if (camEuler.x > maxTilt)
         {
-            mX = 80;
+            camEuler.x = maxTilt;
         }
-        else if (mX < -60)
+        else if (camEuler.x < minTilt)
         {
-            mX = 0;
+            camEuler.x = minTilt;
         }
 
-        //mX = Mathf.Clamp(mY, -90, 90);
-        mY += Input.GetAxis("Mouse X") * mouseSpeed;
-        dummy.rotation = Quaternion.Euler(mX, mY, 0);
+        return Quaternion.Euler(camEuler);
+    }
+
+    Vector3 Lean(Vector3 offsett)
+    {
+        lean *= 1 - leanSpeed * Time.deltaTime;
+        lean += Input.GetAxis("Lean") * leanSpeed * 2 * Time.deltaTime;
+
+        lean = Mathf.Clamp(lean, -maxOffsett.x, maxOffsett.x);
+
+
+        offsett.x = lean;
 
         RaycastHit hit;
-        Vector3 tDir = camera.rotation * (Vector2)offsett;
-        if (Physics.Raycast(target.position, tDir, out hit, Mathf.Abs( offsett.x), checkLayers))
+        Vector3 tDir = dummy.rotation * (Vector2)offsett;
+        if (Physics.Raycast(target.position, tDir, out hit, lean, checkLayers))
         {
-            offsett.x *= -1;
+            if (lean > 0)
+                lean = hit.distance;
+            else
+                lean = -hit.distance;
         }
 
-
-
-
-        dummy.position = target.position + dummy.rotation * offsett;
-        Vector2 off = offsett;
-        Vector3 lookAtTarget = target.position + dummy.rotation * off;
-
-        dummy.LookAt(lookAtTarget);
-        trueOffset = Vector3.MoveTowards(trueOffset, RayCam(target.position, dummy.position), smooth + speed * Time.deltaTime);
-
-        camera.position = target.position + dummy.rotation * trueOffset;
-        camera.rotation = dummy.rotation;
+        offsett.x = lean;
+        return offsett;
     }
 
     Vector3 RayCam(Vector3 from, Vector3 to)
     {
         //TODO : If radius is larger then target collider radius, cast clips. Compensate by moveing ray
-        //Boxcast /plane /dist to midpoint = movespeed? 
-        Ray ray = new Ray(from,  to - from);
 
-
-        Debug.DrawRay(ray.origin, ray.direction * offsett.z * -1, Color.green);
-
-        //DebugBox(from, (from + to * 0.5f), Vector3.one - Vector3.up * 0.5f, Quaternion.LookRotation(ray.direction), Color.yellow);
-
+        Ray ray = new Ray(from, to - from);
         RaycastHit hit;
-        /*
-        if(Physics.BoxCast(ray.origin, Vector3.one - Vector3.up * 0.25f, ray.direction, out hit, Quaternion.identity, offsett.z *-1, checkLayers))
+
+        if (debugRays)
+            DebugBox(from, (from + to * 0.5f), new Vector3(0.5f, 0.5f, -maxOffsett.z * 0.5f), Quaternion.LookRotation(ray.direction), (Color.yellow + Color.clear) * 0.5f);
+
+        if (Physics.SphereCast(ray, 0.45f, out hit, maxOffsett.z * -1, checkLayers))
         {
-            Debug.DrawRay(hit.point, hit.normal, Color.red);
+            Plane plane = new Plane(ray.direction, from);
+            Vector3 p = plane.ClosestPointOnPlane(hit.point);
+            Vector3 offDir = p - from;
+            offDir += hit.normal * 0.5f * maxOffsett.y;
+            offDir *= Vector3.Dot(ray.direction, hit.normal);
 
-            Vector3 point = hit.point - ray.direction * hit.distance;
-            Debug.DrawRay(point, Vector3.one*0.1f, Color.cyan);
+            Vector3 newPos = from + offDir + ray.direction * hit.distance;
 
-            smooth  = 1 - (ray.origin - point).sqrMagnitude;
+            if (debugRays)
+                DebugBox(from, (from + to * 0.5f), new Vector3(0.5f, 0.5f, -maxOffsett.z * 0.5f), Quaternion.LookRotation(ray.direction), Color.red);
 
-            Debug.DrawRay(ray.origin, ray.direction * offsett.z * -1, Color.red);
-
-            return new Vector3(offsett.x, offsett.y, Mathf.Lerp(offsett.z, hit.distance, smooth));
+            return newPos;
         }
-        /*/
-       
-
-        //WORKS!!!
-        if (Physics.SphereCast(ray, 0.45f, out hit, offsett.z *-1, checkLayers))
-        {
-            Debug.DrawRay(ray.origin, ray.direction * offsett.z * -1, Color.red);
-            return new Vector3(offsett.x, offsett.y, -hit.distance);
-        }
-        
-        return offsett;
+        return to;
     }
-
-
-
 
     void DebugBox(Vector3 rotateAround, Vector3 center, Vector3 size, Quaternion rotation, Color col)
     {
