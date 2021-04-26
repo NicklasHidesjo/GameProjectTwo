@@ -125,6 +125,21 @@ public class PlayerManager : MonoBehaviour
         playerState.SetState(PlayerState.playerStates.FlyBat);
     }
 
+    public void AddDamage(int dmg)
+    {
+        health.LoseHealth(dmg);
+    }
+    public void loseSTM(float loss)
+    {
+        stats.DecreaseStaminaValue(loss);
+    }
+
+    public float GetCurrentStamina()
+    {
+        return 1;
+        //stats.CurrentStamina;
+    }
+
     private void SetPooledActive(GameObject activateGO)
     {
         activateGO.transform.position = playerPointTransform.position;

@@ -64,8 +64,6 @@ public class PlayerState : MonoBehaviour
             case playerStates.TransformToBat:
                 {
                     playerManeger.ActivateBat();
-                    batMovement.SetBatTime(batMaxTime);
-
                     break;
                 }
             case playerStates.FlyBat:
