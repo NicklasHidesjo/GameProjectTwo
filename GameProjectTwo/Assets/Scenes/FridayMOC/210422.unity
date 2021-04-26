@@ -797,10 +797,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2083151169}
     - target: {fileID: 958640169, guid: 2f9d807d26898634283e854f9f35df03, type: 3}
-      propertyPath: lockToWindow
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 958640169, guid: 2f9d807d26898634283e854f9f35df03, type: 3}
       propertyPath: checkLayers.m_Bits
       value: 1
       objectReference: {fileID: 0}
