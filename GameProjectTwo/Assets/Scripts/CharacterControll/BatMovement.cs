@@ -20,6 +20,9 @@ public class BatMovement : MonoBehaviour
     [SerializeField] private float downForce = 10.0f;
     [SerializeField] float damping = 2.0f;
 
+    [Header("GRFX")]
+    [SerializeField] float bankAmount = 30;
+
     private PlayerState playerState;
 
     //Movent Vector
@@ -99,7 +102,7 @@ public class BatMovement : MonoBehaviour
 
     private void SetFaceForward()
     {
-        transform.forward = playerVelocity;
+        transform.rotation = Quaternion.LookRotation(playerVelocity) * Quaternion.Euler(0,0, -bankAmount * Input.GetAxis("Horizontal"));
     }
 
     Vector3 BatControl()
