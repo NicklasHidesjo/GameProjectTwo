@@ -10,10 +10,10 @@ public class FieldOfView : MonoBehaviour
     private float viewAngle;
     public float ViewAngle => viewAngle;
 
-    [SerializeField] LayerMask targetMask;
-    [SerializeField] LayerMask obstacleMask;
+	[SerializeField] LayerMask targetMask;
+	[SerializeField] LayerMask obstacleMask;
 
-    float undetectedTimer;
+	float undetectedTimer;
 
     float deathTimer;
 
@@ -78,9 +78,9 @@ public class FieldOfView : MonoBehaviour
     {
         Collider[] playersDetected = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
 
-        if (playersDetected.Length < 1) { return; }
+        npc.NoticedPlayer = false;
 
-        undetectedTimer = 0;
+        if (playersDetected.Length < 1) { return; }
 
         foreach (var player in playersDetected)
         {
@@ -97,6 +97,7 @@ public class FieldOfView : MonoBehaviour
                     return;
                 }
                 npc.RaiseAlertness(true);
+                undetectedTimer = 0;
                 if (PlayerManager.instance.PlayerState.CurrentState != PlayerState.playerStates.Sucking)
                 {
                     return;
@@ -107,9 +108,12 @@ public class FieldOfView : MonoBehaviour
             {
                 if (!hit.collider.CompareTag("Player"))
                 {
+                    npc.NoticedPlayer = false;
                     return;
                 }
+                npc.NoticedPlayer = true;
                 npc.RaiseAlertness(true);
+                undetectedTimer = 0;
             }
         }
     }

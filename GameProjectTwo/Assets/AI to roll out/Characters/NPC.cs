@@ -57,6 +57,8 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public bool Run { get; set; }
 
+	public bool NoticedPlayer { get; set; }
+
 	private void Awake()
 	{
 		if (stats == null)

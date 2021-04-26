@@ -32,6 +32,7 @@ public interface ICharacter
 	public bool IsSuckable { get; set; }
 	public bool ShouldShout { get; set; }
 	public bool Run { get; set; }
+	public bool NoticedPlayer { get; set; }
 
 	public List<NPC> NearbyCharacters { get;}
 
