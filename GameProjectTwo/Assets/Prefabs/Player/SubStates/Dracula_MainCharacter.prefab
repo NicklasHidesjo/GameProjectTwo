@@ -138,6 +138,8 @@ MonoBehaviour:
   debugRays: 1
   alignTo: {fileID: 0}
   playerSpeed: 4
+  runMultiplyer: 2
+  crouchMultiplyer: 0.5
   jumpForce: 4
   normalGravity: 20
   holdJumpGravityUp: 6
