@@ -7,21 +7,29 @@ using UnityEditor;
 public class FieldOfViewEditor : Editor
 {
     void OnSceneGUI()
-    {
-        FieldOfView fow = (FieldOfView)target;
-        Handles.color = Color.white;
-        Handles.DrawWireArc(fow.transform.position, Vector3.up, Vector3.forward, 360, fow.ViewRadius);
-        Vector3 viewAngleA = DirFromAngle(-fow.ViewAngle / 2, false);
-        Vector3 viewAngleB = DirFromAngle(fow.ViewAngle / 2, false);
+    { 
+        FieldOfView fov = (FieldOfView)target;
+        if (fov.NPC == null) // this is to remove the error when not playing in the editor.
+        { 
+            return; 
+        }
 
-        Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleA * fow.ViewRadius);
-        Handles.DrawLine(fow.transform.position, fow.transform.position + viewAngleB * fow.ViewRadius);
+        float viewRadius = fov.NPC.Stats.SightLenght;
+        int FoV = fov.NPC.FOV;
+
+        Handles.color = Color.white;
+        Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, viewRadius);
+        Vector3 viewAngleA = DirFromAngle(-FoV / 2, false);
+        Vector3 viewAngleB = DirFromAngle(FoV / 2, false);
+
+        Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngleA * viewRadius);
+        Handles.DrawLine(fov.transform.position, fov.transform.position + viewAngleB * viewRadius);
 
         Vector3 DirFromAngle(float angleInDegrees, bool angleIsGlobal)
         {
             if (!angleIsGlobal)
             {
-                angleInDegrees += fow.transform.eulerAngles.y;
+                angleInDegrees += fov.transform.eulerAngles.y;
             }
             return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
         }

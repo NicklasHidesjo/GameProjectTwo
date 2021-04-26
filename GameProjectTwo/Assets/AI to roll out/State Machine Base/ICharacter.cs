@@ -34,6 +34,8 @@ public interface ICharacter
 	public bool Run { get; set; }
 	public bool NoticedPlayer { get; set; }
 
+	public int FOV { get; set; }
+
 	public List<NPC> NearbyCharacters { get;}
 
 	/// <summary>
@@ -48,6 +50,7 @@ public interface ICharacter
 	/// </summary>
 	/// <param name="target"></param>
 	public void LookAt(Vector3 target);
+	public void LookAt(Quaternion target);
 
 	/// <summary>
 	/// Returns true if we hit the tag within the lenght towards direction

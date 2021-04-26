@@ -241,6 +241,7 @@ MonoBehaviour:
   steerSpeed: 100
   downForce: 4
   damping: 2
+  bankAmount: 30
 --- !u!1 &6631036003803505162
 GameObject:
   m_ObjectHideFlags: 0
