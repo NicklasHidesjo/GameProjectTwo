@@ -38,5 +38,11 @@ public class BarrierScript : MonoBehaviour
         {
             BarrierLevels[i].SetActive(true);
         }
+        ActiveLevel = 0;
     }
+
+  /* ToDo if needed  void Loadlevel(int levelInput)
+    {
+
+    } */
 }
