@@ -16,6 +16,7 @@ public class BatMovement : MonoBehaviour
     [SerializeField] LayerMask checkLayerForFlight;
 
     [Header("Tweeks")]
+    [SerializeField] float batCostPerSec = 20;
     [SerializeField] float steerSpeed = 100;
     [SerializeField] private float downForce = 10.0f;
     [SerializeField] float damping = 2.0f;
@@ -57,26 +58,27 @@ public class BatMovement : MonoBehaviour
         }
     }
 
-    public void SetBatTime(float time)
-    {
-        maxBatTime = time;
-        batTime = time;
-    }
 
     //TODO : Decide on Input metod and keys.
     private void Update()
     {
-        batTime -= Time.deltaTime;
+        
+        PlayerManager.instance.StatsManager.DecreaseStaminaValue(batCostPerSec * Time.deltaTime);
+        
+        if(Input.GetButtonDown("TransformShape") || PlayerManager.instance.StatsManager.CurrentStamina <= 0)
+        {
+            playerState.SetState(PlayerState.playerStates.TransformToDracula);
+        }
 
+
+        /*
         Renderer[] renderer = gameObject.GetComponentsInChildren<Renderer>();
 
         foreach(Renderer r in renderer)
         {
             r.material.color = Color.Lerp(Color.red, Color.white, (batTime / maxBatTime));
         }
-
-        if (Input.GetButtonDown("TransformShape") || batTime < 0)
-            playerState.SetState(PlayerState.playerStates.TransformToDracula);
+        */
     }
     public void Init(PlayerState playerState)
     {

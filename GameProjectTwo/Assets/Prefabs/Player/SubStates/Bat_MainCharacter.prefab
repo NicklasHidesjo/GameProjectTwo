@@ -237,6 +237,7 @@ MonoBehaviour:
   checkLayerForFlight:
     serializedVersion: 2
     m_Bits: 1
+  batCostPerSec: 20
   steerSpeed: 100
   downForce: 4
   damping: 2
