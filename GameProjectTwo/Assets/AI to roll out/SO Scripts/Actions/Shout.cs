@@ -9,23 +9,11 @@ public class Shout : Action
 	{
 		if (!character.ShouldShout) { return; }
 
-		GameObject[] civilians = GameObject.FindGameObjectsWithTag("Civilian");
-		GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
-
-		foreach (var npc in civilians)
+		foreach (var npc in character.NearbyCharacters)
 		{
-			if(Vector3.Distance(character.Transform.position, npc.transform.position) < character.Stats.ShoutRange)
-			{
-				Debug.Log(npc.name + " Is hearing the shout");
-				npc.GetComponent<ICharacter>().ReactToShout();
-			}
-		}
-		foreach (var npc in guards)
-		{
-			if (Vector3.Distance(character.Transform.position, npc.transform.position) < character.Stats.ShoutRange)
-			{
-				npc.GetComponent<ICharacter>().ReactToShout();
-			}
+			if (npc == null) continue;
+			Debug.Log(npc.name);
+			npc.ReactToShout();
 		}
 	}
 }

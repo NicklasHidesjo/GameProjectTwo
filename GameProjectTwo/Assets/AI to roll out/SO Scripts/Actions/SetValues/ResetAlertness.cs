@@ -6,9 +6,9 @@ public class ResetAlertness : Action
 	public override void Execute(ICharacter character)
 	{
 		Vector3 direction = character.Player.position - character.Transform.position;
-		if (!character.RayHitTag("Player", direction, character.Stats.SightLenght))
+		if (!character.RayHitPlayer(direction, character.Stats.SightLenght))
 		{
-			character.Alertness = 0;
+			character.LowerAlertness(character.Stats.MaxAlerted +1); // the plus one is to make sure we go to 0
 		}
 	}
 }

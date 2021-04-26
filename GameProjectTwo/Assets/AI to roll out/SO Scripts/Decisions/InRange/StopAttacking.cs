@@ -7,6 +7,6 @@ public class StopAttacking : Decision
 	{
 		Vector3 direction = character.Player.position - character.Transform.position;
 		float distance = character.Agent.stoppingDistance + 1f; // make this use a stat attack range
-		return !character.RayHitTag("Player", character.Transform.forward, distance);
+		return !character.RayHitPlayer(character.Transform.forward, distance);
 	}
 }

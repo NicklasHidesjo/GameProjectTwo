@@ -11,7 +11,7 @@ public class MoveAwayFromPlayer : Action
 	{
 		if(character.Agent.velocity != Vector3.zero) { return; }
 		Vector3 direction = character.Player.position - character.Transform.position;
-		if (character.RayHitTag("Player", direction, character.Stats.SightLenght))
+		if (character.RayHitPlayer(direction, character.Stats.SightLenght))
 		{
 			GetRunDestination(character);
 		}

@@ -8,9 +8,10 @@ public class SetSeesPlayer : Action
 		character.SeesPlayer = false;
 
 		Vector3 direction = character.Player.position - character.Transform.position;
-		if (!character.InFrontOff(direction)) { return; }
+		if (!character.InFrontOff(direction) && !character.NoticedPlayer) { return; }
 
-		character.SeesPlayer = character.RayHitTag("Player", direction, character.Stats.FollowRange);
+		character.SeesPlayer = character.RayHitPlayer(direction, character.Stats.SightLenght);
+
 		if (character.SeesPlayer)
 		{
 			character.TimeSinceLastSeenPlayer = 0;

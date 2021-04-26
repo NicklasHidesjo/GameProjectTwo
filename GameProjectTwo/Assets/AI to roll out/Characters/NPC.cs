@@ -52,6 +52,13 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public bool ShouldShout { get; set; }
 
+	private List<NPC> nearbyCharacters = new List<NPC>();
+	public List<NPC> NearbyCharacters => nearbyCharacters;
+
+	public bool Run { get; set; }
+
+	public bool NoticedPlayer { get; set; }
+
 	private void Awake()
 	{
 		if (stats == null)
@@ -80,6 +87,25 @@ public class NPC : MonoBehaviour, ICharacter
 		// set the spherecollider radius here using a stat in npc stats?
 	}
 
+
+	private void FixedUpdate()
+	{
+		Debug.Log(StateTime);
+		SetNearbyCharacters();
+	}
+
+	private void SetNearbyCharacters()
+	{
+		nearbyCharacters.Clear();
+		int layerMask = 1 << 7;
+		Collider[] npcClose = Physics.OverlapSphere(transform.position, stats.ShoutRange, layerMask);
+		foreach (var character in npcClose)
+		{
+			if (character.GetComponent<NPC>() == this) { continue; }
+			nearbyCharacters.Add(character.GetComponent<NPC>());
+		}
+	}
+
 	public void Attack()
 	{
 		Debug.Log("i am now attacking the player. I deal this much damage: " + stats.Damage);
@@ -93,12 +119,12 @@ public class NPC : MonoBehaviour, ICharacter
 	{
 		transform.LookAt(Target);
 	}
-	public bool RayHitTag(string tag, Vector3 direction, float lenght)
+	public bool RayHitPlayer(Vector3 direction, float lenght)
 	{
 		RaycastHit hit;
 		if (Physics.Raycast(transform.position, direction, out hit, lenght))
 		{
-			if (hit.collider.CompareTag(tag))
+			if (hit.collider.CompareTag("Player"))
 			{
 				return true;
 			}
@@ -107,7 +133,8 @@ public class NPC : MonoBehaviour, ICharacter
 	}
 	public bool InFrontOff(Vector3 direction)
 	{
-		return Vector3.Dot(direction, transform.forward) > 1;
+		Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
+		return Vector3.Angle(transform.forward, dirToTarget) < stats.FieldOfView / 2;
 	}
 
 	public void DecreaseHealth(int health)
@@ -120,12 +147,37 @@ public class NPC : MonoBehaviour, ICharacter
 	}
 
 	public void ReactToShout()
-	{	
+	{
 		if (gameObject.CompareTag("Civilian"))
 		{
-			if (Vector3.Distance(transform.position, player.position) > stats.ReactionRange) { return; }
+			if (Vector3.Distance(transform.position, player.position) > stats.SightLenght) { return; } // have this be a check if we se the player instead
 		}
 		ShouldShout = false;
+
+		SetAlertnessToMax();
+	}
+
+	public void SetAlertnessToMax()
+	{
 		Alertness = stats.MaxAlerted;
+		Run = true;
+	}
+
+	public void RaiseAlertness(bool inFOW)
+	{
+		float value = stats.AlertIncrease * Time.deltaTime;
+		if(inFOW)
+		{
+			value *= stats.InSightMultiplier;
+		}
+		Alertness = Mathf.Clamp(Alertness + Mathf.Abs(value), 0, stats.MaxAlerted);
+		if (Alertness >= stats.MaxAlerted)
+		{
+			Run = true;
+		}
+	}
+	public void LowerAlertness(float value)
+	{
+		Alertness = Mathf.Clamp(Alertness - Mathf.Abs(value), 0, stats.MaxAlerted);
 	}
 }

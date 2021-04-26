@@ -2,5 +2,6 @@ public enum NPCBooleans
 {
 	StartedRotation,
 	IsSuckable,
-	ShouldShout
+	ShouldShout,
+	Run
 }

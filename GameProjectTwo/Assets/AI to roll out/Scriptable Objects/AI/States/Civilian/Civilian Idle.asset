@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Civilian Idle
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: b2837432a9174614ca2c3bc717bb2ab5, type: 2}
   - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
   - {fileID: 11400000, guid: 37c1ba28c9ce5d34ca77bcf68ccb92fe, type: 2}
   executeActions:
