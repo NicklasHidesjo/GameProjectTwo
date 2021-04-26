@@ -32,8 +32,10 @@ public class NPCStats : ScriptableObject
 	[Header("Sight Settings")]
 	[Tooltip("How far the character will be able to see in-front of them")]
 	public float SightLenght = 10f;
-	[Tooltip("The Characters field of view")]
-	[Range(0, 360)] public float FieldOfView = 40;
+	[Tooltip("The Characters field of view when idle")]
+	[Range(0, 360)] public int RelaxedFOW = 40;
+	[Tooltip("The character field of view when alerted (suspicious, chasing, searching")]
+	[Range(0, 360)] public int AlertedFOW = 60;
 	[Tooltip("The angle that the character will pan from and to when searching for the player (forward +- SearchAngle (DO NOT SET THIS HIGHER THEN 89!!!)")]
 	[Range(0,89)]public int SearchAngle = 45;
 
@@ -49,11 +51,13 @@ public class NPCStats : ScriptableObject
 	[Range(10,180)]public int FleeAngle = 45;
 	public float MaxFleeDistance = 40f;
 	public float MinFleeDistance = 5f;
+
 	[Header("Timers")]
 	public float IdleTime = 2f;
 	[Tooltip("The duration that the Civilian will be stunned after getting their blood sucked")]
 	public float SuckedStun = 2f;
-	public float IntuitionTime = 1f; // this i might remove and replace with another system.
+	[Tooltip("For how long (in seconds) that the character will be able to guess the new position of the player (based on it's position and it's velocity)")]
+	[Range(0.1f,1f)]public float IntuitionTime = 0.5f;
 	[Tooltip("The time (in seconds) that it takes for the character to calm down and start decreasing in alertness after noticing the player.")]
 	public float CalmDownTime = 5f; 
 

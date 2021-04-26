@@ -4,12 +4,6 @@ using System.Collections.Generic;
 
 public class FieldOfView : MonoBehaviour
 {
-    private float viewRadius;
-    public float ViewRadius => viewRadius;
-
-    private float viewAngle;
-    public float ViewAngle => viewAngle;
-
 	[SerializeField] LayerMask targetMask;
 	[SerializeField] LayerMask obstacleMask;
 
@@ -18,12 +12,11 @@ public class FieldOfView : MonoBehaviour
     float deathTimer;
 
     NPC npc;
+    public NPC NPC => npc;
 
     void Start()
     {
         npc = GetComponent<NPC>();
-        viewRadius = npc.Stats.SightLenght;
-        viewAngle = npc.Stats.FieldOfView;
     }
     private void FixedUpdate()
     {
@@ -76,7 +69,7 @@ public class FieldOfView : MonoBehaviour
     }
     void FindVisibleTargets()
     {
-        Collider[] playersDetected = Physics.OverlapSphere(transform.position, viewRadius, targetMask);
+        Collider[] playersDetected = Physics.OverlapSphere(transform.position, npc.Stats.SightLenght, targetMask);
 
         npc.NoticedPlayer = false;
 
@@ -86,7 +79,7 @@ public class FieldOfView : MonoBehaviour
         {
             Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
             RaycastHit hit;
-            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+            if (Vector3.Angle(transform.forward, dirToTarget) < npc.FOW / 2)
             {
                 if (!Physics.Raycast(transform.position, dirToTarget, out hit, npc.Stats.SightLenght))
                 {

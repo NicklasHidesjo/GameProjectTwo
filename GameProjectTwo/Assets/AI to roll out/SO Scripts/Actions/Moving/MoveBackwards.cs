@@ -7,6 +7,7 @@ public class MoveBackwards : Action
 {
 	public override void Execute(ICharacter character)
 	{
+		character.Move(character.Transform.position);
 		if(character.Alertness < character.Stats.AlertActionThreshold)
 		{
 			return;

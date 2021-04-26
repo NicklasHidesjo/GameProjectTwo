@@ -13,31 +13,30 @@ MonoBehaviour:
   m_Name: Default Guard
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  ChangeDuration: 2
-  SightLenght: 10
+  ClearanceDistance: 3
   MaxAlerted: 5
   CautiousThreshold: 1.5
   AlertActionThreshold: 3
   AlertDecrease: 1
   AlertIncrease: 1
-  IdleTime: 2
-  ShoutRange: 5
-  ReactionRange: 3
+  InSightMultiplier: 2
+  NoticeRange: 3
+  SightLenght: 10
+  RelaxedFOW: 40
+  AlertedFOW: 60
   SearchAngle: 45
   SuspisciousSpeed: 0.5
   WalkSpeed: 1.5
   RunSpeed: 2.7
   SearchSpeed: 1.5
+  RotationSpeed: 30
   FleeAngle: 45
   MaxFleeDistance: 40
   MinFleeDistance: 5
-  BackAwaySpeed: 0.5
+  IdleTime: 5
   SuckedStun: 2
-  Damage: 10
-  FollowRange: 10
-  RotationSpeed: 30
-  ClearanceDistance: 3
-  AttacksPerSecond: 1
-  SuspicionTime: 2
   IntuitionTime: 1
-  SearchRadius: 3
+  CalmDownTime: 5
+  ShoutRange: 5
+  Damage: 10
+  AttacksPerSecond: 1
