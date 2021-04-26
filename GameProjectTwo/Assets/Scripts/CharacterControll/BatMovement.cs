@@ -16,6 +16,7 @@ public class BatMovement : MonoBehaviour
     [SerializeField] LayerMask checkLayerForFlight;
 
     [Header("Tweeks")]
+    [SerializeField] float batCostPerSec = 20;
     [SerializeField] float steerSpeed = 100;
     [SerializeField] private float downForce = 10.0f;
     [SerializeField] float damping = 2.0f;
@@ -58,11 +59,10 @@ public class BatMovement : MonoBehaviour
     //TODO : Decide on Input metod and keys.
     private void Update()
     {
-        batTime -= Time.deltaTime;
-
-
-        PlayerManager.instance.loseSTM(Time.deltaTime);
-        if(Input.GetButtonDown("TransformShape") || PlayerManager.instance.GetCurrentStamina() < 0)
+        
+        PlayerManager.instance.StatsManager.DecreaseStaminaValue(batCostPerSec * Time.deltaTime);
+        
+        if(Input.GetButtonDown("TransformShape") || PlayerManager.instance.StatsManager.CurrentStamina <= 0)
         {
             playerState.SetState(PlayerState.playerStates.TransformToDracula);
         }

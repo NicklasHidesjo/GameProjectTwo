@@ -90,7 +90,7 @@ public class NPC : MonoBehaviour, ICharacter
 
 	private void FixedUpdate()
 	{
-		Debug.Log(StateTime);
+		//Debug.Log(StateTime);
 		SetNearbyCharacters();
 	}
 
