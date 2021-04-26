@@ -59,6 +59,8 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public bool NoticedPlayer { get; set; }
 
+	public int FOV { get; set; }
+
 	private void Awake()
 	{
 		if (stats == null)
@@ -84,13 +86,13 @@ public class NPC : MonoBehaviour, ICharacter
 		YRotCorrection = 0;
 		SearchAngle = stats.SearchAngle;
 		RotationSpeed = stats.RotationSpeed;
+		FOV = stats.RelaxedFOV;
 		// set the spherecollider radius here using a stat in npc stats?
 	}
 
 
 	private void FixedUpdate()
 	{
-		Debug.Log(StateTime);
 		SetNearbyCharacters();
 	}
 
@@ -119,6 +121,10 @@ public class NPC : MonoBehaviour, ICharacter
 	{
 		transform.LookAt(Target);
 	}
+	public void LookAt(Quaternion Target)
+	{
+		transform.rotation = Target;
+	}
 	public bool RayHitPlayer(Vector3 direction, float lenght)
 	{
 		RaycastHit hit;
@@ -134,7 +140,7 @@ public class NPC : MonoBehaviour, ICharacter
 	public bool InFrontOff(Vector3 direction)
 	{
 		Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
-		return Vector3.Angle(transform.forward, dirToTarget) < stats.FieldOfView / 2;
+		return Vector3.Angle(transform.forward, dirToTarget) < stats.RelaxedFOV / 2;
 	}
 
 	public void DecreaseHealth(int health)
@@ -163,10 +169,10 @@ public class NPC : MonoBehaviour, ICharacter
 		Run = true;
 	}
 
-	public void RaiseAlertness(bool inFOW)
+	public void RaiseAlertness(bool inFOV)
 	{
 		float value = stats.AlertIncrease * Time.deltaTime;
-		if(inFOW)
+		if(inFOV)
 		{
 			value *= stats.InSightMultiplier;
 		}
