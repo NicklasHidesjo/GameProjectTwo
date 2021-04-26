@@ -8,11 +8,11 @@ public class ChangeFOW : Action
 	{
         if(alertedFOW)
 		{
-			character.FOW = character.Stats.AlertedFOW;
+			character.FOV = character.Stats.AlertedFOV;
 		}
 		else
 		{
-			character.FOW = character.Stats.RelaxedFOW;
+			character.FOV = character.Stats.RelaxedFOV;
 		}
 	}
 }

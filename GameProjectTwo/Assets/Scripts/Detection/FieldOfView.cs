@@ -79,7 +79,7 @@ public class FieldOfView : MonoBehaviour
         {
             Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
             RaycastHit hit;
-            if (Vector3.Angle(transform.forward, dirToTarget) < npc.FOW / 2)
+            if (Vector3.Angle(transform.forward, dirToTarget) < npc.FOV / 2)
             {
                 if (!Physics.Raycast(transform.position, dirToTarget, out hit, npc.Stats.SightLenght))
                 {

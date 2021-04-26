@@ -34,7 +34,7 @@ public interface ICharacter
 	public bool Run { get; set; }
 	public bool NoticedPlayer { get; set; }
 
-	public int FOW { get; set; }
+	public int FOV { get; set; }
 
 	public List<NPC> NearbyCharacters { get;}
 

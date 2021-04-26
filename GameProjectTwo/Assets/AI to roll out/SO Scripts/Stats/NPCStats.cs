@@ -33,9 +33,9 @@ public class NPCStats : ScriptableObject
 	[Tooltip("How far the character will be able to see in-front of them")]
 	public float SightLenght = 10f;
 	[Tooltip("The Characters field of view when idle")]
-	[Range(0, 360)] public int RelaxedFOW = 40;
+	[Range(0, 360)] public int RelaxedFOV = 40;
 	[Tooltip("The character field of view when alerted (suspicious, chasing, searching")]
-	[Range(0, 360)] public int AlertedFOW = 60;
+	[Range(0, 360)] public int AlertedFOV = 60;
 	[Tooltip("The angle that the character will pan from and to when searching for the player (forward +- SearchAngle (DO NOT SET THIS HIGHER THEN 89!!!)")]
 	[Range(0,89)]public int SearchAngle = 45;
 
