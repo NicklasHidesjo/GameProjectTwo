@@ -16,8 +16,8 @@ MonoBehaviour:
   ChangeDuration: 2
   SightLenght: 10
   MaxAlerted: 20
-  CautiousThreshold: 5
-  AlertActionThreshold: 10
+  CautiousThreshold: 10
+  AlertActionThreshold: 15
   AlertDecrease: 1
   AlertIncrease: 1
   IdleTime: 2
@@ -31,7 +31,7 @@ MonoBehaviour:
   FleeAngle: 45
   MaxFleeDistance: 40
   MinFleeDistance: 5
-  BackAwaySpeed: 0.1
+  BackAwaySpeed: 0.5
   SuckedStun: 2
   Damage: 10
   FollowRange: 10

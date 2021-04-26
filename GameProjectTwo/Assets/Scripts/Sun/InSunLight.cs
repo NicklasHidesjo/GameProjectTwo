@@ -19,16 +19,55 @@ public class InSunLight : MonoBehaviour
     [SerializeField] float inSkin = -0.05f;
     [SerializeField] bool inSunlight;
 
+    private PlayerStatsManager playerStats;
+    [SerializeField] float gracePeriod;
+    [SerializeField] float tickRate;
+    [SerializeField] int damagePerTick;
+
+    Coroutine damage;
     // Start is called before the first frame update
     void Start()
     {
         SunInit();
     }
 
+
     // Update is called once per frame
     void FixedUpdate()
     {
         inSunlight = InSun();
+        if (inSunlight)
+        {
+            
+            if (damage == null)
+            {
+                damage = StartCoroutine(TakeDamageInSunLight());
+                //activateSunIndicator(gracePeriod);
+            }
+        }
+        else
+        {
+            if (damage != null)
+            {
+                StopCoroutine(damage);
+                damage = null;
+            }
+        }
+
+    }
+
+    IEnumerator TakeDamageInSunLight()
+    {
+        print("in sun light");
+        yield return new WaitForSeconds(gracePeriod);
+
+        while (inSunlight && !playerStats.IsDead)
+        {
+            print("damage taken: " + damagePerTick);
+            playerStats.DecreaseHealthValue(damagePerTick);
+            yield return new WaitForSeconds(tickRate);
+        }
+
     }
 
     public void SunInit(Transform dracula, Transform linearLightSun)
@@ -59,8 +98,9 @@ public class InSunLight : MonoBehaviour
             dracula = FindObjectOfType<CharacterController>().transform;
            // Debug.Log("<color=red> dracula is missing. Auto assigned : </color>" + dracula.name);
         }
-
+        playerStats = PlayerManager.instance.GetComponent<PlayerStatsManager>();
         GetOffsettFromCollider();
+
     }
 
     void GetOffsettFromCollider()
@@ -88,13 +128,13 @@ public class InSunLight : MonoBehaviour
                 lightSourceDist - linearLightSun.transform.right *
                 WidthOff + linearLightSun.transform.up * hightOff,
                 linearLightSun.transform.forward)
-                == true
+                
             ||
             RaycastSunToCharacter(dracula.position - linearLightSun.transform.forward *
                 lightSourceDist + linearLightSun.transform.right *
                 WidthOff + linearLightSun.transform.up * hightOff,
                 linearLightSun.transform.forward)
-                == true
+                
                 )
             {
                 return true;

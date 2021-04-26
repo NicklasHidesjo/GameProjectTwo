@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 4996842985696655276}
   - component: {fileID: 4996842985696655277}
   - component: {fileID: 4996842985696655278}
+  - component: {fileID: -3468355289326355362}
   m_Layer: 6
   m_Name: Bat_MainCharacter
   m_TagString: Player
@@ -240,6 +241,30 @@ MonoBehaviour:
   steerSpeed: 100
   downForce: 4
   damping: 2
+--- !u!114 &-3468355289326355362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4996842985696655279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a981d8a551223ed4591a3108003b8804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugRay: 1
+  checkLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  linearLightSun: {fileID: 0}
+  dracula: {fileID: 0}
+  lightSourceDist: 100
+  inSkin: -0.05
+  inSunlight: 0
+  gracePeriod: 5
+  tickRate: 1
+  damagePerTick: 1
 --- !u!1 &6631036003803505162
 GameObject:
   m_ObjectHideFlags: 0
