@@ -1,17 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-[CreateAssetMenu(fileName = "MoveAwayFromPlayer", menuName = "AI/Action/MoveAwayFromPlayer")]
-public class MoveAwayFromPlayer : Action
+[CreateAssetMenu(fileName = "StartFleeing", menuName = "AI/Action/StartFleeing")]
+public class StartFleeing : Action
 {
-	// make bools here that we can tick to have different run behaviours from the same action script.
 	public override void Execute(ICharacter character)
 	{
-		if(character.Agent.velocity != Vector3.zero && !character.NoticedPlayer) { return; }
-		if(character.StateTime < 1f) { return; }
-		character.StateTime = 0;
 		Vector3 direction = character.Player.position - character.Transform.position;
 		if (character.RayHitPlayer(direction, character.Stats.SightLenght))
 		{
@@ -31,9 +25,10 @@ public class MoveAwayFromPlayer : Action
 		Vector3 randomPos = (randomDir * distance) + character.Transform.position;
 
 		NavMeshHit hit;
-		if(NavMesh.SamplePosition(randomPos, out hit, 5,NavMesh.AllAreas))
+		if (NavMesh.SamplePosition(randomPos, out hit, 5, NavMesh.AllAreas))
 		{
 			character.Move(hit.position);
 		}
 	}
 }
+
