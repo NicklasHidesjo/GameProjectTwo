@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStatsManager : MonoBehaviour
 {
     private BarController barControllerHealth;
-    private BarController barControllerHunger;
+    private BarController barControllerStamina;
     private EndLevelCheck endLevelCheck;
     
     [Header("Hunger Variables")]
@@ -13,6 +13,13 @@ public class PlayerStatsManager : MonoBehaviour
     [SerializeField] int currentSatiation;
     public int MaxSatiation { get => maxSatiation; }
     public int CurrentSatiation { get => currentSatiation; }
+    
+    [Header("Stamina Variables")]
+    [SerializeField] float maxStamina = 100;
+    [SerializeField] float currentStamina = 100;
+    [SerializeField] private float staminaRecoveryRate = 10f;
+    public float MaxStamina { get => maxStamina; }
+    public float CurrentStamina { get => currentStamina; }
     
     [Header("Health Variables")]
     [SerializeField] int currentHealth = 0;
@@ -23,6 +30,8 @@ public class PlayerStatsManager : MonoBehaviour
     
     private bool isDead = false;
     public bool IsDead => isDead;
+    
+    private float staminaTick = 0f;
 
     void Start()
     {
@@ -36,9 +45,9 @@ public class PlayerStatsManager : MonoBehaviour
         }
         
         barControllerHealth = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<BarController>();
-        barControllerHunger = GameObject.FindGameObjectWithTag("HungerMeter").GetComponent<BarController>();
+        barControllerStamina = GameObject.FindGameObjectWithTag("StaminaBar").GetComponent<BarController>();
         barControllerHealth.Init();
-        barControllerHunger.Init();
+        barControllerStamina.Init();
         ResetStats();
     }
     
@@ -50,14 +59,30 @@ public class PlayerStatsManager : MonoBehaviour
             Debug.Log("You lost. Git gud scrub");
             isDead = false;
         }
+
+        if (currentStamina < maxStamina)
+        {
+            IncreaseStaminaValue(staminaRecoveryRate * Time.deltaTime);
+            /*staminaTick += 100f * Time.deltaTime;
+            if (staminaTick >= staminaRecoveryRate)
+            {
+                IncreaseStaminaValue(1);
+                staminaTick = 0f;
+            }*/
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            DecreaseStaminaValue(20);
+        }
     }
 
-    private void SetCurrentBarValue(BarController barController, int value)
+    private void SetCurrentBarValue(BarController barController, float value)
     {
         barController.SetCurrentValue(value);
     }
 
-    private void SetMaxBarValue(BarController barController, int maxValue)
+    private void SetMaxBarValue(BarController barController, float maxValue)
     {
         barController.SetMaxValue(maxValue);
     }
@@ -78,7 +103,7 @@ public class PlayerStatsManager : MonoBehaviour
     public void IncreaseSatiationValue(int satiationIncrease)
     {
         currentSatiation = Mathf.Clamp(currentSatiation + satiationIncrease, 0, maxSatiation);
-        SetCurrentBarValue(barControllerHunger, currentSatiation);
+        //SetCurrentBarValue(barControllerStamina, currentSatiation);
 
         if (currentSatiation >= maxSatiation)
         {
@@ -87,6 +112,18 @@ public class PlayerStatsManager : MonoBehaviour
         }
     }
 
+    public void IncreaseStaminaValue(float staminaIncrease)
+    {
+        currentStamina = Mathf.Clamp(currentStamina + staminaIncrease, 0, maxStamina);
+        SetCurrentBarValue(barControllerStamina, currentStamina);
+    }
+
+    public void DecreaseStaminaValue(float staminaDecrease)
+    {
+        currentStamina = Mathf.Clamp(currentStamina - staminaDecrease, 0, maxStamina);
+        SetCurrentBarValue(barControllerStamina, currentStamina);
+    }
+    
     public void ResetStats()
     {
         
@@ -105,9 +142,9 @@ public class PlayerStatsManager : MonoBehaviour
         Lairfinder.SetActive(false);
        
         
-        SetMaxBarValue(barControllerHunger, maxSatiation);
+        SetMaxBarValue(barControllerStamina, maxStamina);
         SetMaxBarValue(barControllerHealth, maxHealth);
-        SetCurrentBarValue(barControllerHunger, currentSatiation);
+        SetCurrentBarValue(barControllerStamina, currentStamina);
         SetCurrentBarValue(barControllerHealth, currentHealth);
     }
     
