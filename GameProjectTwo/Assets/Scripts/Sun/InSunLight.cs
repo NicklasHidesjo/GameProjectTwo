@@ -20,52 +20,65 @@ public class InSunLight : MonoBehaviour
     [SerializeField] bool inSunlight;
 
     private PlayerStatsManager playerStats;
+
+    private Coroutine sunDamage;
     [SerializeField] float gracePeriod;
-    [SerializeField] float tickRate;
+    private float graceTimer;
+    [SerializeField] float sunDamageTickRate;
     [SerializeField] int damagePerTick;
 
-    Coroutine damage;
-    // Start is called before the first frame update
+
     void Start()
     {
         SunInit();
     }
 
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         inSunlight = InSun();
         if (inSunlight)
         {
             
-            if (damage == null)
+            if (sunDamage == null)
             {
-                damage = StartCoroutine(TakeDamageInSunLight());
+                sunDamage = StartCoroutine(TakeDamageInSunLight());
+                
                 //activateSunIndicator(gracePeriod);
             }
+            graceTimer = Mathf.Clamp(graceTimer + Time.deltaTime, 0, gracePeriod);
         }
         else
         {
-            if (damage != null)
+            if (sunDamage != null)
             {
-                StopCoroutine(damage);
-                damage = null;
+                //GameUiManager.instance.DeactivateSunIndicator();
+
+                StopCoroutine(sunDamage);
+                sunDamage = null;
             }
+
+            graceTimer = Mathf.Clamp(graceTimer - Time.fixedDeltaTime, 0, gracePeriod);
+
         }
 
+        GameUiManager.instance.SetSunIndicatorAlpha(graceTimer, gracePeriod);
     }
 
     IEnumerator TakeDamageInSunLight()
     {
         print("in sun light");
-        yield return new WaitForSeconds(gracePeriod);
+
+        while (graceTimer < gracePeriod)
+        {
+            yield return null;
+        }
 
         while (inSunlight && !playerStats.IsDead)
         {
-            print("damage taken: " + damagePerTick);
+            print("sunDamage taken: " + damagePerTick);
             playerStats.DecreaseHealthValue(damagePerTick);
-            yield return new WaitForSeconds(tickRate);
+            yield return new WaitForSeconds(sunDamageTickRate);
         }
 
     }
@@ -137,6 +150,7 @@ public class InSunLight : MonoBehaviour
                 
                 )
             {
+
                 return true;
             }
         }
