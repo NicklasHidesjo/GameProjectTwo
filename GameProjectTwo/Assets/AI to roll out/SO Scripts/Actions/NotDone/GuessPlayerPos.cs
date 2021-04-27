@@ -9,7 +9,6 @@ public class GuessPlayerPos : Action
 		if(character.TimeSinceLastSeenPlayer <= 0) { return; }
 
 		Vector3 velocity = character.Player.GetComponentInParent<CharacterController>().velocity.normalized;
-		Debug.Log(velocity);
 		float distance = Vector3.Distance(character.Transform.position, character.Player.position);
 
 		Vector3 guessPos = character.Player.position + (velocity * distance);

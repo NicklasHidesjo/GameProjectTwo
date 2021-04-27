@@ -12,7 +12,6 @@ public class Shout : Action
 		foreach (var npc in character.NearbyCharacters)
 		{
 			if (npc == null) continue;
-			Debug.Log(npc.name);
 			npc.ReactToShout();
 		}
 	}

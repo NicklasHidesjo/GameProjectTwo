@@ -22,8 +22,8 @@ MonoBehaviour:
   InSightMultiplier: 2
   NoticeRange: 3
   SightLenght: 10
-  RelaxedFOW: 40
-  AlertedFOW: 60
+  RelaxedFOV: 40
+  AlertedFOV: 60
   SearchAngle: 45
   SuspisciousSpeed: 0.5
   WalkSpeed: 1.5

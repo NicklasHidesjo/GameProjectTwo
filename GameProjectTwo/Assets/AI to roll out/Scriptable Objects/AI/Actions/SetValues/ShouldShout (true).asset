@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ShouldShout (true)
   m_EditorClassIdentifier: 
   setBool: 2
-  value: 1
+  isTrue: 1

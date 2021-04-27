@@ -21,7 +21,6 @@ public class StateMachine : MonoBehaviour
     {
         if (currentState != null)
         {
-            //Debug.Log(name + " Is in: " + currentState);
             currentState.ExecuteState();
         }
     }
@@ -38,8 +37,7 @@ public class StateMachine : MonoBehaviour
 
         if (character.Alertness > character.Stats.CautiousThreshold)
         {
-            print(name + " has entered " + newState);
-
+            //print(name + " has entered " + newState);
         }
 
         currentState = Instantiate(newState);

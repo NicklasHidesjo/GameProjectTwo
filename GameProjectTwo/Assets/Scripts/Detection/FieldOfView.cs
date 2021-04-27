@@ -7,8 +7,6 @@ public class FieldOfView : MonoBehaviour
 	[SerializeField] LayerMask targetMask;
 	[SerializeField] LayerMask obstacleMask;
 
-	float undetectedTimer;
-
     float deathTimer;
 
     NPC npc;
@@ -22,13 +20,13 @@ public class FieldOfView : MonoBehaviour
     {
         IncreaseUndetectedTimer();
         FindVisibleTargets();
-        ToggleSymbols();
+        //ToggleSymbols();
     }
 
     private void IncreaseUndetectedTimer()
     {
-        undetectedTimer += Time.fixedDeltaTime;
-        if (undetectedTimer < npc.Stats.CalmDownTime) { return; }
+        npc.TimeSinceLastSeenPlayer += Time.fixedDeltaTime;
+        if (npc.TimeSinceLastSeenPlayer < npc.Stats.CalmDownTime) { return; }
         if (npc.Alertness <= 0) { return; }
         npc.LowerAlertness(npc.Stats.AlertDecrease * Time.fixedDeltaTime);
     }
@@ -72,6 +70,7 @@ public class FieldOfView : MonoBehaviour
         Collider[] playersDetected = Physics.OverlapSphere(transform.position, npc.Stats.SightLenght, targetMask);
 
         npc.NoticedPlayer = false;
+        npc.SeesPlayer = false;
 
         if (playersDetected.Length < 1) { return; }
 
@@ -89,8 +88,11 @@ public class FieldOfView : MonoBehaviour
                 {
                     return;
                 }
+
+                npc.SeesPlayer = true;
                 npc.RaiseAlertness(true);
-                undetectedTimer = 0;
+                npc.TimeSinceLastSeenPlayer = 0;
+
                 if (PlayerManager.instance.PlayerState.CurrentState != PlayerState.playerStates.Sucking)
                 {
                     return;
@@ -106,7 +108,7 @@ public class FieldOfView : MonoBehaviour
                 }
                 npc.NoticedPlayer = true;
                 npc.RaiseAlertness(true);
-                undetectedTimer = 0;
+                npc.TimeSinceLastSeenPlayer = 0;
             }
         }
     }
