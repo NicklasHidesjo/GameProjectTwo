@@ -76,6 +76,13 @@ public class FieldOfView : MonoBehaviour
 
         foreach (var player in playersDetected)
         {
+            if(PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.Hidden) 
+            {
+                // we should have a check here if we have seen the player hide
+                // in that case we should set that we see the player/notice the player.
+                // we should also start attacking the player in the barrel making him take damage.
+                continue; 
+            }
             Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
             RaycastHit hit;
             if (Vector3.Angle(transform.forward, dirToTarget) < npc.FOV / 2)
