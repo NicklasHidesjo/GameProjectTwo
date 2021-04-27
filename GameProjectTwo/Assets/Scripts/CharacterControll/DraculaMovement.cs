@@ -76,7 +76,11 @@ public class DraculaMovement : MonoBehaviour
         }
         else
         {
-            controller.height = 2;
+            if (controller.height != 2)
+            {
+                controller.Move(Vector3.up * 0.75f);
+                controller.height = 2;
+            }
         }
 
 
