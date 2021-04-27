@@ -8,7 +8,22 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    public enum playerStates { Stoped, TransformToDracula, MoveDracula, Hidden, TransformToBat, FlyBat, Sucking }
+    public enum playerStates
+    {
+        Stoped,
+        TransformToDracula,
+        DraculaDefault,
+        DraculaAirborne,
+        DraculaRunning,
+        DraculaCrotching,
+        DraculaHideing,
+        DraculaHidden,
+        DraculaSucking,
+        TransformToBat,
+        BatDefault
+    }
+
+    // {Stoped, TransformToDracula, DefaultDracula, DraculaRunning, DraculaCrotch, DraculaHiding, DraculaHidden, DraculaSucking, TransformToBat, DefaultBat}
     [SerializeField] playerStates playerState;
     public playerStates CurrentState => playerState;
     [SerializeField] float batMaxTime = 5.0f;
@@ -48,16 +63,37 @@ public class PlayerState : MonoBehaviour
                     playerManeger.ActivateDracula();
                     break;
                 }
-            case playerStates.MoveDracula:
+            case playerStates.DraculaDefault:
                 {
                     draculaMovement.Move();
                     break;
                 }
-            case playerStates.Hidden:
+            case playerStates.DraculaAirborne:
+                {
+                    draculaMovement.Move();
+                    break;
+                }
+            case playerStates.DraculaRunning:
+                {
+                    draculaMovement.Move();
+                    break;
+                }
+
+            case playerStates.DraculaCrotching:
+                {
+                    draculaMovement.Move();
+                    break;
+                }
+            case playerStates.DraculaHideing:
+                {
+
+                    break;
+                }
+            case playerStates.DraculaHidden:
                 {
                     break;
                 }
-            case playerStates.Sucking:
+            case playerStates.DraculaSucking:
                 {
                     break;
                 }
@@ -66,7 +102,7 @@ public class PlayerState : MonoBehaviour
                     playerManeger.ActivateBat();
                     break;
                 }
-            case playerStates.FlyBat:
+            case playerStates.BatDefault:
                 {
                     batMovement.Move();
                     break;

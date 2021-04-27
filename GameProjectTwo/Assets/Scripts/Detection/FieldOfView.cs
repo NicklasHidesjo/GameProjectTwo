@@ -76,7 +76,7 @@ public class FieldOfView : MonoBehaviour
 
         foreach (var player in playersDetected)
         {
-            if(PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.Hidden) 
+            if(PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHidden) 
             {
                 // we should have a check here if we have seen the player hide
                 // in that case we should set that we see the player/notice the player.
@@ -100,7 +100,7 @@ public class FieldOfView : MonoBehaviour
                 npc.RaiseAlertness(true);
                 npc.TimeSinceLastSeenPlayer = 0;
 
-                if (PlayerManager.instance.PlayerState.CurrentState != PlayerState.playerStates.Sucking)
+                if (PlayerManager.instance.PlayerState.CurrentState != PlayerState.playerStates.DraculaSucking)
                 {
                     return;
                 }

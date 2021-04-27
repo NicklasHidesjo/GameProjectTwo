@@ -71,8 +71,11 @@ public class DraculaMovement : MonoBehaviour
         //TODO : Get dimations from model
         if (Input.GetButton("Crouch"))
         {
-            controller.radius = 0.25f;
-            controller.height = 0.5f;
+            if (controller.height != 0.5f)
+            {
+                controller.radius = 0.25f;
+                controller.height = 0.5f;
+            }
         }
         else
         {
@@ -117,7 +120,7 @@ public class DraculaMovement : MonoBehaviour
             inputFormplayer *= runMultiplyer;
         }
 
-        if (Input.GetButton("Crouch"))
+        if (Input.GetButton("Crotch"))
         {
             inputFormplayer *= crouchMultiplyer;
         }
