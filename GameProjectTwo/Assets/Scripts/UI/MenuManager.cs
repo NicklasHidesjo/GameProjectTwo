@@ -10,6 +10,7 @@ public class MenuManager : MonoBehaviour
     [Header("End of level Screen")]
     [SerializeField] private GameObject endOfLevelScreen;
     [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private GameObject deathScreen;
 
     private bool gamePaused = false;
 
@@ -32,6 +33,11 @@ public class MenuManager : MonoBehaviour
                 pauseScreen.SetActive(true); 
                 TogglePause();                
             }
+        }
+
+        if (PlayerManager.instance.StatsManager.IsDead)
+        {
+            PlayerDeathScreen();
         }
     }
 
@@ -57,7 +63,13 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    public void ShowEndOfLevelScreen()
+    private void PlayerDeathScreen()
+    {
+        deathScreen.SetActive(true);
+        TogglePause();
+    }
+
+    public void EndOfLevelScreen()
     {
         endOfLevelScreen.SetActive(true);
         TogglePause();
