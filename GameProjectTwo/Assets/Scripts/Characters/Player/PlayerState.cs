@@ -15,7 +15,8 @@ public class PlayerState : MonoBehaviour
         DraculaDefault,
         DraculaAirborne,
         DraculaRunning,
-        DraculaCrotching,
+        DraculaCrouching,
+        DraculaDragBody,
         DraculaHideing,
         DraculaHidden,
         DraculaSucking,
@@ -23,11 +24,8 @@ public class PlayerState : MonoBehaviour
         BatDefault
     }
 
-    // {Stoped, TransformToDracula, DefaultDracula, DraculaRunning, DraculaCrotch, DraculaHiding, DraculaHidden, DraculaSucking, TransformToBat, DefaultBat}
     [SerializeField] playerStates playerState;
     public playerStates CurrentState => playerState;
-    [SerializeField] float batMaxTime = 5.0f;
-
     private PlayerManager playerManeger;
     private DraculaMovement draculaMovement;
     private BatMovement batMovement;
@@ -51,6 +49,8 @@ public class PlayerState : MonoBehaviour
 
     public void UpdateByState()
     {
+        Debug.Log("State : " + CurrentState);
+
         switch (playerState)
         {
             case playerStates.Stoped:
@@ -79,14 +79,13 @@ public class PlayerState : MonoBehaviour
                     break;
                 }
 
-            case playerStates.DraculaCrotching:
+            case playerStates.DraculaCrouching:
                 {
                     draculaMovement.Move();
                     break;
                 }
             case playerStates.DraculaHideing:
                 {
-
                     break;
                 }
             case playerStates.DraculaHidden:
