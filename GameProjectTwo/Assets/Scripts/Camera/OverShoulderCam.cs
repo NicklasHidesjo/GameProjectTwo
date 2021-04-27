@@ -26,6 +26,9 @@ public class OverShoulderCam : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!cam)
+            cam = Camera.main.transform;
+
         if (lockToWindow)
             Cursor.lockState = CursorLockMode.Confined;
 
