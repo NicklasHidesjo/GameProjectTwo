@@ -12,14 +12,17 @@ public class PlayerState : MonoBehaviour
     {
         Stoped,
         TransformToDracula,
+
         DraculaDefault,
         DraculaAirborne,
         DraculaRunning,
         DraculaCrouching,
+
         DraculaDragBody,
         DraculaHideing,
         DraculaHidden,
         DraculaSucking,
+        
         TransformToBat,
         BatDefault
     }
@@ -49,7 +52,7 @@ public class PlayerState : MonoBehaviour
 
     public void UpdateByState()
     {
-        Debug.Log("State : " + CurrentState);
+//        Debug.Log("State : " + CurrentState);
 
         switch (playerState)
         {
