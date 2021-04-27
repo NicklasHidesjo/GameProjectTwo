@@ -10,15 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdc3e40b5f6e139439f618a792a49487, type: 3}
-  m_Name: Civilian BloodSucked
+  m_Name: Civilian Sucked
   m_EditorClassIdentifier: 
   enterActions:
-  - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}
+  - {fileID: 11400000, guid: 02003f8292042d94b8eeb452639af61c, type: 2}
   - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}
+  - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
+  - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}
+  - {fileID: 11400000, guid: 4e7be3d9cab7cb341b3452151d666a30, type: 2}
   executeActions:
-  - {fileID: 11400000, guid: 99c10a7bd000f0e44a1f68c8089d022f, type: 2}
+  - {fileID: 11400000, guid: d82118bf12b88694cbea91153e4dd5ff, type: 2}
+  - {fileID: 11400000, guid: 66ce75abb88d3304e9b29fbb46eb09fe, type: 2}
   exitActions:
   - {fileID: 11400000, guid: 9c26ab42bd53e7d44b1ea9ac1e9a2fd0, type: 2}
+  - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: 5f36339e4d698804397f216866aeadd9, type: 2}
     newState: {fileID: 11400000, guid: 133fdb2c0c1b30542a80e3656b0c005f, type: 2}

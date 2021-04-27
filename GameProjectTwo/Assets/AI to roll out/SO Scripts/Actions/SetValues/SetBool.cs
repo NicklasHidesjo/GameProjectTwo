@@ -18,6 +18,9 @@ public class SetBool : Action
 			case NPCBooleans.IsSuckable:
 				character.IsSuckable = isTrue;
 				break;
+			case NPCBooleans.Run:
+				character.Run = isTrue;
+				break;
 		}
 	}
 }

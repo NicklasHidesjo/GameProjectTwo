@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Guard Patrol
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: 9c26ab42bd53e7d44b1ea9ac1e9a2fd0, type: 2}
   - {fileID: 11400000, guid: a28054b9ade3a724082d32af3e071342, type: 2}
+  - {fileID: 11400000, guid: 6170562ae5629014197fdf38e62b7e42, type: 2}
   executeActions: []
   exitActions:
   - {fileID: 11400000, guid: f9318dc8b76b4f846ad939ca383741fc, type: 2}

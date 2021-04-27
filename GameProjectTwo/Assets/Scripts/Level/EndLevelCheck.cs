@@ -10,6 +10,7 @@ public class EndLevelCheck : MonoBehaviour
 	public int CurrentLevel { get => currentLevel; }
 
 	private PlayerStatsManager playerStatsManager;
+	private MenuManager menuManager;
 
 	public int[] LevelPassedThreshold { get => levelPassedThreshold; }
 
@@ -18,18 +19,17 @@ public class EndLevelCheck : MonoBehaviour
     private void Start()
     {
 		playerStatsManager = PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>();
-	}
+		menuManager = GameObject.Find("UI").GetComponent<MenuManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
 	{
 		if (other.CompareTag("Player"))
 		{
-			//playerStatsManager = other.GetComponent<PlayerStatsManager>();
-			
-
 			if (CheckLevelPassed(playerStatsManager.CurrentSatiation))
 			{
 				Debug.Log("Level Completed");
+				menuManager.EndOfLevelScreen();
 				currentLevel++;
 				playerStatsManager.ResetStats();
 			}

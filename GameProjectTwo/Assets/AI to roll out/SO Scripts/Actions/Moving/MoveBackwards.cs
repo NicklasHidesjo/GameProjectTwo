@@ -7,7 +7,16 @@ public class MoveBackwards : Action
 {
 	public override void Execute(ICharacter character)
 	{
-		Vector3 newPos = character.Transform.position - (character.Transform.forward * 10);
+		character.Move(character.Transform.position);
+		if(character.Alertness < character.Stats.AlertActionThreshold)
+		{
+			return;
+		}
+		if (!character.SeesPlayer)
+		{
+			return;
+		}
+		Vector3 newPos = character.Transform.position - (character.Transform.forward * 2);
 		character.Move(newPos);
 	}
 }

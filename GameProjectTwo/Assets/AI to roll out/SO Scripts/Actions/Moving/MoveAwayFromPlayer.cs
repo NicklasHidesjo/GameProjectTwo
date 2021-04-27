@@ -9,9 +9,11 @@ public class MoveAwayFromPlayer : Action
 	// make bools here that we can tick to have different run behaviours from the same action script.
 	public override void Execute(ICharacter character)
 	{
-		if(character.Agent.velocity != Vector3.zero) { return; }
+		if(character.Agent.velocity != Vector3.zero && !character.NoticedPlayer) { return; }
+		if(character.StateTime < 1f) { return; }
+		character.StateTime = 0;
 		Vector3 direction = character.Player.position - character.Transform.position;
-		if (character.RayHitTag("Player", direction, character.Stats.SightLenght))
+		if (character.RayHitPlayer(direction, character.Stats.SightLenght))
 		{
 			GetRunDestination(character);
 		}

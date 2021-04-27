@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 public interface ICharacter
@@ -30,6 +31,12 @@ public interface ICharacter
 
 	public bool IsSuckable { get; set; }
 	public bool ShouldShout { get; set; }
+	public bool Run { get; set; }
+	public bool NoticedPlayer { get; set; }
+
+	public int FOV { get; set; }
+
+	public List<NPC> NearbyCharacters { get;}
 
 	/// <summary>
 	/// Sets the NavMesh Agents destination to "destination"
@@ -43,6 +50,7 @@ public interface ICharacter
 	/// </summary>
 	/// <param name="target"></param>
 	public void LookAt(Vector3 target);
+	public void LookAt(Quaternion target);
 
 	/// <summary>
 	/// Returns true if we hit the tag within the lenght towards direction
@@ -50,7 +58,7 @@ public interface ICharacter
 	/// <param name="tag"></param>
 	/// <param name="lenght"></param>
 	/// <returns></returns>
-	public bool RayHitTag(string tag, Vector3 direction, float lenght);
+	public bool RayHitPlayer(Vector3 direction, float lenght);
 	/// <summary>
 	/// Returns true if we are infront of the direction
 	/// </summary>
@@ -61,4 +69,11 @@ public interface ICharacter
 	public void ReactToShout();
 
 	public void DecreaseHealth(int health);
+
+	public void RaiseAlertness(bool inFOW);
+
+	public void LowerAlertness(float value);
+
+	public void SetAlertnessToMax();
+
 }

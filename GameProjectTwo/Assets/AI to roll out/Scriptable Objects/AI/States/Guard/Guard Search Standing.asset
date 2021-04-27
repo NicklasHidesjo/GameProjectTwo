@@ -30,5 +30,7 @@ MonoBehaviour:
   transitions:
   - decision: {fileID: 11400000, guid: 01d9039e1a8e14b4dbf7a63c404fb37a, type: 2}
     newState: {fileID: 11400000, guid: 301b6ecae109322438e63282a5e51a47, type: 2}
+  - decision: {fileID: 11400000, guid: 2fdd88ecddc860044b948fc22b31e1c7, type: 2}
+    newState: {fileID: 11400000, guid: 301b6ecae109322438e63282a5e51a47, type: 2}
   - decision: {fileID: 11400000, guid: 0aa198543c7b0d24b89c900317abf097, type: 2}
     newState: {fileID: 11400000, guid: ad52ae0c6422a73469c2e9317523e5e5, type: 2}
