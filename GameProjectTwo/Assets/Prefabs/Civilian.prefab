@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 4954188691278848498}
   - component: {fileID: 3810648396908440633}
   - component: {fileID: 3126099493697673841}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Civilian
   m_TagString: Civilian
   m_Icon: {fileID: 0}
@@ -156,6 +156,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 6480b7cb2fa65ac48819b77a9f20fb31, type: 2}
   pathTag: POI
+  npcLayer:
+    serializedVersion: 2
+    m_Bits: 128
   currentHealth: 0
 --- !u!114 &4954188691278848498
 MonoBehaviour:
@@ -216,7 +219,7 @@ GameObject:
   - component: {fileID: 4489469258835064059}
   - component: {fileID: 4489469258835064058}
   - component: {fileID: 4489469258835064057}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Nose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,6 +370,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Alert_Mesh
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c3025c4b9c0d6ea47ac663d2081f9558, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3025c4b9c0d6ea47ac663d2081f9558, type: 3}
 --- !u!4 &192080204296162573 stripped
@@ -428,6 +435,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1ce0facf715e8cf469222864f2044f3f, type: 3}
       propertyPath: m_Name
       value: JatteSnyggDoSkalle
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1ce0facf715e8cf469222864f2044f3f, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ce0facf715e8cf469222864f2044f3f, type: 3}
@@ -502,6 +513,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 7d585c9ec951e2f4a8ed1110c258878a, type: 3}
       propertyPath: m_Name
       value: AlertQ_Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7d585c9ec951e2f4a8ed1110c258878a, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d585c9ec951e2f4a8ed1110c258878a, type: 3}
