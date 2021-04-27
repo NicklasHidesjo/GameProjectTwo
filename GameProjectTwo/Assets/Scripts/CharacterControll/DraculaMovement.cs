@@ -12,6 +12,8 @@ public class DraculaMovement : MonoBehaviour
     [SerializeField] private Transform alignTo;
 
     [SerializeField] float playerSpeed = 4.0f;
+    [SerializeField] float runMultiplyer = 2.0f;
+    [SerializeField] float crouchMultiplyer = 0.5f;
     [SerializeField] float jumpForce = 4.0f;
     [SerializeField] float normalGravity = 20f;
     [SerializeField] float holdJumpGravityUp = 6f;
@@ -24,7 +26,7 @@ public class DraculaMovement : MonoBehaviour
 
     private void Start()
     {
-        if(!alignTo)
+        if (!alignTo)
             alignTo = Camera.main.transform;
 
         if (!controller)
@@ -66,6 +68,18 @@ public class DraculaMovement : MonoBehaviour
     {
         float applyedGravity = normalGravity;
 
+        //TODO : Get dimations from model
+        if (Input.GetButton("Crouch"))
+        {
+            controller.radius = 0.25f;
+            controller.height = 0.5f;
+        }
+        else
+        {
+            controller.height = 2;
+        }
+
+
         if (controller.isGrounded)
         {
             playerVelocity = GroundControl();
@@ -90,10 +104,20 @@ public class DraculaMovement : MonoBehaviour
 
     Vector3 GroundControl()
     {
-        Vector3 inputFormplayer = 
-            Input.GetAxis("Horizontal") * FlatAlignTo(alignTo.right) + 
+        Vector3 inputFormplayer =
+            Input.GetAxis("Horizontal") * FlatAlignTo(alignTo.right) +
             Input.GetAxis("Vertical") * FlatAlignTo(alignTo.forward);
-        
+
+        if (Input.GetButton("Run"))
+        {
+            inputFormplayer *= runMultiplyer;
+        }
+
+        if (Input.GetButton("Crouch"))
+        {
+            inputFormplayer *= crouchMultiplyer;
+        }
+
         inputFormplayer *= playerSpeed;
 
         if (jump)
