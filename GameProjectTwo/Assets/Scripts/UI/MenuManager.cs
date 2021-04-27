@@ -12,10 +12,13 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject deathScreen;
 
+    private bool inDeathScreen;
+
     private bool gamePaused = false;
 
     private void Start()
     {
+        inDeathScreen = false;
         Cursor.visible = false;
     }
 
@@ -35,7 +38,7 @@ public class MenuManager : MonoBehaviour
             }
         }
 
-        if (PlayerManager.instance.StatsManager.IsDead)
+        if (PlayerManager.instance.StatsManager.IsDead && !inDeathScreen)
         {
             PlayerDeathScreen();
         }
@@ -65,6 +68,7 @@ public class MenuManager : MonoBehaviour
 
     private void PlayerDeathScreen()
     {
+        inDeathScreen = true;
         deathScreen.SetActive(true);
         TogglePause();
     }
