@@ -7,7 +7,7 @@ public class LookAtPlayer : Action
 {
 	public override void Execute(ICharacter character)
 	{
-		if(!character.SeesPlayer)
+		if(!character.SeesPlayer && !character.NoticedPlayer)
 		{
 			return;
 		}
