@@ -2,8 +2,9 @@ Shader "Roberts/MOC_ForArtist" {
 	Properties{
 		[Header(Celshade Admount)]
 		_Cel("CelShade", Range(0,1)) = 0
+		_CelGray("MidTone", Range(0,1)) = 0
 		[Header(Basic Color)]
-		_MainColor("Color", Color) = (1,1,1,0)
+		_MainColor("Color", Color) = (0.5,0.5,0.5,0)
 		_MainTex("Texture", 2D) = "white" {}
 		_BumpMap("Bumpmap", 2D) = "bump" {}
 		
@@ -20,6 +21,13 @@ Shader "Roberts/MOC_ForArtist" {
 		_RimReflPower("RimRelfectPower", Range(0.5,8.0)) = 3.0
 		_ReflectPure("PureReflection", Range(0,1)) = 0
 		_Cube("Cubemap", CUBE) = "Black" {}
+
+		[Header(HightMap)]
+		_HColor("HColor", Color) = (1,1,1,0)
+		_HTex("HTexture", 2D) = "white" {}
+		_HmapA("HAdmount", Range(0.0,1.0)) = 0.0
+		_MinH("MinHight", Range(-10.0,10.0)) = 0.0
+		_Hscale("Hscale", Range(0.0,1.0)) = 0.1
 	}
 		SubShader{
 			Tags { "RenderType" = "Opaque" }
@@ -29,6 +37,7 @@ Shader "Roberts/MOC_ForArtist" {
 			float _Cel;
 			half4 _SpColor;
 			float _Specular;
+			float _CelGray;
 
 			half4 LightingRobert(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten) {
 
@@ -46,10 +55,10 @@ Shader "Roberts/MOC_ForArtist" {
 				float rampTwo = diff;
 
 				ramp = smoothstep(0.0, 0.1, diff);
-				rampTwo = smoothstep(0.1, 1, diff);
+				rampTwo = smoothstep(_CelGray, 1, diff);
 
 				ramp += rampTwo;
-				ramp *= 0.3333f;
+				ramp *= 0.5;
 
 				diff = lerp(ramp, diff, _Cel);
 				half4 c;
@@ -71,6 +80,7 @@ Shader "Roberts/MOC_ForArtist" {
 
 				//For Rim
 				float3 viewDir;
+				float3 worldPos;
 			};
 
 			half4 _MainColor;
@@ -78,18 +88,30 @@ Shader "Roberts/MOC_ForArtist" {
 			sampler2D _BumpMap;
 			samplerCUBE _Cube;
 
-			
-
 			float4 _RimColor;
 			float _RimPower;
 
 			float4 _ReflectColor;
 			float _RimReflPower;
-
 			float _ReflectPure;
 
+
+			float _HmapA;
+			float _Hscale;
+			float _MinH;
+			half4 _HColor;
+			sampler2D _HTex;
+
 			void surf(Input IN, inout SurfaceOutput o) {
-				o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb * _MainColor.rgb;
+
+				//HightMap
+				half hMap = (IN.worldPos.y);
+				hMap -= _MinH;
+				hMap *= _Hscale;
+				hMap = lerp(1, hMap, _HmapA);
+
+
+				o.Albedo = lerp(tex2D(_HTex, IN.uv_MainTex).rgb * _HColor, tex2D(_MainTex, IN.uv_MainTex).rgb * _MainColor.rgb, hMap);
 				o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
 
 				half rim = 1.0 - saturate(dot(normalize(IN.viewDir), o.Normal));
