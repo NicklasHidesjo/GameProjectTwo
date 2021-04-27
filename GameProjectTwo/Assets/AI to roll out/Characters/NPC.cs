@@ -132,7 +132,6 @@ public class NPC : MonoBehaviour, ICharacter
 		RaycastHit hit;
 		if (Physics.Raycast(transform.position, direction, out hit, lenght, ~npcLayer))
 		{
-			Debug.Log(hit.collider.name);
 			if (hit.collider.CompareTag("Player"))
 			{
 				return true;
