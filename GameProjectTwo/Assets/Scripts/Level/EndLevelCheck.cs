@@ -29,7 +29,7 @@ public class EndLevelCheck : MonoBehaviour
 			if (CheckLevelPassed(playerStatsManager.CurrentSatiation))
 			{
 				Debug.Log("Level Completed");
-				menuManager.ShowEndOfLevelScreen();
+				menuManager.EndOfLevelScreen();
 				currentLevel++;
 				playerStatsManager.ResetStats();
 			}

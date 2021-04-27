@@ -59,18 +59,13 @@ public class PlayerStatsManager : MonoBehaviour
     
     void Update()
     {
-        //All current IF-statements are for testing purposes.
-        if (isDead)
-        {
-            Debug.Log("You lost. Git gud scrub");
-            isDead = false;
-        }
-
+        //Passive stamina recovery
         if (currentStamina < maxStamina)
         {
             IncreaseStaminaValue(staminaRecoveryRate * Time.deltaTime);
         }
 
+        //Everything below here in Update() is for testing purposes
         if (Input.GetKeyDown(KeyCode.T))
         {
             DecreaseStaminaValue(20);
@@ -98,6 +93,12 @@ public class PlayerStatsManager : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth - healthDecrease, 0, maxHealth);
         SetCurrentBarValue(barControllerHealth, currentHealth);
         isDead = currentHealth <= 0;
+        
+        //Only for debug, to be removed later
+        if (isDead)
+        {
+            Debug.Log("You lost. Git gud scrub");
+        }
     }
 
     public void IncreaseSatiationValue(int satiationIncrease)
