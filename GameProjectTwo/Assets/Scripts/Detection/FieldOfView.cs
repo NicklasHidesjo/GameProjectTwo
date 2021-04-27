@@ -20,7 +20,7 @@ public class FieldOfView : MonoBehaviour
     {
         IncreaseUndetectedTimer();
         FindVisibleTargets();
-        //ToggleSymbols();
+        ToggleSymbols();
     }
 
     private void IncreaseUndetectedTimer()
