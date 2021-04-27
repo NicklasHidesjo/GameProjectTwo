@@ -164,8 +164,8 @@ MonoBehaviour:
   inSkin: -0.05
   inSunlight: 0
   gracePeriod: 5
-  tickRate: 1
-  damagePerTick: 10
+  sunDamageTickRate: 0.25
+  damagePerTick: 1
 --- !u!114 &7883337063284443053
 MonoBehaviour:
   m_ObjectHideFlags: 0
