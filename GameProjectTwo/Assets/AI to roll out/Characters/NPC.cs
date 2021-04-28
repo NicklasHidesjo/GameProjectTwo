@@ -67,6 +67,8 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public int FOV { get; set; }
 
+	public bool SawHiding { get; set; }
+
 	private void Awake()
 	{
 		if (stats == null)
@@ -155,10 +157,11 @@ public class NPC : MonoBehaviour, ICharacter
 	{
 		transform.rotation = Target;
 	}
-	public bool RayHitPlayer(Vector3 direction, float lenght)
+
+	public bool RayHitPlayer(Vector3 direction, float length)
 	{
 		RaycastHit hit;
-		if (Physics.Raycast(transform.position, direction, out hit, lenght, ~npcLayer))
+		if (Physics.Raycast(transform.position, direction, out hit, length, ~npcLayer))
 		{
 			if (hit.collider.CompareTag("Player"))
 			{
@@ -167,13 +170,18 @@ public class NPC : MonoBehaviour, ICharacter
 		}
 		return false;
 	}
-	// can probably remove once we have tested properly
-	public bool InFrontOff(Vector3 direction)
+	public bool RayHitTarget(Vector3 direction, float length, LayerMask mask)
 	{
-		Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
-		return Vector3.Angle(transform.forward, dirToTarget) < stats.RelaxedFOV / 2;
+		RaycastHit hit;
+		if (Physics.Raycast(transform.position, direction, out hit, length, npcLayer))
+		{
+			if (hit.collider.CompareTag("Player"))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
-
 	public void DecreaseHealth(int health)
 	{
 		currentHealth -= health;

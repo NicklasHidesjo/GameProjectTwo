@@ -59,18 +59,20 @@ public interface ICharacter
 	public void LookAt(Quaternion target);
 
 	/// <summary>
-	/// Returns true if we hit the tag within the lenght towards direction
+	/// Returns true if we hit the player within the length towards direction
 	/// </summary>
 	/// <param name="tag"></param>
 	/// <param name="lenght"></param>
 	/// <returns></returns>
 	public bool RayHitPlayer(Vector3 direction, float lenght);
 	/// <summary>
-	/// Returns true if we are infront of the direction
+	/// Returns true if we hit something on the specific mask within the length
 	/// </summary>
 	/// <param name="direction"></param>
+	/// <param name="length"></param>
+	/// <param name="mask"></param>
 	/// <returns></returns>
-	public bool InFrontOff(Vector3 direction);
+	public bool RayHitTarget(Vector3 direction, float length, LayerMask mask);
 
 	public void ReactToShout();
 
