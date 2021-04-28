@@ -109,7 +109,7 @@ Shader "Roberts/MOC_ForArtist" {
 				hMap -= _MinH;
 				hMap *= _Hscale;
 				hMap = lerp(1, hMap, _HmapA);
-
+				hMap = clamp(hMap, 0, 1);
 
 				o.Albedo = lerp(tex2D(_HTex, IN.uv_MainTex).rgb * _HColor, tex2D(_MainTex, IN.uv_MainTex).rgb * _MainColor.rgb, hMap);
 				o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
