@@ -12,8 +12,8 @@ public class DraculaMovement : MonoBehaviour
     [SerializeField] private Transform alignTo;
 
     [SerializeField] float playerSpeed = 4.0f;
-    [SerializeField] float runMultiplyer = 2.0f;
-    [SerializeField] float crouchMultiplyer = 0.5f;
+    [SerializeField] float runSpeed = 8.0f;
+    [SerializeField] float crouchSpeed = 1.0f;
     [SerializeField] float jumpForce = 4.0f;
     [SerializeField] float normalGravity = 20f;
     [SerializeField] float holdJumpGravityUp = 6f;
@@ -24,8 +24,13 @@ public class DraculaMovement : MonoBehaviour
     private bool jump;
     private PlayerState playerState;
 
+    private float speed;
+    private bool grounded;
+
     private void Start()
     {
+        speed = playerSpeed;
+
         if (!alignTo)
             alignTo = Camera.main.transform;
 
@@ -67,24 +72,9 @@ public class DraculaMovement : MonoBehaviour
     public void Move()
     {
         float applyedGravity = normalGravity;
+        SetStateFromInput();
 
-        //TODO : Get dimations from model
-        if (Input.GetButton("Crouch"))
-        {
-            controller.radius = 0.25f;
-            controller.height = 0.5f;
-        }
-        else
-        {
-            if (controller.height != 2)
-            {
-                controller.Move(Vector3.up * 0.75f);
-                controller.height = 2;
-            }
-        }
-
-
-        if (controller.isGrounded)
+        if (grounded)
         {
             playerVelocity = GroundControl();
         }
@@ -92,12 +82,78 @@ public class DraculaMovement : MonoBehaviour
         {
             applyedGravity = AerialControl();
         }
+
         playerVelocity.y -= AddGravity(applyedGravity);
         controller.Move(playerVelocity * Time.fixedDeltaTime);
 
         ForwardFromMovement();
 
         DebugRays();
+    }
+
+    void SetStateFromInput()
+    {
+        if (controller.isGrounded)
+        {
+            if (grounded != controller.isGrounded)
+            {
+                grounded = controller.isGrounded;
+            }
+
+            //TODO : Get dimations from model
+            if (Input.GetButton("Crouch"))
+            {
+                if (controller.height != 0.5f)
+                {
+                    playerState.SetState(PlayerState.playerStates.DraculaCrouching);
+                    speed = crouchSpeed;
+
+                    controller.radius = 0.25f;
+                    controller.height = 0.5f;
+                    controller.Move(-Vector3.up * 0.76f);
+                }
+            }
+            else
+            {
+                if (controller.height != 2)
+                {
+                    controller.height = 2;
+                    controller.radius = 0.5f;
+                    controller.Move(Vector3.up * 0.75f);
+                }
+
+                if (Input.GetButton("Run"))
+                {
+                    if (speed != runSpeed)
+                    {
+                        playerState.SetState(PlayerState.playerStates.DraculaRunning);
+                        speed = runSpeed;
+                    }
+                }
+                else
+                {
+                    if (playerState.GetCurrentState() != PlayerState.playerStates.DraculaDefault)
+                    {
+                        playerState.SetState(PlayerState.playerStates.DraculaDefault);
+                        speed = playerSpeed;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (grounded != controller.isGrounded)
+            {
+                playerState.SetState(PlayerState.playerStates.DraculaAirborne);
+                grounded = controller.isGrounded;
+
+                if (controller.height != 2)
+                {
+                    controller.Move(Vector3.up * 0.75f);
+                    controller.height = 2;
+                }
+            }
+        }
     }
 
     Vector3 FlatAlignTo(Vector3 v)
@@ -112,17 +168,7 @@ public class DraculaMovement : MonoBehaviour
             Input.GetAxis("Horizontal") * FlatAlignTo(alignTo.right) +
             Input.GetAxis("Vertical") * FlatAlignTo(alignTo.forward);
 
-        if (Input.GetButton("Run"))
-        {
-            inputFormplayer *= runMultiplyer;
-        }
-
-        if (Input.GetButton("Crouch"))
-        {
-            inputFormplayer *= crouchMultiplyer;
-        }
-
-        inputFormplayer *= playerSpeed;
+        inputFormplayer *= speed;
 
         if (jump)
         {

@@ -127,7 +127,7 @@ public class PlayerManager : MonoBehaviour
         SetPooledActive(draculaGO);
 
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
-        playerState.SetState(PlayerState.playerStates.MoveDracula);
+        playerState.SetState(PlayerState.playerStates.DraculaDefault);
     }
 
     public void ActivateBat()
@@ -136,7 +136,7 @@ public class PlayerManager : MonoBehaviour
         SetPooledActive(batGO);
         
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.high, spawnPoint);
-        playerState.SetState(PlayerState.playerStates.FlyBat);
+        playerState.SetState(PlayerState.playerStates.BatDefault);
     }
     
 
