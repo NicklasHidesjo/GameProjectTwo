@@ -54,12 +54,14 @@ public class MenuManager : MonoBehaviour
     {
         if (gamePaused)
         {
+            PlayerManager.instance.PlayerState.SetState(PlayerState.playerStates.Stoped);
             Cursor.visible = false;
             Time.timeScale = 1f;
             gamePaused = false;
         }
         else
         {
+            PlayerManager.instance.PlayerState.SetState(PlayerState.playerStates.DraculaDefault);
             Cursor.visible = true;
             Time.timeScale = 0f;
             gamePaused = true;
@@ -75,6 +77,7 @@ public class MenuManager : MonoBehaviour
 
     public void EndOfLevelScreen()
     {
+       
         endOfLevelScreen.SetActive(true);
         TogglePause();
     }
