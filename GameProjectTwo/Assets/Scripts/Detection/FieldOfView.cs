@@ -72,7 +72,11 @@ public class FieldOfView : MonoBehaviour
         npc.NoticedPlayer = false;
         npc.SeesPlayer = false;
 
-        if (playersDetected.Length < 1) { return; }
+        if (playersDetected.Length < 1) 
+        {
+            npc.SawHiding = false;
+            return; 
+        }
 
         foreach (var player in playersDetected)
         {
@@ -82,8 +86,9 @@ public class FieldOfView : MonoBehaviour
             {
                 if (npc.SawHiding)
                 {
-                    npc.SeesPlayer = true;
                     npc.RaiseAlertness(true);
+                    npc.SeesPlayer = true;
+                    npc.NoticedPlayer = true;
                     npc.TimeSinceLastSeenPlayer = 0;
                 }
 
@@ -130,7 +135,7 @@ public class FieldOfView : MonoBehaviour
                     return;
                 }
                 npc.NoticedPlayer = true;
-                npc.RaiseAlertness(true);
+                npc.RaiseAlertness(false);
                 npc.TimeSinceLastSeenPlayer = 0;
             }
         }
