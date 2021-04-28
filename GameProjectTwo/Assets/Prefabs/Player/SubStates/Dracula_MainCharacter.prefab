@@ -187,7 +187,7 @@ SphereCollider:
   m_GameObject: {fileID: 6337708183196167810}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -206,6 +206,9 @@ MonoBehaviour:
   interactables: []
   currentInteractable: {fileID: 0}
   interactRange: 3
+  layersToSearch:
+    serializedVersion: 2
+    m_Bits: 384
 --- !u!54 &5191676359956859180
 Rigidbody:
   m_ObjectHideFlags: 0

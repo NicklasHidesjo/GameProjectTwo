@@ -108,7 +108,8 @@ public class Container : Interactable
             yield return new WaitForEndOfFrame();
         }
         Debug.Log("finished moving");
-        player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.MoveDracula);
+        //player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.MoveDracula);
+        PlayerManager.instance.GetComponent<PlayerState>().SetState(PlayerState.playerStates.MoveDracula);
     }
 
 }

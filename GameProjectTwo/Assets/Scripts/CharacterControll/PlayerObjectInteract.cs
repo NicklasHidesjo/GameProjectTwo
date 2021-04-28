@@ -23,7 +23,7 @@ public class PlayerObjectInteract : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetButtonDown("Interact"))
         {
             if (iScanner.CurrentInteractable == null)
             {
@@ -34,15 +34,28 @@ public class PlayerObjectInteract : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        //Change button input and Structure here
+        if (Input.GetButtonDown("Run"))
         {
             if (heldInteractable != null)
             {
-                heldInteractable.Interact(gameObject);
-                Physics.IgnoreCollision(heldInteractable.GetComponent<Collider>(), GetComponent<SphereCollider>(), false);
-                heldInteractable = null;
+                switch (heldInteractable)
+                {
+                    case DeadBody D:
+                        heldInteractable.Interact(gameObject);
+                        heldInteractable = null;
+
+                        break;
+
+                    case BloodSuckTarget B:
+                        //heldInteractable 
+                        break;
+
+                    default:
+                        break;
+                }
             }
-            
+
 
         }
 
@@ -51,6 +64,28 @@ public class PlayerObjectInteract : MonoBehaviour
 
     private void InteractWithObject()
     {
+
+        switch (playerState.CurrentState)
+        {
+
+            case PlayerState.playerStates.MoveDracula:
+                break;
+            case PlayerState.playerStates.Hidden:
+                break;
+            case PlayerState.playerStates.Sucking:
+                break;
+            case PlayerState.playerStates.Carrying:
+                break;
+            case PlayerState.playerStates.Running:
+                break;
+            case PlayerState.playerStates.Crouching:
+                break;
+            default:
+                    print(playerState.CurrentState +  " state does not allow interaction");
+                return;
+                
+        }
+
 
         switch (interactable)
         {
@@ -61,8 +96,7 @@ public class PlayerObjectInteract : MonoBehaviour
                     return;
                 }
                 Debug.Log("Interact dead dude: " + D.gameObject);
-                heldInteractable = D;
-                Physics.IgnoreCollision(heldInteractable.GetComponent<Collider>(), GetComponent<SphereCollider>());
+                heldInteractable = D;               
                 interactable.Interact(gameObject);
                 iScanner.RemoveInteractableFromList(heldInteractable);
                 break;
@@ -76,23 +110,19 @@ public class PlayerObjectInteract : MonoBehaviour
                 }
                 else if (heldInteractable != null)
                 {
-                    
-
                     heldInteractable.Interact(gameObject);
                     interactable.Interact(heldInteractable.gameObject);
                     heldInteractable = null;
                 }
                 else
                 {
-                    if (tempHiddenState)
+                    if (playerState.CurrentState == PlayerState.playerStates.Hidden)
                     {
                         Debug.Log("Leaving " + C.gameObject);
 
                         GetComponent<CharacterController>().enabled = true;
                         tempHiddenState = false;
                         interactable.Interact(gameObject);
-                        
-
                     }
                     else
                     {
@@ -108,11 +138,12 @@ public class PlayerObjectInteract : MonoBehaviour
                 }
                 break;
             case BloodSuckTarget B: //see if the object itself can validate interaction
-                if (playerState.GetCurrentState() != PlayerState.playerStates.Sucking)
+                if (playerState.CurrentState != PlayerState.playerStates.Sucking)
                 {
                     interactable.Interact(gameObject);
-                    
+                    heldInteractable = B;
                     transform.LookAt(interactable.transform);
+
                 }
                 else
                 {
