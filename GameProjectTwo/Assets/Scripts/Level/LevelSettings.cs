@@ -19,14 +19,15 @@ public class LevelSettings : MonoBehaviour
                 sunTime = l.GetComponent<SunTimeOfDay>();
             }
         }
-        
 
+        sunTime.SetTimeOfDayTo(0);
         LevelStart();
     }
 
-    void LevelStart()
+    public void LevelStart()
     {
-        sunTime.SetTimeOfDayTo(0);
-        sunTime.SetRiseTimer(timeTillSunrise, 10, 3);
+        sunTime.MoveTimeOfDayTo(0, 3);
+        sunTime.SetRiseTimer(timeTillSunrise, 10, 20);
     }
+
 }

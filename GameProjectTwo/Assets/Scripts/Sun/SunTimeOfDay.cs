@@ -7,6 +7,7 @@ public class SunTimeOfDay : MonoBehaviour
     [SerializeField] float sunLightAngle = 30;
     [SerializeField] float timeOfDay = 0f;
     private IEnumerator runningClock;
+    private IEnumerator animClock;
 
     public void MoveSunRealTimeStep()
     {
@@ -35,11 +36,9 @@ public class SunTimeOfDay : MonoBehaviour
 
     public void SetRiseTimer(float timeTillSunRise, float clockStopTime, float sunRiseAnimTime)
     {
-        print("Timmer : " + timeTillSunRise + "   To Time : " + clockStopTime + "  SunAnimTime : " + sunRiseAnimTime);
-
         if (runningClock != null)
         {
-            print("STOPP : " + runningClock);
+            //print("STOPP : " + runningClock);
             StopCoroutine(runningClock);
         }
         runningClock = SunTimer(timeTillSunRise, clockStopTime, sunRiseAnimTime);
@@ -56,14 +55,14 @@ public class SunTimeOfDay : MonoBehaviour
 
     public void MoveTimeOfDayTo(float toTimeOfDay, float sunAnimTime)
     {
-        if (runningClock != null)
+        if (animClock != null)
         {
-            print("STOPP : " + runningClock);
-            StopCoroutine(runningClock);
+           // print("STOPP : " + runningClock);
+            StopCoroutine(animClock);
         }
 
-        runningClock = MoveTimeToOverTime(toTimeOfDay, sunAnimTime);
-        StartCoroutine(runningClock);
+        animClock = MoveTimeToOverTime(toTimeOfDay, sunAnimTime);
+        StartCoroutine(animClock);
     }
 
     private IEnumerator MoveTimeToOverTime(float toTimeOfDay, float sunAnimTime)
@@ -78,7 +77,6 @@ public class SunTimeOfDay : MonoBehaviour
         degDiff /= sunAnimTime;
         float t = sunAnimTime;
 
-        print("To Time : " + toTimeOfDay + "  SunAnimTime : " + sunAnimTime);
 
         while (t > 0)
         {
