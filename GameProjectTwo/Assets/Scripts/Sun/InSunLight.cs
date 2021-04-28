@@ -19,16 +19,68 @@ public class InSunLight : MonoBehaviour
     [SerializeField] float inSkin = -0.05f;
     [SerializeField] bool inSunlight;
 
-    // Start is called before the first frame update
+    private PlayerStatsManager playerStats;
+
+    private Coroutine sunDamage;
+    [SerializeField] float gracePeriod;
+    private float graceTimer;
+    [SerializeField] float sunDamageTickRate;
+    [SerializeField] int damagePerTick;
+
+
     void Start()
     {
         SunInit();
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
         inSunlight = InSun();
+        if (inSunlight)
+        {
+            
+            if (sunDamage == null)
+            {
+                sunDamage = StartCoroutine(TakeDamageInSunLight());
+                
+                //activateSunIndicator(gracePeriod);
+            }
+            graceTimer = Mathf.Clamp(graceTimer + Time.deltaTime, 0, gracePeriod);
+        }
+        else
+        {
+            if (sunDamage != null)
+            {
+                //GameUiManager.instance.DeactivateSunIndicator();
+
+                StopCoroutine(sunDamage);
+                sunDamage = null;
+            }
+
+            graceTimer = Mathf.Clamp(graceTimer - Time.fixedDeltaTime, 0, gracePeriod);
+
+        }
+
+        GameUiManager.instance.SetSunIndicatorAlpha(graceTimer, gracePeriod);
+    }
+
+    IEnumerator TakeDamageInSunLight()
+    {
+        print("in sun light");
+
+        while (graceTimer < gracePeriod)
+        {
+            yield return null;
+        }
+
+        while (inSunlight && !playerStats.IsDead)
+        {
+            print("sunDamage taken: " + damagePerTick);
+            playerStats.DecreaseHealthValue(damagePerTick);
+            yield return new WaitForSeconds(sunDamageTickRate);
+        }
+
     }
 
     public void SunInit(Transform dracula, Transform linearLightSun)
@@ -59,8 +111,9 @@ public class InSunLight : MonoBehaviour
             playerPoint = FindObjectOfType<CharacterController>().transform;
            // Debug.Log("<color=red> dracula is missing. Auto assigned : </color>" + dracula.name);
         }
-
+        playerStats = PlayerManager.instance.GetComponent<PlayerStatsManager>();
         GetOffsettFromCollider();
+
     }
 
     void GetOffsettFromCollider()
@@ -88,15 +141,16 @@ public class InSunLight : MonoBehaviour
                 lightSourceDist - linearLightSun.transform.right *
                 WidthOff + linearLightSun.transform.up * hightOff,
                 linearLightSun.transform.forward)
-                == true
+                
             ||
             RaycastSunToCharacter(playerPoint.position - linearLightSun.transform.forward *
                 lightSourceDist + linearLightSun.transform.right *
                 WidthOff + linearLightSun.transform.up * hightOff,
                 linearLightSun.transform.forward)
-                == true
+                
                 )
             {
+
                 return true;
             }
         }
