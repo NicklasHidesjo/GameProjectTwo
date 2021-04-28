@@ -138,8 +138,8 @@ MonoBehaviour:
   debugRays: 1
   alignTo: {fileID: 0}
   playerSpeed: 4
-  runMultiplyer: 2
-  crouchMultiplyer: 0.5
+  runSpeed: 8
+  crouchSpeed: 1
   jumpForce: 4
   normalGravity: 20
   holdJumpGravityUp: 6
@@ -161,7 +161,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   linearLightSun: {fileID: 0}
-  dracula: {fileID: 0}
+  playerPoint: {fileID: 0}
   lightSourceDist: 100
   inSkin: -0.05
   inSunlight: 0

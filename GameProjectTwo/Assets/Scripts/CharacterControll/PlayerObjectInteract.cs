@@ -132,13 +132,13 @@ public class PlayerObjectInteract : MonoBehaviour
                         tempHiddenState = true;
 
                         interactable.Interact(gameObject);
-                        playerState.SetState(PlayerState.playerStates.Hidden);
+                        playerState.SetState(PlayerState.playerStates.DraculaHidden);
 
                     }
                 }
                 break;
             case BloodSuckTarget B: //see if the object itself can validate interaction
-                if (playerState.CurrentState != PlayerState.playerStates.Sucking)
+                if (playerState.GetCurrentState() != PlayerState.playerStates.DraculaSucking)
                 {
                     interactable.Interact(gameObject);
                     heldInteractable = B;
@@ -148,7 +148,7 @@ public class PlayerObjectInteract : MonoBehaviour
                 else
                 {
                     B.CancelSucking();
-                    playerState.SetState(PlayerState.playerStates.MoveDracula);
+                    playerState.SetState(PlayerState.playerStates.DraculaDefault);
 
                 }
 
