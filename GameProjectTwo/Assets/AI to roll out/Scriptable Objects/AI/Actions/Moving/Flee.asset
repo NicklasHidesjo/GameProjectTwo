@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 747537c31a26aa84a84b7ca6864b4a0d, type: 3}
   m_Name: Flee
   m_EditorClassIdentifier: 
+  mask:
+    serializedVersion: 2
+    m_Bits: 768

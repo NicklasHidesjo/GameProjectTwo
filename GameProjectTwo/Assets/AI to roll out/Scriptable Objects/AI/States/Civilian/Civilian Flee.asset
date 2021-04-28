@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdc3e40b5f6e139439f618a792a49487, type: 3}
-  m_Name: Civilian New Flee
+  m_Name: Civilian Flee
   m_EditorClassIdentifier: 
   enterActions:
   - {fileID: 11400000, guid: 14c05d805dde86840b7cbdf5ee6f254c, type: 2}

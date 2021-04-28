@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Flee : Action
 {
 	List<Vector3> fleeAngles = new List<Vector3>();
+	[SerializeField] LayerMask mask;
 
 	public override void Execute(ICharacter character)
 	{
@@ -44,7 +45,10 @@ public class Flee : Action
 	{
 		if (Vector3.Angle(targetDir, ownDirection) >= character.Stats.FleeAngle)
 		{
-			if (Physics.Raycast(character.Transform.position, ownDirection, character.Stats.ClearanceDistance))
+			Vector3 origin = character.Transform.position;
+			origin.y = origin.y - character.Transform.localScale.y + 0.5f;
+			Debug.Log(origin.y);
+			if (Physics.Raycast(origin, ownDirection, character.Stats.ClearanceDistance, mask))
 			{
 				return;		
 			}
@@ -57,7 +61,7 @@ public class Flee : Action
 		Vector3 randomPos = (runDir * character.Stats.FleeDistance) + character.Transform.position;
 
 		NavMeshHit hit;
-		if (NavMesh.SamplePosition(randomPos, out hit, 5, NavMesh.AllAreas))
+		if (NavMesh.SamplePosition(randomPos, out hit, 10, NavMesh.AllAreas))
 		{
 			character.Agent.destination = hit.position;
 		}
