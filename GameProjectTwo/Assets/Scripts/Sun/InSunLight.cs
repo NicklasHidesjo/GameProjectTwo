@@ -10,7 +10,7 @@ public class InSunLight : MonoBehaviour
     [Header("Settings")]
     [SerializeField] LayerMask checkLayers;
     [SerializeField] Transform linearLightSun;
-    [SerializeField] Transform dracula;
+    [SerializeField] Transform playerPoint;
 
     private float WidthOff = 0.0f;
     private float hightOff = 0.0f;
@@ -85,7 +85,7 @@ public class InSunLight : MonoBehaviour
 
     public void SunInit(Transform dracula, Transform linearLightSun)
     {
-        this.dracula = dracula;
+        this.playerPoint = dracula;
         this.linearLightSun = linearLightSun;
         GetOffsettFromCollider();
     }
@@ -106,9 +106,9 @@ public class InSunLight : MonoBehaviour
             }
         }
 
-        if (dracula == null)
+        if (playerPoint == null)
         {
-            dracula = FindObjectOfType<CharacterController>().transform;
+            playerPoint = FindObjectOfType<CharacterController>().transform;
            // Debug.Log("<color=red> dracula is missing. Auto assigned : </color>" + dracula.name);
         }
         playerStats = PlayerManager.instance.GetComponent<PlayerStatsManager>();
@@ -118,7 +118,7 @@ public class InSunLight : MonoBehaviour
 
     void GetOffsettFromCollider()
     {
-        Vector3 dBounds = dracula.GetComponent<Collider>().bounds.extents;
+        Vector3 dBounds = playerPoint.GetComponent<Collider>().bounds.extents;
         WidthOff = dBounds.x + inSkin;
         hightOff = dBounds.y + inSkin;
     }
@@ -137,13 +137,13 @@ public class InSunLight : MonoBehaviour
         {
             // :P
             if (
-            RaycastSunToCharacter(dracula.position - linearLightSun.transform.forward *
+            RaycastSunToCharacter(playerPoint.position - linearLightSun.transform.forward *
                 lightSourceDist - linearLightSun.transform.right *
                 WidthOff + linearLightSun.transform.up * hightOff,
                 linearLightSun.transform.forward)
                 
             ||
-            RaycastSunToCharacter(dracula.position - linearLightSun.transform.forward *
+            RaycastSunToCharacter(playerPoint.position - linearLightSun.transform.forward *
                 lightSourceDist + linearLightSun.transform.right *
                 WidthOff + linearLightSun.transform.up * hightOff,
                 linearLightSun.transform.forward)
@@ -166,7 +166,7 @@ public class InSunLight : MonoBehaviour
             if (debugRay)
                 Debug.DrawRay(pos, dir * lightSourceDist, Color.black);
             
-            if (hit.collider == dracula.gameObject.GetComponent<Collider>())
+            if (hit.collider == playerPoint.gameObject.GetComponent<Collider>())
             {
                 Debug.Log("<color=red>Dracula hit self</color>");
             }
@@ -176,6 +176,6 @@ public class InSunLight : MonoBehaviour
         if (debugRay)
             Debug.DrawRay(pos, dir * lightSourceDist, Color.yellow);
 
-        return true;
+        return true; //<--- AddDamage here
     }
 }

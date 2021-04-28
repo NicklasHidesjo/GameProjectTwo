@@ -20,6 +20,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerStatsManager statsManager;
     public PlayerStatsManager StatsManager { get { return statsManager; } }
 
+    [SerializeField] PlayerNotoriousLevels notoriusLevel;
+    public PlayerNotoriousLevels NotoriousLevel { get { return notoriusLevel; } }
+
+    [SerializeField] LightSensor lightSensor;
+
     private PlayerState playerState;
     public PlayerState PlayerState => playerState;
 
@@ -62,6 +67,16 @@ public class PlayerManager : MonoBehaviour
 
         if (!playerCam)
             playerCam = Camera.main;
+
+        if (!notoriusLevel)
+        {
+            notoriusLevel = GetComponent<PlayerNotoriousLevels>();
+        }
+
+        if (!lightSensor)
+        {
+            lightSensor = GetComponentInChildren<LightSensor>();
+        }
 
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
     }
@@ -112,7 +127,7 @@ public class PlayerManager : MonoBehaviour
         SetPooledActive(draculaGO);
 
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
-        playerState.SetState(PlayerState.playerStates.MoveDracula);
+        playerState.SetState(PlayerState.playerStates.DraculaDefault);
     }
 
     public void ActivateBat()
@@ -121,7 +136,7 @@ public class PlayerManager : MonoBehaviour
         SetPooledActive(batGO);
         
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.high, spawnPoint);
-        playerState.SetState(PlayerState.playerStates.FlyBat);
+        playerState.SetState(PlayerState.playerStates.BatDefault);
     }
     
 
@@ -133,6 +148,9 @@ public class PlayerManager : MonoBehaviour
         playerPointTransform.forward = frw.normalized;
         activateGO.transform.forward = playerPointTransform.forward;
         activateGO.SetActive(true);
+
+        lightSensor.SetFollowTarget(activateGO.transform);
+
         playerPointTransform.parent = activateGO.transform;
     }
 

@@ -10,6 +10,9 @@ public class NPC : MonoBehaviour, ICharacter
 	[Tooltip("The tag that will be used to find all path points when walking (ex POI or Waypoint")]
 	[SerializeField] string pathTag;
 
+	[Tooltip("The layer that npc's are at (used when trying to hit player and also when finding other npc's")]
+	[SerializeField] LayerMask npcLayer;
+
 	private NavMeshAgent agent;
 	private Transform player;
 	private Transform[] path;
@@ -32,7 +35,6 @@ public class NPC : MonoBehaviour, ICharacter
 	public int PathIndex { get; set; }
 
 	public Vector3 PlayerLastSeen { get; set; }
-	public bool SeesPlayer { get; set; }
 
 	public Quaternion OriginRot { get; set; }
 	public Quaternion TargetRot { get; set; }
@@ -58,6 +60,7 @@ public class NPC : MonoBehaviour, ICharacter
 	public bool Run { get; set; }
 
 	public bool NoticedPlayer { get; set; }
+	public bool SeesPlayer { get; set; }
 
 	public int FOV { get; set; }
 
@@ -99,8 +102,7 @@ public class NPC : MonoBehaviour, ICharacter
 	private void SetNearbyCharacters()
 	{
 		nearbyCharacters.Clear();
-		int layerMask = 1 << 7;
-		Collider[] npcClose = Physics.OverlapSphere(transform.position, stats.ShoutRange, layerMask);
+		Collider[] npcClose = Physics.OverlapSphere(transform.position, stats.ShoutRange, npcLayer);
 		foreach (var character in npcClose)
 		{
 			if (character.GetComponent<NPC>() == this) { continue; }
@@ -128,7 +130,7 @@ public class NPC : MonoBehaviour, ICharacter
 	public bool RayHitPlayer(Vector3 direction, float lenght)
 	{
 		RaycastHit hit;
-		if (Physics.Raycast(transform.position, direction, out hit, lenght))
+		if (Physics.Raycast(transform.position, direction, out hit, lenght, ~npcLayer))
 		{
 			if (hit.collider.CompareTag("Player"))
 			{
@@ -137,6 +139,7 @@ public class NPC : MonoBehaviour, ICharacter
 		}
 		return false;
 	}
+	// can probably remove once we have tested properly
 	public bool InFrontOff(Vector3 direction)
 	{
 		Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
