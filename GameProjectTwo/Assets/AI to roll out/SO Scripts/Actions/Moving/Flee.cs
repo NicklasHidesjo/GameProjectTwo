@@ -43,11 +43,10 @@ public class Flee : Action
 
 	private void CheckWalkableDirection(Vector3 targetDir, Vector3 ownDirection, ICharacter character)
 	{
-		if (Vector3.Angle(targetDir, ownDirection) >= character.Stats.FleeAngle)
+		if (Vector3.Angle(targetDir, ownDirection) >= character.Stats.FleeDeadAngle)
 		{
 			Vector3 origin = character.Transform.position;
 			origin.y = origin.y - character.Transform.localScale.y + 0.5f;
-			Debug.Log(origin.y);
 			if (Physics.Raycast(origin, ownDirection, character.Stats.ClearanceDistance, mask))
 			{
 				return;		

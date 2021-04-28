@@ -50,7 +50,7 @@ public class NPCStats : ScriptableObject
 
 	[Header("Flee Settings")]
 	[Tooltip("The angle that is a dead flee zone behind the player (Lower = character can run closer back towards the player. Higher = straighter running)")]
-	[Range(10,180)]public int FleeAngle = 45;
+	[Range(90,180)]public int FleeDeadAngle = 95;
 	public float FleeDistance = 2f;
 	// these might no longer be used once new flee is implemented.
 	public float MaxFleeDistance = 40f;

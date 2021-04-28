@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Default Civilian
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  ClearanceDistance: 100
+  ClearanceDistance: 3
   MaxAlerted: 20
   CautiousThreshold: 5
   AlertActionThreshold: 10
