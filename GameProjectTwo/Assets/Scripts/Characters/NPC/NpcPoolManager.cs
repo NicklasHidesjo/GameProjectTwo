@@ -46,9 +46,13 @@ public class NpcPoolManager : MonoBehaviour
         {
             GameObject objectToReuse = poolDictionary[poolkey].Dequeue();
             poolDictionary[poolkey].Enqueue(objectToReuse);
+
+            if (!objectToReuse.activeSelf)
+            {
+                objectToReuse.transform.position = position.position;
+                objectToReuse.SetActive(true);    
+            }
             
-            objectToReuse.transform.position = position.position;
-            objectToReuse.SetActive(true);
         }
     }
 }

@@ -10,16 +10,16 @@ public class NPCSpawner : MonoBehaviour
 	[SerializeField] Transform[] spawnLocations;
 	int civiliansActive;
 
+	[SerializeField] private int civilianPoolSize = 5;
+
 	// Start is called before the first frame update
 	void Start()
 	{
 		endLevelCheck = GameObject.FindGameObjectWithTag("Lair").GetComponent<EndLevelCheck>();
-		NpcPoolManager.Instance.CreatePool(civilian, 5);
-
-		while (civiliansActive < (endLevelCheck.LevelPassedThreshold[endLevelCheck.CurrentLevel] / 100) * 2)
-		{
-			StartCoroutine(CivilianSpawn());
-		}
+		NpcPoolManager.Instance.CreatePool(civilian, civilianPoolSize);
+		
+		//StartCoroutine(CivilianSpawn());
+		
 	}
 
 	// Update is called once per frame
@@ -27,8 +27,13 @@ public class NPCSpawner : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.K))
 		{
-			//StartCoroutine(CivilianSpawn());
 			NpcDespawn(GameObject.FindWithTag("Civilian"));
+		}
+
+		//if (civiliansActive < (endLevelCheck.LevelPassedThreshold[endLevelCheck.CurrentLevel] / 100) * 2)
+		if (Input.GetKeyDown(KeyCode.I))
+		{
+			StartCoroutine(CivilianSpawn());
 		}
 	}
 
@@ -38,7 +43,11 @@ public class NPCSpawner : MonoBehaviour
 		Transform currentSpawn = spawnLocations[i];
 		NpcPoolManager.Instance.ReuseNpc(civilian, currentSpawn);
 		yield return new WaitForSeconds(3.0f);
-		civiliansActive++;
+
+		if (civiliansActive < civilianPoolSize)
+		{
+			civiliansActive++;
+		}
 	}
 
 	public void NpcDespawn(GameObject npc)
