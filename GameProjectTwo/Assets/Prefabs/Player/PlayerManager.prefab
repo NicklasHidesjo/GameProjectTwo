@@ -111,7 +111,6 @@ GameObject:
   - component: {fileID: 3613435800765331158}
   - component: {fileID: 1144922818}
   - component: {fileID: 5256516693888865684}
-  - component: {fileID: 1976177739}
   - component: {fileID: 3661780086215431061}
   m_Layer: 6
   m_Name: PlayerManager
@@ -181,7 +180,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerState: 0
-  batMaxTime: 5
 --- !u!114 &1144922818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,18 +210,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d4ebb1832398da4388265826cf87ac9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1976177739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9138906648391732663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8cc0b8d62a2b18c4390210e537627b1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &3661780086215431061
