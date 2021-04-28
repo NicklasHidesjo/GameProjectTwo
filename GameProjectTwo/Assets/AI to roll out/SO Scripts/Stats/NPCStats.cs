@@ -10,7 +10,7 @@ public class NPCStats : ScriptableObject
 
 	[Header("Other Settings")]
 	public int MaxHealth = 100;
-	[Tooltip("The distance at where the guard will detect a wall or other obstacle(used when searching)")]
+	[Tooltip("The distance at where the npc will detect a wall or other obstacle")]
 	public float ClearanceDistance = 3f;
 
 	[Header("Detection Settings")]
@@ -44,11 +44,15 @@ public class NPCStats : ScriptableObject
 	public float WalkSpeed = 3.5f;
 	public float RunSpeed = 5f;
 	public float SearchSpeed = 1.5f;
+	public float FearSpeed = 0.2f;
 	[Tooltip("The speed that the character will rotate when searching")]
 	public float RotationSpeed = 2;
 
 	[Header("Flee Settings")]
-	[Range(10,180)]public int FleeAngle = 45;
+	[Tooltip("The angle that is a dead flee zone behind the player (Lower = character can run closer back towards the player. Higher = straighter running)")]
+	[Range(90,180)]public int FleeDeadAngle = 95;
+	public float FleeDistance = 2f;
+	// these might no longer be used once new flee is implemented.
 	public float MaxFleeDistance = 40f;
 	public float MinFleeDistance = 5f;
 

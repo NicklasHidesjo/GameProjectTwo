@@ -29,8 +29,10 @@ MonoBehaviour:
   WalkSpeed: 1.5
   RunSpeed: 3
   SearchSpeed: 1.5
+  FearSpeed: 0.2
   RotationSpeed: 30
   FleeAngle: 45
+  FleeDistance: 4
   MaxFleeDistance: 40
   MinFleeDistance: 5
   IdleTime: 2

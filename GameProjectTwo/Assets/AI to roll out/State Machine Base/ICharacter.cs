@@ -19,7 +19,11 @@ public interface ICharacter
 	public Quaternion OriginRot { get; set; }
 	public Quaternion TargetRot { get; set; }
 	public bool InfrontOfWall { get; set; }
+	
 	public float SearchAngle { get; set; }
+
+	public Vector3[] RunAngles { get; set; }
+
 	public float YRotCorrection { get; set; }
 	public float RotationSpeed { get; set; }
 	public bool RotationStarted { get; set; }
@@ -33,6 +37,8 @@ public interface ICharacter
 	public bool ShouldShout { get; set; }
 	public bool Run { get; set; }
 	public bool NoticedPlayer { get; set; }
+
+	public bool FreezeInFear { get; set; }
 
 	public int FOV { get; set; }
 
