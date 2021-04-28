@@ -8,25 +8,41 @@ using UnityEngine;
 public class InteractableScanner : MonoBehaviour
 {
 
-    [SerializeField] List<Interactable> interactables;
+    [SerializeField] HashSet<Interactable> interactables;
     [SerializeField] Interactable currentInteractable;
     public Interactable CurrentInteractable { get => currentInteractable;}
 
     [SerializeField] float interactRange;
 
     public float InteractRange { get => interactRange;}
+    [SerializeField] LayerMask layersToSearch;
 
     void Start()
     {
-        interactables = new List<Interactable>();
+        interactables = new HashSet<Interactable>();
     }
 
-    
-    void Update()
+    private void FixedUpdate()
+    {
+        GetInteractablesInRange();
+        SetClosestInteractable();
+    }
+
+    private void GetInteractablesInRange()
     {
 
-        SetClosestInteractable();
+        interactables.Clear();
+        Collider[] colliders = Physics.OverlapSphere(transform.position, interactRange, layersToSearch);
 
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            Interactable test = colliders[i].GetComponent<Interactable>();
+
+            if (test != null)
+            {
+                AddInteractableToList(test);
+            }
+        }
     }
 
     private void SetClosestInteractable()
@@ -51,7 +67,7 @@ public class InteractableScanner : MonoBehaviour
     {
         Interactable closestContainer = null;
         float closestDistance = interactRange;
-        interactables.RemoveAll(Interactable => Interactable == null);
+        
         foreach (Interactable i in interactables)
         {
             Vector3 directionToTarget = i.transform.position - transform.position;
@@ -68,10 +84,7 @@ public class InteractableScanner : MonoBehaviour
 
     public void AddInteractableToList(Interactable newInteractable)
     {
-        if (interactables.Contains(newInteractable))
-        {
-            return;
-        }
+
         interactables.Add(newInteractable);
         
     }
@@ -82,26 +95,5 @@ public class InteractableScanner : MonoBehaviour
         interactables.Remove(newInteractable);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        
-        Interactable i = other.GetComponent<Interactable>();
-        
-        if (i != null)
-        {
-            AddInteractableToList(i);
-        }
-
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        Interactable i = other.GetComponent<Interactable>();
-        
-        if (i != null)
-        {
-            RemoveInteractableFromList(i);
-        }
-    }
 
 }

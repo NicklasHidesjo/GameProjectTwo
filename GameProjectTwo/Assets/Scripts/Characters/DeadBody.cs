@@ -7,13 +7,16 @@ using UnityEngine;
 public class DeadBody : Interactable
 {
 
-    bool isGrabbed;
-    bool isHidden;
+    private bool isGrabbed;
+    private bool isHidden;
+
+    private int startingLayer;
 
     private void Start()
     {
         standardMaterial = GetComponent<MeshRenderer>().material;
         gameObject.GetComponent<Rigidbody>().AddRelativeTorque(transform.forward * -100, ForceMode.Impulse);
+        startingLayer = gameObject.layer;
     }
 
     public override void Interact(GameObject player)
@@ -22,14 +25,15 @@ public class DeadBody : Interactable
         {
             isGrabbed = false;
             GetComponent<Rigidbody>().isKinematic = false;
+            gameObject.layer = startingLayer;
 
             transform.parent = null;
         }
         else
         {
-
             GetComponent<Rigidbody>().isKinematic = true;
             transform.SetParent(player.transform, true);
+            gameObject.layer = 0;
             isGrabbed = true;
 
         }

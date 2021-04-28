@@ -88,6 +88,12 @@ public class PlayerState : MonoBehaviour
                     draculaMovement.Move();
                     break;
                 }
+            case playerStates.DraculaDragBody:
+                {
+                    draculaMovement.Move();
+                    break;
+                }
+
             case playerStates.DraculaHideing:
                 {
                     break;

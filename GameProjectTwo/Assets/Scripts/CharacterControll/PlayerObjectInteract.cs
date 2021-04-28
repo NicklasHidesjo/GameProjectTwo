@@ -23,7 +23,7 @@ public class PlayerObjectInteract : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetButtonDown("Interact"))
         {
             if (iScanner.CurrentInteractable == null)
             {
@@ -34,15 +34,10 @@ public class PlayerObjectInteract : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        //Cancel Button
+        if (Input.GetButtonDown("Run"))
         {
-            if (heldInteractable != null)
-            {
-                heldInteractable.Interact(gameObject);
-                Physics.IgnoreCollision(heldInteractable.GetComponent<Collider>(), GetComponent<SphereCollider>(), false);
-                heldInteractable = null;
-            }
-            
+            CancelInteraction();
 
         }
 
@@ -51,79 +46,121 @@ public class PlayerObjectInteract : MonoBehaviour
 
     private void InteractWithObject()
     {
+        // Switch to check if state is valid for interaction
+        switch (playerState.CurrentState)
+        {
+
+            case PlayerState.playerStates.DraculaDefault:
+                break;
+            case PlayerState.playerStates.DraculaRunning:
+                break;
+            case PlayerState.playerStates.DraculaCrouching:
+                break;
+            case PlayerState.playerStates.DraculaDragBody:
+                break;
+            case PlayerState.playerStates.DraculaHidden:
+                break;
+            case PlayerState.playerStates.DraculaSucking:
+                break;
+            default:
+                    print(playerState.CurrentState + " state does not allow interaction");
+                return;
+        }
 
         switch (interactable)
         {
             case DeadBody D: //checks on player to see if interaction is valid
-                if (heldInteractable != null)
                 {
-                    Debug.Log("Need to let go first dude: " + D.gameObject);
-                    return;
-                }
-                Debug.Log("Interact dead dude: " + D.gameObject);
-                heldInteractable = D;
-                Physics.IgnoreCollision(heldInteractable.GetComponent<Collider>(), GetComponent<SphereCollider>());
-                interactable.Interact(gameObject);
-                iScanner.RemoveInteractableFromList(heldInteractable);
-                break;
-            case Container C: //checks on player to see if interaction is valid
-                if (C.ObjectInside != null)
-                {
-
-                    Debug.Log("Container is full");
-                    return;
-
-                }
-                else if (heldInteractable != null)
-                {
-                    
-
-                    heldInteractable.Interact(gameObject);
-                    interactable.Interact(heldInteractable.gameObject);
-                    heldInteractable = null;
-                }
-                else
-                {
-                    if (tempHiddenState)
+                    if (heldInteractable != null)
                     {
-                        Debug.Log("Leaving " + C.gameObject);
+                        Debug.Log("Need to let go first dude: " + D.gameObject);
+                        return;
+                    }
+                    Debug.Log("Interact dead dude: " + D.gameObject);
+                    heldInteractable = D;
+                    interactable.Interact(gameObject);
+                    iScanner.RemoveInteractableFromList(heldInteractable);
+                    playerState.SetState(PlayerState.playerStates.DraculaDragBody);
+                    break;
+                }
+                
+            case Container C: //checks on player to see if interaction is valid
+                {
+                    if (C.ObjectInside != null)
+                    {
 
-                        GetComponent<CharacterController>().enabled = true;
-                        tempHiddenState = false;
-                        interactable.Interact(gameObject);
-                        
+                        Debug.Log("Container is full");
+                        return;
 
+                    }
+                    else if (heldInteractable != null)
+                    {
+                        heldInteractable.Interact(gameObject);
+                        interactable.Interact(heldInteractable.gameObject);
+                        heldInteractable = null;
                     }
                     else
                     {
-                        Debug.Log("Entering " + C.gameObject);
+                        if (playerState.CurrentState == PlayerState.playerStates.DraculaHidden)
+                        {
 
-                        GetComponent<CharacterController>().enabled = false;
-                        tempHiddenState = true;
+                            Debug.Log("Leaving " + C.gameObject);
+                            playerState.SetState(PlayerState.playerStates.DraculaHideing);
+                            GetComponent<CharacterController>().enabled = true;
+                            tempHiddenState = false;
+                            interactable.Interact(gameObject);
+                        }
+                        else
+                        {
+                            Debug.Log("Entering " + C.gameObject);
 
-                        interactable.Interact(gameObject);
-                        playerState.SetState(PlayerState.playerStates.DraculaHidden);
+                            GetComponent<CharacterController>().enabled = false;
+                            tempHiddenState = true;
 
+                            interactable.Interact(gameObject);
+                            playerState.SetState(PlayerState.playerStates.DraculaHideing);
+
+                        }
                     }
+                    break;
                 }
-                break;
             case BloodSuckTarget B: //see if the object itself can validate interaction
-                if (playerState.GetCurrentState() != PlayerState.playerStates.DraculaSucking)
                 {
+                    CancelInteraction();
                     interactable.Interact(gameObject);
-                    
+                    heldInteractable = B;
                     transform.LookAt(interactable.transform);
-                }
-                else
-                {
-                    B.CancelSucking();
-                    playerState.SetState(PlayerState.playerStates.DraculaDefault);
 
+                    break;
                 }
 
-                break;
             default:
                 break;
+        }
+    }
+    public void CancelInteraction()
+    {
+        if (heldInteractable != null)
+        {
+
+            switch (heldInteractable)
+            {
+                case DeadBody D:
+                    heldInteractable.Interact(gameObject);
+                    heldInteractable = null;
+                    playerState.SetState(PlayerState.playerStates.DraculaDefault);
+                    break;
+
+                case BloodSuckTarget B:
+                    B.CancelSucking();
+                    heldInteractable = null;
+                    playerState.SetState(PlayerState.playerStates.DraculaDefault);
+                    break;
+
+                default:
+                    break;
+            }
+
         }
     }
 

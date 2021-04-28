@@ -6,8 +6,11 @@ using UnityEngine;
 public class Container : Interactable
 {
 
-    GameObject objectInside;
+    private GameObject objectInside;
     public GameObject ObjectInside { get => objectInside; }
+
+    public delegate void OnMoveCompleted();
+
 
     private bool playerInside = false;
 
@@ -52,27 +55,23 @@ public class Container : Interactable
     private void HideInContainer(GameObject player)
     {
         if (playerInside)
-        {
-            //Physics.IgnoreCollision(player.GetComponent<CapsuleCollider>(), GetComponent<Collider>(), false);
-            playerInside = false;
-            StartCoroutine(MoveTowardsPosition2(player.transform, gameObject.transform.position + gameObject.transform.forward * 2F, 1f, player));
+        {         
+            playerInside = false;   
+            StartCoroutine(MoveTowardsPosition(player.transform, gameObject.transform.position + gameObject.transform.forward * 2F, 1f, PlayerState.playerStates.DraculaDefault));
 
         }
         else
         {
-
-            playerInside = true;
-            Physics.IgnoreCollision(player.GetComponent<CapsuleCollider>(), GetComponent<Collider>());
-            StartCoroutine(MoveTowardsPosition(player.transform, transform.position, 1f));
+            playerInside = true;           
+            StartCoroutine(MoveTowardsPosition(player.transform, transform.position, 1f, PlayerState.playerStates.DraculaHidden));
         }
     }
 
 
-
+    //To Move Objects
     IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time)
     {
-        //TODO Make Sure there is no player control during animation!!!
-        // Make sure playerstate allows external position manpulation when calling this
+        
         if (time == 0f)
         {
             time = 0.0001f;
@@ -87,12 +86,13 @@ public class Container : Interactable
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-        Debug.Log("finished moving");
-        
+        Debug.Log("finished moving");     
     }
-    IEnumerator MoveTowardsPosition2(Transform targetToMove, Vector3 targetPosition, float time, GameObject player)
+
+    // To Move Player
+    IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time, PlayerState.playerStates state)
     {
-        //TODO Make Sure there is no player control during animation
+        
         if (time == 0f)
         {
             time = 0.0001f;
@@ -108,7 +108,13 @@ public class Container : Interactable
             yield return new WaitForEndOfFrame();
         }
         Debug.Log("finished moving");
-        player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaDefault);
+        //player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaDefault);
+        SetState(state);
+    }
+
+    public void SetState(PlayerState.playerStates newState)
+    {
+        PlayerManager.instance.GetComponent<PlayerState>().SetState(newState);       
     }
 
 }
