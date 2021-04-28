@@ -14,7 +14,10 @@ public class SetYRotCorrection : Action
 
 		if (hitLeft && hitRight && hitFront)
 		{
-			character.YRotCorrection = character.Transform.rotation.y + 180;
+			character.YRotCorrection = 0;
+			// This is used if we want the guard to rotate once they enter a dead end.
+			// for now it is commented due to us wanting the guard to just look confused.
+			//character.YRotCorrection = character.Transform.rotation.y + 180;
 		}
 		else if (hitFront && hitLeft)
 		{
