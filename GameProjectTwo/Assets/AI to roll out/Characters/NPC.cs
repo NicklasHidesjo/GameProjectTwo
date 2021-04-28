@@ -57,10 +57,13 @@ public class NPC : MonoBehaviour, ICharacter
 	private List<NPC> nearbyCharacters = new List<NPC>();
 	public List<NPC> NearbyCharacters => nearbyCharacters;
 
+	public Vector3[] RunAngles { get; set; }
 	public bool Run { get; set; }
 
 	public bool NoticedPlayer { get; set; }
 	public bool SeesPlayer { get; set; }
+
+	public bool FreezeInFear { get; set; }
 
 	public int FOV { get; set; }
 
@@ -75,12 +78,26 @@ public class NPC : MonoBehaviour, ICharacter
 	}
 	private void InitializeNPC()
 	{
+		GetComponents();
+		SetBools();
+		SetFloatsAndInts();
+		SetVectors();
+	}
+
+	private void GetComponents()
+	{
 		agent = GetComponent<NavMeshAgent>();
 		player = FindObjectOfType<PlayerManager>().GetPlayerPoint();
 		path = GameObject.FindGameObjectsWithTag(pathTag).Select(f => f.transform).ToArray();
+	}
+	private void SetBools()
+	{
 		IsSuckable = true;
 		isDead = false;
 		ShouldShout = true;
+	}
+	private void SetFloatsAndInts()
+	{
 		currentHealth = stats.MaxHealth;
 		agent.speed = stats.WalkSpeed;
 		Alertness = 0;
@@ -90,7 +107,18 @@ public class NPC : MonoBehaviour, ICharacter
 		SearchAngle = stats.SearchAngle;
 		RotationSpeed = stats.RotationSpeed;
 		FOV = stats.RelaxedFOV;
-		// set the spherecollider radius here using a stat in npc stats?
+	}
+	private void SetVectors()
+	{
+		RunAngles = new Vector3[8];
+		RunAngles[0] = transform.forward;
+		RunAngles[1] = transform.forward + transform.right;
+		RunAngles[2] = transform.right;
+		RunAngles[3] = transform.right - transform.forward;
+		RunAngles[4] = -transform.forward;
+		RunAngles[5] = -transform.forward - transform.right;
+		RunAngles[6] = -transform.right;
+		RunAngles[7] = -transform.right + transform.forward;
 	}
 
 

@@ -10,11 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdc3e40b5f6e139439f618a792a49487, type: 3}
-  m_Name: Stationary Civilian
+  m_Name: RunToSafety
   m_EditorClassIdentifier: 
-  enterActions: []
+  enterActions:
+  - {fileID: 11400000, guid: 02003f8292042d94b8eeb452639af61c, type: 2}
+  - {fileID: 11400000, guid: 14c05d805dde86840b7cbdf5ee6f254c, type: 2}
+  - {fileID: 11400000, guid: e6bad799f9e30c448bb5c4e7294d74e4, type: 2}
+  - {fileID: 11400000, guid: bc7b682462a4e7a48807ea32de186197, type: 2}
   executeActions: []
   exitActions: []
   transitions:
-  - decision: {fileID: 11400000, guid: 293de0d155b8c6d48af24ec501d46811, type: 2}
-    newState: {fileID: 11400000, guid: 7d50bb018c8f2464d994c4bdd63395c5, type: 2}
+  - decision: {fileID: 0}
+    newState: {fileID: 0}

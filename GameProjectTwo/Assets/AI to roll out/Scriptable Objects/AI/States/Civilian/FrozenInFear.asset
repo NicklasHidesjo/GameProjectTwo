@@ -10,20 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdc3e40b5f6e139439f618a792a49487, type: 3}
-  m_Name: Civilian Sucked
+  m_Name: FrozenInFear
   m_EditorClassIdentifier: 
   enterActions:
-  - {fileID: 11400000, guid: 02003f8292042d94b8eeb452639af61c, type: 2}
   - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}
-  - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
   - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}
-  - {fileID: 11400000, guid: 4e7be3d9cab7cb341b3452151d666a30, type: 2}
+  - {fileID: 11400000, guid: 99c10a7bd000f0e44a1f68c8089d022f, type: 2}
+  - {fileID: 11400000, guid: 37c1ba28c9ce5d34ca77bcf68ccb92fe, type: 2}
+  - {fileID: 11400000, guid: f8de98f7d38fd05488673ef58cb5c661, type: 2}
   executeActions:
-  - {fileID: 11400000, guid: d82118bf12b88694cbea91153e4dd5ff, type: 2}
-  - {fileID: 11400000, guid: 66ce75abb88d3304e9b29fbb46eb09fe, type: 2}
+  - {fileID: 11400000, guid: 99c10a7bd000f0e44a1f68c8089d022f, type: 2}
+  - {fileID: 11400000, guid: 4d937f1aa50140d48a1ee28c8b8583c0, type: 2}
   exitActions:
   - {fileID: 11400000, guid: 9c26ab42bd53e7d44b1ea9ac1e9a2fd0, type: 2}
-  - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
+  - {fileID: 11400000, guid: e6bad799f9e30c448bb5c4e7294d74e4, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: 5f36339e4d698804397f216866aeadd9, type: 2}
+  - decision: {fileID: 11400000, guid: ebdc551eee068cc4594b37ae8722ef5f, type: 2}
+    newState: {fileID: 11400000, guid: 53e6c94010028b940918b7865e5739e3, type: 2}
+  - decision: {fileID: 11400000, guid: b40212dbfb3b3674d92be6acd944d1cd, type: 2}
     newState: {fileID: 11400000, guid: 7d50bb018c8f2464d994c4bdd63395c5, type: 2}

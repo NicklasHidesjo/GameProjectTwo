@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdc3e40b5f6e139439f618a792a49487, type: 3}
-  m_Name: Stationary Civilian
+  m_Name: LeaveState
   m_EditorClassIdentifier: 
   enterActions: []
   executeActions: []
   exitActions: []
-  transitions:
-  - decision: {fileID: 11400000, guid: 293de0d155b8c6d48af24ec501d46811, type: 2}
-    newState: {fileID: 11400000, guid: 7d50bb018c8f2464d994c4bdd63395c5, type: 2}
+  transitions: []
