@@ -47,7 +47,9 @@ public class MenuManager : MonoBehaviour
     public void RestartGame()
     {
         TogglePause();
-        SceneManager.LoadScene("210422", LoadSceneMode.Single);
+        //TODO Load correct scene
+        String currentScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentScene, LoadSceneMode.Single);
     }
 
     public void TogglePause()

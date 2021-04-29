@@ -323,6 +323,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1988f7b74a3953040873ab6a977cab0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BarrierLevels:
+  barrierLevels:
   - {fileID: 7650525316263570651}
   - {fileID: 7650525316802946946}

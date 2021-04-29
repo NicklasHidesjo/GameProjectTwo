@@ -12,6 +12,9 @@ public class EndLevelCheck : MonoBehaviour
 	private PlayerStatsManager playerStatsManager;
 	private MenuManager menuManager;
 
+	public delegate void LevelEnd(int newLevel);
+	public static event LevelEnd OnLevelEnded;
+
 	public int[] LevelPassedThreshold { get => levelPassedThreshold; }
 
 	[SerializeField] int[] levelPassedThreshold = new int [5];
@@ -32,6 +35,10 @@ public class EndLevelCheck : MonoBehaviour
 				menuManager.EndOfLevelScreen();
 				currentLevel++;
 				playerStatsManager.ResetStats();
+                if (OnLevelEnded != null)
+                {
+					OnLevelEnded(currentLevel);
+                }
 			}
 		}
 	}

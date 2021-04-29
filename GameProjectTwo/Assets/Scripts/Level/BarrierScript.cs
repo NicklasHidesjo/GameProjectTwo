@@ -4,45 +4,49 @@ using UnityEngine;
 
 public class BarrierScript : MonoBehaviour
 {
-    int ActiveLevel;
-    [SerializeField] GameObject[] BarrierLevels;
-    // Start is called before the first frame update
+    private int activeLevel;
+    [SerializeField] GameObject[] barrierLevels;
     void Start()
     {
-        
+        EndLevelCheck.OnLevelEnded += LevelChange;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.C))
-        {
-            LevelChange();
-        }
+        //if(Input.GetKeyDown(KeyCode.C))
+        //{
+        //    LevelChange();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            ResetAll();
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    ResetAll();
+        //}
     }
     
-    void LevelChange()
+    void LevelChange(int newLevel)
     {
-        BarrierLevels[ActiveLevel].SetActive(false);
-        ActiveLevel++;
+        barrierLevels[activeLevel].SetActive(false);
+        activeLevel = newLevel;
     }
 
     void ResetAll()
     {
-        for (int i = 0; i < BarrierLevels.Length; i++)
+        for (int i = 0; i < barrierLevels.Length; i++)
         {
-            BarrierLevels[i].SetActive(true);
+            barrierLevels[i].SetActive(true);
         }
-        ActiveLevel = 0;
+        activeLevel = 0;
     }
 
-  /* ToDo if needed  void Loadlevel(int levelInput)
-    {
+    /* ToDo if needed  void Loadlevel(int levelInput)
+      {
 
-    } */
+      } */
+
+    private void OnDestroy()
+    {
+        EndLevelCheck.OnLevelEnded -= LevelChange;
+
+    }
 }

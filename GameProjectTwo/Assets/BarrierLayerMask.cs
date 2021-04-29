@@ -12,8 +12,5 @@ public class BarrierLayerMask : MonoBehaviour
         Physics.IgnoreLayerCollision(10, 2);
     }
 
-    void Update()
-    {
-        
-    }
+
 }
