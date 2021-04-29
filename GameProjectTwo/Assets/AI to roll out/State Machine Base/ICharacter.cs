@@ -42,6 +42,11 @@ public interface ICharacter
 
 	public int FOV { get; set; }
 
+	public Vector3 StartingPosition { get; set; }
+	public Quaternion StartingRotation { get; set; }
+	public bool StationaryGuard { get; }
+
+
 	public List<NPC> NearbyCharacters { get;}
 
 	/// <summary>
