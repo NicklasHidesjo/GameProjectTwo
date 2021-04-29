@@ -18,11 +18,11 @@ public class NPC : MonoBehaviour, ICharacter
 	private Transform player;
 	private Transform[] path;
 
+	public LayerMask NpcLayer => npcLayer;
+
 	public Transform[] Path => path;
 
 	public Transform Transform => transform;
-
-	public LayerMask NpcLayer => npcLayer;
 
 	public Transform Player => player;
 
@@ -72,6 +72,9 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public bool StationaryGuard => stationary;
 
+	public bool BackTrack { get; set; }
+	public bool Increase { get; set; }
+
 	public bool SawHiding { get; set; }
 
 	private void Awake()
@@ -104,6 +107,16 @@ public class NPC : MonoBehaviour, ICharacter
 		IsSuckable = true;
 		isDead = false;
 		ShouldShout = true;
+		if(gameObject.CompareTag("Guard"))
+		{
+			BackTrack = Random.Range(0, 2) * 2 - 1 > 0;
+			Increase = Random.Range(0, 2) * 2 - 1 > 0;
+		}
+		else
+		{
+			BackTrack = false;
+			Increase = true;
+		}
 	}
 	private void SetFloatsAndInts()
 	{
