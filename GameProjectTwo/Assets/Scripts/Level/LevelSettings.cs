@@ -5,7 +5,9 @@ using UnityEngine;
 public class LevelSettings : MonoBehaviour
 {
     [SerializeField] float timeTillSunrise;
-    SunTimeOfDay sunTime;
+
+    private SunTimeOfDay sunTime;
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,12 +24,18 @@ public class LevelSettings : MonoBehaviour
 
         sunTime.SetTimeOfDayTo(0);
         LevelStart();
+        MenuManager.OnLevelStart += LevelStart;
     }
 
     public void LevelStart()
     {
-        sunTime.MoveTimeOfDayTo(0, 3);
-        sunTime.SetRiseTimer(timeTillSunrise, 10, 20);
+        sunTime.MoveTimeOfDayTo(0, 1);
+        sunTime.SetRiseTimer(timeTillSunrise, 7, 20);
+    }
+
+    private void OnDestroy()
+    {
+        MenuManager.OnLevelStart -= LevelStart;
     }
 
 }

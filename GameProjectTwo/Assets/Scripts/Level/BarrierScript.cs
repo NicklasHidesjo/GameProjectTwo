@@ -8,7 +8,7 @@ public class BarrierScript : MonoBehaviour
     [SerializeField] GameObject[] barrierLevels;
     void Start()
     {
-        EndLevelCheck.OnLevelEnded += LevelChange;
+        MenuManager.OnLevelStart += LevelChange;
     }
 
     void Update()
@@ -24,10 +24,10 @@ public class BarrierScript : MonoBehaviour
         //}
     }
     
-    void LevelChange(int newLevel)
+    void LevelChange()
     {
         barrierLevels[activeLevel].SetActive(false);
-        activeLevel = newLevel;
+        activeLevel++;
     }
 
     void ResetAll()
@@ -46,7 +46,7 @@ public class BarrierScript : MonoBehaviour
 
     private void OnDestroy()
     {
-        EndLevelCheck.OnLevelEnded -= LevelChange;
+        MenuManager.OnLevelStart -= LevelChange;
 
     }
 }
