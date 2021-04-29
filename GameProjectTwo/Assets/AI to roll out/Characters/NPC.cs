@@ -22,6 +22,8 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public Transform Transform => transform;
 
+	public LayerMask NpcLayer => npcLayer;
+
 	public Transform Player => player;
 
 	public NavMeshAgent Agent => agent;
@@ -55,9 +57,6 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public bool ShouldShout { get; set; }
 
-	private List<NPC> nearbyCharacters = new List<NPC>();
-	public List<NPC> NearbyCharacters => nearbyCharacters;
-
 	public Vector3[] RunAngles { get; set; }
 	public bool Run { get; set; }
 
@@ -80,7 +79,6 @@ public class NPC : MonoBehaviour, ICharacter
 		if (stats == null)
 		{
 			Debug.LogError("This npc doesnt have any stats: " + gameObject.name);
-			//UnityEditor.EditorApplication.isPlaying = false;
 		}
 		InitializeNPC();
 	}
@@ -130,23 +128,6 @@ public class NPC : MonoBehaviour, ICharacter
 		RunAngles[5] = -transform.forward - transform.right;
 		RunAngles[6] = -transform.right;
 		RunAngles[7] = -transform.right + transform.forward;
-	}
-
-
-	private void FixedUpdate()
-	{
-		SetNearbyCharacters();
-	}
-
-	private void SetNearbyCharacters()
-	{
-		nearbyCharacters.Clear();
-		Collider[] npcClose = Physics.OverlapSphere(transform.position, stats.ShoutRange, npcLayer);
-		foreach (var character in npcClose)
-		{
-			if (character.GetComponent<NPC>() == this) { continue; }
-			nearbyCharacters.Add(character.GetComponent<NPC>());
-		}
 	}
 
 	public void Attack()

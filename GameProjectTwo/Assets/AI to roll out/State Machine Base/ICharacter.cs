@@ -46,9 +46,7 @@ public interface ICharacter
 	public Quaternion StartingRotation { get; set; }
 	public bool StationaryGuard { get; }
 
-
-	public List<NPC> NearbyCharacters { get;}
-
+	public LayerMask NpcLayer { get; }
 	/// <summary>
 	/// Sets the NavMesh Agents destination to "destination"
 	/// </summary>
