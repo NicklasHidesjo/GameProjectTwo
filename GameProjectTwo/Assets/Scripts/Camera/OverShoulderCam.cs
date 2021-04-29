@@ -6,51 +6,112 @@ public class OverShoulderCam : MonoBehaviour
 {
     [Header("DEBUG")]
     [SerializeField] bool debugRays;
-    [Header("Settings")]
+
+    [Header("Actors")]
     [SerializeField] Transform cam;
-    [SerializeField] LayerMask checkLayers;
     [SerializeField] Transform target;
-    [SerializeField] Vector3 maxOffsett = new Vector3(2, 1.5f, -10);
-    [SerializeField] float leanSpeed = 2.0f;
-    [SerializeField] float speed = 60;
+    Vector3 wantedPos = Vector3.zero;
+    Quaternion wantedRotation = Quaternion.identity;
+
+
+    [Header("Input Settings")]
     [SerializeField] float mouseSpeed = 6;
+    [SerializeField] float maxLean = 2;
+    private Vector3 lean;
     [SerializeField] float maxTilt = 80;
-    [SerializeField] float minTilt = 10;
+    [SerializeField] float minTilt = 15;
 
-    //Debug options
-    [SerializeField] bool lockToWindow;
+    //Target
+    [Header("RayTrace Settings")]
+    [Tooltip("Physicslayers Hit")]
+    [SerializeField] LayerMask checkLayers;
 
-    private float lean;
-    Transform dummy;
+    [Header("Camera Target Settings")]
+    [Tooltip("Set Radius, Hight to cylinder cast around target")]
+    [SerializeField] Vector2 t_CylinderSize = new Vector2(2, 1);
+    [SerializeField] Vector3 targetOffset = new Vector3(0, 0.8f, 0);
+    private Vector3 t_BoxSize;
+    Vector3 targetPoint = Vector3.zero;
+    private Collider[] t_CylinderHits = new Collider[8];
+
+    //Camera
+    [Header("Camera Position settings")]
+    [Tooltip("Set the desired position of camera")]
+    [SerializeField] Vector3 maxCameraOffsett = new Vector3(2, 1.5f, -10);
+    [SerializeField] float cameraFromWallOffsett = 0.25f;
+    [SerializeField] float rayRadius = 1;
+
+    private RaycastHit[] hits = new RaycastHit[16];
+
 
     // Start is called before the first frame update
     void Start()
     {
-        if (!cam)
-            cam = Camera.main.transform;
-
-        if (lockToWindow)
-            Cursor.lockState = CursorLockMode.Confined;
-
-        dummy = new GameObject().transform;
+        t_BoxSize = new Vector3(t_CylinderSize.x, t_CylinderSize.y * 0.5f, t_CylinderSize.x);
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
-        dummy.rotation = MouseRotation(dummy.eulerAngles);
+        TargetLean();
+        wantedRotation = MouseRotation(wantedRotation.eulerAngles);
 
-        Vector3 offsett = maxOffsett;
-        offsett = Lean(offsett);
+        targetPoint = OffSetTarget(target.position + wantedRotation * lean+ targetOffset);
 
-        //Rotate offsett
-        Vector3 tOffsett = target.position + dummy.rotation * new Vector3(offsett.x, offsett.y, 0);
-        offsett = target.position + dummy.rotation * offsett;
-        offsett = RayCam(tOffsett, offsett);
-        dummy.position = offsett;
+        wantedPos = GetWantedPosInRelationToTarget(targetPoint);
 
-        cam.position = Vector3.MoveTowards(cam.position, offsett, speed * Time.deltaTime);
-        cam.LookAt(tOffsett);
+        cam.transform.position = (RayCam(targetPoint, wantedPos));
+        cam.LookAt(targetPoint);
+    }
+
+    void TargetLean()
+    {
+        lean.x = Mathf.MoveTowards(lean.x, Input.GetAxis("Lean") * maxLean, 3*Time.deltaTime);
+
+    }
+
+    Vector3 OffSetTarget(Vector3 checkPos)
+    {
+        //This boxcast and then check whats in set radius around player, such as if inside cylinder
+        //Returns a offsett adjusted point from walls inside cylinder
+
+        if (debugRays)
+        {
+            DebugPoint(checkPos, t_BoxSize.x, Color.magenta);
+        }
+
+        Vector3 fusedNorm = Vector3.zero;
+        int hitNum = Physics.OverlapBoxNonAlloc(checkPos, t_BoxSize, t_CylinderHits, Quaternion.identity, checkLayers);
+        if (hitNum > 0)
+        {
+            for (int i = 0; i < hitNum; i++)
+            {
+                Vector3 point = t_CylinderHits[i].ClosestPoint(checkPos);
+                Vector3 hitNorm = checkPos - point;
+                float sqrDist = hitNorm.sqrMagnitude;
+
+                //If inside Cylinder-ich
+                if (sqrDist < t_CylinderSize.x * t_CylinderSize.x)
+                {
+                    float inf = (t_CylinderSize.x - Mathf.Sqrt(sqrDist));
+                    
+                    if (hitNorm == Vector3.zero)//<-- Inside collider
+                    {
+                        inf = t_CylinderSize.x;
+                        hitNorm =  target.position- point;
+                        
+                    }
+                    
+                    fusedNorm += hitNorm.normalized * inf;
+                }
+            }
+
+            fusedNorm.y = 0;
+            DebugPoint(checkPos + fusedNorm, 0.5f, Color.white);
+            return checkPos + fusedNorm / hitNum;
+        }
+
+        return checkPos;
     }
 
     Quaternion MouseRotation(Vector3 camEuler)
@@ -69,56 +130,77 @@ public class OverShoulderCam : MonoBehaviour
         return Quaternion.Euler(camEuler);
     }
 
-    Vector3 Lean(Vector3 offsett)
+    Vector3 GetWantedPosInRelationToTarget(Vector3 t_Point)
     {
-        lean *= 1 - leanSpeed * Time.deltaTime;
-        lean += Input.GetAxis("Lean") * leanSpeed * 2 * Time.deltaTime;
-
-        lean = Mathf.Clamp(lean, -maxOffsett.x, maxOffsett.x);
-
-
-        offsett.x = lean;
-
-        RaycastHit hit;
-        Vector3 tDir = dummy.rotation * (Vector2)offsett;
-        if (Physics.Raycast(target.position, tDir, out hit, lean, checkLayers))
-        {
-            if (lean > 0)
-                lean = hit.distance;
-            else
-                lean = -hit.distance;
-        }
-
-        offsett.x = lean;
-        return offsett;
+        return t_Point + wantedRotation * Vector3.forward * maxCameraOffsett.z;
     }
+
 
     Vector3 RayCam(Vector3 from, Vector3 to)
     {
         //TODO : If radius is larger then target collider radius, cast clips. Compensate by moveing ray
-
         Ray ray = new Ray(from, to - from);
-        RaycastHit hit;
+        int hitNum = Physics.SphereCastNonAlloc(ray.origin, rayRadius, ray.direction, hits, maxCameraOffsett.z * -1, checkLayers, QueryTriggerInteraction.Ignore);
+        Vector3 closestHitPoint = to;
+
+        if (hitNum > 0)
+        {
+            float compDist = Mathf.Infinity;
+            for (int i = 0; i < hitNum; i++)
+            {
+                Collider col = hits[i].collider;
+                //WARNING : +rayRadius
+                Vector3 pos = PlanePoint(ray, col.ClosestPoint(ray.origin + ray.direction * (hits[i].distance + rayRadius)));
+                Vector3 planeDirToC = ray.origin - pos;
+
+                float lerp = planeDirToC.magnitude;
+                lerp = lerp / rayRadius;
+                lerp *= 2;
+                lerp -= 1;
+
+                Vector3 centerPoint = ray.origin + ray.direction * ((ray.origin - hits[i].point + planeDirToC).magnitude - 0.25f);
+                pos = Vector3.Lerp(centerPoint, ray.origin + ray.direction * -maxCameraOffsett.z, lerp);
+
+
+                float tDist = (pos - ray.origin).sqrMagnitude;
+                if (tDist < compDist)
+                {
+                    closestHitPoint = pos;
+                    compDist = tDist;
+                }
+            }
+        }
 
         if (debugRays)
-            DebugBox(from, (from + to * 0.5f), new Vector3(0.5f, 0.5f, -maxOffsett.z * 0.5f), Quaternion.LookRotation(ray.direction), (Color.yellow + Color.clear) * 0.5f);
-
-        if (Physics.SphereCast(ray, 0.45f, out hit, maxOffsett.z * -1, checkLayers))
         {
-            Plane plane = new Plane(ray.direction, from);
-            Vector3 p = plane.ClosestPointOnPlane(hit.point);
-            Vector3 offDir = p - from;
-            offDir += hit.normal * 0.5f * maxOffsett.y;
-            offDir *= Vector3.Dot(ray.direction, hit.normal);
-
-            Vector3 newPos = from + offDir + ray.direction * hit.distance;
-
-            if (debugRays)
-                DebugBox(from, (from + to * 0.5f), new Vector3(0.5f, 0.5f, -maxOffsett.z * 0.5f), Quaternion.LookRotation(ray.direction), Color.red);
-
-            return newPos;
+            DebugPoint(from, 0.25f, Color.green);
+            DebugPoint(to, 0.25f, Color.red);
+            DebugBox(from, (from + to * 0.5f), new Vector3(1.0f, 1.0f, -maxCameraOffsett.z * 0.5f), Quaternion.LookRotation(ray.direction), (Color.yellow + Color.clear) * 0.5f);
+            if (hitNum > 0)
+            {
+                DebugBox(from, (from + to * 0.5f), new Vector3(0.5f, 0.5f, -maxCameraOffsett.z * 0.5f), Quaternion.LookRotation(ray.direction), Color.red);
+            }
+            DebugPoint(closestHitPoint, 0.25f, Color.cyan);
         }
-        return to;
+
+        return closestHitPoint;
+    }
+
+    Vector3 PlanePoint(Ray ray, Vector3 point)
+    {
+        Plane plane = new Plane(ray.direction, ray.origin);
+        return plane.ClosestPointOnPlane(point);
+    }
+
+
+    void DebugPoint(Vector3 point, float scale, Color col)
+    {
+        Debug.DrawRay(point, Vector3.forward * scale, col);
+        Debug.DrawRay(point, -Vector3.forward * scale, col);
+        Debug.DrawRay(point, Vector3.right * scale, col);
+        Debug.DrawRay(point, -Vector3.right * scale, col);
+        Debug.DrawRay(point, Vector3.up * scale, col);
+        Debug.DrawRay(point, -Vector3.up * scale, col);
     }
 
     void DebugBox(Vector3 rotateAround, Vector3 center, Vector3 size, Quaternion rotation, Color col)
@@ -174,4 +256,5 @@ public class OverShoulderCam : MonoBehaviour
         for (int y = 0; y < dirs.Length; y += 2)
             Debug.DrawLine(dirs[y], dirs[y + 1], col);
     }
+
 }
