@@ -5,38 +5,47 @@ using UnityEngine;
 
 public class EndLevelCheck : MonoBehaviour
 {
-	private int currentLevel;
+    private int currentLevel;
 
-	public int CurrentLevel { get => currentLevel; }
+    public int CurrentLevel { get => currentLevel; }
 
-	private PlayerStatsManager playerStatsManager;
-	private MenuManager menuManager;
+    private PlayerStatsManager playerStatsManager;
+    private MenuManager menuManager;
 
-	public int[] LevelPassedThreshold { get => levelPassedThreshold; }
+    public int[] LevelPassedThreshold { get => levelPassedThreshold; }
 
-	[SerializeField] int[] levelPassedThreshold = new int [5];
+    [SerializeField] int[] levelPassedThreshold = new int[5];
+
+
+    [SerializeField] LevelSettings levelSettings;
+
 
     private void Start()
     {
-		playerStatsManager = PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>();
-		menuManager = GameObject.Find("UI").GetComponent<MenuManager>();
+        playerStatsManager = PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>();
+        menuManager = GameObject.Find("UI").GetComponent<MenuManager>();
+
+        if (!levelSettings)
+            levelSettings = GetComponent<LevelSettings>();
     }
 
     private void OnTriggerEnter(Collider other)
-	{
-		if (other.CompareTag("Player"))
-		{
-			if (CheckLevelPassed(playerStatsManager.CurrentSatiation))
-			{
-				Debug.Log("Level Completed");
-				menuManager.EndOfLevelScreen();
-				currentLevel++;
-				playerStatsManager.ResetStats();
-			}
-		}
-	}
-	private bool CheckLevelPassed(int satiation)
-	{
-		return satiation >= levelPassedThreshold[currentLevel];
-	}
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (CheckLevelPassed(playerStatsManager.CurrentSatiation))
+            {
+                Debug.Log("Level Completed");
+                menuManager.EndOfLevelScreen();
+                currentLevel++;
+                playerStatsManager.ResetStats();
+
+                levelSettings.LevelStart();
+            }
+        }
+    }
+    private bool CheckLevelPassed(int satiation)
+    {
+        return satiation >= levelPassedThreshold[currentLevel];
+    }
 }
