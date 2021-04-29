@@ -97,7 +97,7 @@ public class InSunLight : MonoBehaviour
             Light[] lights = FindObjectsOfType<Light>();
             foreach (Light l in lights)
             {
-                if (l.type == LightType.Directional)
+                if (l.name == "SUN")
                 {
                     linearLightSun = l.transform;
                     Debug.Log("<color=red> Sun is missing. Auto assigned : </color>" + l.name);
