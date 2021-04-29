@@ -46,10 +46,6 @@ public class NPCSpawner : MonoBehaviour
 	{
 
 		//All IF-statements below in Update are for testing purposes
-		if (Input.GetKeyDown(KeyCode.K))
-		{
-			//NpcDespawnCivilian(GameObject.FindWithTag("Civilian"));
-		}
 
 		//if (civiliansActive < (endLevelCheck.LevelPassedThreshold[endLevelCheck.CurrentLevel] / 100) * 2)
 		if (Input.GetKeyDown(KeyCode.I))

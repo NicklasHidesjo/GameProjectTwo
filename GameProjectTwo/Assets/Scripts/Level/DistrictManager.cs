@@ -8,10 +8,7 @@ public class DistrictManager : MonoBehaviour
     private int currentlyActiveGuards;
     
     [SerializeField] private int activeCiviliansNormal = 5;
-    public int CurrentlyActiveCivilians => currentlyActiveCivilians;
-    public int CurrentlyActiveGuards => currentlyActiveGuards;
-    public int ActiveCiviliansNormal => activeCiviliansNormal;
-    
+
     [SerializeField] private Transform[] civilianSpawnPoints;
     
     public Transform[] CivilianSpawnPoints => civilianSpawnPoints;
@@ -21,13 +18,22 @@ public class DistrictManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentlyActiveCivilians = 0;
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            LocalCivilianDespawn();
+        }
+
+        if (currentlyActiveCivilians < activeCiviliansNormal)
+        {
+            LocalCivilianSpawn();
+        }
         
     }
 
@@ -39,6 +45,7 @@ public class DistrictManager : MonoBehaviour
 
     private void LocalCivilianDespawn()
     {
-        
+        NPCSpawner.Instance.NpcDespawn(GameObject.FindWithTag("Civilian"), this.gameObject);
+        currentlyActiveCivilians--;
     }
 }
