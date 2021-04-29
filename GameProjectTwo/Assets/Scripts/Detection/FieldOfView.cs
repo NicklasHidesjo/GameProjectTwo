@@ -72,17 +72,29 @@ public class FieldOfView : MonoBehaviour
         npc.NoticedPlayer = false;
         npc.SeesPlayer = false;
 
-        if (playersDetected.Length < 1) { return; }
+        if (playersDetected.Length < 1) 
+        {
+            npc.SawHiding = false;
+            return; 
+        }
 
         foreach (var player in playersDetected)
         {
-            if(PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHidden) 
+            PlayerState.playerStates playerState = PlayerManager.instance.PlayerState.CurrentState;
+
+            if (playerState == PlayerState.playerStates.DraculaHidden)
             {
-                // we should have a check here if we have seen the player hide
-                // in that case we should set that we see the player/notice the player.
-                // we should also start attacking the player in the barrel making him take damage.
-                continue; 
+                if (npc.SawHiding)
+                {
+                    npc.RaiseAlertness(true);
+                    npc.SeesPlayer = true;
+                    npc.NoticedPlayer = true;
+                    npc.TimeSinceLastSeenPlayer = 0;
+                }
+
+                continue;
             }
+
             Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
             RaycastHit hit;
             if (Vector3.Angle(transform.forward, dirToTarget) < npc.FOV / 2)
@@ -100,7 +112,16 @@ public class FieldOfView : MonoBehaviour
                 npc.RaiseAlertness(true);
                 npc.TimeSinceLastSeenPlayer = 0;
 
-                if (PlayerManager.instance.PlayerState.CurrentState != PlayerState.playerStates.DraculaSucking)
+                if (playerState == PlayerState.playerStates.DraculaHideing)
+                {
+                    npc.SawHiding = true;
+                }
+                else if(playerState != PlayerState.playerStates.DraculaHidden)
+                {
+                    npc.SawHiding = false;
+                }
+
+                if (playerState != PlayerState.playerStates.DraculaSucking)
                 {
                     return;
                 }
@@ -114,7 +135,7 @@ public class FieldOfView : MonoBehaviour
                     return;
                 }
                 npc.NoticedPlayer = true;
-                npc.RaiseAlertness(true);
+                npc.RaiseAlertness(false);
                 npc.TimeSinceLastSeenPlayer = 0;
             }
         }
