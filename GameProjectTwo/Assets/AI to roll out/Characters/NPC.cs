@@ -9,7 +9,8 @@ public class NPC : MonoBehaviour, ICharacter
 	[SerializeField] NPCStats stats;
 	[Tooltip("The tag that will be used to find all path points when walking (ex POI or Waypoint")]
 	[SerializeField] string pathTag;
-
+	[Tooltip("Set this to true if we want the npc to be stationary")]
+	[SerializeField] bool stationary;
 	[Tooltip("The layer that npc's are at (used when trying to hit player and also when finding other npc's")]
 	[SerializeField] LayerMask npcLayer;
 
@@ -63,9 +64,14 @@ public class NPC : MonoBehaviour, ICharacter
 	public bool NoticedPlayer { get; set; }
 	public bool SeesPlayer { get; set; }
 
+	public Vector3 StartingPosition { get; set; }
+	public Quaternion StartingRotation { get; set; }
+
 	public bool FreezeInFear { get; set; }
 
 	public int FOV { get; set; }
+
+	public bool StationaryGuard => stationary;
 
 	public bool SawHiding { get; set; }
 
@@ -80,6 +86,9 @@ public class NPC : MonoBehaviour, ICharacter
 	}
 	private void InitializeNPC()
 	{
+		StartingPosition = transform.position;
+		StartingRotation = transform.rotation;
+		Debug.Log(transform.position);
 		GetComponents();
 		SetBools();
 		SetFloatsAndInts();

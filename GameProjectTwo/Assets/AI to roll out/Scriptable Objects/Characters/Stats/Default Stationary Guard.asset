@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0784b2e0e94990544a2b77daf4ff97f0, type: 3}
+  m_Name: Default Stationary Guard
+  m_EditorClassIdentifier: 
+  MaxHealth: 100
+  ClearanceDistance: 3
+  MaxAlerted: 5
+  CautiousThreshold: 1.5
+  AlertActionThreshold: 3
+  AlertDecrease: 1
+  AlertIncrease: 1
+  InSightMultiplier: 2
+  NoticeRange: 3
+  SightLenght: 10
+  RelaxedFOV: 40
+  AlertedFOV: 60
+  SearchAngle: 70
+  SuspisciousSpeed: 0.5
+  WalkSpeed: 1.5
+  RunSpeed: 2.7
+  SearchSpeed: 1.5
+  FearSpeed: 0.2
+  RotationSpeed: 30
+  FleeDeadAngle: 95
+  FleeDistance: 2
+  MaxFleeDistance: 40
+  MinFleeDistance: 5
+  IdleTime: 5
+  SuckedStun: 2
+  IntuitionTime: 1
+  CalmDownTime: 5
+  ShoutRange: 5
+  Damage: 10
+  AttacksPerSecond: 1
