@@ -15,6 +15,19 @@ public class NPCSpawner : MonoBehaviour
 
 	[SerializeField] private int civilianPoolSize = 5;
 	[SerializeField] private int guardPoolSize = 5;
+
+	private static NPCSpawner instance;
+	public static NPCSpawner Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = FindObjectOfType<NPCSpawner>();
+			}
+			return instance;
+		}
+	}
 	
 	// Start is called before the first frame update
 	void Start()
@@ -31,11 +44,7 @@ public class NPCSpawner : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		foreach (GameObject district in districts)
-		{
-			
-		}
-		
+
 		//All IF-statements below in Update are for testing purposes
 		if (Input.GetKeyDown(KeyCode.K))
 		{
@@ -46,7 +55,7 @@ public class NPCSpawner : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.I))
 		{
 			//StartCoroutine(CivilianSpawn());
-			NpcSpawnCivilian(civilian, districts[1]);
+			//NpcSpawnCivilian(civilian, districts[1]);
 		}
 	}
 
@@ -63,22 +72,23 @@ public class NPCSpawner : MonoBehaviour
 		}
 	}
 
-	public void NpcSpawnCivilian(GameObject npc, GameObject district)
+	public void NpcSpawn(bool isCivilian, Transform[] districtSpawnPoints)
 	{
-		districtManager = district.GetComponent<DistrictManager>();
-		int i = Random.Range(0, districtManager.GetCivilianSpawnPoints().Length);
-		Transform currentSpawn = districtManager.GetCivilianSpawnPoints()[i];
-		NpcPoolManager.Instance.ReuseNpc(npc, currentSpawn);
+		int i = Random.Range(0, districtSpawnPoints.Length);
+		Transform currentSpawn = districtSpawnPoints[i];
+		if (isCivilian)
+		{
+			NpcPoolManager.Instance.ReuseNpc(civilian, currentSpawn);
+		}
+		else
+		{
+			NpcPoolManager.Instance.ReuseNpc(guard, currentSpawn);
+		}
 	}
 
-	public void NpcDespawnCivilian(GameObject npc, GameObject district)
+	public void NpcDespawn(GameObject npc, GameObject district)
 	{
 		npc.SetActive(false);
-
-		if (npc.CompareTag("Civilian"))
-		{
-			civiliansActive--;
-			Debug.Log("Civilians active: " + civiliansActive);
-		}
+		
 	}
 }

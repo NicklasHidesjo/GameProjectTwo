@@ -5,13 +5,13 @@ using UnityEngine;
 public class DistrictManager : MonoBehaviour
 {
     private int currentlyActiveCivilians;
-
     private int currentlyActiveGuards;
-
+    
+    [SerializeField] private int activeCiviliansNormal = 5;
     public int CurrentlyActiveCivilians => currentlyActiveCivilians;
-
     public int CurrentlyActiveGuards => currentlyActiveGuards;
-
+    public int ActiveCiviliansNormal => activeCiviliansNormal;
+    
     [SerializeField] private Transform[] civilianSpawnPoints;
     
     public Transform[] CivilianSpawnPoints => civilianSpawnPoints;
@@ -21,10 +21,7 @@ public class DistrictManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach (Transform transform in civilianSpawnPoints)
-        {
-            Debug.Log(transform.gameObject.name);
-        }
+        
 
     }
 
@@ -34,8 +31,14 @@ public class DistrictManager : MonoBehaviour
         
     }
 
-    public Transform[] GetCivilianSpawnPoints()
+    private void LocalCivilianSpawn()
     {
-        return civilianSpawnPoints;
+        NPCSpawner.Instance.NpcSpawn(true, civilianSpawnPoints);
+        currentlyActiveCivilians++;
+    }
+
+    private void LocalCivilianDespawn()
+    {
+        
     }
 }
