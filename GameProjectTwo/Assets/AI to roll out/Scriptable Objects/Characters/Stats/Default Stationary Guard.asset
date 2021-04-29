@@ -24,7 +24,7 @@ MonoBehaviour:
   SightLenght: 10
   RelaxedFOV: 40
   AlertedFOV: 60
-  SearchAngle: 70
+  SearchAngle: 45
   SuspisciousSpeed: 0.5
   WalkSpeed: 1.5
   RunSpeed: 2.7

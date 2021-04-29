@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Guard Stationary Idle
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: cf48e1153fa52db40bd634b90b98ea8f, type: 2}
   - {fileID: 11400000, guid: c5dfc6fe45a6a1f4bad235df6f52abe1, type: 2}
   - {fileID: 11400000, guid: 9d4b0457f62f2724087398c8ae4bb98d, type: 2}
+  - {fileID: 11400000, guid: 4d288fd833ad8a84e8a55e17057fceca, type: 2}
   executeActions:
   - {fileID: 11400000, guid: e61d114fcca23db4f883997fed3f044c, type: 2}
   - {fileID: 11400000, guid: 45295c284a07fd14aa465dcf87c7e744, type: 2}
