@@ -77,6 +77,8 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public bool SawHiding { get; set; }
 
+	public bool SawTransforming { get; set; }
+
 	private void Awake()
 	{
 		if (stats == null)
@@ -89,7 +91,6 @@ public class NPC : MonoBehaviour, ICharacter
 	{
 		StartingPosition = transform.position;
 		StartingRotation = transform.rotation;
-		Debug.Log(transform.position);
 		GetComponents();
 		SetBools();
 		SetFloatsAndInts();
