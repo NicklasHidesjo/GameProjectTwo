@@ -221,4 +221,44 @@ public class DraculaMovement : MonoBehaviour
             Debug.DrawRay(transform.position, playerVelocity * 5, Color.green);
         }
     }
+
+
+
+    public void DragBody()
+    {
+        float applyedGravity = normalGravity;
+        //SetStateFromInput();
+        playerSpeed = 2;
+        if (grounded)
+        {
+            if (controller.height != 2)
+            {
+                controller.height = 2;
+                controller.radius = 0.5f;
+                controller.Move(Vector3.up * 0.75f);
+            }
+
+
+            playerVelocity = GroundControl();
+        }
+
+        playerVelocity.y -= AddGravity(applyedGravity);
+        controller.Move(playerVelocity * Time.fixedDeltaTime);
+
+        DragDirFromMovement();
+
+        DebugRays();
+    }
+
+
+    private void DragDirFromMovement()
+    {
+        Vector3 forwardFromMovement = playerVelocity;
+        forwardFromMovement.y = 0;
+
+        if (forwardFromMovement.sqrMagnitude > 0)
+        {
+            transform.forward = -forwardFromMovement;
+        }
+    }
 }
