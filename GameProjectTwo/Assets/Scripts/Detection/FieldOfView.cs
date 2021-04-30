@@ -75,6 +75,7 @@ public class FieldOfView : MonoBehaviour
         if (playersDetected.Length < 1) 
         {
             npc.SawHiding = false;
+            npc.SawTransforming = false;
             return; 
         }
 
@@ -94,6 +95,17 @@ public class FieldOfView : MonoBehaviour
 
                 continue;
             }
+            if(playerState == PlayerState.playerStates.BatDefault)
+			{
+                if(npc.SawTransforming)
+				{
+                    npc.RaiseAlertness(true);
+                    npc.SeesPlayer = true;
+                    npc.NoticedPlayer = true;
+                    npc.TimeSinceLastSeenPlayer = 0;
+                }
+                continue;
+			}
 
             Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
             RaycastHit hit;
@@ -116,12 +128,24 @@ public class FieldOfView : MonoBehaviour
                 {
                     npc.SawHiding = true;
                 }
-                else if(playerState != PlayerState.playerStates.DraculaHidden)
+                else if (playerState != PlayerState.playerStates.DraculaHidden)
                 {
                     npc.SawHiding = false;
                 }
+                if (playerState == PlayerState.playerStates.TransformToBat)
+				{
+                    npc.SawTransforming = true;
+				}
+                else if (playerState != PlayerState.playerStates.BatDefault)
+                {
+                    npc.SawTransforming = false;
+                }
 
-                if (playerState != PlayerState.playerStates.DraculaSucking)
+
+                if (playerState != PlayerState.playerStates.DraculaSucking ||
+                    playerState != PlayerState.playerStates.TransformToDracula ||
+                    playerState != PlayerState.playerStates.TransformToBat ||
+                    playerState != PlayerState.playerStates.DraculaDragBody)
                 {
                     return;
                 }
