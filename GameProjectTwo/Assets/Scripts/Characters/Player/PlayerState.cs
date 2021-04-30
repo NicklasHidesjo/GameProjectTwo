@@ -23,6 +23,7 @@ public class PlayerState : MonoBehaviour
         DraculaHideing,
         DraculaHidden,
         DraculaSucking,
+        DraculaBurning,
         
         TransformToBat,
         BatDefault
@@ -48,13 +49,13 @@ public class PlayerState : MonoBehaviour
 
     public void SetState(playerStates newState)
     {
-        //Debug.Log("<color=red> SET STATE TO : </color>" + newState);
+        Debug.Log("<color=red> SET STATE TO : </color>" + newState);
         playerState = newState;
     }
 
     public void UpdateByState()
     {
-        //Debug.Log("<color=yellow> in state : </color>" + CurrentState);
+        Debug.Log("<color=yellow> in state : </color>" + CurrentState);
 
         switch (playerState)
         {
@@ -105,6 +106,11 @@ public class PlayerState : MonoBehaviour
                 }
             case playerStates.DraculaSucking:
                 {
+                    break;
+                }
+            case playerStates.DraculaBurning:
+                {
+                    draculaMovement.DragBody();
                     break;
                 }
             case playerStates.TransformToBat:
