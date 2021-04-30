@@ -142,9 +142,10 @@ public class FieldOfView : MonoBehaviour
                 }
 
 
-                if (playerState != PlayerState.playerStates.DraculaSucking &&
-                    playerState != PlayerState.playerStates.TransformToDracula &&
-                    playerState != PlayerState.playerStates.TransformToBat)
+                if (playerState != PlayerState.playerStates.DraculaSucking ||
+                    playerState != PlayerState.playerStates.TransformToDracula ||
+                    playerState != PlayerState.playerStates.TransformToBat ||
+                    playerState != PlayerState.playerStates.DraculaDragBody)
                 {
                     return;
                 }
