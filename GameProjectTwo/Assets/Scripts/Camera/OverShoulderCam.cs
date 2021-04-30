@@ -42,7 +42,7 @@ public class OverShoulderCam : MonoBehaviour
     [SerializeField] float rayRadius = 1;
 
     private RaycastHit[] hits = new RaycastHit[16];
-
+    private Collider[] hitColliders = new Collider[16];
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +56,7 @@ public class OverShoulderCam : MonoBehaviour
         TargetLean();
         wantedRotation = MouseRotation(wantedRotation.eulerAngles);
 
-        targetPoint = OffSetTarget(target.position + wantedRotation * lean+ targetOffset);
+        targetPoint = OffSetTarget(target.position + wantedRotation * lean + targetOffset);
 
         wantedPos = GetWantedPosInRelationToTarget(targetPoint);
 
@@ -66,9 +66,9 @@ public class OverShoulderCam : MonoBehaviour
 
     void TargetLean()
     {
-        lean.x = Mathf.MoveTowards(lean.x, Input.GetAxis("Lean") * maxLean, 3*Time.deltaTime);
-
+        lean.x = Mathf.MoveTowards(lean.x, Input.GetAxis("Lean") * maxLean, 3 * Time.deltaTime);
     }
+
 
     Vector3 OffSetTarget(Vector3 checkPos)
     {
@@ -94,14 +94,14 @@ public class OverShoulderCam : MonoBehaviour
                 if (sqrDist < t_CylinderSize.x * t_CylinderSize.x)
                 {
                     float inf = (t_CylinderSize.x - Mathf.Sqrt(sqrDist));
-                    
+
                     if (hitNorm == Vector3.zero)//<-- Inside collider
                     {
                         inf = t_CylinderSize.x;
-                        hitNorm =  target.position- point;
-                        
+                        hitNorm = target.position - point;
+
                     }
-                    
+
                     fusedNorm += hitNorm.normalized * inf;
                 }
             }
@@ -135,7 +135,7 @@ public class OverShoulderCam : MonoBehaviour
         return t_Point + wantedRotation * Vector3.forward * maxCameraOffsett.z;
     }
 
-
+    
     Vector3 RayCam(Vector3 from, Vector3 to)
     {
         //TODO : If radius is larger then target collider radius, cast clips. Compensate by moveing ray
@@ -146,26 +146,35 @@ public class OverShoulderCam : MonoBehaviour
         if (hitNum > 0)
         {
             float compDist = Mathf.Infinity;
+
+
             for (int i = 0; i < hitNum; i++)
             {
                 Collider col = hits[i].collider;
+                Debug.DrawRay(hits[i].point, Vector3.one, Color.magenta);
                 //WARNING : +rayRadius
-                Vector3 pos = PlanePoint(ray, col.ClosestPoint(ray.origin + ray.direction * (hits[i].distance + rayRadius)));
-                Vector3 planeDirToC = ray.origin - pos;
-
-                float lerp = planeDirToC.magnitude;
-                lerp = lerp / rayRadius;
-                lerp *= 2;
-                lerp -= 1;
-
-                Vector3 centerPoint = ray.origin + ray.direction * ((ray.origin - hits[i].point + planeDirToC).magnitude - 0.25f);
-                pos = Vector3.Lerp(centerPoint, ray.origin + ray.direction * -maxCameraOffsett.z, lerp);
 
 
-                float tDist = (pos - ray.origin).sqrMagnitude;
+
+                //Trigonomitry to get the hit point if it was a zero radius ray. 
+                float dot = Vector3.Dot(hits[i].normal, ray.direction);
+                float hypLength = (rayRadius - cameraFromWallOffsett) / Mathf.Abs(dot);
+                Vector3 farPoint = hits[i].point + hits[i].normal * rayRadius + ray.direction * hypLength;
+
+
+                //If behind position to dont move
+                if (Vector3.Dot(farPoint - to, ray.direction) > 0)
+                {
+                    farPoint = to;
+                }
+
+                Debug.DrawRay(hits[i].point, hits[i].normal * rayRadius, Color.green);
+                Debug.DrawRay(hits[i].point + hits[i].normal, ray.direction * hypLength, Color.green);
+
+                float tDist = (farPoint - ray.origin).sqrMagnitude;
                 if (tDist < compDist)
                 {
-                    closestHitPoint = pos;
+                    closestHitPoint = farPoint;
                     compDist = tDist;
                 }
             }
@@ -175,10 +184,10 @@ public class OverShoulderCam : MonoBehaviour
         {
             DebugPoint(from, 0.25f, Color.green);
             DebugPoint(to, 0.25f, Color.red);
-            DebugBox(from, (from + to * 0.5f), new Vector3(1.0f, 1.0f, -maxCameraOffsett.z * 0.5f), Quaternion.LookRotation(ray.direction), (Color.yellow + Color.clear) * 0.5f);
+            DebugBox(from, (from + to * 0.5f), new Vector3(rayRadius, rayRadius, -maxCameraOffsett.z * 0.5f), Quaternion.LookRotation(ray.direction), (Color.yellow + Color.clear) * 0.5f);
             if (hitNum > 0)
             {
-                DebugBox(from, (from + to * 0.5f), new Vector3(0.5f, 0.5f, -maxCameraOffsett.z * 0.5f), Quaternion.LookRotation(ray.direction), Color.red);
+                DebugBox(from, (from + to * 0.5f), new Vector3(rayRadius * 0.5f, rayRadius * 0.5f, -maxCameraOffsett.z * 0.5f), Quaternion.LookRotation(ray.direction), Color.red);
             }
             DebugPoint(closestHitPoint, 0.25f, Color.cyan);
         }
@@ -186,6 +195,8 @@ public class OverShoulderCam : MonoBehaviour
         return closestHitPoint;
     }
 
+
+    /// //////////////////
     Vector3 PlanePoint(Ray ray, Vector3 point)
     {
         Plane plane = new Plane(ray.direction, ray.origin);
