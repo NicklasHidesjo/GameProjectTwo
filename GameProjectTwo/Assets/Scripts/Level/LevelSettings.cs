@@ -29,6 +29,7 @@ public class LevelSettings : MonoBehaviour
 
     public void LevelStart()
     {
+        print("Sun rise in " + timeTillSunrise + " seconds. Need To eat enough until then"); 
         sunTime.MoveTimeOfDayTo(0, 1);
         sunTime.SetRiseTimer(timeTillSunrise, 7, 20);
     }

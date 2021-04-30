@@ -73,10 +73,10 @@ public class PlayerObjectInteract : MonoBehaviour
                 {
                     if (heldInteractable != null)
                     {
-                        Debug.Log("Need to let go first dude: " + D.gameObject);
+                        Debug.Log("Need to let go first: " + D.gameObject);
                         return;
                     }
-                    Debug.Log("Interact dead dude: " + D.gameObject);
+                    Debug.Log("Interact deadbody: " + D.gameObject);
                     heldInteractable = D;
                     interactable.Interact(gameObject);
                     iScanner.RemoveInteractableFromList(heldInteractable);
@@ -98,6 +98,7 @@ public class PlayerObjectInteract : MonoBehaviour
                         heldInteractable.Interact(gameObject);
                         interactable.Interact(heldInteractable.gameObject);
                         heldInteractable = null;
+                        SetState(PlayerState.playerStates.DraculaDefault);
                     }
                     else
                     {

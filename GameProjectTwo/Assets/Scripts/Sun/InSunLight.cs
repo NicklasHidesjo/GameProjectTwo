@@ -100,7 +100,7 @@ public class InSunLight : MonoBehaviour
                 if (l.name == "SUN")
                 {
                     linearLightSun = l.transform;
-                    Debug.Log("<color=red> Sun is missing. Auto assigned : </color>" + l.name);
+                    //Debug.Log("<color=red> Sun is missing. Auto assigned : </color>" + l.name);
                     break;
                 }
             }

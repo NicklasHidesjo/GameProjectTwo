@@ -42,7 +42,7 @@ public class EndLevelCheck : MonoBehaviour
 				menuManager.EndOfLevelScreen();
 				currentLevel++;
 				playerStatsManager.ResetStats();
-                levelSettings.LevelStart();
+                //levelSettings.LevelStart();
                 if (OnLevelEnded != null)
                 {
 					OnLevelEnded(currentLevel);

@@ -35,11 +35,9 @@ public class DeadBody : Interactable
             transform.SetParent(player.transform, true);
             gameObject.layer = 0;
             isGrabbed = true;
-
         }
+
     }
-
-
 
     public void SetHidden(bool status)
     {
