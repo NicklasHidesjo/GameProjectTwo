@@ -58,7 +58,7 @@ public class FieldOfView : MonoBehaviour
             transform.GetChild(1).gameObject.SetActive(true);
             transform.GetChild(2).gameObject.SetActive(false);
         }
-        else if (npc.Alertness >= npc.Stats.AlertActionThreshold)
+        else
         {
             transform.GetChild(0).gameObject.SetActive(true);
             transform.GetChild(1).gameObject.SetActive(false);
