@@ -228,7 +228,7 @@ public class DraculaMovement : MonoBehaviour
     {
         //SetStateFromInput();
         playerSpeed = 2;
-        if (grounded)
+        if (controller.isGrounded)
         {
             if (controller.height != 2)
             {
@@ -240,6 +240,7 @@ public class DraculaMovement : MonoBehaviour
 
             playerVelocity = GroundControl();
         }
+        
 
         playerVelocity.y -= AddGravity(normalGravity);
         controller.Move(playerVelocity * Time.fixedDeltaTime);
