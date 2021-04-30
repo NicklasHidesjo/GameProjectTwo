@@ -12,7 +12,10 @@ public class EndLevelCheck : MonoBehaviour
     private PlayerStatsManager playerStatsManager;
     private MenuManager menuManager;
 
-    public int[] LevelPassedThreshold { get => levelPassedThreshold; }
+	public delegate void LevelEnd(int newLevel);
+	public static event LevelEnd OnLevelEnded;
+
+	public int[] LevelPassedThreshold { get => levelPassedThreshold; }
 
     [SerializeField] int[] levelPassedThreshold = new int[5];
 
@@ -30,19 +33,23 @@ public class EndLevelCheck : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (CheckLevelPassed(playerStatsManager.CurrentSatiation))
-            {
-                Debug.Log("Level Completed");
-                menuManager.EndOfLevelScreen();
-                currentLevel++;
-                playerStatsManager.ResetStats();
+	{
+		if (other.CompareTag("Player"))
+		{
+			if (CheckLevelPassed(playerStatsManager.CurrentSatiation))
+			{
+				Debug.Log("Level Completed");
+				menuManager.EndOfLevelScreen();
+				currentLevel++;
+				playerStatsManager.ResetStats();
+                //levelSettings.LevelStart();
+                if (OnLevelEnded != null)
+                {
+					OnLevelEnded(currentLevel);
+                }
+			}
+		}
 
-                levelSettings.LevelStart();
-            }
-        }
     }
     private bool CheckLevelPassed(int satiation)
     {

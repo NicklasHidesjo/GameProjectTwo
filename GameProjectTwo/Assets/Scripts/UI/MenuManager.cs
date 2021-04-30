@@ -16,6 +16,9 @@ public class MenuManager : MonoBehaviour
 
     private bool gamePaused = false;
 
+    public delegate void LevelStart();
+    public static event LevelStart OnLevelStart;
+
     private void Start()
     {
         inDeathScreen = false;
@@ -47,7 +50,9 @@ public class MenuManager : MonoBehaviour
     public void RestartGame()
     {
         TogglePause();
-        SceneManager.LoadScene("210422", LoadSceneMode.Single);
+        //TODO Load correct scene
+        String currentScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentScene, LoadSceneMode.Single);
     }
 
     public void TogglePause()
@@ -65,6 +70,14 @@ public class MenuManager : MonoBehaviour
             Cursor.visible = true;
             Time.timeScale = 0f;
             gamePaused = true;
+        }
+    }
+
+    public void StartNextLevel()
+    {
+        if (OnLevelStart != null)
+        {
+            OnLevelStart();
         }
     }
 

@@ -47,6 +47,7 @@ public class SunTimeOfDay : MonoBehaviour
     private IEnumerator SunTimer(float timeTillSunRise, float clockStopTime, float sunRiseAnimTime)
     {
         yield return new WaitForSeconds(timeTillSunRise);
+        print("Sun is rising");
         runningClock = null;
 
         MoveTimeOfDayTo(clockStopTime, sunRiseAnimTime);
