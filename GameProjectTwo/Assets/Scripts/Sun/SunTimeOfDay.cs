@@ -6,8 +6,8 @@ public class SunTimeOfDay : MonoBehaviour
 {
     [SerializeField] float sunLightAngle = 30;
     [SerializeField] float timeOfDay = 0f;
-    private IEnumerator runningClock;
-    private IEnumerator animClock;
+    private Coroutine runningClock;
+    private Coroutine animClock;
 
     public void MoveSunRealTimeStep()
     {
@@ -41,8 +41,7 @@ public class SunTimeOfDay : MonoBehaviour
             //print("STOPP : " + runningClock);
             StopCoroutine(runningClock);
         }
-        runningClock = SunTimer(timeTillSunRise, clockStopTime, sunRiseAnimTime);
-        StartCoroutine(runningClock);
+        runningClock = StartCoroutine(SunTimer(timeTillSunRise, clockStopTime, sunRiseAnimTime));
     }
 
     private IEnumerator SunTimer(float timeTillSunRise, float clockStopTime, float sunRiseAnimTime)
@@ -57,12 +56,11 @@ public class SunTimeOfDay : MonoBehaviour
     {
         if (animClock != null)
         {
-           // print("STOPP : " + runningClock);
+            // print("STOPP : " + runningClock);
             StopCoroutine(animClock);
         }
 
-        animClock = MoveTimeToOverTime(toTimeOfDay, sunAnimTime);
-        StartCoroutine(animClock);
+        animClock = StartCoroutine(MoveTimeToOverTime(toTimeOfDay, sunAnimTime));
     }
 
     private IEnumerator MoveTimeToOverTime(float toTimeOfDay, float sunAnimTime)
