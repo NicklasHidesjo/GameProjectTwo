@@ -226,7 +226,6 @@ public class DraculaMovement : MonoBehaviour
 
     public void DragBody()
     {
-        float applyedGravity = normalGravity;
         //SetStateFromInput();
         playerSpeed = 2;
         if (grounded)
@@ -242,7 +241,7 @@ public class DraculaMovement : MonoBehaviour
             playerVelocity = GroundControl();
         }
 
-        playerVelocity.y -= AddGravity(applyedGravity);
+        playerVelocity.y -= AddGravity(normalGravity);
         controller.Move(playerVelocity * Time.fixedDeltaTime);
 
         DragDirFromMovement();
