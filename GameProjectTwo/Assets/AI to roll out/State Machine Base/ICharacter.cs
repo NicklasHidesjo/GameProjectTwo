@@ -11,6 +11,7 @@ public interface ICharacter
 	public Transform Player { get; }
 	public NavMeshAgent Agent { get; }
 	public NPCStats Stats { get; }
+	public NPC Self { get; }
 	public float TimeSinceLastAction { get; set; }
 	public float TimeSinceLastSeenPlayer { get; set; }
 	public float RotationTime { get; set; }	
@@ -37,6 +38,7 @@ public interface ICharacter
 	public bool ShouldShout { get; set; }
 	public bool Run { get; set; }
 	public bool NoticedPlayer { get; set; }
+	public bool IsCharmed { get; set; }
 
 	public bool FreezeInFear { get; set; }
 
@@ -63,6 +65,7 @@ public interface ICharacter
 	/// <param name="target"></param>
 	public void LookAt(Vector3 target);
 	public void LookAt(Quaternion target);
+	public void RotateTowardsPlayer();
 
 	/// <summary>
 	/// Returns true if we hit the player within the length towards direction
@@ -89,5 +92,6 @@ public interface ICharacter
 	public void LowerAlertness(float value);
 
 	public void SetAlertnessToMax();
+	public void SetAlertness(float value);
 
 }

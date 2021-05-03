@@ -20,6 +20,7 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public LayerMask NpcLayer => npcLayer;
 
+	public NPC Self => this;
 	public Transform[] Path => path;
 
 	public Transform Transform => transform;
@@ -79,6 +80,8 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public bool SawTransforming { get; set; }
 
+	public bool IsCharmed { get; set; }
+
 	private void Awake()
 	{
 		if (stats == null)
@@ -128,7 +131,7 @@ public class NPC : MonoBehaviour, ICharacter
 		PathIndex = 0;
 		YRotCorrection = 0;
 		SearchAngle = stats.SearchAngle;
-		RotationSpeed = stats.RotationSpeed;
+		RotationSpeed = stats.SearchRotationSpeed;
 		FOV = stats.RelaxedFOV;
 	}
 	private void SetVectors()
@@ -156,6 +159,18 @@ public class NPC : MonoBehaviour, ICharacter
 	public void LookAt(Vector3 Target)
 	{
 		transform.LookAt(Target);
+	}
+
+	public void RotateTowardsPlayer()
+	{
+		Quaternion target = Quaternion.LookRotation(player.position - transform.position);
+		
+		float compensation = stats.TurnSpeedCompensation - Vector3.Angle(target.eulerAngles, transform.forward);
+		float speedIncrease = Mathf.Clamp(compensation, 0, stats.TurnSpeedCompensation);
+		float speed = (stats.TurnSpeed + speedIncrease) * Time.fixedDeltaTime;
+
+		Quaternion rotation = Quaternion.Slerp(transform.rotation, target, speed);
+		transform.rotation = rotation;
 	}
 	public void LookAt(Quaternion Target)
 	{
@@ -199,7 +214,10 @@ public class NPC : MonoBehaviour, ICharacter
 	{
 		if (gameObject.CompareTag("Civilian"))
 		{
-			if (Vector3.Distance(transform.position, player.position) > stats.SightLenght) { return; } // have this be a check if we se the player instead
+			if (Vector3.Distance(transform.position, player.position) > stats.SightLenght) 
+			{ 
+				return; 
+			} // have this be a check if we se the player instead
 		}
 		ShouldShout = false;
 
@@ -212,8 +230,21 @@ public class NPC : MonoBehaviour, ICharacter
 		Run = true;
 	}
 
+	public void SetAlertness(float value)
+	{
+		Alertness = value;
+		if(Alertness >= stats.MaxAlerted)
+		{
+			Run = true;
+		}
+	}
+
 	public void RaiseAlertness(bool inFOV)
 	{
+		if(IsCharmed)
+		{
+			return;
+		}
 		float value = stats.AlertIncrease * Time.deltaTime;
 		if(inFOV)
 		{

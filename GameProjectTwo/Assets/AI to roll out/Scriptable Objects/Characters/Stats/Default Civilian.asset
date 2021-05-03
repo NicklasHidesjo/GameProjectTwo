@@ -21,6 +21,7 @@ MonoBehaviour:
   AlertIncrease: 1
   InSightMultiplier: 2
   NoticeRange: 3
+  ExitCharmIncrease: 20
   SightLenght: 10
   RelaxedFOV: 40
   AlertedFOV: 60
@@ -30,8 +31,9 @@ MonoBehaviour:
   RunSpeed: 3
   SearchSpeed: 1.5
   FearSpeed: 0.2
+  CharmedSpeed: 1
   RotationSpeed: 30
-  FleeAngle: 45
+  FleeDeadAngle: 95
   FleeDistance: 4
   MaxFleeDistance: 40
   MinFleeDistance: 5
@@ -39,6 +41,8 @@ MonoBehaviour:
   SuckedStun: 2
   IntuitionTime: 1
   CalmDownTime: 5
+  CharmedTime: 5
   ShoutRange: 8
+  AttackedShoutRange: 2
   Damage: 10
   AttacksPerSecond: 1

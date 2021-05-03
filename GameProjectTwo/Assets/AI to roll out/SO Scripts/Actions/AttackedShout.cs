@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Shout", menuName = "AI/Action/Shout")]
-public class Shout : Action
+[CreateAssetMenu(fileName = "AttackedShout", menuName = "AI/Action/AttackedShout")]
+public class AttackedShout : Action
 {
 	List<NPC> nearbyCharacters = new List<NPC>();
 	public override void Execute(ICharacter character)
@@ -11,6 +10,10 @@ public class Shout : Action
 		if (!character.ShouldShout) 
 		{ 
 			return; 
+		}
+		if(character.Alertness < character.Stats.CautiousThreshold)
+		{
+			return;
 		}
 		SetNearbyCharacters(character);
 
@@ -27,10 +30,10 @@ public class Shout : Action
 	private void SetNearbyCharacters(ICharacter character)
 	{
 		nearbyCharacters.Clear();
-		Collider[] npcClose = Physics.OverlapSphere(character.Transform.position, character.Stats.ShoutRange, character.NpcLayer);
+		Collider[] npcClose = Physics.OverlapSphere(character.Transform.position, character.Stats.AttackedShoutRange, character.NpcLayer);
 		foreach (var npc in npcClose)
 		{
-			if (npc.GetComponent<NPC>() == character.Self) 
+			if (npc.GetComponent<NPC>() == character.Self)
 			{ 
 				continue; 
 			}
