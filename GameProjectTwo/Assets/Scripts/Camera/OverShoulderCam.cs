@@ -83,6 +83,10 @@ public class OverShoulderCam : MonoBehaviour
         cam.transform.position = Vector3.MoveTowards(cam.position, (RayCastCameraPosition(targetPoint, wantedPos)), 100 * Time.deltaTime);
         cam.rotation = Quaternion.LookRotation(targetPoint - wantedPos);
         //cam.LookAt(targetPoint);
+
+
+        DebugDirectionArrow(Vector3.zero, Vector3.one * 9, 0.25f, Color.blue);
+        DebugLineArrow(Vector3.one, Vector3.one * 9, 0.25f, Color.magenta);
     }
 
     float TargetLean()
@@ -250,28 +254,18 @@ public class OverShoulderCam : MonoBehaviour
     {
         //TODO : If radius is larger then target collider radius, cast clips. Compensate by moveing ray
         Ray ray = new Ray(from, to - from);
-        Vector3 origin = from - ray.direction * rayR;
-
-
-
-        int hitNum = Physics.SphereCastNonAlloc(origin, rayR, ray.direction, hits, -maxCameraOffsett.z, checkLayers, QueryTriggerInteraction.Ignore);
         Vector3 closestHitPoint = to;
+        Vector3 origin = from - ray.direction * rayR;
+        int hitNum = Physics.SphereCastNonAlloc(origin, rayR, ray.direction, hits, -maxCameraOffsett.z, checkLayers, QueryTriggerInteraction.Ignore);
 
-        print(hitNum);
         if (hitNum > 0)
         {
             float compDist = Mathf.Infinity;
-
             for (int i = 0; i < hitNum; i++)
             {
-                //Debug.DrawRay(hits[i].point, hits[i].normal, (Color.red + Color.clear) * 0.5f);
-                print("Hit Name : " + hits[i].transform.name);
-
                 if (IsValidHit(hits[i].point, hits[i].normal, ray.direction))
                 {
-
-
-                    //Trigonomitry to get the hit point if it was a zero radius ray. 
+                    //Calculate the intersection point between out ray and the hitpoint surface. 
                     float dot = Vector3.Dot(hits[i].normal, ray.direction);
                     float hypLength = (rayR - cameraFromWallOffsett) / Mathf.Abs(dot);
                     Vector3 farPoint = hits[i].point + hits[i].normal * rayR + ray.direction * hypLength;
@@ -279,18 +273,12 @@ public class OverShoulderCam : MonoBehaviour
                     Debug.DrawRay(hits[i].point, hits[i].normal, (Color.green + Color.clear) * 0.5f);
                     Debug.DrawRay(hits[i].point, hits[i].normal * rayR + ray.direction * hypLength, (Color.green + Color.clear) * 0.5f);
 
-                    //If behind position to dont move
+                    //If point is behind checked position, dont move
                     if (Vector3.Dot(farPoint - to, ray.direction) > 0)
                     {
                         farPoint = to;
                     }
-                    /*
-                    //If in front of target to dont move
-                    if (Vector3.Dot((farPoint - from).normalized, ray.direction) < -0.1f)
-                    {
-                        farPoint = to;
-                    }
-                    */
+
                     float tDist = (farPoint - ray.origin).sqrMagnitude;
                     if (tDist < compDist)
                     {
@@ -298,18 +286,17 @@ public class OverShoulderCam : MonoBehaviour
                         compDist = tDist;
                     }
                 }
-
             }
         }
 
         if (debugRays)
         {
             DebugBox(from, (from + to * 0.5f), new Vector3(rayRadius, rayRadius, -maxCameraOffsett.z * 0.5f), Quaternion.LookRotation(ray.direction), (Color.yellow + Color.clear) * 0.5f);
-            DebudArrow(origin, origin + ray.direction * -maxCameraOffsett.z, 0.5f, (Color.yellow + Color.clear) * 0.5f);
+            DebugDirectionArrow(origin, ray.direction * -maxCameraOffsett.z, 0.5f, (Color.yellow + Color.clear) * 0.5f);
             if (hitNum > 0)
             {
                 DebugBox(from, (from + to * 0.5f), new Vector3(rayR, rayR, -maxCameraOffsett.z * 0.5f), Quaternion.LookRotation(ray.direction), Color.red);
-                DebudArrow(origin, origin + ray.direction * -maxCameraOffsett.z, 0.5f, Color.red);
+                DebugDirectionArrow(origin, ray.direction * -maxCameraOffsett.z, 0.5f, Color.red);
             }
             DebugPoint(closestHitPoint, 0.25f, Color.cyan);
         }
@@ -319,7 +306,7 @@ public class OverShoulderCam : MonoBehaviour
 
     bool IsValidHit(Vector3 p, Vector3 n, Vector3 dir)
     {
-        //Pritty silly bug. Supossebly I can get a resualt hit if raycasting out from a collider, but this returns point zero and normal oppocit of ray
+        //Pretty silly bug. Supposedly I can get a hit result, if raycasting out from a collider, but this returns point zero and normal opposite of ray
         if (p == Vector3.zero && n == dir * -1)
             return false;
 
@@ -339,7 +326,7 @@ public class OverShoulderCam : MonoBehaviour
         Debug.DrawRay(point, -Vector3.up * scale, col);
     }
 
-    void DebudArrow(Vector3 start, Vector3 end, float headSize, Color col)
+    void DebugLineArrow(Vector3 start, Vector3 end, float headSize, Color col)
     {
         Vector3 dir = end - start;
         dir = dir.normalized;
@@ -349,6 +336,19 @@ public class OverShoulderCam : MonoBehaviour
         Debug.DrawLine(end, end + (Quaternion.LookRotation(dir) * Quaternion.Euler(225, 45, 0) * Vector3.up) * headSize, col);
         Debug.DrawLine(end, end + (Quaternion.LookRotation(dir) * Quaternion.Euler(315, 45, 0) * Vector3.up) * headSize, col);
     }
+
+    void DebugDirectionArrow(Vector3 start, Vector3 direction, float headSize, Color col)
+    {
+        Vector3 end = start + direction;
+        Vector3 dir = direction.normalized;
+        Debug.DrawLine(start, end, col);
+        Debug.DrawLine(end, end + (Quaternion.LookRotation(dir) * Quaternion.Euler(45, 135, 0) * Vector3.up) * headSize, col);
+        Debug.DrawLine(end, end + (Quaternion.LookRotation(dir) * Quaternion.Euler(135, 135, 0) * Vector3.up) * headSize, col);
+        Debug.DrawLine(end, end + (Quaternion.LookRotation(dir) * Quaternion.Euler(225, 45, 0) * Vector3.up) * headSize, col);
+        Debug.DrawLine(end, end + (Quaternion.LookRotation(dir) * Quaternion.Euler(315, 45, 0) * Vector3.up) * headSize, col);
+    }
+
+
 
     void DebugBox(Vector3 rotateAround, Vector3 center, Vector3 size, Quaternion rotation, Color col)
     {
