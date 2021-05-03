@@ -68,6 +68,7 @@ public class FieldOfView : MonoBehaviour
     }
     void FindVisibleTargets()
     {
+        if(npc.IsDead) { return; }
         Collider[] playersDetected = Physics.OverlapSphere(transform.position, npc.Stats.SightLenght, targetMask);
 
         npc.NoticedPlayer = false;
