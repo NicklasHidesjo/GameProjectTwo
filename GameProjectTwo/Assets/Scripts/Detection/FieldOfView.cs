@@ -194,7 +194,7 @@ public class FieldOfView : MonoBehaviour
         RaycastHit hit;
         for (int i = 0; i < numberOfRays; i++)
         {
-            Vector3 offDir = Quaternion.LookRotation(dir) * Quaternion.Euler(0, 0, angStep * i) * Vector3.up * radius;
+            Vector3 offDir = (Quaternion.LookRotation(dir) * Quaternion.Euler(0, 0, angStep * i)) * (Vector3.up * radius);
             Debug.DrawLine(fromToEye, toToHead + offDir, Color.magenta);
 
             if (Physics.Linecast(fromToEye, toToHead + offDir, out hit))
@@ -208,11 +208,5 @@ public class FieldOfView : MonoBehaviour
             }
         }
         return false;
-    }
-
-    IEnumerator debug(Vector3 from, Vector3 offDir, float l)
-    {
-        yield return new WaitForFixedUpdate();
-        Debug.DrawRay(from, offDir, Color.red);
     }
 }
