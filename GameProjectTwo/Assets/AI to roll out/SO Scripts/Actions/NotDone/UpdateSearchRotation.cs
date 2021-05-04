@@ -9,7 +9,7 @@ public class UpdateSearchRotation : Action
 		if(character.Transform.rotation != character.TargetRot) { return; }
 		character.RotationTime = 0;
 
-		character.RotationSpeed = character.Stats.RotationSpeed;
+		character.RotationSpeed = character.Stats.SearchRotationSpeed;
 		character.OriginRot = character.Transform.rotation;
 
 		float angle;

@@ -21,7 +21,7 @@ public class IncreaseFloat : Action
 				break;
 			case NPCTimers.rotationTime:
 				if(!character.RotationStarted) { break; }
-				character.RotationTime += Mathf.Lerp(0, 1f, (character.Stats.RotationSpeed * 0.01f) * Time.fixedDeltaTime);
+				character.RotationTime += Mathf.Lerp(0, 1f, (character.Stats.SearchRotationSpeed * 0.01f) * Time.fixedDeltaTime);
 				break;
 		}
 	}

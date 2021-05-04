@@ -11,6 +11,14 @@ public class LookAtPlayer : Action
 		{
 			return;
 		}
-		character.LookAt(character.Player.position);
+		if (character.Alertness >= character.Stats.AlertActionThreshold)
+		{
+			character.LookAt(character.Player.position);
+		}
+		else
+		{
+			character.RotateTowardsPlayer();
+		}
+
 	}
 }
