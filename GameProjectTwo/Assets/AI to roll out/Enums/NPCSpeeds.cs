@@ -4,5 +4,6 @@ public enum NPCSpeeds
 	suspiscious,
 	run,
 	searching,
-	fear
+	fear,
+	charmed
 }

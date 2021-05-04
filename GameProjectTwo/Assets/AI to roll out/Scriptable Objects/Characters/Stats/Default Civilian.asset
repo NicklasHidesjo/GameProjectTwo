@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   ClearanceDistance: 3
+  HardLockOnAngle: 10
   MaxAlerted: 20
   CautiousThreshold: 5
   AlertActionThreshold: 10
@@ -21,6 +22,7 @@ MonoBehaviour:
   AlertIncrease: 1
   InSightMultiplier: 2
   NoticeRange: 3
+  ExitCharmIncrease: 20
   SightLenght: 10
   RelaxedFOV: 40
   AlertedFOV: 60
@@ -30,8 +32,11 @@ MonoBehaviour:
   RunSpeed: 3
   SearchSpeed: 1.5
   FearSpeed: 0.2
-  RotationSpeed: 30
-  FleeAngle: 45
+  CharmedSpeed: 1
+  SearchRotationSpeed: 2
+  TurnSpeed: 2
+  TurnSpeedCompensation: 40
+  FleeDeadAngle: 95
   FleeDistance: 4
   MaxFleeDistance: 40
   MinFleeDistance: 5
@@ -39,6 +44,8 @@ MonoBehaviour:
   SuckedStun: 2
   IntuitionTime: 1
   CalmDownTime: 5
+  CharmedTime: 5
   ShoutRange: 8
+  AttackedShoutRange: 2
   Damage: 10
   AttacksPerSecond: 1
