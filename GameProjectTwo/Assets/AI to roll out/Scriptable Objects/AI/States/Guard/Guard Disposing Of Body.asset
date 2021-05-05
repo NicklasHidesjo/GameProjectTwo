@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc3e40b5f6e139439f618a792a49487, type: 3}
+  m_Name: Guard Disposing Of Body
+  m_EditorClassIdentifier: 
+  enterActions:
+  - {fileID: 11400000, guid: fa931f0fd93061549b2c4c96ded1ed47, type: 2}
+  executeActions: []
+  exitActions:
+  - {fileID: 11400000, guid: d74c22c091d5cdd48a24d0c6406a1e85, type: 2}
+  - {fileID: 11400000, guid: fd5855b1ff814f348880b86b911e5752, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 780104abf348e3d458a1b6fbf5de8763, type: 2}
+    newState: {fileID: 11400000, guid: 30bb141b48fc63b46a071ae921f2ed79, type: 2}

@@ -6,6 +6,8 @@ using UnityEngine;
 public class Shout : Action
 {
 	List<NPC> nearbyCharacters = new List<NPC>();
+	[SerializeField] bool seenDeadBody; 
+
 	public override void Execute(ICharacter character)
 	{
 		if (!character.ShouldShout) 
@@ -20,7 +22,15 @@ public class Shout : Action
 			{
 				continue;
 			}
-			npc.ReactToShout();
+			if(seenDeadBody)
+			{
+				npc.ReactToShout(character.DeadNpc);
+			}
+			else
+			{
+				npc.ReactToShout();
+			}
+
 		}
 	}
 
