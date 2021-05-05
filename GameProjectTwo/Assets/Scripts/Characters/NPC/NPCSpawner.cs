@@ -13,6 +13,9 @@ public class NPCSpawner : MonoBehaviour
 
 	[SerializeField] private int civilianPoolSize = 5;
 	[SerializeField] private int guardPoolSize = 5;
+	[SerializeField] private float respawnRate = 5f;
+
+	private float timeToRespawn;
 
 	private static NPCSpawner instance;
 	public static NPCSpawner Instance
@@ -44,7 +47,7 @@ public class NPCSpawner : MonoBehaviour
 		}
 		//StartCoroutine(NpcSpawnEnumerator(true, 3f));
 
-		
+		timeToRespawn = Time.time + timeToRespawn;
 	}
 
 	// Update is called once per frame
@@ -52,10 +55,11 @@ public class NPCSpawner : MonoBehaviour
 	{
 
 		//All IF-statements below in Update are for testing purposes
-		if (civiliansActive < civilianPoolSize)
+		if (civiliansActive < civilianPoolSize && Time.time >= timeToRespawn)
 		{
 			//StartCoroutine(NpcSpawnEnumerator(true, 3f));
 			NpcSpawn(true);
+			timeToRespawn = Time.time + respawnRate;
 		}
 
 		if (guardsActive < guardPoolSize)
