@@ -229,14 +229,13 @@ public class FieldOfView : MonoBehaviour
 				{
 					continue;
 				}
-				Debug.Log("saw dead dude");
 				if (Physics.Linecast(transform.position, point.position, out hit))
 				{
 					if (!hit.collider.CompareTag("Civilian"))
 					{
 						continue;
 					}
-					Debug.Log("Reacting to dead dude");
+					character.GetComponent<Rigidbody>().isKinematic = true;
 					npc.HandleSeeingDeadNPC(character);
 					return;
 				}
