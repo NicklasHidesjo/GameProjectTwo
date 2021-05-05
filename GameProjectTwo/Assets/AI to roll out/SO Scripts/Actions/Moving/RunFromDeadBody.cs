@@ -8,7 +8,7 @@ public class RunFromDeadBody : Action
 	{
 		if (character.Agent.velocity != Vector3.zero) { return; }
 		Vector3 direction = character.DeadNpc.transform.position - character.Transform.position;
-		if (character.RayHitPlayer(direction, character.Stats.SightLenght))
+		if (character.RayHitDeadNPC(direction, character.Stats.SightLenght))
 		{
 			GetRunDestination(character);
 		}
@@ -17,8 +17,8 @@ public class RunFromDeadBody : Action
 	{
 		float distance = Random.Range(10, character.Stats.MaxFleeDistance);
 
-		Vector3 dir = character.Transform.position - character.Player.transform.position;
-		float angle = Random.Range(0, 360);
+		Vector3 dir = character.Transform.position - character.DeadNpc.transform.position;
+		float angle = Random.Range(0, character.Stats.FleeDeadAngle) * (Random.Range(0, 2) * 2 - 1);
 
 		Vector3 randomDir = Quaternion.AngleAxis(angle, dir) * dir;
 		randomDir.Normalize();

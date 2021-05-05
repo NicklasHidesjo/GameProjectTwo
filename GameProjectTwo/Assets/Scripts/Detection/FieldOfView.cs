@@ -235,7 +235,6 @@ public class FieldOfView : MonoBehaviour
 					{
 						continue;
 					}
-					character.GetComponent<Rigidbody>().isKinematic = true;
 					npc.HandleSeeingDeadNPC(character);
 					return;
 				}
