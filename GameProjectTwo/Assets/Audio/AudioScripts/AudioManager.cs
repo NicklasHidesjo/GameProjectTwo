@@ -98,8 +98,9 @@ public class AudioManager : MonoBehaviour
         return source;
     }
 
-
-    public void PlaySound(SoundType soundType, GameObject obj) //Plays sound in 3D on the object
+    //Plays a sound, based on the enum, on the gameObject sent in.
+    //Also returns the Audiosource if further modifications are needed. Made for 3D sounds
+    public void PlaySound(SoundType soundType, GameObject obj) 
     {
         SoundCue cue = GetCue(soundType);
         AudioSource source = obj.GetComponent<AudioSource>();
@@ -118,6 +119,9 @@ public class AudioManager : MonoBehaviour
 
     }
 
+    //Plays a sound, based on the enum, on the gameObject sent in.
+    //Oneshots are fire and forget, used to avoid interrupting whatever sound the Audio source is currently playing.
+    //Made for 3D sounds
     public void PlayOneShot(SoundType soundType, GameObject obj) //Plays OneShot in 3D on the object
     {
         SoundCue cue = GetCue(soundType);
@@ -135,6 +139,7 @@ public class AudioManager : MonoBehaviour
 
     }
 
+    //Stops the sound playing on the Gameobject sent in. Fade out optional
     public void StopSound(GameObject obj, float fadeOutTime = 0f)
     {
         AudioSource source = obj.GetComponent<AudioSource>();
@@ -160,6 +165,7 @@ public class AudioManager : MonoBehaviour
 
     }
 
+    //Stops the Sound on the audiosource supplied. Fade out optional
     public void StopSound(AudioSource source, float fadeOutTime = 0f)
     {
         
