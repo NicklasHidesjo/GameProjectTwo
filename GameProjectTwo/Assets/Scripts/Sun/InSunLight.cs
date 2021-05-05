@@ -27,6 +27,7 @@ public class InSunLight : MonoBehaviour
     [SerializeField] float sunDamageTickRate;
     [SerializeField] int damagePerTick;
 
+    AudioSource sunSound;
 
     void Start()
     {
@@ -43,8 +44,11 @@ public class InSunLight : MonoBehaviour
             if (sunDamage == null)
             {
                 sunDamage = StartCoroutine(TakeDamageInSunLight());
+                if (sunSound == null)
+                {
+                    sunSound = AudioManager.instance.PlaySound(SoundType.SunDamage);
+                }
                 
-                //activateSunIndicator(gracePeriod);
             }
             graceTimer = Mathf.Clamp(graceTimer + Time.deltaTime, 0, gracePeriod);
         }
@@ -54,14 +58,24 @@ public class InSunLight : MonoBehaviour
             {
                 //GameUiManager.instance.DeactivateSunIndicator();
 
-                StopCoroutine(sunDamage);
+                StopCoroutine(sunDamage);                
                 sunDamage = null;
             }
 
             graceTimer = Mathf.Clamp(graceTimer - Time.fixedDeltaTime, 0, gracePeriod);
 
+
         }
 
+        if (sunSound != null)
+        {
+            sunSound.volume = graceTimer / gracePeriod;
+            if (sunSound.volume == 0f)
+            {
+                sunSound.Stop();
+                sunSound = null;
+            }
+        }
         GameUiManager.instance.SetSunIndicatorAlpha(graceTimer, gracePeriod);
     }
 
