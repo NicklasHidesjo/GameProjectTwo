@@ -15,7 +15,8 @@ public class NPCSpawner : MonoBehaviour
 	[SerializeField] private int guardPoolSize = 5;
 	[SerializeField] private float respawnRate = 5f;
 
-	private float timeToRespawn;
+	private float respawnTimerCivilian;
+	private float respawnTimerGuard;
 
 	private static NPCSpawner instance;
 	public static NPCSpawner Instance
@@ -30,7 +31,6 @@ public class NPCSpawner : MonoBehaviour
 		}
 	}
 	
-	// Start is called before the first frame update
 	void Start()
 	{
 		NpcPoolManager.Instance.CreatePool(civilian, civilianPoolSize);
@@ -45,27 +45,38 @@ public class NPCSpawner : MonoBehaviour
 		{
 			NpcSpawn(false);
 		}
-		//StartCoroutine(NpcSpawnEnumerator(true, 3f));
 
-		timeToRespawn = Time.time + timeToRespawn;
+		respawnTimerCivilian = 0f;
+		respawnTimerGuard = 0f;
 	}
-
-	// Update is called once per frame
+	
 	void Update()
 	{
-
-		//All IF-statements below in Update are for testing purposes
-		if (civiliansActive < civilianPoolSize && Time.time >= timeToRespawn)
+		//Making sure there are enough civilians in scene.
+		if (civiliansActive < civilianPoolSize)
 		{
-			//StartCoroutine(NpcSpawnEnumerator(true, 3f));
-			NpcSpawn(true);
-			timeToRespawn = Time.time + respawnRate;
+			respawnTimerCivilian += Time.deltaTime;
+
+			if (respawnTimerCivilian >= respawnRate)
+			{
+				NpcSpawn(true);
+				respawnTimerCivilian = 0f;
+			}
 		}
 
+		//Making sure there are enough guards in scene.
 		if (guardsActive < guardPoolSize)
 		{
-			NpcSpawn(false);
+			respawnTimerGuard += Time.deltaTime;
+
+			if (respawnTimerGuard >= respawnRate)
+			{
+				NpcSpawn(false);
+				respawnTimerGuard = 0f;
+			}
 		}
+
+		//All IF-statements below in Update are for testing purposes
 
 		if (Input.GetKeyDown(KeyCode.G))
 		{
@@ -77,26 +88,7 @@ public class NPCSpawner : MonoBehaviour
 			NpcDespawn(true,GameObject.FindGameObjectWithTag("Civilian"));
 		}
 	}
-
-	IEnumerator NpcSpawnEnumerator(bool isCivilian, float delayTime)
-	{
-		Debug.Log("Spawn Enum going");
-		yield return new WaitForSeconds(delayTime);
-		int i = Random.Range(0, spawnLocations.Length);
-		Transform currentSpawn = spawnLocations[i];
-		if (isCivilian && civiliansActive < civilianPoolSize)
-		{
-			NpcPoolManager.Instance.ReuseNpc(civilian, currentSpawn);
-			civiliansActive++;
-		}
-		else if (guardsActive < guardPoolSize)
-		{
-			NpcPoolManager.Instance.ReuseNpc(guard, currentSpawn);
-			guardsActive++;
-		}
-	}
-
-
+	
 	private void NpcSpawn(bool isCivilian)
 	{
 		int i = Random.Range(0, spawnLocations.Length);
