@@ -7,10 +7,15 @@ public class PlayerNotoriousLevels : MonoBehaviour
     private float plWantedLevel = 1;
     private float plSuspiusLevel = 1;
     private float plLuminosity = 1;
-    
+
+    [SerializeField] int maxNumberOfSloppyKills;
+    [SerializeField] int numberOfSloppyKills;
     public float GetPlayerNotoriousLevel()
     {
-        return ((plWantedLevel + plSuspiusLevel) * 0.5f * plLuminosity);
+        float sloppyKillLevel = (float)numberOfSloppyKills /(float)maxNumberOfSloppyKills;
+
+
+        return ((plWantedLevel + plSuspiusLevel) * 0.25f + plLuminosity *0.5f);
     }
 
     public void SetPlWantedLevel(float level)
@@ -26,5 +31,10 @@ public class PlayerNotoriousLevels : MonoBehaviour
     public void SetPlLuminosity(float level)
     {
         plLuminosity = level;
+    }
+
+    public void AddSeenDeadBody()
+    {
+        numberOfSloppyKills++;
     }
 }
