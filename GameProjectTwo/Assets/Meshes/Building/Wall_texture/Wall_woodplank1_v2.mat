@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Wall_woodplank1 2
+  m_Name: Wall_woodplank1_v2
   m_Shader: {fileID: 4800000, guid: c1f1e58e02c6eb84a91df6c4476a36be, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,11 +20,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Amb:
-        m_Texture: {fileID: 2800000, guid: 6ef12fb1ebe75864fbfc4d7aaece1986, type: 3}
+        m_Texture: {fileID: 2800000, guid: 70401f43687b3a14fae744e5b358785a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: c44bd2211af86df49949030a051af00c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 37c34cf00a3ec684994b79c869d780bc, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Cube:
@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 5256e8e76472c2543a9273bb2580c868, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2f09bc088077ae7449862abda765e12b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
