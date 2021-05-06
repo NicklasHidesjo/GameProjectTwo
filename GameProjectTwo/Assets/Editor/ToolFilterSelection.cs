@@ -47,12 +47,13 @@ class ToolFilterSelection : EditorWindow
         }
 
 
-        EditorGUIUtility.labelWidth = CalculateLabelWidth(tagText + selectedTag);
+        EditorGUIUtility.labelWidth = CalculateLabelWidth(tagText);
         
         //Rullgardin
         selectedTag = EditorGUI.TagField(
             new Rect(10, 50, position.width - 20, 20),
-            tagText + selectedTag,
+           // tagText + selectedTag,
+           tagText,
             selectedTag);
 
         //Knapp
@@ -62,23 +63,23 @@ class ToolFilterSelection : EditorWindow
                 Selection.objects = FindGameObjectsWithTag(selectedTag, Selection.gameObjects);
         }
 
-        ResetLabelWidth();
+        EditorGUIUtility.labelWidth = CalculateLabelWidth(layerText);
 
         //Rullgardin
         selectedLayer = EditorGUI.LayerField(
             new Rect(10, 120, position.width - 20, 20),
-            (layerText + LayerMask.LayerToName(selectedLayer)),
+            //(layerText + LayerMask.LayerToName(selectedLayer)),
+            layerText,
             selectedLayer);
-
-
-
-  
 
         //Knapp
         if (GUI.Button(new Rect(position.width - 110, 145, 100, 17), "Filter By Layer"))
         {
             Selection.objects = FindGameObjectsWithLayer(selectedLayer, Selection.gameObjects);
         }
+
+        ResetLabelWidth();
+
 
         //Knapp
         if (GUI.Button(new Rect(10, 175, position.width - 20, 30), "SerchBy Tag & Layer"))
