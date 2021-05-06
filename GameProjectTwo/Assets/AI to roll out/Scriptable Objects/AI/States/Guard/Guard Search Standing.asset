@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Guard Search Standing
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}
   - {fileID: 11400000, guid: cf48e1153fa52db40bd634b90b98ea8f, type: 2}
   - {fileID: 11400000, guid: 4d288fd833ad8a84e8a55e17057fceca, type: 2}
+  - {fileID: 11400000, guid: 9d4b0457f62f2724087398c8ae4bb98d, type: 2}
   - {fileID: 11400000, guid: f3a68525afa683b45822d7d085209217, type: 2}
   executeActions:
   - {fileID: 11400000, guid: 508ba7c334f96f94793bc237456eae18, type: 2}
@@ -24,14 +26,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7205e0b524cbe2c4293042680f7a2cb5, type: 2}
   exitActions:
   - {fileID: 11400000, guid: 9c26ab42bd53e7d44b1ea9ac1e9a2fd0, type: 2}
-  - {fileID: 11400000, guid: cf48e1153fa52db40bd634b90b98ea8f, type: 2}
-  - {fileID: 11400000, guid: 4d288fd833ad8a84e8a55e17057fceca, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: 01d9039e1a8e14b4dbf7a63c404fb37a, type: 2}
     newState: {fileID: 11400000, guid: 301b6ecae109322438e63282a5e51a47, type: 2}
   - decision: {fileID: 11400000, guid: 2fdd88ecddc860044b948fc22b31e1c7, type: 2}
     newState: {fileID: 11400000, guid: 301b6ecae109322438e63282a5e51a47, type: 2}
+  - decision: {fileID: 11400000, guid: 790c745d50284974ab9c07badb3b76ea, type: 2}
+    newState: {fileID: 11400000, guid: 8499acdfd7895294eb928d31484084f3, type: 2}
   - decision: {fileID: 11400000, guid: 0aa198543c7b0d24b89c900317abf097, type: 2}
     newState: {fileID: 11400000, guid: ad52ae0c6422a73469c2e9317523e5e5, type: 2}
   - decision: {fileID: 11400000, guid: 598cc70b5e7731c43a533e13a0aa5fd1, type: 2}
-    newState: {fileID: 11400000, guid: cdb8285aa3d85d744b20132480e0fdd4, type: 2}
+    newState: {fileID: 11400000, guid: fe9a622f1d53c2e4a853428af70da320, type: 2}

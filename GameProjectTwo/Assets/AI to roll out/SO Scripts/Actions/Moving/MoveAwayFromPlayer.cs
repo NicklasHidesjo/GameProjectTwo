@@ -22,8 +22,8 @@ public class MoveAwayFromPlayer : Action
 	{
 		float distance = Random.Range(10, character.Stats.MaxFleeDistance);
 
-		Vector3 dir = character.Transform.position - character.Player.transform.position;
-		float angle = Random.Range(0, character.Stats.FleeDeadAngle) * (Random.Range(0, 1) * 2 - 1);
+		Vector3 dir = character.Player.transform.position - character.Transform.position;
+		float angle = Random.Range(0, character.Stats.FleeDeadAngle) * (Random.Range(0, 2) * 2 - 1);
 
 		Vector3 randomDir = Quaternion.AngleAxis(angle, dir) * dir;
 		randomDir.Normalize();
