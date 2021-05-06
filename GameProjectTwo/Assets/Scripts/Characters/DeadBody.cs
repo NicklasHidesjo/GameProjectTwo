@@ -9,6 +9,7 @@ public class DeadBody : Interactable
 
     private bool isGrabbed;
     private bool isHidden;
+    public bool IsHidden => isHidden;
 
     private int startingLayer;
 
