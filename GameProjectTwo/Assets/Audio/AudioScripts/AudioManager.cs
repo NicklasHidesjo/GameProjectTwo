@@ -6,9 +6,9 @@ using UnityEngine.Audio;
 public enum SoundType
 {
     Default,
-    DraculaBite, 
-    GuardAttack, GuardSuspicious, GuardAlert,
-    CivilianShout,
+    DraculaBite, DraculaDrink, DraculaDrinkDone, DraculaDamage, 
+    GuardShout, GuardAttack, GuardSuspicious, GuardAlert, GuardSearching, GuardSearchingEnd,
+    CivilianShout, CivilianDie, CivilianNotice, 
     SunDamage,
 }
 
