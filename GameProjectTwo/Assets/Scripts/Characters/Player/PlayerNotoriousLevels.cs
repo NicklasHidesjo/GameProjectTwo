@@ -6,27 +6,38 @@ public class PlayerNotoriousLevels : MonoBehaviour
 {
     public Material debugMat;
 
-    private float plWantedLevel = 1;
-    private float plSuspiusLevel = 1;
+    private float plLongSuspiciousLevel = 0;
+    private float plShortSuspiciousLevel =10;
     private float plLuminosity = 0;
-    private float baseSuspision = 0;
 
     [SerializeField] int maxNumberOfSloppyKills = 10;
     [SerializeField] int numberOfSloppyKills;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        EndLevelCheck.OnLevelEnded += OnNewLevel;
+    }
+
+    public void OnNewLevel(int layerIndex)
+    {
+        SetPlShortSuspiciousLevel(0);
+    }
+
     public float GetPlayerNotoriousLevel()
     {
-        
-        return ((plWantedLevel + plSuspiusLevel * plLuminosity) / 2);
+        print("NLevel : " + (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3);
+        return (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity)/3;
     }
 
-    public void SetPlWantedLevel(float level)
+    public void SetPlLongSuspiciousLevel(float level)
     {
-        plWantedLevel = level;
+        plLongSuspiciousLevel = level;
     }
 
-    public void SetPlSuspiusLevel(float level)
+    public void SetPlShortSuspiciousLevel(float level)
     {
-        plSuspiusLevel = level;
+        plShortSuspiciousLevel = level;
     }
 
     public void SetPlLuminosity(float level)
@@ -37,6 +48,7 @@ public class PlayerNotoriousLevels : MonoBehaviour
     public void AddSeenDeadBody()
     {
         numberOfSloppyKills++;
-        plWantedLevel = (float)numberOfSloppyKills / (float)maxNumberOfSloppyKills;
+        plShortSuspiciousLevel++;
+        plLongSuspiciousLevel = (float)numberOfSloppyKills / (float)maxNumberOfSloppyKills;
     }
 }

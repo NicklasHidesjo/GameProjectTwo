@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class FieldOfView : MonoBehaviour
 {
     [Header("DEBUG")]
-    
+
     [SerializeField] bool debug = true;
     GameObject debugSphere;
     float sphareScale = 1;
@@ -83,10 +83,9 @@ public class FieldOfView : MonoBehaviour
     void FindVisibleTargets()
     {
         float notoriusLevel = PlayerManager.instance.NotoriousLevel.GetPlayerNotoriousLevel();
-        float sightRange = npc.Stats.SightLenght * (notoriusLevel * 3);
-        float noticeRange = npc.Stats.NoticeRange * (notoriusLevel * 3);
-
-       // Mathf.Lerp(MinRange, MaxRange, notoriusLevel);
+        float sightRange = Mathf.Lerp(npc.Stats.SightLenght, npc.Stats.SightLenght * 2, notoriusLevel);
+        float noticeRange = Mathf.Lerp(npc.Stats.NoticeRange, npc.Stats.NoticeRange * 2, notoriusLevel);
+        // Mathf.Lerp(MinRange, MaxRange, notoriusLevel);
 
 
         if (debug)
@@ -239,7 +238,7 @@ public class FieldOfView : MonoBehaviour
             debugSphere.GetComponent<Renderer>().material = PlayerManager.instance.NotoriousLevel.debugMat;
         }
         float scale = sight;
-        if(notis > sight)
+        if (notis > sight)
         {
             scale = notis;
         }

@@ -45,6 +45,8 @@ public class PlayerState : MonoBehaviour
     public playerStates GetCurrentState()
     {
         return playerState;
+
+
     }
 
     public void SetState(playerStates newState)
