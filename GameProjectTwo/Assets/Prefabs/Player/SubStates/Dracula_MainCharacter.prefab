@@ -152,8 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugRays: 1
   alignTo: {fileID: 0}
-  playerSpeed: 4
-  runSpeed: 8
+  playerSpeed: 3
+  runSpeed: 5.25
   crouchSpeed: 1
   jumpForce: 4
   normalGravity: 20
@@ -180,9 +180,9 @@ MonoBehaviour:
   lightSourceDist: 100
   inSkin: -0.05
   inSunlight: 0
-  gracePeriod: 5
+  gracePeriod: 2
   sunDamageTickRate: 0.25
-  damagePerTick: 1
+  damagePerTick: 5
 --- !u!114 &7883337063284443053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentInteractable: {fileID: 0}
-  interactRange: 3
+  interactRange: 4
   layersToSearch:
     serializedVersion: 2
     m_Bits: 384
