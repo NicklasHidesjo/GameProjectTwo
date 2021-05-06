@@ -46,7 +46,6 @@ public class LightSensor : MonoBehaviour
     {
         FollowTarget();
         float maxL = GetLuminosity();
-
         notoriousLevels.SetPlLuminosity(maxL);
     }
     

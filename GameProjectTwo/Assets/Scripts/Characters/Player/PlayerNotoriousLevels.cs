@@ -4,27 +4,57 @@ using UnityEngine;
 
 public class PlayerNotoriousLevels : MonoBehaviour
 {
-    private float plWantedLevel = 1;
-    private float plSuspiusLevel = 1;
-    private float plLuminosity = 1;
-    
+    public Material debugMat;
+
+    private float plLongSuspiciousLevel = 0;
+    private float plShortSuspiciousLevel = 0;
+    private float plLuminosity = 0;
+
+    [SerializeField] int maxNumberOfSloppyKills = 10;
+    [SerializeField] int numberOfSloppyKills;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        EndLevelCheck.OnLevelEnded += OnNewLevel;
+    }
+
+    public void OnNewLevel(int layerIndex)
+    {
+        SetPlShortSuspiciousLevel(0);
+    }
+
     public float GetPlayerNotoriousLevel()
     {
-        return ((plWantedLevel + plSuspiusLevel) * 0.5f * plLuminosity);
+        if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.BatDefault)
+            return 0;
+
+        if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHidden)
+            return 0;
+
+        print("NLevel : " + (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3);
+        return (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3;
     }
 
-    public void SetPlWantedLevel(float level)
+    public void SetPlLongSuspiciousLevel(float level)
     {
-        plWantedLevel = level;
+        plLongSuspiciousLevel = level;
     }
 
-    public void SetPlSuspiusLevel(float level)
+    public void SetPlShortSuspiciousLevel(float level)
     {
-        plSuspiusLevel = level;
+        plShortSuspiciousLevel = level;
     }
 
     public void SetPlLuminosity(float level)
     {
         plLuminosity = level;
+    }
+
+    public void AddSeenDeadBody()
+    {
+        numberOfSloppyKills++;
+        plShortSuspiciousLevel++;
+        plLongSuspiciousLevel = (float)numberOfSloppyKills / (float)maxNumberOfSloppyKills;
     }
 }

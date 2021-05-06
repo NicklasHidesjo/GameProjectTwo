@@ -4,6 +4,14 @@ using System.Collections.Generic;
 
 public class FieldOfView : MonoBehaviour
 {
+ [Header("DEBUG")]
+
+     bool debug = false;
+    GameObject debugSphere;
+    float sphareScale = 1;
+
+    [Header("Settings")]
+
 	[SerializeField] LayerMask targetMask;
 	[SerializeField] LayerMask npcLayer;
 
@@ -118,12 +126,25 @@ public class FieldOfView : MonoBehaviour
 				continue;
 			}
 
+
+ float notoriusLevel = PlayerManager.instance.NotoriousLevel.GetPlayerNotoriousLevel();
+        float sightRange = Mathf.Lerp(npc.Stats.SightLenght, npc.Stats.SightLenght * 2, notoriusLevel);
+        float noticeRange = Mathf.Lerp(npc.Stats.NoticeRange, npc.Stats.NoticeRange * 2, notoriusLevel);
+
+
+
+        if (debug)
+        {
+            DebugNotisRange(sightRange, noticeRange);
+        }
+
+
 			Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
 			RaycastHit hit;
 			if (Vector3.Angle(transform.forward, dirToTarget) < npc.FOV / 2)
 			{
 				//Robert was here!
-				bool seesPlayer = ConeCast(transform.position, player.transform.position, npc.Stats.SightLenght);
+				bool seesPlayer = ConeCast(transform.position, player.transform.position, sightRange);
 				if (!seesPlayer)
 				{
 					return;
@@ -161,7 +182,7 @@ public class FieldOfView : MonoBehaviour
 				}
 				npc.SetAlertnessToMax();
 			}
-			else if (Physics.Raycast(transform.position, dirToTarget, out hit, npc.Stats.NoticeRange))
+			else if (Physics.Raycast(transform.position, dirToTarget, out hit, noticeRange))
 			{
 				if (!hit.collider.CompareTag("Player"))
 				{
@@ -241,4 +262,22 @@ public class FieldOfView : MonoBehaviour
 			}
 		}
 	}
+
+	 void DebugNotisRange(float notis, float sight)
+    {
+        if (!debugSphere)
+        {
+            debugSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            Destroy(debugSphere.GetComponent<Collider>());
+            debugSphere.GetComponent<Renderer>().material = PlayerManager.instance.NotoriousLevel.debugMat;
+        }
+        float scale = sight;
+        if (notis > sight)
+        {
+            scale = notis;
+        }
+        debugSphere.transform.position = transform.position;
+        debugSphere.transform.localScale = Vector3.one * scale;
+
+    }
 }
