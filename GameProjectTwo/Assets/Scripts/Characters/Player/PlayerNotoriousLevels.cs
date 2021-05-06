@@ -7,7 +7,7 @@ public class PlayerNotoriousLevels : MonoBehaviour
     public Material debugMat;
 
     private float plLongSuspiciousLevel = 0;
-    private float plShortSuspiciousLevel =0;
+    private float plShortSuspiciousLevel = 0;
     private float plLuminosity = 0;
 
     [SerializeField] int maxNumberOfSloppyKills = 10;
@@ -26,8 +26,14 @@ public class PlayerNotoriousLevels : MonoBehaviour
 
     public float GetPlayerNotoriousLevel()
     {
+        if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.BatDefault)
+            return 0;
+
+        if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHidden)
+            return 0;
+
         print("NLevel : " + (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3);
-        return (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity)/3;
+        return (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3;
     }
 
     public void SetPlLongSuspiciousLevel(float level)
