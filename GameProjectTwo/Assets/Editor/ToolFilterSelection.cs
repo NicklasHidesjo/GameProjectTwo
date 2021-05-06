@@ -15,14 +15,19 @@ class ToolFilterSelection : EditorWindow
 
 
 
-
-    [MenuItem("RTools/Filter Selection")]
+    [MenuItem("Tools/Filter Selection")]
     static void Init()
     {
-        EditorWindow window = GetWindow<ToolFilterSelection>();
-        window.position = new Rect(0, 0, 272, 215);
+
+        ToolFilterSelection window = (ToolFilterSelection)EditorWindow.GetWindow(typeof(ToolFilterSelection), false, "Filter selection");
+       // EditorWindow window = (GetWindow<ToolFilterSelection>(), true, "Test");
+
+        window.position = new Rect(0, 0, 200, 215);
         window.Show();
     }
+
+   
+
     public void OnEnable()
     {
         var root = this.rootVisualElement;
@@ -43,12 +48,12 @@ class ToolFilterSelection : EditorWindow
         //Knapp SelectAll
         if (GUI.Button(new Rect(position.width / 2 + 10, 10, position.width / 2 - 20, 17), "Select All"))
         {
-            Selection.objects = FindObjectsOfType<GameObject>(); 
+            Selection.objects = FindObjectsOfType<GameObject>();
         }
 
 
         EditorGUIUtility.labelWidth = CalculateLabelWidth(tagText);
-        
+
         //Rullgardin
         selectedTag = EditorGUI.TagField(
             new Rect(10, 50, position.width - 20, 20),
@@ -152,7 +157,7 @@ class ToolFilterSelection : EditorWindow
         float labelWidth = GUI.skin.label.CalcSize(label).x + padding;
         return labelWidth;
     }
-    
+
     public static float CalculateLabelWidth(string txt, float padding = 0f)
     {
         return CalculateLabelWidth(new GUIContent(txt), padding);
