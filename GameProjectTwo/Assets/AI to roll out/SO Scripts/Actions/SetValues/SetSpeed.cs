@@ -20,6 +20,12 @@ public class SetSpeed : Action
 			case NPCSpeeds.searching:
 				character.Agent.speed = character.Stats.SearchSpeed;
 				break;
+			case NPCSpeeds.fear:
+				character.Agent.speed = character.Stats.FearSpeed;
+				break;
+			case NPCSpeeds.charmed:
+				character.Agent.speed = character.Stats.CharmedSpeed;
+				break;
 		}
 	}
 }

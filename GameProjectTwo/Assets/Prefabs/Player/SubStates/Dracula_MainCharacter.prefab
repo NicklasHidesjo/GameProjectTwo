@@ -138,6 +138,8 @@ MonoBehaviour:
   debugRays: 1
   alignTo: {fileID: 0}
   playerSpeed: 4
+  runSpeed: 8
+  crouchSpeed: 1
   jumpForce: 4
   normalGravity: 20
   holdJumpGravityUp: 6
@@ -149,20 +151,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6337708183196167810}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a981d8a551223ed4591a3108003b8804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugRay: 0
+  debugRay: 1
   checkLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 769
   linearLightSun: {fileID: 0}
-  dracula: {fileID: 0}
+  playerPoint: {fileID: 0}
   lightSourceDist: 100
   inSkin: -0.05
   inSunlight: 0
+  gracePeriod: 5
+  sunDamageTickRate: 0.25
+  damagePerTick: 1
 --- !u!114 &7883337063284443053
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +190,7 @@ SphereCollider:
   m_GameObject: {fileID: 6337708183196167810}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -201,9 +206,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b93683fdf29ac5449b8bfe25d56e8de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactables: []
   currentInteractable: {fileID: 0}
   interactRange: 3
+  layersToSearch:
+    serializedVersion: 2
+    m_Bits: 384
 --- !u!54 &5191676359956859180
 Rigidbody:
   m_ObjectHideFlags: 0

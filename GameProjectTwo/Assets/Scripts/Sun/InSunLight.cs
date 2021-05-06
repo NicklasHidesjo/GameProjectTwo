@@ -10,7 +10,7 @@ public class InSunLight : MonoBehaviour
     [Header("Settings")]
     [SerializeField] LayerMask checkLayers;
     [SerializeField] Transform linearLightSun;
-    [SerializeField] Transform dracula;
+    [SerializeField] Transform playerPoint;
 
     private float WidthOff = 0.0f;
     private float hightOff = 0.0f;
@@ -19,21 +19,92 @@ public class InSunLight : MonoBehaviour
     [SerializeField] float inSkin = -0.05f;
     [SerializeField] bool inSunlight;
 
-    // Start is called before the first frame update
+    private PlayerStatsManager playerStats;
+
+    private Coroutine sunDamage;
+    [SerializeField] float gracePeriod;
+    private float graceTimer;
+    [SerializeField] float sunDamageTickRate;
+    [SerializeField] int damagePerTick;
+
+    AudioSource sunSound;
+
     void Start()
     {
         SunInit();
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
         inSunlight = InSun();
+        if (inSunlight)
+        {
+            PlayerManager.instance.PlayerState.SetState(PlayerState.playerStates.DraculaBurning);
+
+            if (sunDamage == null)
+            {
+                sunDamage = StartCoroutine(TakeDamageInSunLight());
+                if (sunSound == null)
+                {
+                    sunSound = AudioManager.instance.PlaySound(SoundType.SunDamage);
+                }
+                
+
+                //activateSunIndicator(gracePeriod);
+            }
+            graceTimer = Mathf.Clamp(graceTimer + Time.deltaTime, 0, gracePeriod);
+        }
+        else
+        {
+            if (sunDamage != null)
+            {
+                //GameUiManager.instance.DeactivateSunIndicator();
+
+                StopCoroutine(sunDamage);                
+                sunDamage = null;
+            }
+
+            graceTimer = Mathf.Clamp(graceTimer - Time.fixedDeltaTime, 0, gracePeriod);
+
+
+            if (PlayerManager.instance.PlayerState.GetCurrentState() == PlayerState.playerStates.DraculaBurning)
+                PlayerManager.instance.PlayerState.SetState(PlayerState.playerStates.DraculaDefault);
+        }
+
+        if (sunSound != null)
+        {
+            sunSound.volume = graceTimer / gracePeriod;
+            if (sunSound.volume == 0f)
+            {
+                sunSound.Stop();
+                sunSound = null;
+            }
+        }
+        GameUiManager.instance.SetSunIndicatorAlpha(graceTimer, gracePeriod);
+    }
+
+    IEnumerator TakeDamageInSunLight()
+    {
+
+        print("in sun light");
+
+        while (graceTimer < gracePeriod)
+        {
+            yield return null;
+        }
+
+        while (inSunlight && !playerStats.IsDead)
+        {
+            print("sunDamage taken: " + damagePerTick);
+            playerStats.DecreaseHealthValue(damagePerTick);
+            yield return new WaitForSeconds(sunDamageTickRate);
+        }
     }
 
     public void SunInit(Transform dracula, Transform linearLightSun)
     {
-        this.dracula = dracula;
+        this.playerPoint = dracula;
         this.linearLightSun = linearLightSun;
         GetOffsettFromCollider();
     }
@@ -45,27 +116,28 @@ public class InSunLight : MonoBehaviour
             Light[] lights = FindObjectsOfType<Light>();
             foreach (Light l in lights)
             {
-                if (l.type == LightType.Directional)
+                if (l.name == "SUN")
                 {
                     linearLightSun = l.transform;
-                    Debug.Log("<color=red> Sun is missing. Auto assigned : </color>" + l.name);
+                    //Debug.Log("<color=red> Sun is missing. Auto assigned : </color>" + l.name);
                     break;
                 }
             }
         }
 
-        if (dracula == null)
+        if (playerPoint == null)
         {
-            dracula = FindObjectOfType<CharacterController>().transform;
-           // Debug.Log("<color=red> dracula is missing. Auto assigned : </color>" + dracula.name);
+            playerPoint = FindObjectOfType<CharacterController>().transform;
+            // Debug.Log("<color=red> dracula is missing. Auto assigned : </color>" + dracula.name);
         }
-
+        playerStats = PlayerManager.instance.GetComponent<PlayerStatsManager>();
         GetOffsettFromCollider();
+
     }
 
     void GetOffsettFromCollider()
     {
-        Vector3 dBounds = dracula.GetComponent<Collider>().bounds.extents;
+        Vector3 dBounds = playerPoint.GetComponent<Collider>().bounds.extents;
         WidthOff = dBounds.x + inSkin;
         hightOff = dBounds.y + inSkin;
     }
@@ -84,19 +156,20 @@ public class InSunLight : MonoBehaviour
         {
             // :P
             if (
-            RaycastSunToCharacter(dracula.position - linearLightSun.transform.forward *
+            RaycastSunToCharacter(playerPoint.position - linearLightSun.transform.forward *
                 lightSourceDist - linearLightSun.transform.right *
                 WidthOff + linearLightSun.transform.up * hightOff,
                 linearLightSun.transform.forward)
-                == true
+
             ||
-            RaycastSunToCharacter(dracula.position - linearLightSun.transform.forward *
+            RaycastSunToCharacter(playerPoint.position - linearLightSun.transform.forward *
                 lightSourceDist + linearLightSun.transform.right *
                 WidthOff + linearLightSun.transform.up * hightOff,
                 linearLightSun.transform.forward)
-                == true
+
                 )
             {
+
                 return true;
             }
         }
@@ -111,8 +184,8 @@ public class InSunLight : MonoBehaviour
 
             if (debugRay)
                 Debug.DrawRay(pos, dir * lightSourceDist, Color.black);
-            
-            if (hit.collider == dracula.gameObject.GetComponent<Collider>())
+
+            if (hit.collider == playerPoint.gameObject.GetComponent<Collider>())
             {
                 Debug.Log("<color=red>Dracula hit self</color>");
             }
@@ -122,6 +195,6 @@ public class InSunLight : MonoBehaviour
         if (debugRay)
             Debug.DrawRay(pos, dir * lightSourceDist, Color.yellow);
 
-        return true;
+        return true; //<--- AddDamage here
     }
 }

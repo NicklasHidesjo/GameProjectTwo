@@ -7,10 +7,18 @@ public class LookAtPlayer : Action
 {
 	public override void Execute(ICharacter character)
 	{
-		if(!character.SeesPlayer)
+		if(!character.SeesPlayer && !character.NoticedPlayer)
 		{
 			return;
 		}
-		character.LookAt(character.Player.position);
+		if (character.Alertness >= character.Stats.AlertActionThreshold)
+		{
+			character.LookAt(character.Player.position);
+		}
+		else
+		{
+			character.RotateTowardsPlayer();
+		}
+
 	}
 }

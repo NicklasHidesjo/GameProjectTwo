@@ -14,6 +14,8 @@ TagManager:
   - Civilian
   - StaminaBar
   - Building
+  - EscapePoint
+  - NpcPart
   layers:
   - Default
   - TransparentFX
@@ -26,8 +28,8 @@ TagManager:
   - Obstacles
   - Building
   - LevelBarriers
-  - 
-  - 
+  - LightSensor
+  - ExitPoint
   - 
   - 
   - 

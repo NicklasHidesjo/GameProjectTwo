@@ -11,6 +11,7 @@ public interface ICharacter
 	public Transform Player { get; }
 	public NavMeshAgent Agent { get; }
 	public NPCStats Stats { get; }
+	public NPC Self { get; }
 	public float TimeSinceLastAction { get; set; }
 	public float TimeSinceLastSeenPlayer { get; set; }
 	public float RotationTime { get; set; }	
@@ -19,7 +20,11 @@ public interface ICharacter
 	public Quaternion OriginRot { get; set; }
 	public Quaternion TargetRot { get; set; }
 	public bool InfrontOfWall { get; set; }
+	
 	public float SearchAngle { get; set; }
+
+	public Vector3[] RunAngles { get; set; }
+
 	public float YRotCorrection { get; set; }
 	public float RotationSpeed { get; set; }
 	public bool RotationStarted { get; set; }
@@ -33,11 +38,25 @@ public interface ICharacter
 	public bool ShouldShout { get; set; }
 	public bool Run { get; set; }
 	public bool NoticedPlayer { get; set; }
+	public bool IsCharmed { get; set; }
+
+	public bool FreezeInFear { get; set; }
 
 	public int FOV { get; set; }
 
-	public List<NPC> NearbyCharacters { get;}
+	public NPC DeadNpc { get; set; }
 
+	public Vector3 StartingPosition { get; set; }
+	public Quaternion StartingRotation { get; set; }
+	public bool StationaryGuard { get; }
+
+	public bool BackTrack { get; set; }
+	public bool Increase { get; set; }
+
+	public bool GettingDisposed { get; set; }
+	public bool Disposed { get; set; }
+
+	public LayerMask NpcLayer { get; }
 	/// <summary>
 	/// Sets the NavMesh Agents destination to "destination"
 	/// </summary>
@@ -51,20 +70,22 @@ public interface ICharacter
 	/// <param name="target"></param>
 	public void LookAt(Vector3 target);
 	public void LookAt(Quaternion target);
+	public void RotateTowardsPlayer();
 
 	/// <summary>
-	/// Returns true if we hit the tag within the lenght towards direction
+	/// Returns true if we hit the player within the length towards direction
 	/// </summary>
 	/// <param name="tag"></param>
 	/// <param name="lenght"></param>
 	/// <returns></returns>
 	public bool RayHitPlayer(Vector3 direction, float lenght);
 	/// <summary>
-	/// Returns true if we are infront of the direction
+	/// Returns true if we hit the currently saved deadNPC reference on our npc
 	/// </summary>
 	/// <param name="direction"></param>
+	/// <param name="length"></param>
 	/// <returns></returns>
-	public bool InFrontOff(Vector3 direction);
+	public bool RayHitDeadNPC(Vector3 direction, float length);
 
 	public void ReactToShout();
 
@@ -75,5 +96,7 @@ public interface ICharacter
 	public void LowerAlertness(float value);
 
 	public void SetAlertnessToMax();
+	public void SetAlertness(float value);
 
+	public void ReactToShout(NPC deadNPC);
 }

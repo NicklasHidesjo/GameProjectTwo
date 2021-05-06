@@ -8,11 +8,29 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    public enum playerStates { Stoped, TransformToDracula, MoveDracula, Hidden, TransformToBat, FlyBat, Sucking }
+
+    public enum playerStates
+    {
+        Stoped,
+        TransformToDracula,
+
+        DraculaDefault,
+        DraculaAirborne,
+        DraculaRunning,
+        DraculaCrouching,
+
+        DraculaDragBody,
+        DraculaHideing,
+        DraculaHidden,
+        DraculaSucking,
+        DraculaBurning,
+        
+        TransformToBat,
+        BatDefault
+    }
+
     [SerializeField] playerStates playerState;
     public playerStates CurrentState => playerState;
-    [SerializeField] float batMaxTime = 5.0f;
-
     private PlayerManager playerManeger;
     private DraculaMovement draculaMovement;
     private BatMovement batMovement;
@@ -31,11 +49,14 @@ public class PlayerState : MonoBehaviour
 
     public void SetState(playerStates newState)
     {
+        Debug.Log("<color=red> SET STATE TO : </color>" + newState);
         playerState = newState;
     }
 
     public void UpdateByState()
     {
+        Debug.Log("<color=yellow> in state : </color>" + CurrentState);
+
         switch (playerState)
         {
             case playerStates.Stoped:
@@ -48,17 +69,48 @@ public class PlayerState : MonoBehaviour
                     playerManeger.ActivateDracula();
                     break;
                 }
-            case playerStates.MoveDracula:
+            case playerStates.DraculaDefault:
                 {
                     draculaMovement.Move();
                     break;
                 }
-            case playerStates.Hidden:
+            case playerStates.DraculaAirborne:
+                {
+                    draculaMovement.Move();
+                    break;
+                }
+            case playerStates.DraculaRunning:
+                {
+                    draculaMovement.Move();
+                    break;
+                }
+
+            case playerStates.DraculaCrouching:
+                {
+                    draculaMovement.Move();
+                    break;
+                }
+            case playerStates.DraculaDragBody:
+                {
+                    draculaMovement.DragBody();
+                    break;
+                }
+
+            case playerStates.DraculaHideing:
                 {
                     break;
                 }
-            case playerStates.Sucking:
+            case playerStates.DraculaHidden:
                 {
+                    break;
+                }
+            case playerStates.DraculaSucking:
+                {
+                    break;
+                }
+            case playerStates.DraculaBurning:
+                {
+                    draculaMovement.DragBody();
                     break;
                 }
             case playerStates.TransformToBat:
@@ -66,7 +118,7 @@ public class PlayerState : MonoBehaviour
                     playerManeger.ActivateBat();
                     break;
                 }
-            case playerStates.FlyBat:
+            case playerStates.BatDefault:
                 {
                     batMovement.Move();
                     break;

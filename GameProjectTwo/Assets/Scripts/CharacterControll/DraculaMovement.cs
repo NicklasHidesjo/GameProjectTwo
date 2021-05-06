@@ -12,6 +12,8 @@ public class DraculaMovement : MonoBehaviour
     [SerializeField] private Transform alignTo;
 
     [SerializeField] float playerSpeed = 4.0f;
+    [SerializeField] float runSpeed = 8.0f;
+    [SerializeField] float crouchSpeed = 1.0f;
     [SerializeField] float jumpForce = 4.0f;
     [SerializeField] float normalGravity = 20f;
     [SerializeField] float holdJumpGravityUp = 6f;
@@ -22,9 +24,14 @@ public class DraculaMovement : MonoBehaviour
     private bool jump;
     private PlayerState playerState;
 
+    private float speed;
+    private bool grounded;
+
     private void Start()
     {
-        if(!alignTo)
+        speed = playerSpeed;
+
+        if (!alignTo)
             alignTo = Camera.main.transform;
 
         if (!controller)
@@ -65,8 +72,9 @@ public class DraculaMovement : MonoBehaviour
     public void Move()
     {
         float applyedGravity = normalGravity;
+        SetStateFromInput();
 
-        if (controller.isGrounded)
+        if (grounded)
         {
             playerVelocity = GroundControl();
         }
@@ -74,12 +82,78 @@ public class DraculaMovement : MonoBehaviour
         {
             applyedGravity = AerialControl();
         }
+
         playerVelocity.y -= AddGravity(applyedGravity);
         controller.Move(playerVelocity * Time.fixedDeltaTime);
 
         ForwardFromMovement();
 
         DebugRays();
+    }
+
+    void SetStateFromInput()
+    {
+        if (controller.isGrounded)
+        {
+            if (grounded != controller.isGrounded)
+            {
+                grounded = controller.isGrounded;
+            }
+
+            //TODO : Get dimations from model
+            if (Input.GetButton("Crouch"))
+            {
+                if (controller.height != 0.5f)
+                {
+                    playerState.SetState(PlayerState.playerStates.DraculaCrouching);
+                    speed = crouchSpeed;
+
+                    controller.radius = 0.25f;
+                    controller.height = 0.5f;
+                    controller.Move(-Vector3.up * 0.76f);
+                }
+            }
+            else
+            {
+                if (controller.height != 2)
+                {
+                    controller.height = 2;
+                    controller.radius = 0.5f;
+                    controller.Move(Vector3.up * 0.75f);
+                }
+
+                if (Input.GetButton("Run"))
+                {
+                    if (speed != runSpeed)
+                    {
+                        playerState.SetState(PlayerState.playerStates.DraculaRunning);
+                        speed = runSpeed;
+                    }
+                }
+                else
+                {
+                    if (playerState.GetCurrentState() != PlayerState.playerStates.DraculaDefault)
+                    {
+                        playerState.SetState(PlayerState.playerStates.DraculaDefault);
+                        speed = playerSpeed;
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (grounded != controller.isGrounded)
+            {
+                playerState.SetState(PlayerState.playerStates.DraculaAirborne);
+                grounded = controller.isGrounded;
+
+                if (controller.height != 2)
+                {
+                    controller.Move(Vector3.up * 0.75f);
+                    controller.height = 2;
+                }
+            }
+        }
     }
 
     Vector3 FlatAlignTo(Vector3 v)
@@ -90,11 +164,11 @@ public class DraculaMovement : MonoBehaviour
 
     Vector3 GroundControl()
     {
-        Vector3 inputFormplayer = 
-            Input.GetAxis("Horizontal") * FlatAlignTo(alignTo.right) + 
+        Vector3 inputFormplayer =
+            Input.GetAxis("Horizontal") * FlatAlignTo(alignTo.right) +
             Input.GetAxis("Vertical") * FlatAlignTo(alignTo.forward);
-        
-        inputFormplayer *= playerSpeed;
+
+        inputFormplayer *= speed;
 
         if (jump)
         {
@@ -145,6 +219,46 @@ public class DraculaMovement : MonoBehaviour
         if (debugRays)
         {
             Debug.DrawRay(transform.position, playerVelocity * 5, Color.green);
+        }
+    }
+
+
+
+    public void DragBody()
+    {
+        //SetStateFromInput();
+        playerSpeed = 2;
+        if (controller.isGrounded)
+        {
+            if (controller.height != 2)
+            {
+                controller.height = 2;
+                controller.radius = 0.5f;
+                controller.Move(Vector3.up * 0.75f);
+            }
+
+
+            playerVelocity = GroundControl();
+        }
+        
+
+        playerVelocity.y -= AddGravity(normalGravity);
+        controller.Move(playerVelocity * Time.fixedDeltaTime);
+
+        DragDirFromMovement();
+
+        DebugRays();
+    }
+
+
+    private void DragDirFromMovement()
+    {
+        Vector3 forwardFromMovement = playerVelocity;
+        forwardFromMovement.y = 0;
+
+        if (forwardFromMovement.sqrMagnitude > 0)
+        {
+            transform.forward = -forwardFromMovement;
         }
     }
 }

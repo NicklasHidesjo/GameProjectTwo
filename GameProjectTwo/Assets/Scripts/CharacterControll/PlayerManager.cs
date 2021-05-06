@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,11 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] private PlayerStatsManager statsManager;
     public PlayerStatsManager StatsManager { get { return statsManager; } }
+
+    [SerializeField] PlayerNotoriousLevels notoriusLevel;
+    public PlayerNotoriousLevels NotoriousLevel { get { return notoriusLevel; } }
+
+    [SerializeField] LightSensor lightSensor;
 
     private PlayerState playerState;
     public PlayerState PlayerState => playerState;
@@ -47,9 +53,10 @@ public class PlayerManager : MonoBehaviour
         GetHealthManager();
         SpawnNewPlayer();
         playerState.SetState(PlayerState.playerStates.TransformToDracula);
+        EndLevelCheck.OnLevelEnded += PrepPlayerForNextLevel;
     }
 
-    
+
     private void Init()
     {
         if (!playerPointTransform)
@@ -62,6 +69,18 @@ public class PlayerManager : MonoBehaviour
 
         if (!playerCam)
             playerCam = Camera.main;
+
+        if (!notoriusLevel)
+        {
+            notoriusLevel = GetComponent<PlayerNotoriousLevels>();
+        }
+
+        if (!lightSensor)
+        {
+            lightSensor = GetComponentInChildren<LightSensor>();
+        }
+
+        
 
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
     }
@@ -90,6 +109,11 @@ public class PlayerManager : MonoBehaviour
         playerState.SetScipts(this, draculaMovement, batMovement);
     }
 
+    private void PrepPlayerForNextLevel(int newLevel)
+    {
+        //playerState.SetState(PlayerState.playerStates.DraculaHidden);
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -112,7 +136,7 @@ public class PlayerManager : MonoBehaviour
         SetPooledActive(draculaGO);
 
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
-        playerState.SetState(PlayerState.playerStates.MoveDracula);
+        playerState.SetState(PlayerState.playerStates.DraculaDefault);
     }
 
     public void ActivateBat()
@@ -121,7 +145,7 @@ public class PlayerManager : MonoBehaviour
         SetPooledActive(batGO);
         
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.high, spawnPoint);
-        playerState.SetState(PlayerState.playerStates.FlyBat);
+        playerState.SetState(PlayerState.playerStates.BatDefault);
     }
     
 
@@ -133,6 +157,9 @@ public class PlayerManager : MonoBehaviour
         playerPointTransform.forward = frw.normalized;
         activateGO.transform.forward = playerPointTransform.forward;
         activateGO.SetActive(true);
+
+        lightSensor.SetFollowTarget(activateGO.transform);
+
         playerPointTransform.parent = activateGO.transform;
     }
 

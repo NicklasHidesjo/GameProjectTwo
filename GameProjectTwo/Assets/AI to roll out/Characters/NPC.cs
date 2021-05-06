@@ -9,11 +9,18 @@ public class NPC : MonoBehaviour, ICharacter
 	[SerializeField] NPCStats stats;
 	[Tooltip("The tag that will be used to find all path points when walking (ex POI or Waypoint")]
 	[SerializeField] string pathTag;
+	[Tooltip("Set this to true if we want the npc to be stationary")]
+	[SerializeField] bool stationary;
+	[Tooltip("The layer that npc's are at (used when trying to hit player and also when finding other npc's")]
+	[SerializeField] LayerMask npcLayer;
 
 	private NavMeshAgent agent;
 	private Transform player;
 	private Transform[] path;
 
+	public LayerMask NpcLayer => npcLayer;
+
+	public NPC Self => this;
 	public Transform[] Path => path;
 
 	public Transform Transform => transform;
@@ -32,7 +39,6 @@ public class NPC : MonoBehaviour, ICharacter
 	public int PathIndex { get; set; }
 
 	public Vector3 PlayerLastSeen { get; set; }
-	public bool SeesPlayer { get; set; }
 
 	public Quaternion OriginRot { get; set; }
 	public Quaternion TargetRot { get; set; }
@@ -52,32 +58,82 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public bool ShouldShout { get; set; }
 
-	private List<NPC> nearbyCharacters = new List<NPC>();
-	public List<NPC> NearbyCharacters => nearbyCharacters;
-
+	public Vector3[] RunAngles { get; set; }
 	public bool Run { get; set; }
 
 	public bool NoticedPlayer { get; set; }
+	public bool SeesPlayer { get; set; }
+
+	public Vector3 StartingPosition { get; set; }
+	public Quaternion StartingRotation { get; set; }
+
+	public bool FreezeInFear { get; set; }
 
 	public int FOV { get; set; }
+
+	public bool StationaryGuard => stationary;
+
+	public bool BackTrack { get; set; }
+	public bool Increase { get; set; }
+
+	public bool SawHiding { get; set; }
+
+	public bool SawTransforming { get; set; }
+
+	public bool IsCharmed { get; set; }
+
+	public NPC DeadNpc { get; set; }
+	public bool GettingDisposed { get; set; }
+	public bool Disposed { get; set; }
+
+	Transform[] bodyParts;
+	public Transform[] BodyParts => bodyParts;
 
 	private void Awake()
 	{
 		if (stats == null)
 		{
 			Debug.LogError("This npc doesnt have any stats: " + gameObject.name);
-			//UnityEditor.EditorApplication.isPlaying = false;
 		}
 		InitializeNPC();
 	}
 	private void InitializeNPC()
 	{
+		StartingPosition = transform.position;
+		StartingRotation = transform.rotation;
+		GetComponents();
+		SetBools();
+		SetFloatsAndInts();
+		SetArrays();
+	}
+
+	private void GetComponents()
+	{
 		agent = GetComponent<NavMeshAgent>();
 		player = FindObjectOfType<PlayerManager>().GetPlayerPoint();
 		path = GameObject.FindGameObjectsWithTag(pathTag).Select(f => f.transform).ToArray();
+		DeadNpc = null;
+	}
+	private void SetBools()
+	{
 		IsSuckable = true;
 		isDead = false;
 		ShouldShout = true;
+		GettingDisposed = false;
+		Disposed = false;
+		if(gameObject.CompareTag("Guard"))
+		{
+			BackTrack = Random.Range(0, 2) * 2 - 1 > 0;
+			Increase = Random.Range(0, 2) * 2 - 1 > 0;
+		}
+		else
+		{
+			BackTrack = false;
+			Increase = true;
+		}
+	}
+	private void SetFloatsAndInts()
+	{
 		currentHealth = stats.MaxHealth;
 		agent.speed = stats.WalkSpeed;
 		Alertness = 0;
@@ -85,27 +141,22 @@ public class NPC : MonoBehaviour, ICharacter
 		PathIndex = 0;
 		YRotCorrection = 0;
 		SearchAngle = stats.SearchAngle;
-		RotationSpeed = stats.RotationSpeed;
+		RotationSpeed = stats.SearchRotationSpeed;
 		FOV = stats.RelaxedFOV;
-		// set the spherecollider radius here using a stat in npc stats?
 	}
-
-
-	private void FixedUpdate()
+	private void SetArrays()
 	{
-		SetNearbyCharacters();
-	}
+		bodyParts = GetComponentsInChildren<Transform>().Where(t => t.CompareTag("NpcPart")).ToArray();
 
-	private void SetNearbyCharacters()
-	{
-		nearbyCharacters.Clear();
-		int layerMask = 1 << 7;
-		Collider[] npcClose = Physics.OverlapSphere(transform.position, stats.ShoutRange, layerMask);
-		foreach (var character in npcClose)
-		{
-			if (character.GetComponent<NPC>() == this) { continue; }
-			nearbyCharacters.Add(character.GetComponent<NPC>());
-		}
+		RunAngles = new Vector3[8];
+		RunAngles[0] = transform.forward;
+		RunAngles[1] = transform.forward + transform.right;
+		RunAngles[2] = transform.right;
+		RunAngles[3] = transform.right - transform.forward;
+		RunAngles[4] = -transform.forward;
+		RunAngles[5] = -transform.forward - transform.right;
+		RunAngles[6] = -transform.right;
+		RunAngles[7] = -transform.right + transform.forward;
 	}
 
 	public void Attack()
@@ -121,14 +172,27 @@ public class NPC : MonoBehaviour, ICharacter
 	{
 		transform.LookAt(Target);
 	}
+
+	public void RotateTowardsPlayer()
+	{
+		Quaternion target = Quaternion.LookRotation(player.position - transform.position);
+		
+		float compensation = stats.TurnSpeedCompensation - Vector3.Angle(target.eulerAngles, transform.forward);
+		float speedIncrease = Mathf.Clamp(compensation, 0, stats.TurnSpeedCompensation);
+		float speed = (stats.TurnSpeed + speedIncrease) * Time.fixedDeltaTime;
+
+		Quaternion rotation = Quaternion.Slerp(transform.rotation, target, speed);
+		transform.rotation = rotation;
+	}
 	public void LookAt(Quaternion Target)
 	{
 		transform.rotation = Target;
 	}
-	public bool RayHitPlayer(Vector3 direction, float lenght)
+
+	public bool RayHitPlayer(Vector3 direction, float length)
 	{
 		RaycastHit hit;
-		if (Physics.Raycast(transform.position, direction, out hit, lenght))
+		if (Physics.Raycast(transform.position, direction, out hit, length, ~npcLayer))
 		{
 			if (hit.collider.CompareTag("Player"))
 			{
@@ -137,12 +201,18 @@ public class NPC : MonoBehaviour, ICharacter
 		}
 		return false;
 	}
-	public bool InFrontOff(Vector3 direction)
+	public bool RayHitDeadNPC(Vector3 direction, float length)
 	{
-		Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
-		return Vector3.Angle(transform.forward, dirToTarget) < stats.RelaxedFOV / 2;
+		RaycastHit hit;
+		if (Physics.Raycast(transform.position, direction, out hit, length))
+		{
+			if(hit.collider.gameObject == DeadNpc.gameObject)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
-
 	public void DecreaseHealth(int health)
 	{
 		currentHealth -= health;
@@ -156,11 +226,28 @@ public class NPC : MonoBehaviour, ICharacter
 	{
 		if (gameObject.CompareTag("Civilian"))
 		{
-			if (Vector3.Distance(transform.position, player.position) > stats.SightLenght) { return; } // have this be a check if we se the player instead
+			// have this be a check if we se the player instead
+			if (Vector3.Distance(transform.position, player.position) > stats.SightLenght) 
+			{ 
+				return; 
+			} 
 		}
 		ShouldShout = false;
 
 		SetAlertnessToMax();
+	}
+	public void ReactToShout(NPC deadNpc)
+	{
+		if (gameObject.CompareTag("Civilian"))
+		{
+			// have this be a check if we se the corpse instead
+			if (Vector3.Distance(transform.position, player.position) > stats.SightLenght)
+			{
+				return;
+			} 
+		}
+		DeadNpc = deadNpc;
+		ShouldShout = false;
 	}
 
 	public void SetAlertnessToMax()
@@ -169,8 +256,21 @@ public class NPC : MonoBehaviour, ICharacter
 		Run = true;
 	}
 
+	public void SetAlertness(float value)
+	{
+		Alertness = value;
+		if(Alertness >= stats.MaxAlerted)
+		{
+			Run = true;
+		}
+	}
+
 	public void RaiseAlertness(bool inFOV)
 	{
+		if(IsCharmed)
+		{
+			return;
+		}
 		float value = stats.AlertIncrease * Time.deltaTime;
 		if(inFOV)
 		{
@@ -185,5 +285,22 @@ public class NPC : MonoBehaviour, ICharacter
 	public void LowerAlertness(float value)
 	{
 		Alertness = Mathf.Clamp(Alertness - Mathf.Abs(value), 0, stats.MaxAlerted);
+	}
+
+	public void HandleSeeingDeadNPC(NPC deadNpc)
+	{
+		if(SeesPlayer)
+		{
+			Run = true;
+		}
+		else
+		{
+			DeadNpc = deadNpc;
+		}
+	}
+
+	public void Dead()
+	{
+		isDead = true;
 	}
 }

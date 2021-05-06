@@ -12,10 +12,16 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject deathScreen;
 
+    private bool inDeathScreen;
+
     private bool gamePaused = false;
+
+    public delegate void LevelStart();
+    public static event LevelStart OnLevelStart;
 
     private void Start()
     {
+        inDeathScreen = false;
         Cursor.visible = false;
     }
 
@@ -35,7 +41,7 @@ public class MenuManager : MonoBehaviour
             }
         }
 
-        if (PlayerManager.instance.StatsManager.IsDead)
+        if (PlayerManager.instance.StatsManager.IsDead && !inDeathScreen)
         {
             PlayerDeathScreen();
         }
@@ -44,33 +50,47 @@ public class MenuManager : MonoBehaviour
     public void RestartGame()
     {
         TogglePause();
-        SceneManager.LoadScene("210422", LoadSceneMode.Single);
+        //TODO Load correct scene
+        String currentScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentScene, LoadSceneMode.Single);
     }
 
     public void TogglePause()
     {
         if (gamePaused)
         {
+            PlayerManager.instance.PlayerState.SetState(PlayerState.playerStates.DraculaDefault);
             Cursor.visible = false;
             Time.timeScale = 1f;
             gamePaused = false;
         }
         else
         {
+            PlayerManager.instance.PlayerState.SetState(PlayerState.playerStates.Stoped);
             Cursor.visible = true;
             Time.timeScale = 0f;
             gamePaused = true;
         }
     }
 
+    public void StartNextLevel()
+    {
+        if (OnLevelStart != null)
+        {
+            OnLevelStart();
+        }
+    }
+
     private void PlayerDeathScreen()
     {
+        inDeathScreen = true;
         deathScreen.SetActive(true);
         TogglePause();
     }
 
     public void EndOfLevelScreen()
     {
+       
         endOfLevelScreen.SetActive(true);
         TogglePause();
     }
