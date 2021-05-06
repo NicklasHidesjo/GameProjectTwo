@@ -7,7 +7,7 @@ public class PlayerNotoriousLevels : MonoBehaviour
     public Material debugMat;
 
     private float plLongSuspiciousLevel = 0;
-    private float plShortSuspiciousLevel =10;
+    private float plShortSuspiciousLevel =0;
     private float plLuminosity = 0;
 
     [SerializeField] int maxNumberOfSloppyKills = 10;
