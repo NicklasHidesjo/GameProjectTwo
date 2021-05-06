@@ -31,6 +31,7 @@ public class Container : Interactable
         {
             Debug.Log("Placed " + obj + "in " + gameObject);
             AddToContainer(obj);
+            obj.GetComponent<DeadBody>().SetHidden(true);
 
         }
         else if (obj.CompareTag("Player"))
