@@ -15,6 +15,7 @@ TagManager:
   - StaminaBar
   - Building
   - EscapePoint
+  - NpcPart
   layers:
   - Default
   - TransparentFX

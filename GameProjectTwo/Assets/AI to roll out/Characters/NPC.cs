@@ -82,6 +82,13 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public bool IsCharmed { get; set; }
 
+	public NPC DeadNpc { get; set; }
+	public bool GettingDisposed { get; set; }
+	public bool Disposed { get; set; }
+
+	Transform[] bodyParts;
+	public Transform[] BodyParts => bodyParts;
+
 	private void Awake()
 	{
 		if (stats == null)
@@ -97,7 +104,7 @@ public class NPC : MonoBehaviour, ICharacter
 		GetComponents();
 		SetBools();
 		SetFloatsAndInts();
-		SetVectors();
+		SetArrays();
 	}
 
 	private void GetComponents()
@@ -105,12 +112,15 @@ public class NPC : MonoBehaviour, ICharacter
 		agent = GetComponent<NavMeshAgent>();
 		player = FindObjectOfType<PlayerManager>().GetPlayerPoint();
 		path = GameObject.FindGameObjectsWithTag(pathTag).Select(f => f.transform).ToArray();
+		DeadNpc = null;
 	}
 	private void SetBools()
 	{
 		IsSuckable = true;
 		isDead = false;
 		ShouldShout = true;
+		GettingDisposed = false;
+		Disposed = false;
 		if(gameObject.CompareTag("Guard"))
 		{
 			BackTrack = Random.Range(0, 2) * 2 - 1 > 0;
@@ -134,8 +144,10 @@ public class NPC : MonoBehaviour, ICharacter
 		RotationSpeed = stats.SearchRotationSpeed;
 		FOV = stats.RelaxedFOV;
 	}
-	private void SetVectors()
+	private void SetArrays()
 	{
+		bodyParts = GetComponentsInChildren<Transform>().Where(t => t.CompareTag("NpcPart")).ToArray();
+
 		RunAngles = new Vector3[8];
 		RunAngles[0] = transform.forward;
 		RunAngles[1] = transform.forward + transform.right;
@@ -189,12 +201,12 @@ public class NPC : MonoBehaviour, ICharacter
 		}
 		return false;
 	}
-	public bool RayHitTarget(Vector3 direction, float length, LayerMask mask)
+	public bool RayHitDeadNPC(Vector3 direction, float length)
 	{
 		RaycastHit hit;
-		if (Physics.Raycast(transform.position, direction, out hit, length, npcLayer))
+		if (Physics.Raycast(transform.position, direction, out hit, length))
 		{
-			if (hit.collider.CompareTag("Player"))
+			if(hit.collider.gameObject == DeadNpc.gameObject)
 			{
 				return true;
 			}
@@ -214,14 +226,28 @@ public class NPC : MonoBehaviour, ICharacter
 	{
 		if (gameObject.CompareTag("Civilian"))
 		{
+			// have this be a check if we se the player instead
 			if (Vector3.Distance(transform.position, player.position) > stats.SightLenght) 
 			{ 
 				return; 
-			} // have this be a check if we se the player instead
+			} 
 		}
 		ShouldShout = false;
 
 		SetAlertnessToMax();
+	}
+	public void ReactToShout(NPC deadNpc)
+	{
+		if (gameObject.CompareTag("Civilian"))
+		{
+			// have this be a check if we se the corpse instead
+			if (Vector3.Distance(transform.position, player.position) > stats.SightLenght)
+			{
+				return;
+			} 
+		}
+		DeadNpc = deadNpc;
+		ShouldShout = false;
 	}
 
 	public void SetAlertnessToMax()
@@ -264,5 +290,22 @@ public class NPC : MonoBehaviour, ICharacter
 	public void LowerAlertness(float value)
 	{
 		Alertness = Mathf.Clamp(Alertness - Mathf.Abs(value), 0, stats.MaxAlerted);
+	}
+
+	public void HandleSeeingDeadNPC(NPC deadNpc)
+	{
+		if(SeesPlayer)
+		{
+			Run = true;
+		}
+		else
+		{
+			DeadNpc = deadNpc;
+		}
+	}
+
+	public void Dead()
+	{
+		isDead = true;
 	}
 }

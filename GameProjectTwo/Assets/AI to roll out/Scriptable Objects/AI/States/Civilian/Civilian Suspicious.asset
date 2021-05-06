@@ -28,6 +28,8 @@ MonoBehaviour:
     newState: {fileID: 11400000, guid: 53e6c94010028b940918b7865e5739e3, type: 2}
   - decision: {fileID: 11400000, guid: 293de0d155b8c6d48af24ec501d46811, type: 2}
     newState: {fileID: 11400000, guid: 7d50bb018c8f2464d994c4bdd63395c5, type: 2}
+  - decision: {fileID: 11400000, guid: 790c745d50284974ab9c07badb3b76ea, type: 2}
+    newState: {fileID: 11400000, guid: 065ab3295b71cdd4a8cc0a134e4c9911, type: 2}
   - decision: {fileID: 11400000, guid: 0aa198543c7b0d24b89c900317abf097, type: 2}
     newState: {fileID: 11400000, guid: b5d23397c8d7b2442a6455017e231594, type: 2}
   - decision: {fileID: 11400000, guid: 598cc70b5e7731c43a533e13a0aa5fd1, type: 2}

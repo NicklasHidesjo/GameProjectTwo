@@ -44,12 +44,17 @@ public interface ICharacter
 
 	public int FOV { get; set; }
 
+	public NPC DeadNpc { get; set; }
+
 	public Vector3 StartingPosition { get; set; }
 	public Quaternion StartingRotation { get; set; }
 	public bool StationaryGuard { get; }
 
 	public bool BackTrack { get; set; }
 	public bool Increase { get; set; }
+
+	public bool GettingDisposed { get; set; }
+	public bool Disposed { get; set; }
 
 	public LayerMask NpcLayer { get; }
 	/// <summary>
@@ -75,13 +80,12 @@ public interface ICharacter
 	/// <returns></returns>
 	public bool RayHitPlayer(Vector3 direction, float lenght);
 	/// <summary>
-	/// Returns true if we hit something on the specific mask within the length
+	/// Returns true if we hit the currently saved deadNPC reference on our npc
 	/// </summary>
 	/// <param name="direction"></param>
 	/// <param name="length"></param>
-	/// <param name="mask"></param>
 	/// <returns></returns>
-	public bool RayHitTarget(Vector3 direction, float length, LayerMask mask);
+	public bool RayHitDeadNPC(Vector3 direction, float length);
 
 	public void ReactToShout();
 
@@ -94,4 +98,5 @@ public interface ICharacter
 	public void SetAlertnessToMax();
 	public void SetAlertness(float value);
 
+	public void ReactToShout(NPC deadNPC);
 }

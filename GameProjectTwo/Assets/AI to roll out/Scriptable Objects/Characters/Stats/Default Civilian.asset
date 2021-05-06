@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 100
   ClearanceDistance: 3
-  HardLockOnAngle: 10
+  HardLockOnAngle: 20
   MaxAlerted: 20
   CautiousThreshold: 5
   AlertActionThreshold: 10
@@ -34,7 +34,7 @@ MonoBehaviour:
   FearSpeed: 0.2
   CharmedSpeed: 1
   SearchRotationSpeed: 2
-  TurnSpeed: 2
+  TurnSpeed: 4
   TurnSpeedCompensation: 40
   FleeDeadAngle: 95
   FleeDistance: 4

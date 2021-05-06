@@ -72,6 +72,7 @@ public class BloodSuckTarget : Interactable
         Destroy(GetComponent<SphereCollider>());
         Destroy(GetComponent<StateMachine>());
         Destroy(GetComponent<NavMeshAgent>());
+        npcController.Dead();
         Destroy(this);
     }
 
