@@ -8,7 +8,7 @@ public class PlayerNotoriousLevels : MonoBehaviour
     private float plSuspiusLevel = 1;
     private float plLuminosity = 1;
 
-    [SerializeField] int maxNumberOfSloppyKills;
+    [SerializeField] int maxNumberOfSloppyKills = 10;
     [SerializeField] int numberOfSloppyKills;
     public float GetPlayerNotoriousLevel()
     {

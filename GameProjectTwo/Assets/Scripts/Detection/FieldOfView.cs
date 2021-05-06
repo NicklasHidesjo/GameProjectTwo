@@ -4,6 +4,12 @@ using System.Collections.Generic;
 
 public class FieldOfView : MonoBehaviour
 {
+    [Header("DEBUG")]
+    [SerializeField] bool debug = true;
+    GameObject debugSphere;
+    float sphareScale = 1;
+
+    [Header("Settings")]
     [SerializeField] LayerMask targetMask;
     [SerializeField] LayerMask obstacleMask;
 
@@ -17,6 +23,7 @@ public class FieldOfView : MonoBehaviour
 
     NPC npc;
     public NPC NPC => npc;
+
 
     void Start()
     {
@@ -74,8 +81,16 @@ public class FieldOfView : MonoBehaviour
     }
     void FindVisibleTargets()
     {
+        float notoriusLevel = PlayerManager.instance.NotoriousLevel.GetPlayerNotoriousLevel();
+        float sightRange = npc.Stats.SightLenght * notoriusLevel;
+        float noticeRange = npc.Stats.NoticeRange * notoriusLevel;
+
+        if (debug)
+        {
+            DebugNotisRange(sightRange, noticeRange);
+        }
         if (npc.IsDead) { return; }
-        Collider[] playersDetected = Physics.OverlapSphere(transform.position, npc.Stats.SightLenght, targetMask);
+        Collider[] playersDetected = Physics.OverlapSphere(transform.position, sightRange, targetMask);
 
         npc.NoticedPlayer = false;
         npc.SeesPlayer = false;
@@ -119,7 +134,7 @@ public class FieldOfView : MonoBehaviour
             if (Vector3.Angle(transform.forward, dirToTarget) < npc.FOV / 2)
             {
                 //Robert was here!
-                bool seesPlayer = ConeCast(transform.position, player.transform.position, npc.Stats.SightLenght);
+                bool seesPlayer = ConeCast(transform.position, player.transform.position, sightRange);
                 if (!seesPlayer)
                 {
                     return;
@@ -166,7 +181,7 @@ public class FieldOfView : MonoBehaviour
                 }
                 npc.SetAlertnessToMax();
             }
-            else if (Physics.Raycast(transform.position, dirToTarget, out hit, npc.Stats.NoticeRange))
+            else if (Physics.Raycast(transform.position, dirToTarget, out hit, noticeRange))
             {
                 if (!hit.collider.CompareTag("Player"))
                 {
@@ -186,7 +201,7 @@ public class FieldOfView : MonoBehaviour
         Vector3 fromToEye = from + Vector3.up * nPCNeckHight;
         Vector3 toToHead = to + Vector3.up * plNeckHight;
         Vector3 dir = fromToEye - toToHead;
-        
+
         float radius = plHeadRadius;
         int numberOfRays = segmentsInCone;
         float angStep = 360 / segmentsInCone;
@@ -208,5 +223,21 @@ public class FieldOfView : MonoBehaviour
             }
         }
         return false;
+    }
+
+
+    void DebugNotisRange(float notis, float sight)
+    {
+        if (!debugSphere)
+            debugSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+
+        float scale = sight;
+        if(notis > sight)
+        {
+            scale = notis;
+        }
+        debugSphere.transform.position = transform.position;
+        debugSphere.transform.localScale = Vector3.one * scale;
+
     }
 }
