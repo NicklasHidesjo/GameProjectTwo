@@ -233,6 +233,7 @@ public class NPC : MonoBehaviour, ICharacter
 	public void SetAlertness(float value)
 	{
 		Alertness = value;
+
 		if(Alertness >= stats.MaxAlerted)
 		{
 			Run = true;
@@ -246,6 +247,10 @@ public class NPC : MonoBehaviour, ICharacter
 			return;
 		}
 		float value = stats.AlertIncrease * Time.deltaTime;
+
+		//NotoriousLevel
+		value += PlayerManager.instance.NotoriousLevel.GetPlayerNotoriousLevel() * stats.AlertIncrease * Time.deltaTime;
+		
 		if(inFOV)
 		{
 			value *= stats.InSightMultiplier;

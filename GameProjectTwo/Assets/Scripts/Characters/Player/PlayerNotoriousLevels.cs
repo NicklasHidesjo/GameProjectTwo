@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class PlayerNotoriousLevels : MonoBehaviour
 {
+    public Material debugMat;
+
     private float plWantedLevel = 1;
     private float plSuspiusLevel = 1;
-    private float plLuminosity = 1;
+    private float plLuminosity = 0;
+    private float baseSuspision = 0;
 
     [SerializeField] int maxNumberOfSloppyKills = 10;
     [SerializeField] int numberOfSloppyKills;
     public float GetPlayerNotoriousLevel()
     {
-        float sloppyKillLevel = (float)numberOfSloppyKills /(float)maxNumberOfSloppyKills;
-
-
-        return ((plWantedLevel + plSuspiusLevel) * 0.25f + plLuminosity *0.5f);
+        
+        return ((plWantedLevel + plSuspiusLevel * plLuminosity) / 2);
     }
 
     public void SetPlWantedLevel(float level)
@@ -36,5 +37,6 @@ public class PlayerNotoriousLevels : MonoBehaviour
     public void AddSeenDeadBody()
     {
         numberOfSloppyKills++;
+        plWantedLevel = (float)numberOfSloppyKills / (float)maxNumberOfSloppyKills;
     }
 }
