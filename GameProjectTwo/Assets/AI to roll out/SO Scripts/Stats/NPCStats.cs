@@ -61,9 +61,9 @@ public class NPCStats : ScriptableObject
 	[Header("Flee Settings")]
 	[Tooltip("The angle that is a dead flee zone behind the player (Lower = character can run closer back towards the player. Higher = straighter running)")]
 	[Range(90, 180)] public int FleeDeadAngle = 95;
-	public float FleeDistance = 2f;
-	// these might no longer be used once new flee is implemented.
+	[Tooltip("The maximum distance that the npc will run before changing the direction")]
 	public float MaxFleeDistance = 40f;
+	[Tooltip("The minimum distance that the npc will run before changing the direction")]
 	public float MinFleeDistance = 5f;
 
 	[Header("Timers")]
@@ -76,6 +76,8 @@ public class NPCStats : ScriptableObject
 	public float CalmDownTime = 5f;
 	[Tooltip("The time (in seconds) that the npc will stay in a charmed state once charmed by the player")]
 	public float CharmedTime = 5f;
+	[Tooltip("The time (in seconds) that the npc will take to fade out")]
+	public float FadeDuration = 1f;
 
 	[Header("NPC to NPC interaction Settings")]
 	[Tooltip("The radius that other NPC's will be notified when getting alerted")]

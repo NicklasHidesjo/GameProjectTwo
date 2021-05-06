@@ -56,11 +56,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a31dc226e18e9540a50eaccd596cfcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  civilian: {fileID: 4489469258046233610, guid: f0353f0a3816e424ca4df45481a8cc9d, type: 3}
-  guard: {fileID: 5170690415814287737, guid: 982d2e6555f89cb4ca23d39c1fc28058, type: 3}
+  civilian: {fileID: 4489469258046233601, guid: f0353f0a3816e424ca4df45481a8cc9d, type: 3}
+  guard: {fileID: 5170690415814287742, guid: 982d2e6555f89cb4ca23d39c1fc28058, type: 3}
   spawnLocations:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   civilianPoolSize: 4
   guardPoolSize: 2
+  respawnRate: 5
