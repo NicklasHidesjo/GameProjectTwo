@@ -13,7 +13,6 @@ public class InExitRange : Decision
 		}
 		float range = character.Agent.stoppingDistance + 0.5f;
 		Collider[] closeExits = Physics.OverlapSphere(character.Transform.position, range, mask);
-
 		return closeExits.Length > 0;
 	}
 }

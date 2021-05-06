@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Civilian Moving Idle
   m_EditorClassIdentifier: 
   enterActions:
-  - {fileID: 11400000, guid: b2837432a9174614ca2c3bc717bb2ab5, type: 2}
   - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
   - {fileID: 11400000, guid: 37c1ba28c9ce5d34ca77bcf68ccb92fe, type: 2}
   - {fileID: 11400000, guid: 6170562ae5629014197fdf38e62b7e42, type: 2}
@@ -37,3 +36,5 @@ MonoBehaviour:
     newState: {fileID: 11400000, guid: 8b275f0cdaf7083459ed3c74295c88b2, type: 2}
   - decision: {fileID: 11400000, guid: 8ec007f7855587c4c985d0b79a83fa39, type: 2}
     newState: {fileID: 11400000, guid: 0366fa8c74898e841a3fa01d99edf71e, type: 2}
+  - decision: {fileID: 11400000, guid: 8c8d65248d28c2040acfdd6c9d7cf57c, type: 2}
+    newState: {fileID: 11400000, guid: 0b10f5a581509f844ae74709536556dc, type: 2}

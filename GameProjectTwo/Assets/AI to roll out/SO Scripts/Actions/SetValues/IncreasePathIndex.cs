@@ -15,12 +15,12 @@ public class IncreasePathIndex : Action
 			character.PathIndex -= 1;
 		}
 
-		if(character.PathIndex >= character.Path.Length)
+		if(character.PathIndex >= character.Path.Count)
 		{
 			if (character.BackTrack)
 			{
 				character.Increase = !character.Increase;
-				character.PathIndex = character.Path.Length -2;
+				character.PathIndex = character.Path.Count -2;
 			}
 			else
 			{
@@ -36,9 +36,8 @@ public class IncreasePathIndex : Action
 			}
 			else
 			{
-				character.PathIndex = character.Path.Length - 1;
+				character.PathIndex = character.Path.Count - 1;
 			}
-
 		}
 	}
 }

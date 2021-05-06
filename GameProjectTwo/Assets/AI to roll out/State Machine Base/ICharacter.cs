@@ -6,7 +6,7 @@ public interface ICharacter
 	public float Alertness { get; set; }	
 	public int PathIndex { get; set; }	
 	public float StateTime { get; set; }
-	public Transform[] Path { get; }	
+	public List<Transform> Path { get; }	
 	public Transform Transform { get; }
 	public Transform Player { get; }
 	public NavMeshAgent Agent { get; }
@@ -48,15 +48,21 @@ public interface ICharacter
 
 	public Vector3 StartingPosition { get; set; }
 	public Quaternion StartingRotation { get; set; }
-	public bool StationaryGuard { get; }
+	public bool Stationary { get; }
 
 	public bool BackTrack { get; set; }
 	public bool Increase { get; set; }
+
+	public bool Leave { get; set; }
+
+	public bool WalkRandomly { get; set; }
+
 
 	public bool GettingDisposed { get; set; }
 	public bool Disposed { get; set; }
 
 	public LayerMask NpcLayer { get; }
+	
 	/// <summary>
 	/// Sets the NavMesh Agents destination to "destination"
 	/// </summary>
@@ -99,4 +105,6 @@ public interface ICharacter
 	public void SetAlertness(float value);
 
 	public void ReactToShout(NPC deadNPC);
+
+	public void Dispose();
 }
