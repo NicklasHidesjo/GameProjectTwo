@@ -55,6 +55,13 @@ class ToolFilterSelection : EditorWindow
             tagText + selectedTag,
             selectedTag);
 
+        //Knapp
+        if (GUI.Button(new Rect(position.width - 110, 75, 100, 17), "Filter By Tag"))
+        {
+            if (selectedTag.Length > 0)
+                Selection.objects = FindGameObjectsWithTag(selectedTag, Selection.gameObjects);
+        }
+
         ResetLabelWidth();
 
         //Rullgardin
@@ -65,12 +72,7 @@ class ToolFilterSelection : EditorWindow
 
 
 
-        //Knapp
-        if (GUI.Button(new Rect(position.width - 110, 75, 100, 17), "Filter By Tag"))
-        {
-            if (selectedTag.Length > 0)
-                Selection.objects = FindGameObjectsWithTag(selectedTag, Selection.gameObjects);
-        }
+  
 
         //Knapp
         if (GUI.Button(new Rect(position.width - 110, 145, 100, 17), "Filter By Layer"))
