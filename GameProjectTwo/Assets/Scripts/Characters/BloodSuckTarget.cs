@@ -24,10 +24,11 @@ public class BloodSuckTarget : Interactable
             this.attacker = player;
             StartCoroutine(SuckingBlood(10, 1f));
             player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaSucking);
+            AudioManager.instance.PlayOneShot(SoundType.DraculaBite, player);
         }
         else
         {
-            print("target not currently suckable");
+            print("Civilian not currently biteable");
         }
     }
 
@@ -37,7 +38,7 @@ public class BloodSuckTarget : Interactable
         npcController.GettingSucked = false;
         StopCoroutine("SuckingBlood");        
         StopAllCoroutines();
-        Debug.Log("sucking Cancel!");
+        //Debug.Log("sucking Cancel!");
     }
 
     private IEnumerator SuckingBlood(int bloodPerSec, float tickRate)
@@ -55,18 +56,23 @@ public class BloodSuckTarget : Interactable
             playerStats.IncreaseHealthValue(bloodPerSec);
             Debug.Log("Currently sucking!");
             yield return new WaitForSeconds(tickRate);
+            AudioManager.instance.PlaySound(SoundType.DraculaDrink);
 
         }
         KillNPC();
 
-        Debug.Log("no longer sucking!");
+        //Debug.Log("no longer sucking!");
         attacker.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaDefault);
+        AudioManager.instance.PlaySound(SoundType.DraculaDrinkDone);
 
     }
+    
+    //TODO: do this one correctly
     private void KillNPC()
     {
         //kill NPC
-        //player.GetComponent<InteractableScanner>().RemoveInteractableFromList(this);
+
+        AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
         GetComponent<Rigidbody>().isKinematic = false;
         gameObject.AddComponent<DeadBody>();
         Destroy(GetComponent<SphereCollider>());
