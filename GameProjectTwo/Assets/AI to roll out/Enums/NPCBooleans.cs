@@ -4,5 +4,5 @@ public enum NPCBooleans
 	IsSuckable,
 	ShouldShout,
 	Run,
-	IsCharmed
+	IsCharmed,
 }

@@ -45,23 +45,25 @@ public class PlayerState : MonoBehaviour
     public playerStates GetCurrentState()
     {
         return playerState;
+
+
     }
 
     public void SetState(playerStates newState)
     {
-        Debug.Log("<color=red> SET STATE TO : </color>" + newState);
+        //Debug.Log("<color=red> SET STATE TO : </color>" + newState);
         playerState = newState;
     }
 
     public void UpdateByState()
     {
-        Debug.Log("<color=yellow> in state : </color>" + CurrentState);
+     //   Debug.Log("<color=yellow> in state : </color>" + CurrentState);
 
         switch (playerState)
         {
             case playerStates.Stoped:
                 {
-                    Debug.Log("Disabled");
+                    Debug.Log("Player Disabled");
                     break;
                 }
             case playerStates.TransformToDracula:
