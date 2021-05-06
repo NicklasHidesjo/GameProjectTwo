@@ -57,7 +57,8 @@ public class Flee : Action
 
 	private void GetRunPoint(Vector3 runDir, ICharacter character)
 	{
-		Vector3 randomPos = (runDir * character.Stats.FleeDistance) + character.Transform.position;
+		float distance = Random.Range(character.Stats.MinFleeDistance, character.Stats.MaxFleeDistance);
+		Vector3 randomPos = (runDir * distance) + character.Transform.position;
 
 		NavMeshHit hit;
 		if (NavMesh.SamplePosition(randomPos, out hit, 10, NavMesh.AllAreas))

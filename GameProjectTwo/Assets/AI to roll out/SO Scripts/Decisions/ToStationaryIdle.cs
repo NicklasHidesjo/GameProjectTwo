@@ -9,7 +9,7 @@ public class ToStationaryIdle : Decision
 		{
 			return false;
 		}
-		if (!character.StationaryGuard)
+		if (!character.Stationary)
 		{
 			return false;
 		}

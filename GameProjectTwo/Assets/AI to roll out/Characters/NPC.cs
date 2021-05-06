@@ -16,12 +16,12 @@ public class NPC : MonoBehaviour, ICharacter
 
 	private NavMeshAgent agent;
 	private Transform player;
-	private Transform[] path;
+	private List<Transform> path;
 
 	public LayerMask NpcLayer => npcLayer;
 
 	public NPC Self => this;
-	public Transform[] Path => path;
+	public List<Transform> Path => path;
 
 	public Transform Transform => transform;
 
@@ -71,7 +71,7 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public int FOV { get; set; }
 
-	public bool StationaryGuard => stationary;
+	public bool Stationary => stationary;
 
 	public bool BackTrack { get; set; }
 	public bool Increase { get; set; }
@@ -89,31 +89,41 @@ public class NPC : MonoBehaviour, ICharacter
 	Transform[] bodyParts;
 	public Transform[] BodyParts => bodyParts;
 
+	public bool Leave { get; set; }
+
+	public bool WalkRandomly { get; set; }
+
 	private void Awake()
 	{
 		if (stats == null)
 		{
 			Debug.LogError("This npc doesnt have any stats: " + gameObject.name);
 		}
-		InitializeNPC();
-	}
-	private void InitializeNPC()
-	{
-		StartingPosition = transform.position;
-		StartingRotation = transform.rotation;
 		GetComponents();
-		SetBools();
-		SetFloatsAndInts();
-		SetArrays();
 	}
-
-	private void GetComponents()
+	public void GetComponents()
 	{
 		agent = GetComponent<NavMeshAgent>();
 		player = FindObjectOfType<PlayerManager>().GetPlayerPoint();
-		path = GameObject.FindGameObjectsWithTag(pathTag).Select(f => f.transform).ToArray();
-		DeadNpc = null;
 	}
+
+	public void InitializeNPC()
+	{
+		path = new List<Transform>();
+		path = GameObject.FindGameObjectsWithTag(pathTag).Select(f => f.transform).ToList();
+		PathIndex = Random.Range(0, path.Count);
+		if(stationary)
+		{
+			StartingPosition = transform.position;
+			StartingRotation = transform.rotation;
+		}
+		DeadNpc = null;
+		SetBools();
+		SetFloatsAndInts();
+		SetArrays();
+		GetComponent<StateMachine>().InitializeStateMachine();
+	}
+
 	private void SetBools()
 	{
 		IsSuckable = true;
@@ -121,15 +131,18 @@ public class NPC : MonoBehaviour, ICharacter
 		ShouldShout = true;
 		GettingDisposed = false;
 		Disposed = false;
+		Leave = false;
 		if(gameObject.CompareTag("Guard"))
 		{
-			BackTrack = Random.Range(0, 2) * 2 - 1 > 0;
+			WalkRandomly = false;
 			Increase = Random.Range(0, 2) * 2 - 1 > 0;
+			BackTrack = Random.Range(0, 2) * 2 - 1 > 0;
 		}
 		else
 		{
+			WalkRandomly = Random.Range(0, 2) * 2 - 1 > 0;
+			Increase = Random.Range(0, 2) * 2 - 1 > 0;
 			BackTrack = false;
-			Increase = true;
 		}
 	}
 	private void SetFloatsAndInts()
@@ -307,5 +320,17 @@ public class NPC : MonoBehaviour, ICharacter
 	public void Dead()
 	{
 		isDead = true;
+	}
+
+	public void Dispose()
+	{
+		if (gameObject.CompareTag("Guard"))
+		{
+			NPCSpawner.Instance.NpcDespawn(false, this);
+		}
+		else
+		{
+			NPCSpawner.Instance.NpcDespawn(true, this);
+		}
 	}
 }

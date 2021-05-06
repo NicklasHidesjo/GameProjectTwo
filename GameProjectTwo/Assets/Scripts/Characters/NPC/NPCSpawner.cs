@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class NPCSpawner : MonoBehaviour
 {
-	[SerializeField] GameObject civilian;
-	[SerializeField] GameObject guard;
+	[SerializeField] NPC civilian;
+	[SerializeField] NPC guard;
 	[SerializeField] Transform[] spawnLocations;
-	
-	private int civiliansActive;
-	private int guardsActive;
 
 	[SerializeField] private int civilianPoolSize = 5;
 	[SerializeField] private int guardPoolSize = 5;
@@ -30,21 +27,56 @@ public class NPCSpawner : MonoBehaviour
 			return instance;
 		}
 	}
+
+
+	List<NPC> activeCivs = new List<NPC>();
+	List<NPC> inactiveCivs = new List<NPC>();	
 	
+	List<NPC> activeGuards= new List<NPC>();
+	List<NPC> inactiveGuards = new List<NPC>();
+
+
+
 	void Start()
 	{
-		NpcPoolManager.Instance.CreatePool(civilian, civilianPoolSize);
-		NpcPoolManager.Instance.CreatePool(guard, guardPoolSize);
+		/*		NpcPoolManager.Instance.CreatePool(civilian, civilianPoolSize);
+				NpcPoolManager.Instance.CreatePool(guard, guardPoolSize);*/
 
 		for (int i = 0; i < civilianPoolSize; i++)
 		{
-			NpcSpawn(true);
+			SpawnNPCs(true);
 		}
 
 		for (int i = 0; i < guardPoolSize; i++)
 		{
-			NpcSpawn(false);
+			SpawnNPCs(false);
 		}
+
+		foreach (var npc in inactiveCivs)
+		{
+			int i = Random.Range(0, spawnLocations.Length);
+			Transform currentSpawn = spawnLocations[i];
+
+			activeCivs.Add(npc);
+
+			npc.transform.position = currentSpawn.position;
+			npc.gameObject.SetActive(true);
+			npc.InitializeNPC();
+		}
+		inactiveCivs.Clear();
+
+		foreach (var npc in inactiveGuards)
+		{
+			int i = Random.Range(0, spawnLocations.Length);
+			Transform currentSpawn = spawnLocations[i];
+
+			activeGuards.Add(npc);
+
+			npc.transform.position = currentSpawn.position;
+			npc.gameObject.SetActive(true);
+			npc.InitializeNPC();
+		}
+		inactiveGuards.RemoveAll(npc => npc == null);
 
 		respawnTimerCivilian = 0f;
 		respawnTimerGuard = 0f;
@@ -53,7 +85,7 @@ public class NPCSpawner : MonoBehaviour
 	void Update()
 	{
 		//Making sure there are enough civilians in scene.
-		if (civiliansActive < civilianPoolSize)
+		if (inactiveCivs.Count > 0)
 		{
 			respawnTimerCivilian += Time.deltaTime;
 
@@ -61,11 +93,12 @@ public class NPCSpawner : MonoBehaviour
 			{
 				NpcSpawn(true);
 				respawnTimerCivilian = 0f;
+				inactiveCivs.RemoveAll(npc => npc == null);
 			}
 		}
 
 		//Making sure there are enough guards in scene.
-		if (guardsActive < guardPoolSize)
+		if (inactiveGuards.Count > 0)
 		{
 			respawnTimerGuard += Time.deltaTime;
 
@@ -73,19 +106,29 @@ public class NPCSpawner : MonoBehaviour
 			{
 				NpcSpawn(false);
 				respawnTimerGuard = 0f;
+				inactiveGuards.RemoveAll(npc => npc == null);
 			}
 		}
 
 		//All IF-statements below in Update are for testing purposes
 
-		if (Input.GetKeyDown(KeyCode.G))
+		if (Input.GetKeyDown(KeyCode.V))
 		{
-			NpcDespawn(false, GameObject.FindGameObjectWithTag("Guard"));
+			NpcDespawn(false, GameObject.FindGameObjectWithTag("Guard").GetComponent<NPC>());
 		}
 
 		if (Input.GetKeyDown(KeyCode.C))
 		{
-			NpcDespawn(true,GameObject.FindGameObjectWithTag("Civilian"));
+			NpcDespawn(true,GameObject.FindGameObjectWithTag("Civilian").GetComponent<NPC>());
+		}
+
+		if(Input.GetKeyDown(KeyCode.U))
+		{
+			SpawnNPCs(true);
+		}
+		if(Input.GetKeyDown(KeyCode.G))
+		{
+			SpawnNPCs(false);
 		}
 	}
 	
@@ -93,29 +136,70 @@ public class NPCSpawner : MonoBehaviour
 	{
 		int i = Random.Range(0, spawnLocations.Length);
 		Transform currentSpawn = spawnLocations[i];
+		NPC npc;
 		if (isCivilian)
 		{
-			NpcPoolManager.Instance.ReuseNpc(civilian, currentSpawn);
-			civiliansActive++;
+			if(inactiveCivs.Count < 1) 
+			{ 
+				return; 
+			}
+
+			npc = inactiveCivs[0];
+			inactiveCivs.Remove(npc);
+			activeCivs.Add(npc);
+			npc.InitializeNPC();
 		}
 		else
 		{
-			NpcPoolManager.Instance.ReuseNpc(guard, currentSpawn);
-			guardsActive++;
+		
+			if(inactiveGuards.Count < 1) 
+			{ 
+				return; 
+			}
+			
+			npc = inactiveGuards[0];
+			inactiveGuards.Remove(npc);
+			activeGuards.Add(npc);
+
+
 		}
+		npc.transform.position = currentSpawn.position;
+		npc.gameObject.SetActive(true);
+		npc.InitializeNPC();
 	}
 
-	public void NpcDespawn(bool isCivilian, GameObject npc)
+	private void SpawnNPCs(bool isCivilian)
 	{
-		npc.SetActive(false);
-
+		int i = Random.Range(0, spawnLocations.Length);
+		Transform currentSpawn = spawnLocations[i];
+		NPC npc;
 		if (isCivilian)
 		{
-			civiliansActive--;
+			npc = Instantiate(civilian, currentSpawn.position, Quaternion.identity, transform);
+			inactiveCivs.Add(npc);
 		}
 		else
 		{
-			guardsActive--;
+			npc = Instantiate(guard, currentSpawn.position, Quaternion.identity, transform);
+			inactiveGuards.Add(npc);
+		}
+		npc.gameObject.SetActive(false);
+	}
+
+	public void NpcDespawn(bool isCivilian, NPC npc)
+	{
+		npc.gameObject.SetActive(false);
+		if (isCivilian)
+		{
+			activeCivs.Remove(npc);
+			inactiveCivs.Add(npc);
+			activeCivs.RemoveAll(npc => npc == null);
+		}
+		else
+		{
+			activeGuards.Remove(npc);
+			inactiveGuards.Add(npc);
+			activeGuards.RemoveAll(npc => npc == null);
 		}
 	}
 }
