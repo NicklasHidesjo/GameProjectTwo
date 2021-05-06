@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3641614839899840314}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: -14.857484, y: -0.38077927, z: -3.6573005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1361615660955361217}
@@ -107,11 +107,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1361615660955361217}
   - component: {fileID: 3741368434606493832}
-  - component: {fileID: 5008581454002545233}
   - component: {fileID: 3613435800765331158}
   - component: {fileID: 1144922818}
   - component: {fileID: 5256516693888865684}
-  - component: {fileID: 3661780086215431061}
+  - component: {fileID: 5008581454002545233}
   m_Layer: 6
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -155,18 +154,6 @@ MonoBehaviour:
   statsManager: {fileID: 0}
   notoriusLevel: {fileID: 0}
   lightSensor: {fileID: 0}
---- !u!114 &5008581454002545233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9138906648391732663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3ce3116ffe63c1468f2ce44d5903d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3613435800765331158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d4ebb1832398da4388265826cf87ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3661780086215431061
+--- !u!114 &5008581454002545233
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,10 +208,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 9138906648391732663}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec17a244f8bcfff438eb2d4444a930d8, type: 3}
+  m_Script: {fileID: 11500000, guid: c3ce3116ffe63c1468f2ce44d5903d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pN: {fileID: 0}
 --- !u!1001 &1856908740222568126
 PrefabInstance:
   m_ObjectHideFlags: 0

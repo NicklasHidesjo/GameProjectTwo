@@ -32,6 +32,7 @@ class ToolFilterSelection : EditorWindow
         root.style.paddingRight = new StyleLength(10f);
 
     }
+
     void OnGUI()
     {
         //Knapp SelectNone
@@ -46,12 +47,15 @@ class ToolFilterSelection : EditorWindow
         }
 
 
+        EditorGUIUtility.labelWidth = CalculateLabelWidth(tagText + selectedTag);
+        
         //Rullgardin
         selectedTag = EditorGUI.TagField(
             new Rect(10, 50, position.width - 20, 20),
-            tagText + selectedTag.ToString(),
+            tagText + selectedTag,
             selectedTag);
 
+        ResetLabelWidth();
 
         //Rullgardin
         selectedLayer = EditorGUI.LayerField(
@@ -137,4 +141,31 @@ class ToolFilterSelection : EditorWindow
         return goList.ToArray();
     }
 
+
+
+
+    public static float CalculateLabelWidth(GUIContent label, float padding = 0f)
+    {
+        float labelWidth = GUI.skin.label.CalcSize(label).x + padding;
+        return labelWidth;
+    }
+    
+    public static float CalculateLabelWidth(string txt, float padding = 0f)
+    {
+        return CalculateLabelWidth(new GUIContent(txt), padding);
+    }
+
+    /// <summary>
+    /// Set at construction and used by <see cref="ResetLabelWidth"/> to reset any 
+    /// changes made to the <see cref="EditorGUIUtility.labelWidth"/> (by eg. <see cref="CalculateLabelWidth(GUIContent, float)"/>).
+    /// </summary>
+    private static readonly float originalLabelWidth = EditorGUIUtility.labelWidth;
+
+    /// <summary>
+    /// Reset the <see cref="EditorGUIUtility.labelWidth"/> to the default value.
+    /// </summary>
+    public static void ResetLabelWidth()
+    {
+        EditorGUIUtility.labelWidth = originalLabelWidth;
+    }
 }
