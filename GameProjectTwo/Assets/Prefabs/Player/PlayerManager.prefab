@@ -93,8 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea345eaef6ec20c47a80b53de328aab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  follow: {fileID: 0}
-  notoriousLevels: {fileID: 0}
+  follow: {fileID: 2656486698216491673}
+  notoriousLevels: {fileID: 5008581454002545233}
   lightTexA: {fileID: 8400000, guid: c4e8a1fc25a0bd242a213270dcaf054d, type: 2}
   mask2DTexure: {fileID: 2800000, guid: 16c7c24e3a3be45408e41257d347233d, type: 3}
 --- !u!1 &9138906648391732663
