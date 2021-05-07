@@ -38,16 +38,25 @@ public class EndLevelCheck : MonoBehaviour
 		{
 			if (CheckLevelPassed(playerStatsManager.CurrentSatiation))
 			{
-				Debug.Log("Level Completed");
-				menuManager.EndOfLevelScreen();
-				currentLevel++;
-				playerStatsManager.ResetStats();
-                //levelSettings.LevelStart();
-                if (OnLevelEnded != null)
-                {
-					OnLevelEnded(currentLevel);
-                }
-                NPCSpawner.Instance.ResetNPCs();
+				if (currentLevel == levelPassedThreshold.Length - 1)
+				{
+					Debug.Log("Victory");
+					menuManager.VictoryScreen();
+				}
+				else
+				{
+					Debug.Log("Level Completed");
+					menuManager.EndOfLevelScreen();
+					currentLevel++;
+					playerStatsManager.ResetStats();
+					//levelSettings.LevelStart();
+					if (OnLevelEnded != null)
+					{
+						OnLevelEnded(currentLevel);
+					}
+					NPCSpawner.Instance.ResetNPCs();
+				}
+				
 			}
 		}
 
