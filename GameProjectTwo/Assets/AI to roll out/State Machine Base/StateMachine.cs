@@ -36,7 +36,6 @@ public class StateMachine : MonoBehaviour
 		}
         if(character.IsDead)
 		{
-            Debug.Log(name + " is dead");
             return;
 		}
         if (currentState != null)

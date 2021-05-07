@@ -112,7 +112,6 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public void InitializeNPC()
 	{
-		Debug.Log(name + " has resurected");
 		Destroy(GetComponent<DeadBody>());
 
 		if(gameObject.CompareTag("Civilian"))
@@ -335,7 +334,6 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public void Dead()
 	{
-		Debug.Log(name + " Has dies");
 		isDead = true;
 		AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
 		gameObject.AddComponent<DeadBody>();
