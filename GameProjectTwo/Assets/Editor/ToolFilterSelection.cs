@@ -106,7 +106,6 @@ class ToolFilterSelection : EditorWindow
 
     void SelectionGroup()
     {
-        // GUI.Label(new Rect(10, 220, position.width -20, 20), "===================================================");
 
         EditorGUI.DrawRect(new Rect(10, 220, position.width - 20, 2), greyBlue);
         EditorGUI.DrawRect(new Rect(10, 225, position.width - 20, 2), greyYellow);
