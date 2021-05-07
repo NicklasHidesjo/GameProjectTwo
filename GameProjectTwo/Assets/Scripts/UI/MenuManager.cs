@@ -11,6 +11,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject endOfLevelScreen;
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject deathScreen;
+    [SerializeField] private GameObject victoryScreen;
 
     private bool inDeathScreen;
 
@@ -92,6 +93,12 @@ public class MenuManager : MonoBehaviour
     {
        
         endOfLevelScreen.SetActive(true);
+        TogglePause();
+    }
+
+    public void VictoryScreen()
+    {
+        victoryScreen.SetActive(true);
         TogglePause();
     }
 
