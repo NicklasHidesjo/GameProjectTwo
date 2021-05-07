@@ -121,6 +121,7 @@ public class NPC : MonoBehaviour, ICharacter
 			{
 				gameObject.AddComponent<BloodSuckTarget>();
 			}
+			bloodSuckTarget = GetComponent<BloodSuckTarget>();
 		}
 
 		agent.enabled = true;
