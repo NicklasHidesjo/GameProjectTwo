@@ -54,7 +54,7 @@ public class BloodSuckTarget : Interactable
             //playerHealth.GainHealth(bloodPerSec);
             playerStats.IncreaseSatiationValue(bloodPerSec);
             playerStats.IncreaseHealthValue(bloodPerSec);
-            Debug.Log("Currently sucking!");
+            Debug.Log("Currently Drinking!");
             yield return new WaitForSeconds(tickRate);
             AudioManager.instance.PlaySound(SoundType.DraculaDrink);
 

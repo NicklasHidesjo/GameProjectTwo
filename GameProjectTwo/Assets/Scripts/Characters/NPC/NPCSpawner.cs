@@ -117,7 +117,7 @@ public class NPCSpawner : MonoBehaviour
 		}
 
 		//All IF-statements below in Update are for testing purposes
-
+#if UNITY_EDITOR
 		if (Input.GetKeyDown(KeyCode.V))
 		{
 			NpcDespawn(false, GameObject.FindGameObjectWithTag("Guard").GetComponent<NPC>());
@@ -131,11 +131,14 @@ public class NPCSpawner : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.U))
 		{
 			SpawnNPCs(true);
+			print("SpawnNPCs(true);");
 		}
 		if(Input.GetKeyDown(KeyCode.G))
 		{
 			SpawnNPCs(false);
 		}
+#endif
+
 	}
 	
 	private void NpcSpawn(bool isCivilian)

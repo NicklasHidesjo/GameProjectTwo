@@ -229,7 +229,16 @@ public class AudioManager : MonoBehaviour
 
     }
 
-
+    public void StopAll2DSounds()
+    {
+        foreach (AudioSource a in audioSources)
+        {
+            if (a.isPlaying)
+            {
+                a.Stop();
+            }
+        }
+    }
 
 
 }

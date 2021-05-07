@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: a1fdef3a172026440adcf079873ba084
+  - enabled: 1
     path: Assets/Scenes/FridayMOC/JockesLevel210430.unity
     guid: 9ba29e0d8b364f241805cadb4bbf6397
   m_configObjects: {}

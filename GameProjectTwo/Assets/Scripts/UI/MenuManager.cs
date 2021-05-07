@@ -54,6 +54,7 @@ public class MenuManager : MonoBehaviour
         //TODO Load correct scene
         String currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene, LoadSceneMode.Single);
+        AudioManager.instance.StopAll2DSounds();
     }
 
     public void TogglePause()
@@ -86,13 +87,16 @@ public class MenuManager : MonoBehaviour
     {
         inDeathScreen = true;
         deathScreen.SetActive(true);
+        AudioManager.instance.StopAll2DSounds();
         TogglePause();
     }
 
     public void EndOfLevelScreen()
     {
-       
+        
         endOfLevelScreen.SetActive(true);
+        AudioManager.instance.StopAll2DSounds();
+
         TogglePause();
     }
 
