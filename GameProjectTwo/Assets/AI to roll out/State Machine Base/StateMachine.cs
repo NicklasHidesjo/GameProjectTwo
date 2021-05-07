@@ -17,6 +17,7 @@ public class StateMachine : MonoBehaviour
         character = GetComponent<ICharacter>();
         if(character.Stationary)
 		{
+            character.InitializeNPC();
             InitializeStateMachine();
 		}
     }
