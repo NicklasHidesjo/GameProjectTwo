@@ -15,6 +15,10 @@ public class StateMachine : MonoBehaviour
     private void Awake()
     {
         character = GetComponent<ICharacter>();
+        if(character.Stationary)
+		{
+            InitializeStateMachine();
+		}
     }
 
     public void InitializeStateMachine()
