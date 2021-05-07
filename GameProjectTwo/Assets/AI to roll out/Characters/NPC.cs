@@ -320,6 +320,7 @@ public class NPC : MonoBehaviour, ICharacter
 	public void Dead()
 	{
 		isDead = true;
+		AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
 	}
 
 	public void Dispose()

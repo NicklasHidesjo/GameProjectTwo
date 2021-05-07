@@ -62,7 +62,11 @@ public interface ICharacter
 	public bool Disposed { get; set; }
 
 	public LayerMask NpcLayer { get; }
-	
+
+
+	public void InitializeNPC();
+
+
 	/// <summary>
 	/// Sets the NavMesh Agents destination to "destination"
 	/// </summary>

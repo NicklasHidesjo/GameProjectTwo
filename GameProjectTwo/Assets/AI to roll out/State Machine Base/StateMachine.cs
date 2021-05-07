@@ -12,9 +12,14 @@ public class StateMachine : MonoBehaviour
 
     bool inactive = false;
 
-	private void Awake()
-	{
+    private void OnEnable()
+    {
         character = GetComponent<ICharacter>();
+        if (character.Stationary)
+        {
+            character.InitializeNPC();
+            InitializeStateMachine();
+        }
     }
 
     public void InitializeStateMachine()
