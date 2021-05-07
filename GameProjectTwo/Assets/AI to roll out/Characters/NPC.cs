@@ -109,6 +109,9 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public void InitializeNPC()
 	{
+		Destroy(GetComponent<DeadBody>());
+		agent.updatePosition = true;
+		agent.updateRotation = true;
 		path = new List<Transform>();
 		path = GameObject.FindGameObjectsWithTag(pathTag).Select(f => f.transform).ToList();
 		PathIndex = Random.Range(0, path.Count);
@@ -321,6 +324,9 @@ public class NPC : MonoBehaviour, ICharacter
 	{
 		isDead = true;
 		AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
+		gameObject.AddComponent<DeadBody>();
+		agent.updatePosition = false;
+		agent.updateRotation = false;
 	}
 
 	public void Dispose()

@@ -74,10 +74,6 @@ public class BloodSuckTarget : Interactable
 
         AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
         GetComponent<Rigidbody>().isKinematic = false;
-        gameObject.AddComponent<DeadBody>();
-        Destroy(GetComponent<SphereCollider>());
-        Destroy(GetComponent<StateMachine>());
-        Destroy(GetComponent<NavMeshAgent>());
         npcController.Dead();
         Destroy(this);
     }
