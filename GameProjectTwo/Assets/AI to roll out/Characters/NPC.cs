@@ -111,6 +111,12 @@ public class NPC : MonoBehaviour, ICharacter
 	{
 		Debug.Log(name + " has resurected");
 		Destroy(GetComponent<DeadBody>());
+
+		if(gameObject.CompareTag("Civilian"))
+		{
+			gameObject.AddComponent<BloodSuckTarget>();
+		}
+
 		agent.enabled = true;
 		path = new List<Transform>();
 		path = GameObject.FindGameObjectsWithTag(pathTag).Select(f => f.transform).ToList();
