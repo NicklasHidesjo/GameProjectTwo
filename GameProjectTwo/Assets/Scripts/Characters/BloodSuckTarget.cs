@@ -21,7 +21,7 @@ public class BloodSuckTarget : Interactable
         if (npcController.IsSuckable)
         {
             npcController.GettingSucked = true;
-            this.attacker = player;
+            attacker = player;
             StartCoroutine(SuckingBlood(10, 1f));
             player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaSucking);
             AudioManager.instance.PlayOneShot(SoundType.DraculaBite, player);
@@ -75,7 +75,6 @@ public class BloodSuckTarget : Interactable
         AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
         GetComponent<Rigidbody>().isKinematic = false;
         npcController.Dead();
-        Destroy(this);
     }
 
 }
