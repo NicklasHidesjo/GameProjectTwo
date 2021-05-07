@@ -142,6 +142,7 @@ public class NPC : MonoBehaviour, ICharacter
 	private void SetBools()
 	{
 		IsSuckable = true;
+		GettingSucked = false;
 		isDead = false;
 		ShouldShout = true;
 		GettingDisposed = false;
