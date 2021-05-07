@@ -39,19 +39,12 @@ public class NPCSpawner : MonoBehaviour
 
 	void Start()
 	{
-		/*		NpcPoolManager.Instance.CreatePool(civilian, civilianPoolSize);
-				NpcPoolManager.Instance.CreatePool(guard, guardPoolSize);*/
+		InstantiateNPCs();
+		InitializeNPCs();
+	}
 
-		for (int i = 0; i < civilianPoolSize; i++)
-		{
-			SpawnNPCs(true);
-		}
-
-		for (int i = 0; i < guardPoolSize; i++)
-		{
-			SpawnNPCs(false);
-		}
-
+	private void InitializeNPCs()
+	{
 		foreach (var npc in inactiveCivs)
 		{
 			int i = Random.Range(0, spawnLocations.Length);
@@ -81,7 +74,20 @@ public class NPCSpawner : MonoBehaviour
 		respawnTimerCivilian = 0f;
 		respawnTimerGuard = 0f;
 	}
-	
+
+	private void InstantiateNPCs()
+	{
+		for (int i = 0; i < civilianPoolSize; i++)
+		{
+			SpawnNPCs(true);
+		}
+
+		for (int i = 0; i < guardPoolSize; i++)
+		{
+			SpawnNPCs(false);
+		}
+	}
+
 	void Update()
 	{
 		//Making sure there are enough civilians in scene.
@@ -147,7 +153,6 @@ public class NPCSpawner : MonoBehaviour
 			npc = inactiveCivs[0];
 			inactiveCivs.Remove(npc);
 			activeCivs.Add(npc);
-			npc.InitializeNPC();
 		}
 		else
 		{
@@ -201,5 +206,22 @@ public class NPCSpawner : MonoBehaviour
 			inactiveGuards.Add(npc);
 			activeGuards.RemoveAll(npc => npc == null);
 		}
+	}
+
+	public void ResetNPCs()
+	{
+		foreach (var npc in activeCivs)
+		{
+			inactiveCivs.Add(npc);
+		}
+		activeCivs.Clear();
+
+		foreach (var npc in activeGuards)
+		{
+			inactiveGuards.Add(npc);
+		}
+		activeGuards.Clear();
+
+		InitializeNPCs();
 	}
 }
