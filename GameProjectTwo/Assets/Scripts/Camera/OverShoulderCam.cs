@@ -33,6 +33,25 @@ public class OverShoulderCam : MonoBehaviour
             Cursor.lockState = CursorLockMode.Confined;
 
         dummy = new GameObject().transform;
+
+        StartPos();
+    }
+
+    void StartPos()
+    {
+        dummy.rotation = MouseRotation(dummy.eulerAngles);
+
+        Vector3 offsett = maxOffsett;
+        offsett = Lean(offsett);
+
+        //Rotate offsett
+        Vector3 tOffsett = target.position + dummy.rotation * new Vector3(offsett.x, offsett.y, 0);
+        offsett = target.position + dummy.rotation * offsett;
+        offsett = RayCam(tOffsett, offsett);
+        dummy.position = offsett;
+
+        cam.position = offsett;
+        cam.LookAt(tOffsett);
     }
 
     // Update is called once per frame
