@@ -222,8 +222,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1361615660955361217}
     m_Modifications:
     - target: {fileID: 2364966848742286041, guid: 83242506bd615af449d2fd4327dad498, type: 3}
+      propertyPath: m_HDR
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2364966848742286041, guid: 83242506bd615af449d2fd4327dad498, type: 3}
+      propertyPath: m_Depth
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2364966848742286041, guid: 83242506bd615af449d2fd4327dad498, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 2049
+      value: 2817
       objectReference: {fileID: 0}
     - target: {fileID: 2364966850021543938, guid: 83242506bd615af449d2fd4327dad498, type: 3}
       propertyPath: m_RootOrder
