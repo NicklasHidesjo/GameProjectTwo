@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3641614839899840314}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.857484, y: -0.38077927, z: -3.6573005}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1361615660955361217}
@@ -126,7 +126,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9138906648391732663}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.1792068, y: 8.456489, z: -11.91}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2656486698216491673}
@@ -222,8 +222,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 1361615660955361217}
     m_Modifications:
     - target: {fileID: 2364966848742286041, guid: 83242506bd615af449d2fd4327dad498, type: 3}
+      propertyPath: m_HDR
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2364966848742286041, guid: 83242506bd615af449d2fd4327dad498, type: 3}
+      propertyPath: m_Depth
+      value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2364966848742286041, guid: 83242506bd615af449d2fd4327dad498, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 2049
+      value: 2817
       objectReference: {fileID: 0}
     - target: {fileID: 2364966850021543938, guid: 83242506bd615af449d2fd4327dad498, type: 3}
       propertyPath: m_RootOrder

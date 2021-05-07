@@ -4,7 +4,7 @@ Shader "Roberts/LightSensor" {
 		SubShader{
 			Tags { "RenderType" = "Opaque" }
 			CGPROGRAM
-			#pragma surface surf Robert noambient
+			#pragma surface surf Robert noambient fullforwardshadows
 
 			
 
