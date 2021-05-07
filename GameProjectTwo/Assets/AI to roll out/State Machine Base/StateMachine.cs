@@ -34,6 +34,10 @@ public class StateMachine : MonoBehaviour
 		{
             return;
 		}
+        if(character.IsDead)
+		{
+            return;
+		}
         if (currentState != null)
         {
             currentState.ExecuteState();
