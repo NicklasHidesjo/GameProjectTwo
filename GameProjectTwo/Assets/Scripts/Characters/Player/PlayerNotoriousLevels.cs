@@ -32,7 +32,7 @@ public class PlayerNotoriousLevels : MonoBehaviour
         if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHidden)
             return 0;
 
-        print("NLevel : " + (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3);
+        //print("NLevel : " + (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3);
         return (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3;
     }
 

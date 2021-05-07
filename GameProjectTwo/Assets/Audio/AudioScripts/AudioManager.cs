@@ -6,9 +6,9 @@ using UnityEngine.Audio;
 public enum SoundType
 {
     Default,
-    DraculaBite, 
-    GuardAttack, GuardSuspicious, GuardAlert,
-    CivilianShout,
+    DraculaBite, DraculaDrink, DraculaDrinkDone, DraculaDamage, 
+    GuardShout, GuardAttack, GuardSuspicious, GuardAlert, GuardSearching, GuardSearchingEnd,
+    CivilianShout, CivilianDie, CivilianNotice, 
     SunDamage,
 }
 
@@ -68,12 +68,12 @@ public class AudioManager : MonoBehaviour
     {
         if (audioSources.Exists(source => !source.isPlaying))
         {
-            Debug.Log("Found idle audioSource");
+            //Debug.Log("Found idle audioSource");
             return audioSources.Find(source => !source.isPlaying);
         }
         AudioSource s = audioListGameObject.AddComponent<AudioSource>();      
         audioSources.Add(s);
-        Debug.Log("No idle audioSource found, adding new one");
+        Debug.LogWarning("No idle audioSource found, adding new one");
 
         return s;
 
