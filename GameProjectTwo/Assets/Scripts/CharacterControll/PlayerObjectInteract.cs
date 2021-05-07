@@ -13,7 +13,7 @@ public class PlayerObjectInteract : MonoBehaviour
     Interactable interactable;
     Interactable heldInteractable;
     public PlayerState playerState;
-    bool tempHiddenState = false;
+    
 
     void Start()
     {
@@ -104,20 +104,15 @@ public class PlayerObjectInteract : MonoBehaviour
                     {
                         if (playerState.CurrentState == PlayerState.playerStates.DraculaHidden)
                         {
-
                             Debug.Log("Leaving " + C.gameObject);
                             playerState.SetState(PlayerState.playerStates.DraculaHideing);
-                            GetComponent<CharacterController>().enabled = true;
-                            tempHiddenState = false;
+                            GetComponent<CharacterController>().enabled = true;                        
                             interactable.Interact(gameObject);
                         }
                         else
                         {
                             Debug.Log("Entering " + C.gameObject);
-
-                            GetComponent<CharacterController>().enabled = false;
-                            tempHiddenState = true;
-
+                            GetComponent<CharacterController>().enabled = false;                           
                             interactable.Interact(gameObject);
                             playerState.SetState(PlayerState.playerStates.DraculaHideing);
 

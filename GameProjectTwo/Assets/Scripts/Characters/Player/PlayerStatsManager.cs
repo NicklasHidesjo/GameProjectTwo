@@ -110,7 +110,7 @@ public class PlayerStatsManager : MonoBehaviour
         
         if (currentSatiation >= maxSatiation)
         {
-            Debug.Log("LairFinder Active");
+            Debug.Log("Coffin Active");
             Lairfinder.SetActive(true);
         }
     }
