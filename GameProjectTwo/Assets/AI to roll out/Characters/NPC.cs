@@ -93,6 +93,8 @@ public class NPC : MonoBehaviour, ICharacter
 
 	public bool WalkRandomly { get; set; }
 
+	BloodSuckTarget bloodSuckTarget;
+
 	private void Awake()
 	{
 		if (stats == null)
@@ -105,6 +107,7 @@ public class NPC : MonoBehaviour, ICharacter
 	{
 		agent = GetComponent<NavMeshAgent>();
 		player = FindObjectOfType<PlayerManager>().GetPlayerPoint();
+		bloodSuckTarget = GetComponent<BloodSuckTarget>();
 	}
 
 	public void InitializeNPC()
@@ -114,7 +117,10 @@ public class NPC : MonoBehaviour, ICharacter
 
 		if(gameObject.CompareTag("Civilian"))
 		{
-			gameObject.AddComponent<BloodSuckTarget>();
+			if(bloodSuckTarget == null)
+			{
+				gameObject.AddComponent<BloodSuckTarget>();
+			}
 		}
 
 		agent.enabled = true;
@@ -333,6 +339,7 @@ public class NPC : MonoBehaviour, ICharacter
 		AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
 		gameObject.AddComponent<DeadBody>();
 		agent.enabled = false;
+		Destroy(bloodSuckTarget);
 	}
 
 	public void Dispose()
