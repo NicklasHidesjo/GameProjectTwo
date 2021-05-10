@@ -52,9 +52,15 @@ public class MenuManager : MonoBehaviour
     {
         TogglePause();
         //TODO Load correct scene
+        AudioManager.instance.StopAll2DSounds();
         String currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene, LoadSceneMode.Single);
+    }
+
+    public void ReturnToMainMenu()
+    {
         AudioManager.instance.StopAll2DSounds();
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
     public void TogglePause()
