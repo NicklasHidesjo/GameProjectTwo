@@ -26,9 +26,9 @@ public class EndLevelCheck : MonoBehaviour
     private void Start()
     {
         playerStatsManager = PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>();
-        menuManager = GameObject.Find("UI").GetComponent<MenuManager>();
+		menuManager = (MenuManager)FindObjectOfType(typeof(MenuManager));
 
-        if (!levelSettings)
+		if (!levelSettings)
             levelSettings = GetComponent<LevelSettings>();
     }
 
