@@ -2201,8 +2201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6562a79af59a0046aead749ee4e5fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelPassedThreshold: c800000058020000e8030000
-  levelSettings: {fileID: 0}
+  menuManager: {fileID: 913140188}
+  levelPassedThreshold: 640000006400000064000000
+  levelSettings: {fileID: 465380079}
 --- !u!65 &465380075
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4560,6 +4561,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d00e46a2267e5d44949074b7fd03807, type: 3}
+--- !u!114 &913140188 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 76051751, guid: 9d00e46a2267e5d44949074b7fd03807, type: 3}
+  m_PrefabInstance: {fileID: 913140187}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a25ce01b618d294db266e4064d741bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &935276287
 GameObject:
   m_ObjectHideFlags: 0
@@ -7675,7 +7687,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641957479}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 63, y: 5, z: -38}
+  m_LocalPosition: {x: 70.08, y: 5, z: -38}
   m_LocalScale: {x: 8, y: 1, z: 11.172}
   m_Children: []
   m_Father: {fileID: 2141385119}
