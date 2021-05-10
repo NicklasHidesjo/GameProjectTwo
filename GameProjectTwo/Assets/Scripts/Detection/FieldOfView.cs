@@ -21,7 +21,7 @@ public class FieldOfView : MonoBehaviour
 	[SerializeField] float plNeckHight = 0.5f;
 	[SerializeField] float nPCNeckHight = 0.5f;
 
-	float deathTimer;
+
 
 	NPC npc;
 	public NPC NPC => npc;
@@ -34,7 +34,6 @@ public class FieldOfView : MonoBehaviour
 	{
 		IncreaseUndetectedTimer();
 		FindVisibleCharacters();
-		ToggleSymbols();
 	}
 
 	private void IncreaseUndetectedTimer()
@@ -44,42 +43,7 @@ public class FieldOfView : MonoBehaviour
 		if (npc.Alertness <= 0) { return; }
 		npc.LowerAlertness(npc.Stats.AlertDecrease * Time.fixedDeltaTime);
 	}
-	private void ToggleSymbols()
-	{
-		if (npc.IsDead && deathTimer > 5.0)
-		{
-			transform.GetChild(0).gameObject.SetActive(false);
-			transform.GetChild(1).gameObject.SetActive(false);
-			transform.GetChild(2).gameObject.SetActive(false);
-		}
-		else if (npc.IsDead)
-		{
-			transform.GetChild(0).gameObject.SetActive(false);
-			transform.GetChild(1).gameObject.SetActive(false);
-			transform.GetChild(2).gameObject.SetActive(true);
-			deathTimer += Time.deltaTime;
-			return;
-		}
-		if (npc.Alertness <= npc.Stats.CautiousThreshold)
-		{
-			transform.GetChild(0).gameObject.SetActive(false);
-			transform.GetChild(1).gameObject.SetActive(false);
-			transform.GetChild(2).gameObject.SetActive(false);
-		}
-		else if (npc.Alertness >= npc.Stats.MaxAlerted)
-		{
-			transform.GetChild(0).gameObject.SetActive(false);
-			transform.GetChild(1).gameObject.SetActive(true);
-			transform.GetChild(2).gameObject.SetActive(false);
-		}
-		else
-		{
-			transform.GetChild(0).gameObject.SetActive(true);
-			transform.GetChild(1).gameObject.SetActive(false);
-			transform.GetChild(2).gameObject.SetActive(false);
-		}
 
-	}
 	void FindVisibleCharacters()
 	{
 		if (npc.IsDead) { return; }

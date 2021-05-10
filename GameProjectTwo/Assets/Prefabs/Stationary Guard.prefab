@@ -551,6 +551,7 @@ GameObject:
   - component: {fileID: 8534732390339874271}
   - component: {fileID: 3580518291817030761}
   - component: {fileID: 8822073382767835469}
+  - component: {fileID: -9000656943910203826}
   m_Layer: 7
   m_Name: Stationary Guard
   m_TagString: Guard
@@ -771,6 +772,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-9000656943910203826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8534732390339874264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8347d9ef8a326d345be16f3a00eb0466, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8534732390591434070
 GameObject:
   m_ObjectHideFlags: 0
