@@ -24,7 +24,7 @@ public class PlayerNotoriousLevels : MonoBehaviour
         SetPlShortSuspiciousLevel(0);
     }
 
-    public float GetPlayerNotoriousLevel()
+    public float GetPlayerNotoriousLerpLevel()
     {
         if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.BatDefault)
             return 0;
@@ -33,15 +33,17 @@ public class PlayerNotoriousLevels : MonoBehaviour
             return 0;
 
         print("NLevel : " + (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3);
-        return (plLongSuspiciousLevel + plShortSuspiciousLevel * plLuminosity) / 3;
+        return (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3;
     }
 
-    public float GetPlayerOneTwoNotoriousLevel()
+    public float GetPlayerNotoriousLevel()
     {
         //1-2
-
-        print("NLevel : " + (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3);
-        return (plLongSuspiciousLevel + plShortSuspiciousLevel * plLuminosity) / 3;
+        float nLevel = (plLongSuspiciousLevel + plShortSuspiciousLevel) / 2;
+        nLevel += 1;
+        nLevel *= plLuminosity;
+        print("NLevel : "+ nLevel);
+        return nLevel;
     }
 
 
@@ -63,15 +65,17 @@ public class PlayerNotoriousLevels : MonoBehaviour
     public void AddPlShortSuspiciousLevel(float level)
     {
         plShortSuspiciousLevel += level;
+        plShortSuspiciousLevel = Mathf.Clamp01(plShortSuspiciousLevel);
     }  
     public void AddPlLongtSuspiciousLevel(float level)
     {
-        plShortSuspiciousLevel += level;
+        plLongSuspiciousLevel += level / maxNumberOfSloppyKills;
+        plLongSuspiciousLevel = Mathf.Clamp01(plLongSuspiciousLevel);
     }
 
     public void AddPlLuminosity(float level)
     {
-        plLuminosity += level;
+        plLuminosity += level / maxNumberOfSloppyKills;
     }
 
     public void AddSeenDeadBody()
