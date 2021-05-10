@@ -12,33 +12,43 @@ class ToolFilterSelection : EditorWindow
     string layerText = "Layer : ";
     LayerMask selectedLayer = 0;
 
+    GameObject[] selectionOne;
+    GameObject[] selectionTwo;
+    GameObject[] selectionTree;
 
 
+    Color greyBlue = (Color.blue + Color.gray) / 2;
+    Color greyYellow = (Color.yellow + Color.gray) / 2;
 
     [MenuItem("Tools/Filter Selection")]
     static void Init()
     {
 
-        ToolFilterSelection window = (ToolFilterSelection)EditorWindow.GetWindow(typeof(ToolFilterSelection), false, "Filter selection");
-       // EditorWindow window = (GetWindow<ToolFilterSelection>(), true, "Test");
+        ToolFilterSelection window = (ToolFilterSelection)EditorWindow.GetWindow(typeof(ToolFilterSelection), false, "Best selection");
 
-        window.position = new Rect(0, 0, 200, 215);
+        window.position = new Rect(0, 0, 200, 340);
         window.Show();
     }
 
-   
+
 
     public void OnEnable()
     {
+        /*
         var root = this.rootVisualElement;
         root.style.paddingTop = new StyleLength(10f);
         root.style.paddingBottom = new StyleLength(10f);
         root.style.paddingLeft = new StyleLength(10f);
         root.style.paddingRight = new StyleLength(10f);
-
+        */
     }
 
     void OnGUI()
+    {
+        FilterSelection();
+        SelectionGroup();
+    }
+    void FilterSelection()
     {
         //Knapp SelectNone
         if (GUI.Button(new Rect(10, 10, position.width / 2 - 20, 17), "Select None"))
@@ -92,8 +102,74 @@ class ToolFilterSelection : EditorWindow
             Selection.objects = FindGameObjectsWithLayer(selectedLayer, Selection.gameObjects);
             Selection.objects = FindGameObjectsWithTag(selectedTag, Selection.gameObjects);
         }
-
     }
+
+    void SelectionGroup()
+    {
+
+        EditorGUI.DrawRect(new Rect(10, 220, position.width - 20, 2), greyBlue);
+        EditorGUI.DrawRect(new Rect(10, 225, position.width - 20, 2), greyYellow);
+        //Knapp Selection1
+        if (selectionOne != null)
+        {
+            if (GUI.Button(new Rect(10, 240, 40, 30), "Clear"))
+            {
+                selectionOne = null;
+            }
+        }
+        if (GUI.Button(new Rect(50, 240, position.width - 60, 30), "Selection 1"))
+        {
+            if (selectionOne == null || selectionOne.Length == 0)
+                selectionOne = Selection.gameObjects;
+            else
+            {
+                Selection.objects = selectionOne;
+                EditorGUI.DrawRect(new Rect(10, 225, position.width - 20, 2), Color.gray);
+
+            }
+        }
+        //Section 2
+        if (selectionTwo != null)
+        {
+            if (GUI.Button(new Rect(10, 270, 40, 30), "Clear"))
+            {
+                selectionTwo = null;
+            }
+        }
+        if (GUI.Button(new Rect(50, 270, position.width - 60, 30), "Selection 2"))
+        {
+            if (selectionTwo == null || selectionTwo.Length == 0)
+                selectionTwo = Selection.gameObjects;
+            else
+            {
+                Selection.objects = selectionTwo;
+                EditorGUI.DrawRect(new Rect(10, 225, position.width - 20, 2), Color.gray);
+
+            }
+        }
+
+        //Selection 3
+        if (selectionTree != null)
+        {
+            if (GUI.Button(new Rect(10, 300, 40, 30), "Clear"))
+            {
+                selectionTree = null;
+            }
+        }
+
+        if (GUI.Button(new Rect(50, 300, position.width - 60, 30), "Selection 3"))
+        {
+            if (selectionTree == null || selectionTree.Length == 0)
+                selectionTree = Selection.gameObjects;
+            else
+            {
+                Selection.objects = selectionTree;
+                EditorGUI.DrawRect(new Rect(10, 310, position.width - 20, 2), Color.gray);
+
+            }
+        }
+    }
+
     void OnInspectorUpdate()
     {
         Repaint();
@@ -124,7 +200,6 @@ class ToolFilterSelection : EditorWindow
         return goList.ToArray();
     }
 
-
     GameObject[] FindGameObjectsWithTag(string searchTag, GameObject[] selected)
     {
         GameObject[] allT = selected;
@@ -149,9 +224,7 @@ class ToolFilterSelection : EditorWindow
         return goList.ToArray();
     }
 
-
-
-
+    //Copy of pablos
     public static float CalculateLabelWidth(GUIContent label, float padding = 0f)
     {
         float labelWidth = GUI.skin.label.CalcSize(label).x + padding;
