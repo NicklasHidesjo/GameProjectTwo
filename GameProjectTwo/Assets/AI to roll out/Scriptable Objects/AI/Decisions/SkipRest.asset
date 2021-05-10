@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 390df76e41de38441bb7cb1aa6887a3c, type: 3}
-  m_Name: CivilianRandomWalk
+  m_Script: {fileID: 11500000, guid: 125d214bd3a6d2f4fac6edd6f607d13b, type: 3}
+  m_Name: SkipRest
   m_EditorClassIdentifier: 

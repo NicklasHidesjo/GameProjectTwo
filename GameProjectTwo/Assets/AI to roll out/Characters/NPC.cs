@@ -7,8 +7,6 @@ using System.Linq;
 public class NPC : MonoBehaviour, ICharacter
 {
     [SerializeField] NPCStats stats;
-    [Tooltip("The tag that will be used to find all path points when walking (ex POI or Waypoint")]
-    [SerializeField] string pathTag;
     [Tooltip("Set this to true if we want the npc to be stationary")]
     [SerializeField] bool stationary;
     [Tooltip("The layer that npc's are at (used when trying to hit player and also when finding other npc's")]
@@ -16,12 +14,13 @@ public class NPC : MonoBehaviour, ICharacter
 
     private NavMeshAgent agent;
     private Transform player;
-    private List<Transform> path;
+    private List<PathPoint> path;
 
     public LayerMask NpcLayer => npcLayer;
 
     public NPC Self => this;
-    public List<Transform> Path => path;
+    public List<PathPoint> Path => path;
+    public PathPoint targetPoint { get; set; }
 
     public Transform Transform => transform;
 
@@ -91,9 +90,9 @@ public class NPC : MonoBehaviour, ICharacter
 
     public bool Leave { get; set; }
 
-    public bool WalkRandomly { get; set; }
-
     BloodSuckTarget bloodSuckTarget;
+
+    public SpawnPath startingPath { get; set; }
 
     private void Awake()
     {
@@ -110,7 +109,7 @@ public class NPC : MonoBehaviour, ICharacter
         bloodSuckTarget = GetComponent<BloodSuckTarget>();
     }
 
-    public void InitializeNPC()
+    public void InitializeNPC(List<PathPoint> path = null, bool backTrack = false)
     {
         Destroy(GetComponent<DeadBody>());
 
@@ -124,22 +123,20 @@ public class NPC : MonoBehaviour, ICharacter
         }
 
         agent.enabled = true;
-        path = new List<Transform>();
-        path = GameObject.FindGameObjectsWithTag(pathTag).Select(f => f.transform).ToList();
-        PathIndex = Random.Range(0, path.Count);
+        this.path = path;
         if (stationary)
         {
             StartingPosition = transform.position;
             StartingRotation = transform.rotation;
         }
         DeadNpc = null;
-        SetBools();
+        SetBools(backTrack);
         SetFloatsAndInts();
         SetArrays();
         GetComponent<StateMachine>().InitializeStateMachine();
     }
 
-	private void SetBools()
+	private void SetBools(bool backTrack)
 	{
 		IsSuckable = true;
 		GettingSucked = false;
@@ -149,16 +146,13 @@ public class NPC : MonoBehaviour, ICharacter
 		Disposed = false;
 		Leave = false;
 		Run = false;
-		if(gameObject.CompareTag("Guard"))
+        Increase = true;
+        if (gameObject.CompareTag("Guard"))
 		{
-			WalkRandomly = false;
-			Increase = Random.Range(0, 2) * 2 - 1 > 0;
-			BackTrack = Random.Range(0, 2) * 2 - 1 > 0;
+			BackTrack = backTrack;
 		}
 		else
 		{
-			WalkRandomly = Random.Range(0, 2) * 2 - 1 > 0;
-			Increase = Random.Range(0, 2) * 2 - 1 > 0;
 			BackTrack = false;
 		}
 	}
@@ -302,9 +296,7 @@ public class NPC : MonoBehaviour, ICharacter
         {
             return;
         }
-        //		float value = stats.AlertIncrease * Time.deltaTime;
 
-        //NotoriousLevel
         float value = PlayerManager.instance.NotoriousLevel.GetPlayerNotoriousLevel() * stats.AlertIncrease * Time.deltaTime;
 
         if (inFOV)

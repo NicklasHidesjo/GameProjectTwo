@@ -17,6 +17,12 @@ public class IncreasePathIndex : Action
 
 		if(character.PathIndex >= character.Path.Count)
 		{
+			if(character.Self.CompareTag("Civilian"))
+			{
+				character.Leave = true;
+				return;
+			}
+
 			if (character.BackTrack)
 			{
 				character.Increase = !character.Increase;
@@ -29,7 +35,13 @@ public class IncreasePathIndex : Action
 		}
 		if (character.PathIndex < 0)
 		{
-			if(character.BackTrack)
+			if (character.Self.CompareTag("Civilian"))
+			{
+				character.Leave = true;
+				return;
+			}
+
+			if (character.BackTrack)
 			{
 				character.Increase = !character.Increase;
 				character.PathIndex = 1;

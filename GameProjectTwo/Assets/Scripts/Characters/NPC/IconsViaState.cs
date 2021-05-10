@@ -25,10 +25,6 @@ public class IconsViaState : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(false);
             transform.GetChild(2).gameObject.SetActive(false);
-            //Vill vi disabla gameobjectet här?
-            //gameObject.SetActive(false);
-
-
         }
         else if (npc.IsDead)
         {
