@@ -139,43 +139,44 @@ public class NPC : MonoBehaviour, ICharacter
         GetComponent<StateMachine>().InitializeStateMachine();
     }
 
-    private void SetBools()
-    {
-        IsSuckable = true;
-        GettingSucked = false;
-        isDead = false;
-        ShouldShout = true;
-        GettingDisposed = false;
-        Disposed = false;
-        Leave = false;
-        if (gameObject.CompareTag("Guard"))
-        {
-            WalkRandomly = false;
-            Increase = Random.Range(0, 2) * 2 - 1 > 0;
-            BackTrack = Random.Range(0, 2) * 2 - 1 > 0;
-        }
-        else
-        {
-            WalkRandomly = Random.Range(0, 2) * 2 - 1 > 0;
-            Increase = Random.Range(0, 2) * 2 - 1 > 0;
-            BackTrack = false;
-        }
-    }
-    private void SetFloatsAndInts()
-    {
-        currentHealth = stats.MaxHealth;
-        agent.speed = stats.WalkSpeed;
-        Alertness = 0;
-        StateTime = 0;
-        PathIndex = 0;
-        YRotCorrection = 0;
-        SearchAngle = stats.SearchAngle;
-        RotationSpeed = stats.SearchRotationSpeed;
-        FOV = stats.RelaxedFOV;
-    }
-    private void SetArrays()
-    {
-        bodyParts = GetComponentsInChildren<Transform>().Where(t => t.CompareTag("NpcPart")).ToArray();
+	private void SetBools()
+	{
+		IsSuckable = true;
+		GettingSucked = false;
+		isDead = false;
+		ShouldShout = true;
+		GettingDisposed = false;
+		Disposed = false;
+		Leave = false;
+		Run = false;
+		if(gameObject.CompareTag("Guard"))
+		{
+			WalkRandomly = false;
+			Increase = Random.Range(0, 2) * 2 - 1 > 0;
+			BackTrack = Random.Range(0, 2) * 2 - 1 > 0;
+		}
+		else
+		{
+			WalkRandomly = Random.Range(0, 2) * 2 - 1 > 0;
+			Increase = Random.Range(0, 2) * 2 - 1 > 0;
+			BackTrack = false;
+		}
+	}
+	private void SetFloatsAndInts()
+	{
+		currentHealth = stats.MaxHealth;
+		agent.speed = stats.WalkSpeed;
+		Alertness = 0;
+		StateTime = 0;
+		PathIndex = 0;
+		YRotCorrection = 0;
+		SearchAngle = stats.SearchAngle;
+		RotationSpeed = stats.SearchRotationSpeed;
+		FOV = stats.RelaxedFOV;
+	}
+	private void SetArrays()
+	{
+		bodyParts = GetComponentsInChildren<Transform>().Where(t => t.CompareTag("NpcPart")).ToArray();
 
         RunAngles = new Vector3[8];
         RunAngles[0] = transform.forward;
