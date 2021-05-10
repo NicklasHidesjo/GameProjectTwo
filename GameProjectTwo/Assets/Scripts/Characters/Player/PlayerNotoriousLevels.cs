@@ -32,9 +32,18 @@ public class PlayerNotoriousLevels : MonoBehaviour
         if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHidden)
             return 0;
 
-        //print("NLevel : " + (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3);
-        return (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3;
+        print("NLevel : " + (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3);
+        return (plLongSuspiciousLevel + plShortSuspiciousLevel * plLuminosity) / 3;
     }
+
+    public float GetPlayerOneTwoNotoriousLevel()
+    {
+        //1-2
+
+        print("NLevel : " + (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3);
+        return (plLongSuspiciousLevel + plShortSuspiciousLevel * plLuminosity) / 3;
+    }
+
 
     public void SetPlLongSuspiciousLevel(float level)
     {
@@ -49,6 +58,20 @@ public class PlayerNotoriousLevels : MonoBehaviour
     public void SetPlLuminosity(float level)
     {
         plLuminosity = level;
+    }
+
+    public void AddPlShortSuspiciousLevel(float level)
+    {
+        plShortSuspiciousLevel += level;
+    }  
+    public void AddPlLongtSuspiciousLevel(float level)
+    {
+        plShortSuspiciousLevel += level;
+    }
+
+    public void AddPlLuminosity(float level)
+    {
+        plLuminosity += level;
     }
 
     public void AddSeenDeadBody()
