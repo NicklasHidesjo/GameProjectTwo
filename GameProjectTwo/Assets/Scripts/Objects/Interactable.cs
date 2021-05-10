@@ -13,13 +13,17 @@ public abstract class Interactable : MonoBehaviour
     {
         if (isSelected)
         {
-            GetComponent<MeshRenderer>().material = selectedMaterial;
+            //GetComponent<MeshRenderer>().material = selectedMaterial;
             iScanner = playerScanner;
+            SpriteRenderer sprite = transform.Find("Closest interactable sprite renderer").gameObject.GetComponent<SpriteRenderer>();
+            sprite.enabled = true;
         }
         else
         {
-            GetComponent<MeshRenderer>().material = standardMaterial;
+            //GetComponent<MeshRenderer>().material = standardMaterial;
             iScanner = null;
+            SpriteRenderer sprite = transform.Find("Closest interactable sprite renderer").gameObject.GetComponent<SpriteRenderer>();
+            sprite.enabled = false;
         }
     }
 
