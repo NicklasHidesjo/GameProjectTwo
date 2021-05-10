@@ -6,17 +6,18 @@ public class IconsViaState : MonoBehaviour
 {
     NPC npc;
     float deathTimer;
-    // Start is called before the first frame update
+
+
     void Start()
     {
         npc = GetComponent<NPC>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         ToggleSymbols();
     }
+
     private void ToggleSymbols()
     {
         if (npc.IsDead && deathTimer >= 5.0)
@@ -24,9 +25,10 @@ public class IconsViaState : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(false);
             transform.GetChild(2).gameObject.SetActive(false);
-            GetComponent<FieldOfView>().enabled = false;
-            GetComponent<IconsViaState>().enabled = false;
-            return;
+            //Vill vi disabla gameobjectet här?
+            //gameObject.SetActive(false);
+
+
         }
         else if (npc.IsDead)
         {
@@ -34,9 +36,8 @@ public class IconsViaState : MonoBehaviour
             transform.GetChild(1).gameObject.SetActive(false);
             transform.GetChild(2).gameObject.SetActive(true);
             deathTimer += Time.deltaTime;
-            return;
         }
-        if (npc.Alertness <= npc.Stats.CautiousThreshold)
+        else if (npc.Alertness <= npc.Stats.CautiousThreshold)
         {
             transform.GetChild(0).gameObject.SetActive(false);
             transform.GetChild(1).gameObject.SetActive(false);
