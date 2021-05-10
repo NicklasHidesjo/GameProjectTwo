@@ -24,7 +24,7 @@ public class BloodSuckTarget : Interactable
             attacker = player;
             StartCoroutine(SuckingBlood(10, 1f));
             player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaSucking);
-            AudioManager.instance.PlayOneShot(SoundType.DraculaBite, player);
+            
         }
         else
         {
@@ -44,7 +44,7 @@ public class BloodSuckTarget : Interactable
     private IEnumerator SuckingBlood(int bloodPerSec, float tickRate)
     {
         PlayerStatsManager playerStats = PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>();
-
+        AudioManager.instance.PlaySound(SoundType.DraculaBite);
         while (!npcController.IsDead)
         {
             //TODO Increase satiation!

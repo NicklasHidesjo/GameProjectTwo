@@ -10,7 +10,7 @@ public class EndLevelCheck : MonoBehaviour
     public int CurrentLevel { get => currentLevel; }
 
     private PlayerStatsManager playerStatsManager;
-    private MenuManager menuManager;
+	[SerializeField] MenuManager menuManager;
 
 	public delegate void LevelEnd(int newLevel);
 	public static event LevelEnd OnLevelEnded;

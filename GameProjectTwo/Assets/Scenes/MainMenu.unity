@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -303,7 +303,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 800}
+  m_SizeDelta: {x: 1555, y: 802.39}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &360775091
 MonoBehaviour:
@@ -668,7 +668,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 22
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -680,16 +680,17 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "Suck the blood of enough civilians (cylinders) to satiate your hunger
-    before the sun rises.\nStay out of sight for the guards (capsules) as they will
-    attack you once suspiscous enough (pay attention to the symbol above their head)\n\nControls
-    \nMove: WASD\nRun: Shift\nLeanLeft:; Q\nLeanRight: E\nTransform to bat: 1\n\nInteract:
-    F\n\nThings you can interact with\n- Civilians (to suck their blood (press once
-    to begin and press again to cancel)\n- Hide dead bodies in barrels ( F on dead
-    civilian and then F infront of a barrel to hide the body)\n- Hide and leave barrel\n\n\nKnown
-    bugs\nSometimes if you go inside of a barrerl you will get stuck once leaving
-    to fix this\n transform into a bat and then turn back towards the barrel and
-    once again transform into a bat and hit the barrel. \nThen once in range to enter,
-    enter the barrel and leave and you hould be able to move. Repeat if necessary"
+    before the sun rises.\nStay out of sight for the guards (Blue Capsules) as they
+    will attack you once suspicious enough (pay attention to the symbol above their
+    head)\n\nControls \nMove: WASD\nRun: Shift\nLeanLeft: Q\nLeanRight: E\nTransform
+    to bat: 1\n\nInteract: F\n\nThings you can interact with\n- Civilians (to suck
+    their blood (press once to begin and press Shift(Run button) to cancel)\n- Hide
+    dead bodies in barrels ( F on dead civilian and then F infront of a barrel to
+    hide the body)\n- Hide and leave barrel\n\n\nKnown bugs\nSometimes if you go
+    inside of a barrerl you will get stuck once leaving to fix this\n transform into
+    a bat and then turn back towards the barrel and once again transform into a bat
+    and hit the barrel. \nThen once in range to enter, enter the barrel and leave
+    and you hould be able to move. Repeat if necessary"
 --- !u!222 &626421625
 CanvasRenderer:
   m_ObjectHideFlags: 0

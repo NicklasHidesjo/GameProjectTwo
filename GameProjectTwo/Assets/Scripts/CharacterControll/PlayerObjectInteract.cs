@@ -60,8 +60,8 @@ public class PlayerObjectInteract : MonoBehaviour
                 break;
             case PlayerState.playerStates.DraculaHidden:
                 break;
-            case PlayerState.playerStates.DraculaSucking:
-                break;
+            //case PlayerState.playerStates.DraculaSucking:
+            //    break;
             default:
                     print(playerState.CurrentState + " state does not allow interaction");
                 return;
