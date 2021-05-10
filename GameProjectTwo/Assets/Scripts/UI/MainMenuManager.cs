@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
 	[SerializeField] GameObject baseMenuPanel;
@@ -14,11 +11,6 @@ public class MainMenuManager : MonoBehaviour
 		baseMenuPanel.SetActive(true);
 		howToPlayPanel.SetActive(false);
 		optionsPanel.SetActive(false);
-	}
-
-	public void Play()
-	{
-		SceneManager.LoadScene(1);
 	}
 
 	public void ToggleHowToPlay()
