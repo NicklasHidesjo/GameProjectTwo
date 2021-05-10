@@ -21,9 +21,11 @@ public class PlayerNotoriousLevels : MonoBehaviour
 
     public void OnNewLevel(int layerIndex)
     {
+        //Warning : this is a warning
+        SetPlLongSuspiciousLevel((plLongSuspiciousLevel + plShortSuspiciousLevel)/2);
         SetPlShortSuspiciousLevel(0);
     }
-
+    //TODO : Remove
     public float GetPlayerNotoriousLerpLevel()
     {
         if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.BatDefault)
@@ -32,17 +34,15 @@ public class PlayerNotoriousLevels : MonoBehaviour
         if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHidden)
             return 0;
 
-        print("NLevel : " + (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3);
         return (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3;
     }
 
     public float GetPlayerNotoriousLevel()
     {
-        //1-2
         float nLevel = (plLongSuspiciousLevel + plShortSuspiciousLevel) / 2;
         nLevel += 1;
         nLevel *= plLuminosity;
-        print("NLevel : "+ nLevel);
+        print("NLevel : " + nLevel + "  long : " + plLongSuspiciousLevel + "  Short : " + plShortSuspiciousLevel);
         return nLevel;
     }
 
@@ -64,7 +64,7 @@ public class PlayerNotoriousLevels : MonoBehaviour
 
     public void AddPlShortSuspiciousLevel(float level)
     {
-        plShortSuspiciousLevel += level;
+        plShortSuspiciousLevel += level / maxNumberOfSloppyKills;
         plShortSuspiciousLevel = Mathf.Clamp01(plShortSuspiciousLevel);
     }  
     public void AddPlLongtSuspiciousLevel(float level)
@@ -75,7 +75,7 @@ public class PlayerNotoriousLevels : MonoBehaviour
 
     public void AddPlLuminosity(float level)
     {
-        plLuminosity += level / maxNumberOfSloppyKills;
+        plLuminosity += level;
     }
 
     public void AddSeenDeadBody()
