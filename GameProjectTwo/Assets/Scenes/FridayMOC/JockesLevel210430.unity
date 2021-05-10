@@ -2202,7 +2202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuManager: {fileID: 913140188}
-  levelPassedThreshold: 640000006400000064000000
+  levelPassedThreshold: 0a0000000a0000000a000000
   levelSettings: {fileID: 465380079}
 --- !u!65 &465380075
 BoxCollider:
