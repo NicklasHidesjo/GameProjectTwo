@@ -10,7 +10,7 @@ Shader "Roberts/Grid" {
 		SubShader{
 			Tags { "RenderType" = "Opaque" }
 			CGPROGRAM
-			#pragma surface surf Robert// noambient
+			#pragma surface surf Robert fullforwardshadows// noambient
 
 			float _Specular;
 			float _Cel;
