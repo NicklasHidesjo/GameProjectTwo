@@ -151,9 +151,9 @@ MonoBehaviour:
   playerCam: {fileID: 0}
   draculaPreFab: {fileID: 6337708183196167810, guid: 914620d1d91ea2b45803e54ded1020b9, type: 3}
   batPreFab: {fileID: 4996842985696655279, guid: 366f3e09b1e8aed469f043b2a4726197, type: 3}
-  statsManager: {fileID: 0}
-  notoriusLevel: {fileID: 0}
-  lightSensor: {fileID: 0}
+  statsManager: {fileID: 1144922818}
+  notoriusLevel: {fileID: 5008581454002545233}
+  lightSensor: {fileID: 837508922479027990}
 --- !u!114 &3613435800765331158
 MonoBehaviour:
   m_ObjectHideFlags: 0

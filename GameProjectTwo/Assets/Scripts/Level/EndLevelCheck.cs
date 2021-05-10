@@ -26,18 +26,23 @@ public class EndLevelCheck : MonoBehaviour
     private void Start()
     {
         playerStatsManager = PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>();
-        menuManager = GameObject.Find("UI").GetComponent<MenuManager>();
+		menuManager = (MenuManager)FindObjectOfType(typeof(MenuManager));
 
-        if (!levelSettings)
+		if (!levelSettings)
             levelSettings = GetComponent<LevelSettings>();
     }
 
     private void OnTriggerEnter(Collider other)
 	{
+		Debug.Log($"lv :  { currentLevel}");
+		Debug.Log("37 : " + other.CompareTag("Player"));
 		if (other.CompareTag("Player"))
 		{
+		Debug.Log("40 : " + playerStatsManager.CurrentSatiation);
 			if (CheckLevelPassed(playerStatsManager.CurrentSatiation))
 			{
+		Debug.Log("43A : " + (levelPassedThreshold.Length - 1));
+		Debug.Log($"43B : {currentLevel}");
 				if (currentLevel == levelPassedThreshold.Length - 1)
 				{
 					Debug.Log("Victory");
@@ -45,16 +50,20 @@ public class EndLevelCheck : MonoBehaviour
 				}
 				else
 				{
+		Debug.Log($"53 : ");
 					Debug.Log("Level Completed");
 					menuManager.EndOfLevelScreen();
 					currentLevel++;
+		Debug.Log($"57 : ");
 					playerStatsManager.ResetStats();
 					//levelSettings.LevelStart();
 					if (OnLevelEnded != null)
 					{
 						OnLevelEnded(currentLevel);
 					}
+		Debug.Log($"64 : ");
 					NPCSpawner.Instance.ResetNPCs();
+		Debug.Log($"66 : ");
 				}
 				
 			}

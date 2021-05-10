@@ -94,7 +94,9 @@ public class MenuManager : MonoBehaviour
     public void EndOfLevelScreen()
     {
         
+        Debug.Log("EndLevelScreen");
         endOfLevelScreen.SetActive(true);
+        Debug.Log("audio");
         AudioManager.instance.StopAll2DSounds();
 
         TogglePause();
