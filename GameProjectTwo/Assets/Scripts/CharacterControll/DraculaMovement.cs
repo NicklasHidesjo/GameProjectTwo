@@ -222,7 +222,29 @@ public class DraculaMovement : MonoBehaviour
         }
     }
 
+    public void SunMove()
+    {
+        //SetStateFromInput();
+        playerSpeed = 2;
+        if (controller.isGrounded)
+        {
+            if (controller.height != 2)
+            {
+                controller.height = 2;
+                controller.radius = 0.5f;
+                controller.Move(Vector3.up * 0.75f);
+            }
+            playerVelocity = GroundControl();
+        }
 
+
+        playerVelocity.y -= AddGravity(normalGravity);
+        controller.Move(playerVelocity * Time.fixedDeltaTime);
+
+        ForwardFromMovement();
+
+        DebugRays();
+    }
 
     public void DragBody()
     {
