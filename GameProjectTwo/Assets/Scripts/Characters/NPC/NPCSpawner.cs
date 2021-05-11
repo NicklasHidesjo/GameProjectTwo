@@ -6,10 +6,11 @@ using System.Linq;
 public class NPCSpawner : MonoBehaviour
 {
 	[SerializeField] NPC civilian;
+	[SerializeField] NPC stationaryCivilian;
 	[SerializeField] NPC guard;
+	[SerializeField] NPC stationaryGuard;
 	[SerializeField] SpawnPath[] civilianSpawnPos;
 	[SerializeField] SpawnPath[] guardSpawnPos;
-
 
 	[SerializeField] private int civilianPoolSize = 5;
 	[SerializeField] private float respawnRate = 5f;
@@ -37,8 +38,6 @@ public class NPCSpawner : MonoBehaviour
 	List<NPC> activeGuards= new List<NPC>();
 	List<NPC> inactiveGuards = new List<NPC>();
 
-
-
 	void Start()
 	{
 		InstantiateNPCs();
@@ -49,13 +48,22 @@ public class NPCSpawner : MonoBehaviour
 	{
 		foreach (var npc in inactiveCivs)
 		{
+			List<PathPoint> path;
+			Transform currentSpawn;
 
-			int i = Random.Range(0, civilianSpawnPos.Length);
-			Transform currentSpawn = civilianSpawnPos[i].transform;
+			if(npc.Stationary)
+			{
+				currentSpawn = npc.startingPath.transform;
+				path = null;
+			}
+			else
+			{
+				int i = Random.Range(0, civilianSpawnPos.Length);
+				currentSpawn = civilianSpawnPos[i].transform;
+				path = civilianSpawnPos[Random.Range(0, civilianSpawnPos.Length)].GetPath().ToList();
+			}
 
 			activeCivs.Add(npc);
-
-			List<PathPoint> path = civilianSpawnPos[Random.Range(0, civilianSpawnPos.Length)].GetPath().ToList();
 
 			npc.transform.position = currentSpawn.position;
 			npc.gameObject.SetActive(true);
@@ -65,20 +73,7 @@ public class NPCSpawner : MonoBehaviour
 
 		foreach (var npc in inactiveGuards)
 		{
-			/*			int i = Random.Range(0, guardSpawnPos.Length);
-						Transform currentSpawn = guardSpawnPos[i].transform;
-
-						activeGuards.Add(npc);
-
-						SpawnPath spawnPath = guardSpawnPos[Random.Range(0, guardSpawnPos.Length)];
-
-						List<PathPoint> path = spawnPath.GetRandomizedPatrolPath().ToList();
-
-						npc.transform.position = currentSpawn.position;
-						npc.gameObject.SetActive(true);
-						npc.InitializeNPC(path, spawnPath.BackTrack);
-			*/
-
+			activeGuards.Add(npc);
 			npc.transform.position = npc.startingPath.transform.position;
 			npc.gameObject.SetActive(true);
 			npc.InitializeNPC(npc.startingPath.GetPath(), npc.startingPath.BackTrack);
@@ -93,36 +88,66 @@ public class NPCSpawner : MonoBehaviour
 	{
 		for (int i = 0; i < civilianPoolSize; i++)
 		{
-			SpawnNPCs(true);
+			CreateNPC(true);
+		}
+		foreach (var spawnPoint in civilianSpawnPos)
+		{
+			if (spawnPoint.Stationary)
+			{
+				CreateStationaryNPC(true, spawnPoint);
+			}
 		}
 
 		foreach (var spawnPoint in guardSpawnPos)
 		{
+			if(spawnPoint.Stationary)
+			{
+				CreateStationaryNPC(false, spawnPoint);
+				continue;
+			}
+
 			for (int i = 0; i < spawnPoint.NumOfGuards; i++)
 			{
-				SpawnNPCs(false, spawnPoint);
+				CreateNPC(false, spawnPoint);
 			}
 		}
 	}
-	private void SpawnNPCs(bool isCivilian, SpawnPath startingPath = null)
+	private void CreateNPC(bool isCivilian, SpawnPath startingPath = null)
 	{
 		NPC npc;
 		if (isCivilian)
 		{
-			npc = Instantiate(civilian, transform);
+			Transform currentSpawn = civilianSpawnPos[Random.Range(0,civilianSpawnPos.Length)].transform;
+			npc = Instantiate(civilian, currentSpawn.position, Quaternion.identity, transform);
 			inactiveCivs.Add(npc);
 		}
 		else
 		{
-			npc = Instantiate(guard, transform);
+			npc = Instantiate(guard, startingPath.transform.position, Quaternion.identity, transform);
+			npc.startingPath = startingPath;
+			inactiveGuards.Add(npc);
+		}
+		npc.gameObject.SetActive(false);
+	}
+	private void CreateStationaryNPC(bool isCivilian, SpawnPath startingPath)
+	{
+		NPC npc;
+		if (isCivilian)
+		{
+			npc = Instantiate(stationaryCivilian, startingPath.transform.position, startingPath.transform.rotation, transform);
+			npc.startingPath = startingPath;
+			inactiveCivs.Add(npc);
+		}
+		else
+		{
+			npc = Instantiate(stationaryGuard, startingPath.transform.position, startingPath.transform.rotation, transform);
 			npc.startingPath = startingPath;
 			inactiveGuards.Add(npc);
 		}
 		npc.gameObject.SetActive(false);
 	}
 
-
-	void Update()
+	private void Update()
 	{
 		//Making sure there are enough civilians in scene.
 		if (inactiveCivs.Count > 0)
@@ -159,22 +184,21 @@ public class NPCSpawner : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.C))
 		{
-			NpcDespawn(true,GameObject.FindGameObjectWithTag("Civilian").GetComponent<NPC>());
+			NpcDespawn(true, GameObject.FindGameObjectWithTag("Civilian").GetComponent<NPC>());
 		}
 
-		if(Input.GetKeyDown(KeyCode.U))
+		if (Input.GetKeyDown(KeyCode.U))
 		{
-			SpawnNPCs(true);
+			CreateNPC(true);
 			print("SpawnNPCs(true);");
 		}
-		if(Input.GetKeyDown(KeyCode.G))
+		if (Input.GetKeyDown(KeyCode.G))
 		{
-			SpawnNPCs(false);
+			CreateNPC(false);
 		}
 #endif
-
 	}
-	
+
 	private void NpcSpawn(bool isCivilian)
 	{
 		List<PathPoint> path;
@@ -182,38 +206,46 @@ public class NPCSpawner : MonoBehaviour
 		bool backTrack = false;
 
 		NPC npc;
+
 		if (isCivilian)
 		{
-			int i = Random.Range(0, civilianSpawnPos.Length);
-			currentSpawn = civilianSpawnPos[i].transform;
-
 			if (inactiveCivs.Count < 1) 
 			{ 
 				return; 
 			}
-			path = civilianSpawnPos[Random.Range(0,civilianSpawnPos.Length)].GetPath().ToList();
 			npc = inactiveCivs[0];
+			
+			if (npc.Stationary)
+			{
+				currentSpawn = npc.startingPath.transform;
+				path = null;
+			}
+			else
+			{
+				int i = Random.Range(0, civilianSpawnPos.Length);
+				currentSpawn = civilianSpawnPos[i].transform;
+				path = civilianSpawnPos[Random.Range(0, civilianSpawnPos.Length)].GetPath().ToList();
+			}
+
+			path = civilianSpawnPos[Random.Range(0,civilianSpawnPos.Length)].GetPath().ToList();
 			inactiveCivs.Remove(npc);
 			activeCivs.Add(npc);
 		}
 		else
 		{
-			int i = Random.Range(0, guardSpawnPos.Length);
-			currentSpawn = guardSpawnPos[i].transform;
 
 			if (inactiveGuards.Count < 1) 
 			{ 
 				return; 
 			}
-			SpawnPath spawnPath = guardSpawnPos[Random.Range(0, guardSpawnPos.Length)];
-
-			path = spawnPath.GetPath().ToList();
 
 			npc = inactiveGuards[0];
+
+			path = npc.startingPath.GetPath();
+			currentSpawn = npc.startingPath.transform;
 			inactiveGuards.Remove(npc);
 			activeGuards.Add(npc);
-			backTrack = spawnPath.BackTrack;
-
+			backTrack = npc.startingPath.BackTrack;
 		}
 		npc.transform.position = currentSpawn.position;
 		npc.gameObject.SetActive(true);

@@ -17,7 +17,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] Camera playerCam;
     [SerializeField] GameObject draculaPreFab;
     [SerializeField] GameObject batPreFab;
-
+    [SerializeField] GameObject smokePuff;
     [SerializeField] private PlayerStatsManager statsManager;
     public PlayerStatsManager StatsManager { get { return statsManager; } }
 
@@ -90,6 +90,8 @@ public class PlayerManager : MonoBehaviour
         statsManager = gameObject.GetComponent<PlayerStatsManager>();
     }
 
+    
+
     public void SpawnNewPlayer()
     {
         draculaGO = Instantiate(draculaPreFab, playerPointTransform.position, Quaternion.identity);
@@ -132,6 +134,9 @@ public class PlayerManager : MonoBehaviour
 
     public void ActivateDracula()
     {
+        GameObject puff = Instantiate(smokePuff, playerPointTransform.position, Quaternion.identity);
+        Destroy(puff, 5);
+
         batGO.SetActive(false);
         SetPooledActive(draculaGO);
 
@@ -141,6 +146,9 @@ public class PlayerManager : MonoBehaviour
 
     public void ActivateBat()
     {
+        GameObject puff = Instantiate(smokePuff, playerPointTransform.position, Quaternion.identity);
+        Destroy(puff, 5);
+
         draculaGO.SetActive(false);
         SetPooledActive(batGO);
         
