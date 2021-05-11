@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3641614839899840314}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: -54.580048, y: 9.47, z: 12.164646}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1361615660955361217}
@@ -151,6 +151,7 @@ MonoBehaviour:
   playerCam: {fileID: 0}
   draculaPreFab: {fileID: 6337708183196167810, guid: 914620d1d91ea2b45803e54ded1020b9, type: 3}
   batPreFab: {fileID: 4996842985696655279, guid: 366f3e09b1e8aed469f043b2a4726197, type: 3}
+  smokePuff: {fileID: 5185001187354487102, guid: 18ab637ad2dee21419c6df26bfd3f258, type: 3}
   statsManager: {fileID: 1144922818}
   notoriusLevel: {fileID: 5008581454002545233}
   lightSensor: {fileID: 837508922479027990}
