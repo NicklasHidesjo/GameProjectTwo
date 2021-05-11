@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enterActions:
   - {fileID: 11400000, guid: cf48e1153fa52db40bd634b90b98ea8f, type: 2}
-  - {fileID: 11400000, guid: c5dfc6fe45a6a1f4bad235df6f52abe1, type: 2}
-  - {fileID: 11400000, guid: 9d4b0457f62f2724087398c8ae4bb98d, type: 2}
   - {fileID: 11400000, guid: 4d288fd833ad8a84e8a55e17057fceca, type: 2}
+  - {fileID: 11400000, guid: 9d4b0457f62f2724087398c8ae4bb98d, type: 2}
+  - {fileID: 11400000, guid: c5dfc6fe45a6a1f4bad235df6f52abe1, type: 2}
+  - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}
   executeActions:
   - {fileID: 11400000, guid: e61d114fcca23db4f883997fed3f044c, type: 2}
   - {fileID: 11400000, guid: 45295c284a07fd14aa465dcf87c7e744, type: 2}
@@ -27,3 +28,5 @@ MonoBehaviour:
   transitions:
   - decision: {fileID: 11400000, guid: 8ec007f7855587c4c985d0b79a83fa39, type: 2}
     newState: {fileID: 11400000, guid: b6bb75c6c13a30a44a815df8bccb324c, type: 2}
+  - decision: {fileID: 11400000, guid: 790c745d50284974ab9c07badb3b76ea, type: 2}
+    newState: {fileID: 11400000, guid: 8499acdfd7895294eb928d31484084f3, type: 2}

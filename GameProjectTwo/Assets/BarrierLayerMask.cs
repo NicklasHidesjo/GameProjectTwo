@@ -9,11 +9,8 @@ public class BarrierLayerMask : MonoBehaviour
     void Start()
     {
         //this works, should work fine in project settings to do this once aswell.
-        Physics.IgnoreLayerCollision(10, 2);
+        Physics.IgnoreLayerCollision(7, 2);
     }
 
-    void Update()
-    {
-        
-    }
+
 }

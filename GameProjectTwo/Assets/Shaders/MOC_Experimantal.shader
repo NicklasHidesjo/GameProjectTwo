@@ -5,7 +5,10 @@ Shader "Roberts/MOC_ForArtist" {
 		_CelGray("MidTone", Range(0,1)) = 0
 		[Header(Basic Color)]
 		_MainColor("Color", Color) = (0.5,0.5,0.5,0)
+	
 		_MainTex("Texture", 2D) = "white" {}
+		_Amb("Ambient", 2D) = "white" {}
+
 		_BumpMap("Bumpmap", 2D) = "bump" {}
 		
 		[Header(Specular)]
@@ -84,6 +87,7 @@ Shader "Roberts/MOC_ForArtist" {
 			};
 
 			half4 _MainColor;
+			sampler2D _Amb;
 			sampler2D _MainTex;
 			sampler2D _BumpMap;
 			samplerCUBE _Cube;
@@ -111,7 +115,7 @@ Shader "Roberts/MOC_ForArtist" {
 				hMap = lerp(1, hMap, _HmapA);
 				hMap = clamp(hMap, 0, 1);
 
-				o.Albedo = lerp(tex2D(_HTex, IN.uv_MainTex).rgb * _HColor, tex2D(_MainTex, IN.uv_MainTex).rgb * _MainColor.rgb, hMap);
+				o.Albedo = lerp(tex2D(_HTex, IN.uv_MainTex).rgb * _HColor, tex2D(_MainTex, IN.uv_MainTex).rgb * _MainColor.rgb, hMap) * tex2D(_Amb, IN.uv_MainTex).rgb;
 				o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
 
 				half rim = 1.0 - saturate(dot(normalize(IN.viewDir), o.Normal));

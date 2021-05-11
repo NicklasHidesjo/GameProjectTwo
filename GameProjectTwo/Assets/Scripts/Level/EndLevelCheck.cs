@@ -10,9 +10,12 @@ public class EndLevelCheck : MonoBehaviour
     public int CurrentLevel { get => currentLevel; }
 
     private PlayerStatsManager playerStatsManager;
-    private MenuManager menuManager;
+	[SerializeField] MenuManager menuManager;
 
-    public int[] LevelPassedThreshold { get => levelPassedThreshold; }
+	public delegate void LevelEnd(int newLevel);
+	public static event LevelEnd OnLevelEnded;
+
+	public int[] LevelPassedThreshold { get => levelPassedThreshold; }
 
     [SerializeField] int[] levelPassedThreshold = new int[5];
 
@@ -23,26 +26,40 @@ public class EndLevelCheck : MonoBehaviour
     private void Start()
     {
         playerStatsManager = PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>();
-        menuManager = GameObject.Find("UI").GetComponent<MenuManager>();
+		menuManager = (MenuManager)FindObjectOfType(typeof(MenuManager));
 
-        if (!levelSettings)
+		if (!levelSettings)
             levelSettings = GetComponent<LevelSettings>();
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (CheckLevelPassed(playerStatsManager.CurrentSatiation))
-            {
-                Debug.Log("Level Completed");
-                menuManager.EndOfLevelScreen();
-                currentLevel++;
-                playerStatsManager.ResetStats();
+	{
+		if (other.CompareTag("Player"))
+		{
+			if (CheckLevelPassed(playerStatsManager.CurrentSatiation))
+			{
+				if (currentLevel == levelPassedThreshold.Length - 1)
+				{
+					Debug.Log("Victory");
+					menuManager.VictoryScreen();
+				}
+				else
+				{
+					Debug.Log("Level Completed");
+					menuManager.EndOfLevelScreen();
+					currentLevel++;
+					playerStatsManager.ResetStats();
+					//levelSettings.LevelStart();
+					if (OnLevelEnded != null)
+					{
+						OnLevelEnded(currentLevel);
+					}
+					NPCSpawner.Instance.ResetNPCs();
+				}
+				
+			}
+		}
 
-                levelSettings.LevelStart();
-            }
-        }
     }
     private bool CheckLevelPassed(int satiation)
     {

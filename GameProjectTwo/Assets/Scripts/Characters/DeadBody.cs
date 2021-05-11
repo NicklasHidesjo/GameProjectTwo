@@ -9,6 +9,7 @@ public class DeadBody : Interactable
 
     private bool isGrabbed;
     private bool isHidden;
+    public bool IsHidden => isHidden;
 
     private int startingLayer;
 
@@ -35,11 +36,9 @@ public class DeadBody : Interactable
             transform.SetParent(player.transform, true);
             gameObject.layer = 0;
             isGrabbed = true;
-
         }
+
     }
-
-
 
     public void SetHidden(bool status)
     {

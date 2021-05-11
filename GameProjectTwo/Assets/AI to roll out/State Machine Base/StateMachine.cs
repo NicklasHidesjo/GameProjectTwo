@@ -10,21 +10,39 @@ public class StateMachine : MonoBehaviour
     [SerializeField] State startingState;
     ICharacter character;
 
-    void Start()
+    bool inactive = false;
+
+    private void Awake()
     {
         character = GetComponent<ICharacter>();
+        if(character.Stationary)
+		{
+            character.InitializeNPC();
+            InitializeStateMachine();
+		}
+    }
+
+    public void InitializeStateMachine()
+	{
+        inactive = false;
         SetState(startingState);
     }
 
-
     void FixedUpdate()
     {
+        if(inactive)
+		{
+            return;
+		}
+        if(character.IsDead)
+		{
+            return;
+		}
         if (currentState != null)
         {
             currentState.ExecuteState();
         }
     }
-
 
     public void SetState(State newState)
     {
@@ -35,12 +53,12 @@ public class StateMachine : MonoBehaviour
             currentState.Exit();
         }
 
-        if (character.Alertness > character.Stats.CautiousThreshold)
-        {
-            //print(name + " has entered " + newState);
-        }
-
         currentState = Instantiate(newState);
         currentState.Enter(this, character);
     }
+
+	private void OnDisable()
+	{
+        inactive = true;
+	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,9 +53,10 @@ public class PlayerManager : MonoBehaviour
         GetHealthManager();
         SpawnNewPlayer();
         playerState.SetState(PlayerState.playerStates.TransformToDracula);
+        EndLevelCheck.OnLevelEnded += PrepPlayerForNextLevel;
     }
 
-    
+
     private void Init()
     {
         if (!playerPointTransform)
@@ -77,6 +79,8 @@ public class PlayerManager : MonoBehaviour
         {
             lightSensor = GetComponentInChildren<LightSensor>();
         }
+
+        
 
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
     }
@@ -103,6 +107,11 @@ public class PlayerManager : MonoBehaviour
         batGO.SetActive(false);
 
         playerState.SetScipts(this, draculaMovement, batMovement);
+    }
+
+    private void PrepPlayerForNextLevel(int newLevel)
+    {
+        //playerState.SetState(PlayerState.playerStates.DraculaHidden);
     }
 
     // Update is called once per frame

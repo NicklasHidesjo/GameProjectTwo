@@ -21,13 +21,14 @@ public class BloodSuckTarget : Interactable
         if (npcController.IsSuckable)
         {
             npcController.GettingSucked = true;
-            this.attacker = player;
+            attacker = player;
             StartCoroutine(SuckingBlood(10, 1f));
             player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaSucking);
+            
         }
         else
         {
-            print("target not currently suckable");
+            print("Civilian not currently biteable");
         }
     }
 
@@ -37,13 +38,13 @@ public class BloodSuckTarget : Interactable
         npcController.GettingSucked = false;
         StopCoroutine("SuckingBlood");        
         StopAllCoroutines();
-        Debug.Log("sucking Cancel!");
+        //Debug.Log("sucking Cancel!");
     }
 
     private IEnumerator SuckingBlood(int bloodPerSec, float tickRate)
     {
         PlayerStatsManager playerStats = PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>();
-
+        AudioManager.instance.PlaySound(SoundType.DraculaBite);
         while (!npcController.IsDead)
         {
             //TODO Increase satiation!
@@ -53,26 +54,27 @@ public class BloodSuckTarget : Interactable
             //playerHealth.GainHealth(bloodPerSec);
             playerStats.IncreaseSatiationValue(bloodPerSec);
             playerStats.IncreaseHealthValue(bloodPerSec);
-            Debug.Log("Currently sucking!");
+            Debug.Log("Currently Drinking!");
             yield return new WaitForSeconds(tickRate);
+            AudioManager.instance.PlaySound(SoundType.DraculaDrink);
 
         }
         KillNPC();
 
-        Debug.Log("no longer sucking!");
+        //Debug.Log("no longer sucking!");
         attacker.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaDefault);
+        AudioManager.instance.PlaySound(SoundType.DraculaDrinkDone);
 
     }
+    
+    //TODO: do this one correctly
     private void KillNPC()
     {
         //kill NPC
-        //player.GetComponent<InteractableScanner>().RemoveInteractableFromList(this);
+
+        AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
         GetComponent<Rigidbody>().isKinematic = false;
-        gameObject.AddComponent<DeadBody>();
-        Destroy(GetComponent<SphereCollider>());
-        Destroy(GetComponent<StateMachine>());
-        Destroy(GetComponent<NavMeshAgent>());
-        Destroy(this);
+        npcController.Dead();
     }
 
 }

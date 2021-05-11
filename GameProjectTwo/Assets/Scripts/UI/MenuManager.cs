@@ -11,10 +11,14 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject endOfLevelScreen;
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject deathScreen;
+    [SerializeField] private GameObject victoryScreen;
 
     private bool inDeathScreen;
 
     private bool gamePaused = false;
+
+    public delegate void LevelStart();
+    public static event LevelStart OnLevelStart;
 
     private void Start()
     {
@@ -47,7 +51,16 @@ public class MenuManager : MonoBehaviour
     public void RestartGame()
     {
         TogglePause();
-        SceneManager.LoadScene("210422", LoadSceneMode.Single);
+        //TODO Load correct scene
+        AudioManager.instance.StopAll2DSounds();
+        String currentScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentScene, LoadSceneMode.Single);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        AudioManager.instance.StopAll2DSounds();
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
     }
 
     public void TogglePause()
@@ -68,17 +81,34 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    public void StartNextLevel()
+    {
+        if (OnLevelStart != null)
+        {
+            OnLevelStart();
+        }
+    }
+
     private void PlayerDeathScreen()
     {
         inDeathScreen = true;
         deathScreen.SetActive(true);
+        AudioManager.instance.StopAll2DSounds();
         TogglePause();
     }
 
     public void EndOfLevelScreen()
     {
-       
+        
         endOfLevelScreen.SetActive(true);
+        AudioManager.instance.StopAll2DSounds();
+
+        TogglePause();
+    }
+
+    public void VictoryScreen()
+    {
+        victoryScreen.SetActive(true);
         TogglePause();
     }
 

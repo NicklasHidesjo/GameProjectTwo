@@ -13,7 +13,7 @@ public class PlayerObjectInteract : MonoBehaviour
     Interactable interactable;
     Interactable heldInteractable;
     public PlayerState playerState;
-    bool tempHiddenState = false;
+    
 
     void Start()
     {
@@ -60,8 +60,8 @@ public class PlayerObjectInteract : MonoBehaviour
                 break;
             case PlayerState.playerStates.DraculaHidden:
                 break;
-            case PlayerState.playerStates.DraculaSucking:
-                break;
+            //case PlayerState.playerStates.DraculaSucking:
+            //    break;
             default:
                     print(playerState.CurrentState + " state does not allow interaction");
                 return;
@@ -73,10 +73,10 @@ public class PlayerObjectInteract : MonoBehaviour
                 {
                     if (heldInteractable != null)
                     {
-                        Debug.Log("Need to let go first dude: " + D.gameObject);
+                        Debug.Log("Need to let go first: " + D.gameObject);
                         return;
                     }
-                    Debug.Log("Interact dead dude: " + D.gameObject);
+                    Debug.Log("Interact deadbody: " + D.gameObject);
                     heldInteractable = D;
                     interactable.Interact(gameObject);
                     iScanner.RemoveInteractableFromList(heldInteractable);
@@ -98,25 +98,21 @@ public class PlayerObjectInteract : MonoBehaviour
                         heldInteractable.Interact(gameObject);
                         interactable.Interact(heldInteractable.gameObject);
                         heldInteractable = null;
+                        SetState(PlayerState.playerStates.DraculaDefault);
                     }
                     else
                     {
                         if (playerState.CurrentState == PlayerState.playerStates.DraculaHidden)
                         {
-
                             Debug.Log("Leaving " + C.gameObject);
                             playerState.SetState(PlayerState.playerStates.DraculaHideing);
-                            GetComponent<CharacterController>().enabled = true;
-                            tempHiddenState = false;
+                            GetComponent<CharacterController>().enabled = true;                        
                             interactable.Interact(gameObject);
                         }
                         else
                         {
                             Debug.Log("Entering " + C.gameObject);
-
-                            GetComponent<CharacterController>().enabled = false;
-                            tempHiddenState = true;
-
+                            GetComponent<CharacterController>().enabled = false;                           
                             interactable.Interact(gameObject);
                             playerState.SetState(PlayerState.playerStates.DraculaHideing);
 

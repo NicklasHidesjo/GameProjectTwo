@@ -27,6 +27,7 @@ public class InSunLight : MonoBehaviour
     [SerializeField] float sunDamageTickRate;
     [SerializeField] int damagePerTick;
 
+    AudioSource sunSound;
 
     void Start()
     {
@@ -39,11 +40,17 @@ public class InSunLight : MonoBehaviour
         inSunlight = InSun();
         if (inSunlight)
         {
-            
+            PlayerManager.instance.PlayerState.SetState(PlayerState.playerStates.DraculaBurning);
+
             if (sunDamage == null)
             {
                 sunDamage = StartCoroutine(TakeDamageInSunLight());
+                if (sunSound == null)
+                {
+                    sunSound = AudioManager.instance.PlaySound(SoundType.SunDamage);
+                }
                 
+
                 //activateSunIndicator(gracePeriod);
             }
             graceTimer = Mathf.Clamp(graceTimer + Time.deltaTime, 0, gracePeriod);
@@ -54,19 +61,32 @@ public class InSunLight : MonoBehaviour
             {
                 //GameUiManager.instance.DeactivateSunIndicator();
 
-                StopCoroutine(sunDamage);
+                StopCoroutine(sunDamage);                
                 sunDamage = null;
             }
 
             graceTimer = Mathf.Clamp(graceTimer - Time.fixedDeltaTime, 0, gracePeriod);
 
+
+            if (PlayerManager.instance.PlayerState.GetCurrentState() == PlayerState.playerStates.DraculaBurning)
+                PlayerManager.instance.PlayerState.SetState(PlayerState.playerStates.DraculaDefault);
         }
 
+        if (sunSound != null)
+        {
+            sunSound.volume = graceTimer / gracePeriod;
+            if (sunSound.volume == 0f)
+            {
+                sunSound.Stop();
+                sunSound = null;
+            }
+        }
         GameUiManager.instance.SetSunIndicatorAlpha(graceTimer, gracePeriod);
     }
 
     IEnumerator TakeDamageInSunLight()
     {
+
         print("in sun light");
 
         while (graceTimer < gracePeriod)
@@ -80,7 +100,6 @@ public class InSunLight : MonoBehaviour
             playerStats.DecreaseHealthValue(damagePerTick);
             yield return new WaitForSeconds(sunDamageTickRate);
         }
-
     }
 
     public void SunInit(Transform dracula, Transform linearLightSun)
@@ -100,7 +119,7 @@ public class InSunLight : MonoBehaviour
                 if (l.name == "SUN")
                 {
                     linearLightSun = l.transform;
-                    Debug.Log("<color=red> Sun is missing. Auto assigned : </color>" + l.name);
+                    //Debug.Log("<color=red> Sun is missing. Auto assigned : </color>" + l.name);
                     break;
                 }
             }
@@ -109,7 +128,7 @@ public class InSunLight : MonoBehaviour
         if (playerPoint == null)
         {
             playerPoint = FindObjectOfType<CharacterController>().transform;
-           // Debug.Log("<color=red> dracula is missing. Auto assigned : </color>" + dracula.name);
+            // Debug.Log("<color=red> dracula is missing. Auto assigned : </color>" + dracula.name);
         }
         playerStats = PlayerManager.instance.GetComponent<PlayerStatsManager>();
         GetOffsettFromCollider();
@@ -141,13 +160,13 @@ public class InSunLight : MonoBehaviour
                 lightSourceDist - linearLightSun.transform.right *
                 WidthOff + linearLightSun.transform.up * hightOff,
                 linearLightSun.transform.forward)
-                
+
             ||
             RaycastSunToCharacter(playerPoint.position - linearLightSun.transform.forward *
                 lightSourceDist + linearLightSun.transform.right *
                 WidthOff + linearLightSun.transform.up * hightOff,
                 linearLightSun.transform.forward)
-                
+
                 )
             {
 
@@ -165,7 +184,7 @@ public class InSunLight : MonoBehaviour
 
             if (debugRay)
                 Debug.DrawRay(pos, dir * lightSourceDist, Color.black);
-            
+
             if (hit.collider == playerPoint.gameObject.GetComponent<Collider>())
             {
                 Debug.Log("<color=red>Dracula hit self</color>");

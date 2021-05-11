@@ -7,6 +7,6 @@ public class IdleFromWalk : Decision
 {
 	public override bool Decide(ICharacter character)
 	{
-		return !character.Agent.pathPending && character.Agent.velocity == Vector3.zero;
+		return !character.Agent.pathPending && character.Agent.remainingDistance < character.Agent.stoppingDistance;
 	}
 }

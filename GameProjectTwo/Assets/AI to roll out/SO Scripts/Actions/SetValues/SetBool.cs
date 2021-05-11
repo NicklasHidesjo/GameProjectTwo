@@ -21,6 +21,9 @@ public class SetBool : Action
 			case NPCBooleans.Run:
 				character.Run = isTrue;
 				break;
+			case NPCBooleans.IsCharmed:
+				character.IsCharmed = isTrue;
+				break;
 		}
 	}
 }

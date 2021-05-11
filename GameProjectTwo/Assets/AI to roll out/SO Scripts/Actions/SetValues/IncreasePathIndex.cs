@@ -6,10 +6,50 @@ public class IncreasePathIndex : Action
 {
 	public override void Execute(ICharacter character)
 	{
-		character.PathIndex += 1;
-		if(character.PathIndex >= character.Path.Length)
+		if(character.Increase)
 		{
-			character.PathIndex = 0;
+			character.PathIndex += 1;
+		}
+		else
+		{
+			character.PathIndex -= 1;
+		}
+
+		if(character.PathIndex >= character.Path.Count)
+		{
+			if(character.Self.CompareTag("Civilian"))
+			{
+				character.Leave = true;
+				return;
+			}
+
+			if (character.BackTrack)
+			{
+				character.Increase = !character.Increase;
+				character.PathIndex = character.Path.Count -2;
+			}
+			else
+			{
+				character.PathIndex = 0;
+			}
+		}
+		if (character.PathIndex < 0)
+		{
+			if (character.Self.CompareTag("Civilian"))
+			{
+				character.Leave = true;
+				return;
+			}
+
+			if (character.BackTrack)
+			{
+				character.Increase = !character.Increase;
+				character.PathIndex = 1;
+			}
+			else
+			{
+				character.PathIndex = character.Path.Count - 1;
+			}
 		}
 	}
 }
