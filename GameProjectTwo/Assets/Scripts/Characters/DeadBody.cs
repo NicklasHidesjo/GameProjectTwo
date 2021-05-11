@@ -28,25 +28,21 @@ public class DeadBody : Interactable
     {
         if (isGrabbed)
         {
-            GetComponent<Rigidbody>().isKinematic = false;
+            // transform.parent = null;
+            //GetComponent<Rigidbody>().isKinematic = false;
 
             //RemoveJoint here
             RemoveJoint();
-
             gameObject.layer = startingLayer;
-
-           // transform.parent = null;
             isGrabbed = false;
         }
         else
         {
-          //  GetComponent<Rigidbody>().isKinematic = true;
+            //  GetComponent<Rigidbody>().isKinematic = true;
+            //  transform.SetParent(player.transform, true);
 
             //Add joint here
             AddJoint(player, gameObject);
-            
-            
-          //  transform.SetParent(player.transform, true);
             gameObject.layer = 0;
             isGrabbed = true;
         }
@@ -72,11 +68,11 @@ public class DeadBody : Interactable
     {
         joint = player.AddComponent<SpringJoint>();
         joint.autoConfigureConnectedAnchor = false;
-        joint.connectedAnchor = player.transform.forward * 0.5f + player.transform.up;
-        joint.anchor    = dragObject.transform.up;
+        joint.connectedAnchor = player.transform.forward + player.transform.up;
+        joint.anchor = dragObject.transform.up;
         joint.connectedBody = dragObject.GetComponent<Rigidbody>();
     }
-    
+
     private void RemoveJoint()
     {
         Destroy(joint);
