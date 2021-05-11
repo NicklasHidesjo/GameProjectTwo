@@ -28,7 +28,7 @@ MonoBehaviour:
   AlertedFOV: 120
   SearchAngle: 45
   SuspisciousSpeed: 1
-  WalkSpeed: 2
+  WalkSpeed: 10
   RunSpeed: 5
   SearchSpeed: 4
   FearSpeed: 0.2
@@ -37,7 +37,6 @@ MonoBehaviour:
   TurnSpeed: 6
   TurnSpeedCompensation: 45
   FleeDeadAngle: 95
-  FleeDistance: 2
   MaxFleeDistance: 40
   MinFleeDistance: 5
   IdleTime: 4
@@ -45,6 +44,7 @@ MonoBehaviour:
   IntuitionTime: 1
   CalmDownTime: 1
   CharmedTime: 5
+  FadeDuration: 1
   ShoutRange: 20
   AttackedShoutRange: 2
   Damage: 20
