@@ -14049,6 +14049,10 @@ PrefabInstance:
       propertyPath: playerCam
       value: 
       objectReference: {fileID: 1902167617}
+    - target: {fileID: 3741368434606493832, guid: 4f53833e1d178f045843385b6e64b542, type: 3}
+      propertyPath: smokePuff
+      value: 
+      objectReference: {fileID: 5185001187354487102, guid: 18ab637ad2dee21419c6df26bfd3f258, type: 3}
     - target: {fileID: 9138906648391732663, guid: 4f53833e1d178f045843385b6e64b542, type: 3}
       propertyPath: m_Name
       value: PlayerManager
