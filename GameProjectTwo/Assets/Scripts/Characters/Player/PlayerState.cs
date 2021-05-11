@@ -112,7 +112,7 @@ public class PlayerState : MonoBehaviour
                 }
             case playerStates.DraculaBurning:
                 {
-                    draculaMovement.DragBody();
+                    draculaMovement.SunMove();
                     break;
                 }
             case playerStates.TransformToBat:
