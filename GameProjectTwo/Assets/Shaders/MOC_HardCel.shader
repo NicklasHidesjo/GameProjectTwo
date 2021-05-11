@@ -1,8 +1,8 @@
-Shader "Roberts/MOC_ForArtist" {
+Shader "Roberts/MOC_HardArtist" {
 	Properties{
 		[Header(Celshade Admount)]
 		_Cel("CelShade", Range(0,1)) = 0
-		_CelGray("MidTone", Range(0,1)) = 0
+		_ExtCutOff("ExtremeCutOff", Range(0,0.2)) = 0.15
 		[Header(Basic Color)]
 		_MainColor("Color", Color) = (0.5,0.5,0.5,0)
 	
@@ -16,8 +16,7 @@ Shader "Roberts/MOC_ForArtist" {
 		_Specular("SpecSpot", Range(1,100)) = 90
 
 		[Header(Rim Basic)]
-		_RimColor("Rim Color", Color) = (0,0,0,0.0)
-		_RimPower("Rim Power", Range(0.5,8.0)) = 3.0
+		_RimPower("Rim Power", Range(-1.0,1.0)) = 0.5
 
 		[Header(Reflection)]
 		_ReflectColor("ReflectColor", Color) = (0,0,0,0)
@@ -35,16 +34,20 @@ Shader "Roberts/MOC_ForArtist" {
 		SubShader{
 			Tags { "RenderType" = "Opaque" }
 			CGPROGRAM
-			#pragma surface surf Robert fullforwardshadows// noambient
+			#pragma surface surf Robert addshadow fullforwardshadows //noambient
 
 			float _Cel;
 			half4 _SpColor;
 			float _Specular;
-			float _CelGray;
+			float _ExtCutOff;
+
+
+			float _RimPower;
 
 			half4 LightingRobert(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten) {
 
 
+				//Light
 				half3 h = normalize(lightDir + viewDir);
 
 				half diff = max(0, dot(s.Normal, lightDir));
@@ -53,19 +56,32 @@ Shader "Roberts/MOC_ForArtist" {
 				float spec = pow(nh, _Specular);
 				spec = round(spec);
 
+				//Rim
+				half rim = 1- saturate(dot(normalize(viewDir), s.Normal));
+				rim -= _RimPower * (diff + 0.25);
+				rim = clamp(rim, 0.5, 0.51) - 0.5;
+				rim *= 100;
+
+				//Ramp
+				diff -= _ExtCutOff;
 				float ramp = diff;
-				float rampOne = diff;
 				float rampTwo = diff;
 
-				ramp = smoothstep(0.0, 0.1, diff);
-				rampTwo = smoothstep(_CelGray, 1, diff);
-
+				ramp = clamp(diff , 0.0, 0.01) * 50;// smoothstep(0.0, 0.1, diff);
+				diff -= 0.5;
+				rampTwo = clamp(diff, 0.0, 0.01) * 50;// smoothstep(_ExtCutOff, 1, diff);
 				ramp += rampTwo;
-				ramp *= 0.5;
 
-				diff = lerp(ramp, diff, _Cel);
+
+				//Blend
+				diff = lerp(ramp , diff, _Cel);
+				diff = lerp(ramp * atten , .5, rim);
+				
 				half4 c;
-				c.rgb = (s.Albedo * _LightColor0.rgb * diff + _LightColor0.rgb * spec * _SpColor) * atten;
+				///c.rgb = rim;
+
+				c.rgb = (s.Albedo * _LightColor0.rgb * diff + _LightColor0.rgb * spec * _SpColor);
+				//c.rgb = lerp(c.rgb, s.Albedo* 0.5, rim);
 				c.a = s.Alpha;
 				return c;
 			}
@@ -92,8 +108,6 @@ Shader "Roberts/MOC_ForArtist" {
 			sampler2D _BumpMap;
 			samplerCUBE _Cube;
 
-			float4 _RimColor;
-			float _RimPower;
 
 			float4 _ReflectColor;
 			float _RimReflPower;
@@ -120,10 +134,10 @@ Shader "Roberts/MOC_ForArtist" {
 
 				half rim = 1.0 - saturate(dot(normalize(IN.viewDir), o.Normal));
 
-				half3 rimColor = _RimColor.rgb * pow(rim, _RimPower);
+				half3 rimColor = 1-pow(rim, _RimPower);
 				half3 reflectRim = texCUBE(_Cube, WorldReflectionVector(IN, o.Normal)).rgb * pow(rim, _RimReflPower) * _ReflectColor;
 				half3 pureReflection = texCUBE(_Cube, WorldReflectionVector(IN, o.Normal)).rgb * _ReflectPure * _ReflectColor;
-				o.Emission = rimColor + reflectRim + pureReflection;
+				o.Emission =  reflectRim + pureReflection;
 			}
 		ENDCG
 	}
