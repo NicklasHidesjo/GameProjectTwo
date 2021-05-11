@@ -92,6 +92,7 @@ GameObject:
   - component: {fileID: 7892719473371289824}
   - component: {fileID: 5186163122144878265}
   - component: {fileID: 569717844366518232}
+  - component: {fileID: 8029207535240898372}
   m_Layer: 0
   m_Name: Wall11_window_woodfplank1_low
   m_TagString: Untagged
@@ -162,6 +163,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8029207535240898372
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4773956054467710747}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.036000002, y: 0.004799999, z: 0.034399994}
+  m_Center: {x: -0.0019998383, y: -0.00079999975, z: -0.0011999996}
 --- !u!1 &7343754500352875808
 GameObject:
   m_ObjectHideFlags: 0

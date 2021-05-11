@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Door2_metal
-  m_Shader: {fileID: 4800000, guid: 33a02648cd39b834098a8158c066cf8b, type: 3}
+  m_Shader: {fileID: 4800000, guid: 407f9ace121340e4792100da1c4c21e8, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -74,6 +74,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _ExtCutOff: 0.15
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
