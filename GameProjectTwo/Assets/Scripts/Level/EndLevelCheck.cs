@@ -54,7 +54,9 @@ public class EndLevelCheck : MonoBehaviour
 					{
 						OnLevelEnded(currentLevel);
 					}
-					NPCSpawner.Instance.ResetNPCs();
+
+					FindObjectOfType<NPCSpawner>().ResetNPCs();
+		//			NPCSpawner.Instance.ResetNPCs();
 				}
 				
 			}

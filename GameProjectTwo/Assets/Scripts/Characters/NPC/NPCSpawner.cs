@@ -18,7 +18,13 @@ public class NPCSpawner : MonoBehaviour
 	private float respawnTimerCivilian;
 	private float respawnTimerGuard;
 
-	private static NPCSpawner instance;
+	public static NPCSpawner Instance;
+
+    private void Awake()
+    {
+		Instance = this;
+    }
+    /*
 	public static NPCSpawner Instance
 	{
 		get
@@ -30,9 +36,9 @@ public class NPCSpawner : MonoBehaviour
 			return instance;
 		}
 	}
+	*/
 
-
-	List<NPC> activeCivs = new List<NPC>();
+    List<NPC> activeCivs = new List<NPC>();
 	List<NPC> inactiveCivs = new List<NPC>();	
 	
 	List<NPC> activeGuards= new List<NPC>();
