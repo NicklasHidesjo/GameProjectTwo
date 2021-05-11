@@ -8,6 +8,7 @@ public class HiddenCheck : MonoBehaviour
     [SerializeField] GameObject Staticguard;
 
     private int notHiddenCorpses;
+    public int  NotHiddenCorpses { get { return notHiddenCorpses; } }
     List<Transform> spawnGuards= new List<Transform>();
 
     private EndLevelCheck endlevelcheck;
@@ -17,7 +18,7 @@ public class HiddenCheck : MonoBehaviour
     {
 
         endlevelcheck = gameObject.GetComponent<EndLevelCheck>();
-        menuManager = GameObject.Find("UI").GetComponent<MenuManager>();
+        menuManager = FindObjectOfType<MenuManager>();
 
         EndLevelCheck.OnLevelEnded += CheckForUnhiddenBodies;
         MenuManager.OnLevelStart += SpawnGuardsAtMessyKills;

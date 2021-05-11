@@ -6,7 +6,8 @@ public interface ICharacter
 	public float Alertness { get; set; }	
 	public int PathIndex { get; set; }	
 	public float StateTime { get; set; }
-	public List<Transform> Path { get; }	
+	public List<PathPoint> Path { get; }	
+	public PathPoint targetPoint { get; set; }
 	public Transform Transform { get; }
 	public Transform Player { get; }
 	public NavMeshAgent Agent { get; }
@@ -55,8 +56,6 @@ public interface ICharacter
 
 	public bool Leave { get; set; }
 
-	public bool WalkRandomly { get; set; }
-
 
 	public bool GettingDisposed { get; set; }
 	public bool Disposed { get; set; }
@@ -64,7 +63,9 @@ public interface ICharacter
 	public LayerMask NpcLayer { get; }
 
 
-	public void InitializeNPC();
+	public SpawnPath startingPath { get; set; }
+
+	public void InitializeNPC(List<PathPoint> path = null, bool backTrack = false);
 
 
 	/// <summary>
