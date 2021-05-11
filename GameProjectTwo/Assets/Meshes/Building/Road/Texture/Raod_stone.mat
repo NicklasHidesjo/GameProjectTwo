@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tiled_wood
+  m_Name: Raod_stone
   m_Shader: {fileID: 4800000, guid: 407f9ace121340e4792100da1c4c21e8, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,11 +20,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Amb:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 862c5757291eddb4294e583fad7fb9da, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: f36dd0b8be46676439a6f9ebfdb98ac4, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Cube:
@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e745b5f949058ec45bdac6f31baa8eb5, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1ea2a947e35218d44a99d8e9d5cace6c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -70,7 +70,6 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cel: 0
-    - _CelGray: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -86,10 +85,10 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _ReflectPure: 0
-    - _RimPower: 3
+    - _RimPower: 0.5
     - _RimReflPower: 3
     - _SmoothnessTextureChannel: 0
-    - _Specular: 90
+    - _Specular: 50
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
@@ -98,8 +97,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 0}
-    - _MainColor: {r: 1, g: 1, b: 1, a: 0}
+    - _MainColor: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 1}
     - _ReflectColor: {r: 0, g: 0, b: 0, a: 0}
-    - _RimColor: {r: 0, g: 0, b: 0, a: 0}
-    - _SpColor: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 0}
+    - _SpColor: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 0}
   m_BuildTextureStacks: []
