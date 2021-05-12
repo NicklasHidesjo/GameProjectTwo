@@ -12,7 +12,9 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private GameObject victoryScreen;
+    [SerializeField] private GameObject levelChanger;
 
+    
     private bool inDeathScreen;
 
     private bool gamePaused = false;
@@ -60,7 +62,8 @@ public class MenuManager : MonoBehaviour
     public void ReturnToMainMenu()
     {
         AudioManager.instance.StopAll2DSounds();
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        //SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        levelChanger.GetComponent<LevelChanger>().FadeToLevel(0);
     }
 
     public void TogglePause()
