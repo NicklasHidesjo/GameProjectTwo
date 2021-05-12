@@ -53,8 +53,11 @@ Shader "Roberts/Grid" {
 				float _Cel;
 				float3 worldPos;
 				float3 worldNormal;
+				INTERNAL_DATA
 				float _Scale;
 			};
+
+
 			sampler2D _MainTex;
 			sampler2D _BumpMap;
 			float _Scale;
