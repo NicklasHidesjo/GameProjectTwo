@@ -48,7 +48,7 @@ public class DraculaMovement : MonoBehaviour
             }
         }
     }
-
+    
     //TODO : Decide on Input metod and keys.
     private void Update()
     {
