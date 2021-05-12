@@ -54,8 +54,6 @@ public class InteractableScanner : MonoBehaviour
             if (newInteractable != currentInteractable)
             {
                 currentInteractable.SetSelected(false, this);
-
-
             }
         }
 

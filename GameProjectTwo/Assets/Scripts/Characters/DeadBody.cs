@@ -13,6 +13,10 @@ public class DeadBody : Interactable
 
     private int startingLayer;
 
+
+    private SpringJoint joint;
+    [SerializeField] SpringJoint jointDefault;
+
     private void Start()
     {
         standardMaterial = GetComponent<MeshRenderer>().material;
@@ -24,16 +28,21 @@ public class DeadBody : Interactable
     {
         if (isGrabbed)
         {
-            isGrabbed = false;
-            GetComponent<Rigidbody>().isKinematic = false;
-            gameObject.layer = startingLayer;
+            // transform.parent = null;
+            //GetComponent<Rigidbody>().isKinematic = false;
 
-            transform.parent = null;
+            //RemoveJoint here
+            RemoveJoint();
+            gameObject.layer = startingLayer;
+            isGrabbed = false;
         }
         else
         {
-            GetComponent<Rigidbody>().isKinematic = true;
-            transform.SetParent(player.transform, true);
+            //  GetComponent<Rigidbody>().isKinematic = true;
+            //  transform.SetParent(player.transform, true);
+
+            //Add joint here
+            AddJoint(player, gameObject);
             gameObject.layer = 0;
             isGrabbed = true;
         }
@@ -52,8 +61,20 @@ public class DeadBody : Interactable
             //GetComponent<Collider>().enabled = true;
 
         }
+    }
 
 
+    private void AddJoint(GameObject player, GameObject dragObject)
+    {
+        joint = player.AddComponent<SpringJoint>();
+        joint.autoConfigureConnectedAnchor = false;
+        joint.connectedAnchor = player.transform.forward + player.transform.up;
+        joint.anchor = dragObject.transform.up;
+        joint.connectedBody = dragObject.GetComponent<Rigidbody>();
+    }
 
+    private void RemoveJoint()
+    {
+        Destroy(joint);
     }
 }
