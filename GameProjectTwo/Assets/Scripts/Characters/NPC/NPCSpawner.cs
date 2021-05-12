@@ -269,6 +269,11 @@ public class NPCSpawner : MonoBehaviour
 		}
 	}
 
+	public void RemoveStationaryNPC(NPC npc)
+	{
+		npc.gameObject.SetActive(false);
+		activeCivs.Remove(npc);
+	}
 	public void ResetNPCs()
 	{
 		foreach (var npc in activeCivs)
