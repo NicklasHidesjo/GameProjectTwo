@@ -62,7 +62,7 @@ public class MenuManager : MonoBehaviour
     public void ReturnToMainMenu()
     {
         AudioManager.instance.StopAll2DSounds();
-        //SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+        Time.timeScale = 1f;
         levelChanger.GetComponent<LevelChanger>().FadeToLevel(0);
     }
 
