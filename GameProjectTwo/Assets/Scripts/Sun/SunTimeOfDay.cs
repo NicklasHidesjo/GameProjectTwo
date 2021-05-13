@@ -6,8 +6,11 @@ public class SunTimeOfDay : MonoBehaviour
 {
     [SerializeField] float sunLightAngle = 30;
     [SerializeField] float timeOfDay = 0f;
+    [SerializeField] float intensetyMultiplyer = 4.0f;
     private Coroutine runningClock;
     private Coroutine animClock;
+
+
 
     public void MoveSunRealTimeStep()
     {
@@ -23,8 +26,8 @@ public class SunTimeOfDay : MonoBehaviour
         {
             degOfDay -= 360;
         }
-
         transform.rotation = Quaternion.Euler(degOfDay - 90, sunLightAngle, 0);
+        EnableDisableByAngle();
         timeOfDay = (degOfDay) / 15;
     }
     public void SetTimeOfDayTo(float time)
@@ -32,6 +35,7 @@ public class SunTimeOfDay : MonoBehaviour
         timeOfDay = time;
         float degOfDay = time * 15;
         transform.rotation = Quaternion.Euler(degOfDay - 90, sunLightAngle, 0);
+        EnableDisableByAngle();
     }
 
     public void SetRiseTimer(float timeTillSunRise, float clockStopTime, float sunRiseAnimTime)
@@ -41,6 +45,7 @@ public class SunTimeOfDay : MonoBehaviour
             //print("STOPP : " + runningClock);
             StopCoroutine(runningClock);
         }
+        EnableDisableByAngle();
         runningClock = StartCoroutine(SunTimer(timeTillSunRise, clockStopTime, sunRiseAnimTime));
     }
 
@@ -90,9 +95,26 @@ public class SunTimeOfDay : MonoBehaviour
             timeOfDay = (degOfDay) / 15;
 
             t -= Time.deltaTime;
+            EnableDisableByAngle();
+
             yield return null;
         }
 
         runningClock = null;
+    }
+
+
+    private void EnableDisableByAngle()
+    {
+        float d = Vector3.Dot(Vector3.down, transform.forward);
+        if(d < 0)
+        {
+            GetComponent<Light>().enabled = false;
+        }
+        else
+        {
+            GetComponent<Light>().enabled = true;
+            GetComponent<Light>().intensity = d * intensetyMultiplyer;
+        }
     }
 }
