@@ -5,8 +5,7 @@ using UnityEngine;
 //base class for any object that is interactable
 public abstract class Interactable : MonoBehaviour
 {
-    [SerializeField] protected Material selectedMaterial;
-    protected Material standardMaterial;
+
     protected InteractableScanner iScanner;
 
     public virtual void SetSelected(bool isSelected, InteractableScanner playerScanner)
