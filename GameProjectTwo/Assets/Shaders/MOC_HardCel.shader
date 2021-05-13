@@ -65,13 +65,13 @@ Shader "Roberts/MOC_HardArtist" {
 				//Ramp
 				diff -= _ExtCutOff;
 				diff *= atten;
-				float ramp = diff * 2;
+				float ramp = diff ;
 
-				ramp = round(ramp);
+				ramp = round(ramp * 2);
 				ramp *= 0.5;
 				
 				half4 c;
-				c.rgb = (s.Albedo * _LightColor0.rgb * diff + _LightColor0.rgb * spec * _SpColor);
+				c.rgb = (s.Albedo * _LightColor0.rgb * ramp + _LightColor0.rgb * spec * _SpColor);
 				c.a = s.Alpha;
 				return c;
 			}
