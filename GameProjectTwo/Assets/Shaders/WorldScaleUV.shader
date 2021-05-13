@@ -31,122 +31,115 @@ Shader "Roberts/WorldUV" {
 
 		SubShader
 		{
-				Tags { "RenderType" = "Opaque" }
-				LOD 400
+			Tags { "RenderType" = "Opaque" }
+			LOD 400
 
-				CGPROGRAM
-				#pragma surface surf Robert  //noambient
-			  #pragma shader_feature UseWorldUV
+			CGPROGRAM
+			#pragma surface surf Robert  //noambient
+			#pragma shader_feature UseWorldUV
 
+			half _Scale;
+			fixed4 _MainColor;
+			sampler2D _MainTex;
+			sampler2D _BumpMap;
+			
+			sampler2D _Emission;
 
+			float _ZfadeAdmount;
+			float _ZfadeScale;
+			float _ZfadeStart;
+			half4 _ZfadeColor;
+			sampler2D _ZfadeTexture;
 
+			//Useing data
+			struct Input
+			{
+//				float4 color : COLOR;
+				float2 uv_MainTex;
+				float3 worldPos;
+				float3 worldNormal;
+				INTERNAL_DATA
+			};
 
-				half _Scale;
-
-				fixed4 _MainColor;
-				sampler2D _MainTex;
-				sampler2D _BumpMap;
-
-				sampler2D _Emission;
-
-				float _ZfadeAdmount;
-				float _ZfadeScale;
-				float _ZfadeStart;
-				half4 _ZfadeColor;
-				sampler2D _ZfadeTexture;
-
-				//Useing data
-				struct Input
-				{
-//					float4 color : COLOR;
-					float2 uv_MainTex;
-					float3 worldPos;
-					float3 worldNormal;
-					INTERNAL_DATA
-				};
-
-				//Surface Color
-				void surf(Input IN, inout SurfaceOutput o)
-				{
-					float2 uv = IN.uv_MainTex;
+			//Surface Color
+			void surf(Input IN, inout SurfaceOutput o)
+			{
+				float2 uv = IN.uv_MainTex;
 
 #ifdef UseWorldUV
-					//Worldscale Normalmap
-					float3 correctWorldNormal = WorldNormalVector(IN, float3(0, 0, 1));
-					uv = IN.worldPos.zx;
+				//Worldscale Normalmap
+				float3 correctWorldNormal = WorldNormalVector(IN, float3(0, 0, 1));
+				uv = IN.worldPos.zx;
+				uv.x = IN.worldPos.x;
+				uv.y = IN.worldPos.z;
+
+				if (abs(correctWorldNormal.x) > 0.5) {
+					uv.x = -IN.worldPos.z;
+					uv.y = -IN.worldPos.y;
+					if ((correctWorldNormal.x) < 0.0) {
+						uv.x = IN.worldPos.z;
+						uv.y = -IN.worldPos.y;
+					}
+				}
+				if (abs(correctWorldNormal.z) > 0.5) {
 					uv.x = IN.worldPos.x;
-					uv.y = IN.worldPos.z;
-
-					if (abs(correctWorldNormal.x) > 0.5) {
-						uv.x = -IN.worldPos.z;
-						uv.y = -IN.worldPos.y;
-						if ((correctWorldNormal.x) < 0.0) {
-							uv.x = IN.worldPos.z;
-							uv.y = -IN.worldPos.y;
-						}
-					}
-					if (abs(correctWorldNormal.z) > 0.5) {
+					uv.y = -IN.worldPos.y;
+					if ((correctWorldNormal.z) < 0.0) {
 						uv.x = IN.worldPos.x;
-						uv.y = -IN.worldPos.y;
-						if ((correctWorldNormal.z) < 0.0) {
-							uv.x = IN.worldPos.x;
-							uv.y = IN.worldPos.y;
-						}
+						uv.y = IN.worldPos.y;
 					}
+				}
 
-					uv.x *= -_Scale;
-					uv.y *= -_Scale;
-
-#else
-					uv = IN.uv_MainTex;
+				uv.x *= -_Scale;
+				uv.y *= -_Scale;
 #endif
 
-					//HightMap
-					half hMap = (IN.worldPos.y);
-					hMap -= _ZfadeStart;
-					hMap *= _ZfadeScale;
-					hMap = lerp(1, hMap, _ZfadeAdmount);
-					hMap = clamp(hMap, 0, 1);
+				//HightMap
+				half hMap = (IN.worldPos.y);
+				hMap -= _ZfadeStart;
+				hMap *= _ZfadeScale;
+				hMap = lerp(1, hMap, _ZfadeAdmount);
+				hMap = clamp(hMap, 0, 1);
 
-					fixed4 tex = tex2D(_MainTex, uv) * _MainColor;
-					fixed4 texTwo = tex2D(_ZfadeTexture, uv) * _ZfadeColor;
-					o.Albedo = lerp(texTwo.rgb, tex.rgb, hMap);
-					o.Normal = UnpackNormal(tex2D(_BumpMap, uv));
-					o.Emission = tex2D(_Emission, uv);
-				}
+				fixed4 tex = tex2D(_MainTex, uv) * _MainColor;
+				fixed4 texTwo = tex2D(_ZfadeTexture, uv) * _ZfadeColor;
+				o.Albedo = lerp(texTwo.rgb, tex.rgb, hMap);
+				o.Normal = UnpackNormal(tex2D(_BumpMap, uv));
+				o.Emission = tex2D(_Emission, uv);
+			}
 
-				half4 _SpecularColor;
-				float _Specular;
+			half4 _SpecularColor;
+			float _Specular;
 
-				//Lightning
-				half4 LightingRobert(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten) {
+			//Lightning
+			half4 LightingRobert(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten) {
 
-					//Light
-					half NdotL = dot(s.Normal, lightDir);
-					half diff = NdotL * 0.5 + 0.5;
+				//Light
+				half NdotL = dot(s.Normal, lightDir);
+				half diff = NdotL * 0.5 + 0.5;
 
 
-					half3 h = normalize(lightDir + viewDir);
-					float nh = max(0, dot(s.Normal, h));
-					float spec = pow(nh, _Specular);
-					spec = round(spec) * atten;
+				half3 h = normalize(lightDir + viewDir);
+				float nh = max(0, dot(s.Normal, h));
+				float spec = pow(nh, _Specular);
+				spec = round(spec) * atten;
 
-					//Ramp
-					float ramp = smoothstep(0.5, 0.7, diff);
-					float rampTwo = smoothstep(0.8, 0.85, diff);
-					ramp += rampTwo;
-					ramp *= 0.5;
+				//Ramp
+				float ramp = smoothstep(0.5, 0.7, diff);
+				float rampTwo = smoothstep(0.8, 0.85, diff);
+				ramp += rampTwo;
+				ramp *= 0.5;
 
-					float fakeAtten = smoothstep(0, 1, atten);
-					ramp *= fakeAtten;
+				float fakeAtten = smoothstep(0, 1, atten);
+				ramp *= fakeAtten;
 
-					//Set light color
-					half4 c;
-					c.rgb = (s.Albedo * _LightColor0.rgb * ramp + _LightColor0.rgb * spec * _SpecularColor);
-					c.a = s.Alpha;
-					return c;
-				}
-				ENDCG
+				//Set light color
+				half4 c;
+				c.rgb = (s.Albedo * _LightColor0.rgb * ramp + _LightColor0.rgb * spec * _SpecularColor);
+				c.a = s.Alpha;
+				return c;
+			}
+			ENDCG
 		}
 			FallBack "Bumped Specular"
 }
