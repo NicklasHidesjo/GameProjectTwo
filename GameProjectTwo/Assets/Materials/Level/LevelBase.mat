@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: celOne
-  m_Shader: {fileID: 4800000, guid: f9001113e63de4d4e86080b83efd600a, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: eb897f41e468d0d4086261dc6acab7f5, type: 3}
+  m_ShaderKeywords: UseWorldUV
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -39,12 +39,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emission:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 10309, guid: 0000000000000000f000000000000000, type: 0}
+        m_Texture: {fileID: 2800000, guid: 8a7c546682140764cac31af8472c2fcf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -57,6 +61,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ZfadeTexture:
+        m_Texture: {fileID: 2800000, guid: 8a7c546682140764cac31af8472c2fcf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -73,17 +81,24 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Scale: 0.5
+    - _Scale: 0.2
     - _SmoothnessTextureChannel: 0
-    - _Specular: 47.8
+    - _Specular: 75
     - _SpecularHighlights: 1
     - _SpecularStr: 0
     - _SrcBlend: 1
     - _UVSec: 0
+    - _UseWorldUV: 1
     - _WindQuality: 0
     - _ZWrite: 1
+    - _ZfadeAdmount: 1
+    - _ZfadeScale: 0.1
+    - _ZfadeStart: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
+    - _MainColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - _SpecularColor: {r: 0.38679248, g: 0.38131902, b: 0.38131902, a: 0}
+    - _ZfadeColor: {r: 0.3764706, g: 0.32156864, b: 0.2509804, a: 0}
   m_BuildTextureStacks: []

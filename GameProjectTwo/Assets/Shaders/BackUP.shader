@@ -1,4 +1,4 @@
-Shader "Roberts/WorldUV" {
+Shader "Roberts/BackUPWorldUV" {
 
 	//THX. Unityforum @Setsuki (world scale normal)
 	//THX. Keijiro Takahashi (toggle)
@@ -12,8 +12,8 @@ Shader "Roberts/WorldUV" {
 
 		[Header(Basic Color)]
 		_MainColor("Color", Color) = (0.5,0.5,0.5,0)
-		_MainTex("Texture", 2D) = "white" {}
-		_BumpMap("Normalmap", 2D) = "bump" {}
+		_MainTexture("Textue", 2D) = "white" {}
+		_NormalMap("Normalmap", 2D) = "bump" {}
 
 		[Header(Specular)]
 		_SpecularColor("SpcularColor", Color) = (0,0,0,0)
@@ -22,9 +22,9 @@ Shader "Roberts/WorldUV" {
 		[Header(Basic Color)]
 		_Emission("Lumination", 2D) = "black"{}
 		[Header(ZFade)]
-		_ZfadeColor("HColor", Color) = (0.376,0.322,0.251,0)
+		_ZfadeColor("HColor", Color) = (1,1,1,0)
 		_ZfadeTexture("HTexture", 2D) = "white" {}
-		_ZfadeAdmount("HAdmount", Range(0.0,1.0)) = 1.0
+		_ZfadeAdmount("HAdmount", Range(0.0,1.0)) = 0.0
 		_ZfadeStart("MinHight", Range(-10.0,10.0)) = 0.0
 		_ZfadeScale("Hscale", Range(0.0,1.0)) = 0.1
 	}
@@ -44,8 +44,8 @@ Shader "Roberts/WorldUV" {
 				half _Scale;
 
 				fixed4 _MainColor;
-				sampler2D _MainTex;
-				sampler2D _BumpMap;
+				sampler2D _MainTexture;
+				sampler2D _NormalMap;
 
 				sampler2D _Emission;
 
@@ -58,12 +58,13 @@ Shader "Roberts/WorldUV" {
 				//Useing data
 				struct Input
 				{
-//					float4 color : COLOR;
-					float2 uv_MainTex;
-					float3 worldPos;
-					float3 worldNormal;
-					INTERNAL_DATA
-				};
+					//					float4 color : COLOR;
+										float2 uv_MainTex;
+										float2 uv_BumpMap;
+										float3 worldPos;
+										float3 worldNormal;
+										INTERNAL_DATA
+									};
 
 				//Surface Color
 				void surf(Input IN, inout SurfaceOutput o)
@@ -83,6 +84,8 @@ Shader "Roberts/WorldUV" {
 						if ((correctWorldNormal.x) < 0.0) {
 							uv.x = IN.worldPos.z;
 							uv.y = -IN.worldPos.y;
+
+
 						}
 					}
 					if (abs(correctWorldNormal.z) > 0.5) {
@@ -108,10 +111,10 @@ Shader "Roberts/WorldUV" {
 					hMap = lerp(1, hMap, _ZfadeAdmount);
 					hMap = clamp(hMap, 0, 1);
 
-					fixed4 tex = tex2D(_MainTex, uv) * _MainColor;
+					fixed4 tex = tex2D(_MainTexture, uv) * _MainColor;
 					fixed4 texTwo = tex2D(_ZfadeTexture, uv) * _ZfadeColor;
 					o.Albedo = lerp(texTwo.rgb, tex.rgb, hMap);
-					o.Normal = UnpackNormal(tex2D(_BumpMap, uv));
+					o.Normal = UnpackNormal(tex2D(_NormalMap, uv));
 					o.Emission = tex2D(_Emission, uv);
 				}
 
