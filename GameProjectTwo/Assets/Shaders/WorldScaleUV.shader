@@ -32,7 +32,7 @@ Shader "WorldUV/Bumped Diffuse" {
 				LOD 400
 
 				CGPROGRAM
-				#pragma surface surf Robert  
+				#pragma surface surf Robert  //noambient
 
 
 				struct Input
@@ -121,11 +121,12 @@ Shader "WorldUV/Bumped Diffuse" {
 					spec = round(spec) * atten;
 
 					//Ramp
-					diff -= _ExtCutOff;
 					diff *= atten;
+					diff -= _ExtCutOff;
 					float ramp = diff;
-					ramp = round(ramp * 2);
+					ramp = floor(0.9 + ramp * 2);
 					ramp *= 0.5;
+
 
 					//set light
 					half4 c;

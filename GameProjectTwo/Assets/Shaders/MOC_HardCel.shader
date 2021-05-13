@@ -34,7 +34,7 @@ Shader "Roberts/MOC_HardArtist" {
 		SubShader{
 			Tags { "RenderType" = "Opaque" }
 			CGPROGRAM
-			#pragma surface surf Robert addshadow fullforwardshadows //noambient
+			#pragma surface surf Robert //addshadow fullforwardshadows //noambient
 
 			float _Cel;
 			half4 _SpColor;
@@ -65,9 +65,8 @@ Shader "Roberts/MOC_HardArtist" {
 				//Ramp
 				diff -= _ExtCutOff;
 				diff *= atten;
-				float ramp = diff ;
-
-				ramp = round(ramp * 2);
+				float ramp = diff;
+				ramp = floor(0.9 + ramp * 2);
 				ramp *= 0.5;
 				
 				half4 c;
