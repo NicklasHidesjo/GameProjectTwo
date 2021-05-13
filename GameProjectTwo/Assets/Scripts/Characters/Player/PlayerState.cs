@@ -34,12 +34,14 @@ public class PlayerState : MonoBehaviour
     private PlayerManager playerManeger;
     private DraculaMovement draculaMovement;
     private BatMovement batMovement;
+    private OverShoulderCam cam;
 
-    public void SetScipts(PlayerManager playerManeger, DraculaMovement draculaMovement, BatMovement batMovement)
+    public void SetScipts(PlayerManager playerManeger, DraculaMovement draculaMovement, BatMovement batMovement, OverShoulderCam cam)
     {
         this.playerManeger = playerManeger;
         this.draculaMovement = draculaMovement;
         this.batMovement = batMovement;
+        this.cam = cam;
     }
 
     public playerStates GetCurrentState()
@@ -57,7 +59,9 @@ public class PlayerState : MonoBehaviour
 
     public void UpdateByState()
     {
-     //   Debug.Log("<color=yellow> in state : </color>" + CurrentState);
+        //   Debug.Log("<color=yellow> in state : </color>" + CurrentState);
+
+        cam.UpdateCamPos();
 
         switch (playerState)
         {

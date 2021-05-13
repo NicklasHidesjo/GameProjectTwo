@@ -108,7 +108,10 @@ public class PlayerManager : MonoBehaviour
         batMovement.Init(playerState);
         batGO.SetActive(false);
 
-        playerState.SetScipts(this, draculaMovement, batMovement);
+
+        OverShoulderCam cam = FindObjectOfType<OverShoulderCam>();
+
+        playerState.SetScipts(this, draculaMovement, batMovement, cam);
     }
 
     private void PrepPlayerForNextLevel(int newLevel)
