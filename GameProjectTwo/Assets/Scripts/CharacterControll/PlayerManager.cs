@@ -7,7 +7,7 @@ using UnityEngine;
 //This is the playerManager it keeps decieds where and what should be spawned and inisialized
 //This is closely linked to "PlayerState"
 
-[RequireComponent(typeof(PlayerState))]
+[RequireComponent(typeof(OldPlayerState))]
 public class PlayerManager : MonoBehaviour
 {
     // singleton
@@ -26,8 +26,8 @@ public class PlayerManager : MonoBehaviour
 
     [SerializeField] LightSensor lightSensor;
 
-    private PlayerState playerState;
-    public PlayerState PlayerState => playerState;
+    private OldPlayerState playerState;
+    public OldPlayerState PlayerState => playerState;
 
     private GameObject draculaGO;
     private GameObject batGO;
@@ -52,7 +52,7 @@ public class PlayerManager : MonoBehaviour
         Init();
         GetHealthManager();
         SpawnNewPlayer();
-        playerState.SetState(PlayerState.playerStates.TransformToDracula);
+        playerState.SetState(PlayerStates.TransformToDracula);
         EndLevelCheck.OnLevelEnded += PrepPlayerForNextLevel;
     }
 
@@ -65,7 +65,7 @@ public class PlayerManager : MonoBehaviour
         playerPointTransform.GetComponent<MeshRenderer>().enabled = false;
 
         if (!playerState)
-            playerState = GetComponent<PlayerState>();
+            playerState = GetComponent<OldPlayerState>();
 
         if (!playerCam)
             playerCam = Camera.main;
@@ -141,7 +141,7 @@ public class PlayerManager : MonoBehaviour
         SetPooledActive(draculaGO);
 
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
-        playerState.SetState(PlayerState.playerStates.DraculaDefault);
+        playerState.SetState(PlayerStates.DraculaDefault);
     }
 
     public void ActivateBat()
@@ -153,7 +153,7 @@ public class PlayerManager : MonoBehaviour
         SetPooledActive(batGO);
         
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.high, spawnPoint);
-        playerState.SetState(PlayerState.playerStates.BatDefault);
+        playerState.SetState(PlayerStates.BatDefault);
     }
     
 

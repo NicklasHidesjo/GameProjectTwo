@@ -58,9 +58,9 @@ public class FieldOfView : MonoBehaviour
 		}
 		foreach (var player in playersDetected)
 		{
-			PlayerState.playerStates playerState = PlayerManager.instance.PlayerState.CurrentState;
+			PlayerStates playerState = PlayerManager.instance.PlayerState.CurrentState;
 
-			if (playerState == PlayerState.playerStates.DraculaHidden)
+			if (playerState == PlayerStates.DraculaHidden)
 			{
 				if (npc.SawHiding)
 				{
@@ -71,7 +71,7 @@ public class FieldOfView : MonoBehaviour
 				}
 				continue;
 			}
-			if (playerState == PlayerState.playerStates.BatDefault)
+			if (playerState == PlayerStates.BatDefault)
 			{
 				if (npc.SawTransforming)
 				{
@@ -99,29 +99,29 @@ public class FieldOfView : MonoBehaviour
 				npc.RaiseAlertness(true);
 				npc.TimeSinceLastSeenPlayer = 0;
 
-				if (playerState == PlayerState.playerStates.DraculaHideing)
+				if (playerState == PlayerStates.DraculaHideing)
 				{
 					npc.SawHiding = true;
 				}
-				else if (playerState != PlayerState.playerStates.DraculaHidden)
+				else if (playerState != PlayerStates.DraculaHidden)
 				{
 					npc.SawHiding = false;
 				}
-				if (playerState == PlayerState.playerStates.TransformToBat)
+				if (playerState == PlayerStates.TransformToBat)
 				{
 					npc.SawTransforming = true;
 				}
-				else if (playerState != PlayerState.playerStates.BatDefault)
+				else if (playerState != PlayerStates.BatDefault)
 				{
 					npc.SawTransforming = false;
 				}
 
 
-				if (playerState != PlayerState.playerStates.DraculaSucking &&
-					playerState != PlayerState.playerStates.TransformToDracula &&
-					playerState != PlayerState.playerStates.TransformToBat &&
-					playerState != PlayerState.playerStates.DraculaDragBody &&
-					playerState != PlayerState.playerStates.DraculaBurning)
+				if (playerState != PlayerStates.DraculaSucking &&
+					playerState != PlayerStates.TransformToDracula &&
+					playerState != PlayerStates.TransformToBat &&
+					playerState != PlayerStates.DraculaDragBody &&
+					playerState != PlayerStates.DraculaBurning)
 				{
 					return;
 				}

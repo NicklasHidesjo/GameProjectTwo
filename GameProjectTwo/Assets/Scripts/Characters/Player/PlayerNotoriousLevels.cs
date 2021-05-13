@@ -28,10 +28,10 @@ public class PlayerNotoriousLevels : MonoBehaviour
     //TODO : Remove
     public float GetPlayerNotoriousLerpLevel()
     {
-        if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.BatDefault)
+        if (PlayerManager.instance.PlayerState.CurrentState == PlayerStates.BatDefault)
             return 0;
 
-        if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHidden)
+        if (PlayerManager.instance.PlayerState.CurrentState == PlayerStates.DraculaHidden)
             return 0;
 
         return (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3;

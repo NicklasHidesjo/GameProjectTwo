@@ -6,31 +6,10 @@ using UnityEngine;
 //The player is also primarly updated via this script, hence a refrence to each playerScript is stored here.
 //The state is also changed by calling SetState();
 
-public class PlayerState : MonoBehaviour
+public class OldPlayerState : MonoBehaviour
 {
-
-    public enum playerStates
-    {
-        Stoped,
-        TransformToDracula,
-
-        DraculaDefault,
-        DraculaAirborne,
-        DraculaRunning,
-        DraculaCrouching,
-
-        DraculaDragBody,
-        DraculaHideing,
-        DraculaHidden,
-        DraculaSucking,
-        DraculaBurning,
-        
-        TransformToBat,
-        BatDefault
-    }
-
-    [SerializeField] playerStates playerState;
-    public playerStates CurrentState => playerState;
+    [SerializeField] PlayerStates playerState;
+    public PlayerStates CurrentState => playerState;
     private PlayerManager playerManeger;
     private DraculaMovement draculaMovement;
     private BatMovement batMovement;
@@ -42,14 +21,12 @@ public class PlayerState : MonoBehaviour
         this.batMovement = batMovement;
     }
 
-    public playerStates GetCurrentState()
+    public PlayerStates GetCurrentState()
     {
         return playerState;
-
-
     }
 
-    public void SetState(playerStates newState)
+    public void SetState(PlayerStates newState)
     {
         //Debug.Log("<color=red> SET STATE TO : </color>" + newState);
         playerState = newState;
@@ -61,66 +38,66 @@ public class PlayerState : MonoBehaviour
 
         switch (playerState)
         {
-            case playerStates.Stoped:
+            case PlayerStates.Stoped:
                 {
                     Debug.Log("Player Disabled");
                     break;
                 }
-            case playerStates.TransformToDracula:
+            case PlayerStates.TransformToDracula:
                 {
                     playerManeger.ActivateDracula();
                     break;
                 }
-            case playerStates.DraculaDefault:
+            case PlayerStates.DraculaDefault:
                 {
                     draculaMovement.Move();
                     break;
                 }
-            case playerStates.DraculaAirborne:
+            case PlayerStates.DraculaAirborne:
                 {
                     draculaMovement.Move();
                     break;
                 }
-            case playerStates.DraculaRunning:
+            case PlayerStates.DraculaRunning:
                 {
                     draculaMovement.Move();
                     break;
                 }
 
-            case playerStates.DraculaCrouching:
+            case PlayerStates.DraculaCrouching:
                 {
                     draculaMovement.Move();
                     break;
                 }
-            case playerStates.DraculaDragBody:
+            case PlayerStates.DraculaDragBody:
                 {
                     draculaMovement.DragBody();
                     break;
                 }
 
-            case playerStates.DraculaHideing:
+            case PlayerStates.DraculaHideing:
                 {
                     break;
                 }
-            case playerStates.DraculaHidden:
+            case PlayerStates.DraculaHidden:
                 {
                     break;
                 }
-            case playerStates.DraculaSucking:
+            case PlayerStates.DraculaSucking:
                 {
                     break;
                 }
-            case playerStates.DraculaBurning:
+            case PlayerStates.DraculaBurning:
                 {
                     draculaMovement.SunMove();
                     break;
                 }
-            case playerStates.TransformToBat:
+            case PlayerStates.TransformToBat:
                 {
                     playerManeger.ActivateBat();
                     break;
                 }
-            case playerStates.BatDefault:
+            case PlayerStates.BatDefault:
                 {
                     batMovement.Move();
                     break;

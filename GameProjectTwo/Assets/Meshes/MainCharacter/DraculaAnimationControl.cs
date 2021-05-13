@@ -33,13 +33,13 @@ public class DraculaAnimationControl : MonoBehaviour
             animState = animStates.run;
 
 
-        if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaSucking)
+        if (PlayerManager.instance.PlayerState.CurrentState == PlayerStates.DraculaSucking)
         {
             animState = animStates.suck;
         }
-        if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHideing ||
-            PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHidden ||
-            PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaDragBody)
+        if (PlayerManager.instance.PlayerState.CurrentState == PlayerStates.DraculaHideing ||
+            PlayerManager.instance.PlayerState.CurrentState == PlayerStates.DraculaHidden ||
+            PlayerManager.instance.PlayerState.CurrentState == PlayerStates.DraculaDragBody)
         {
             animState = animStates.pickUp;
         }

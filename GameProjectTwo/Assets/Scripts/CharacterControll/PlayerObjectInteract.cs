@@ -12,7 +12,7 @@ public class PlayerObjectInteract : MonoBehaviour
     InteractableScanner iScanner;
     Interactable interactable;
     Interactable heldInteractable;
-    public PlayerState playerState;
+    public OldPlayerState playerState;
     
 
     void Start()
@@ -49,16 +49,15 @@ public class PlayerObjectInteract : MonoBehaviour
         // Switch to check if state is valid for interaction
         switch (playerState.CurrentState)
         {
-
-            case PlayerState.playerStates.DraculaDefault:
+            case PlayerStates.DraculaDefault:
                 break;
-            case PlayerState.playerStates.DraculaRunning:
+            case PlayerStates.DraculaRunning:
                 break;
-            case PlayerState.playerStates.DraculaCrouching:
+            case PlayerStates.DraculaCrouching:
                 break;
-            case PlayerState.playerStates.DraculaDragBody:
+            case PlayerStates.DraculaDragBody:
                 break;
-            case PlayerState.playerStates.DraculaHidden:
+            case PlayerStates.DraculaHidden:
                 break;
             //case PlayerState.playerStates.DraculaSucking:
             //    break;
@@ -80,7 +79,7 @@ public class PlayerObjectInteract : MonoBehaviour
                     heldInteractable = D;
                     interactable.Interact(gameObject);
                     iScanner.RemoveInteractableFromList(heldInteractable);
-                    playerState.SetState(PlayerState.playerStates.DraculaDragBody);
+                    playerState.SetState(PlayerStates.DraculaDragBody);
                     break;
                 }
                 
@@ -98,14 +97,14 @@ public class PlayerObjectInteract : MonoBehaviour
                         heldInteractable.Interact(gameObject);
                         interactable.Interact(heldInteractable.gameObject);
                         heldInteractable = null;
-                        SetState(PlayerState.playerStates.DraculaDefault);
+                        SetState(PlayerStates.DraculaDefault);
                     }
                     else
                     {
-                        if (playerState.CurrentState == PlayerState.playerStates.DraculaHidden)
+                        if (playerState.CurrentState == PlayerStates.DraculaHidden)
                         {
                             Debug.Log("Leaving " + C.gameObject);
-                            playerState.SetState(PlayerState.playerStates.DraculaHideing);
+                            playerState.SetState(PlayerStates.DraculaHideing);
                             GetComponent<CharacterController>().enabled = true;                        
                             interactable.Interact(gameObject);
                         }
@@ -114,7 +113,7 @@ public class PlayerObjectInteract : MonoBehaviour
                             Debug.Log("Entering " + C.gameObject);
                             GetComponent<CharacterController>().enabled = false;                           
                             interactable.Interact(gameObject);
-                            playerState.SetState(PlayerState.playerStates.DraculaHideing);
+                            playerState.SetState(PlayerStates.DraculaHideing);
 
                         }
                     }
@@ -144,13 +143,13 @@ public class PlayerObjectInteract : MonoBehaviour
                 case DeadBody D:
                     heldInteractable.Interact(gameObject);
                     heldInteractable = null;
-                    playerState.SetState(PlayerState.playerStates.DraculaDefault);
+                    playerState.SetState(PlayerStates.DraculaDefault);
                     break;
 
                 case BloodSuckTarget B:
                     B.CancelSucking();
                     heldInteractable = null;
-                    playerState.SetState(PlayerState.playerStates.DraculaDefault);
+                    playerState.SetState(PlayerStates.DraculaDefault);
                     break;
 
                 default:
@@ -160,7 +159,7 @@ public class PlayerObjectInteract : MonoBehaviour
         }
     }
 
-    public void SetState(PlayerState.playerStates newState)
+    public void SetState(PlayerStates newState)
     {
         playerState.SetState(newState);
     }

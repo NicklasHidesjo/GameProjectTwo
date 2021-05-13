@@ -24,7 +24,7 @@ public class BatMovement : MonoBehaviour
     [Header("GRFX")]
     [SerializeField] float bankAmount = 30;
 
-    private PlayerState playerState;
+    private OldPlayerState playerState;
 
     //Movent Vector
     private Vector3 playerVelocity;
@@ -38,7 +38,7 @@ public class BatMovement : MonoBehaviour
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         //TODO : Set back to Dracula
-        playerState.SetState(PlayerState.playerStates.TransformToDracula);
+        playerState.SetState(PlayerStates.TransformToDracula);
     }
 
     private void Start()
@@ -67,7 +67,7 @@ public class BatMovement : MonoBehaviour
         
         if(Input.GetButtonDown("TransformShape") || PlayerManager.instance.StatsManager.CurrentStamina <= 0)
         {
-            playerState.SetState(PlayerState.playerStates.TransformToDracula);
+            playerState.SetState(PlayerStates.TransformToDracula);
         }
 
 
@@ -80,41 +80,37 @@ public class BatMovement : MonoBehaviour
         }
         */
     }
-    public void Init(PlayerState playerState)
+    public void Init(OldPlayerState playerState)
     {
         this.playerState = playerState;
     }
 
-    public void StartMove(Vector3 direction, PlayerState plState)
+    public void StartMove(Vector3 direction, OldPlayerState plState)
     {
         playerVelocity = direction;
         transform.forward = direction;
-        this.playerState = plState;
+        playerState = plState;
     }
 
     public void Move()
     {
-
         playerVelocity = BatControl();
         controller.Move(playerVelocity * Time.fixedDeltaTime);
         SetFaceForward();
 
         DebugRays();
     }
-
     private void SetFaceForward()
     {
         transform.rotation = Quaternion.LookRotation(playerVelocity) * Quaternion.Euler(0,0, -bankAmount * Input.GetAxis("Horizontal"));
     }
-
     Vector3 BatControl()
     {
         Vector3 controllerDir = Quaternion.Euler(0, Input.GetAxis("Horizontal") * steerSpeed * Time.fixedDeltaTime, 0) * transform.forward;
         controllerDir = (controllerDir) * flySpeed;
         controllerDir.y = SphareCastGround();
         return controllerDir;
-    }
-    
+    } 
     float SphareCastGround()
     {
         RaycastHit hit;

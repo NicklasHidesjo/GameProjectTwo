@@ -58,13 +58,13 @@ public class Container : Interactable
         if (playerInside)
         {         
             playerInside = false;   
-            StartCoroutine(MoveTowardsPosition(player.transform, gameObject.transform.position + gameObject.transform.forward * 2F, 1f, PlayerState.playerStates.DraculaDefault));
+            StartCoroutine(MoveTowardsPosition(player.transform, gameObject.transform.position + gameObject.transform.forward * 2F, 1f, PlayerStates.DraculaDefault));
 
         }
         else
         {
             playerInside = true;           
-            StartCoroutine(MoveTowardsPosition(player.transform, transform.position, 1f, PlayerState.playerStates.DraculaHidden));
+            StartCoroutine(MoveTowardsPosition(player.transform, transform.position, 1f, PlayerStates.DraculaHidden));
         }
     }
 
@@ -91,7 +91,7 @@ public class Container : Interactable
     }
 
     // To Move Player
-    IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time, PlayerState.playerStates state)
+    IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time, PlayerStates state)
     {
         
         if (time == 0f)
@@ -113,9 +113,9 @@ public class Container : Interactable
         SetState(state);
     }
 
-    public void SetState(PlayerState.playerStates newState)
+    public void SetState(PlayerStates newState)
     {
-        PlayerManager.instance.GetComponent<PlayerState>().SetState(newState);       
+        PlayerManager.instance.GetComponent<OldPlayerState>().SetState(newState);       
     }
 
 }

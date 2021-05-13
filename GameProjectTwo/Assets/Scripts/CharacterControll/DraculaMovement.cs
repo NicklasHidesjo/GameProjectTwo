@@ -22,7 +22,7 @@ public class DraculaMovement : MonoBehaviour
     //Movent Vector
     private Vector3 playerVelocity;
     private bool jump;
-    private PlayerState playerState;
+    private OldPlayerState playerState;
 
     private float speed;
     private bool grounded;
@@ -59,11 +59,11 @@ public class DraculaMovement : MonoBehaviour
 
         if (Input.GetButtonDown("TransformShape"))
         {
-            playerState.SetState(PlayerState.playerStates.TransformToBat);
+            playerState.SetState(PlayerStates.TransformToBat);
         }
     }
 
-    public void Init(PlayerState playerState, Transform cam)
+    public void Init(OldPlayerState playerState, Transform cam)
     {
         this.playerState = playerState;
         this.alignTo = cam;
@@ -105,7 +105,7 @@ public class DraculaMovement : MonoBehaviour
             {
                 if (controller.height != 0.5f)
                 {
-                    playerState.SetState(PlayerState.playerStates.DraculaCrouching);
+                    playerState.SetState(PlayerStates.DraculaCrouching);
                     speed = crouchSpeed;
 
                     controller.radius = 0.25f;
@@ -126,15 +126,15 @@ public class DraculaMovement : MonoBehaviour
                 {
                     if (speed != runSpeed)
                     {
-                        playerState.SetState(PlayerState.playerStates.DraculaRunning);
+                        playerState.SetState(PlayerStates.DraculaRunning);
                         speed = runSpeed;
                     }
                 }
                 else
                 {
-                    if (playerState.GetCurrentState() != PlayerState.playerStates.DraculaDefault)
+                    if (playerState.GetCurrentState() != PlayerStates.DraculaDefault)
                     {
-                        playerState.SetState(PlayerState.playerStates.DraculaDefault);
+                        playerState.SetState(PlayerStates.DraculaDefault);
                         speed = playerSpeed;
                     }
                 }
@@ -144,7 +144,7 @@ public class DraculaMovement : MonoBehaviour
         {
             if (grounded != controller.isGrounded)
             {
-                playerState.SetState(PlayerState.playerStates.DraculaAirborne);
+                playerState.SetState(PlayerStates.DraculaAirborne);
                 grounded = controller.isGrounded;
 
                 if (controller.height != 2)

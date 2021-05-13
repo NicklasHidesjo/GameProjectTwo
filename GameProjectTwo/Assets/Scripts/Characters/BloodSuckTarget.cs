@@ -23,7 +23,7 @@ public class BloodSuckTarget : Interactable
             npcController.GettingSucked = true;
             attacker = player;
             StartCoroutine(SuckingBlood(10, 1f));
-            player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaSucking);
+            player.GetComponent<PlayerObjectInteract>().SetState(PlayerStates.DraculaSucking);
             
         }
         else
@@ -62,7 +62,7 @@ public class BloodSuckTarget : Interactable
         KillNPC();
 
         //Debug.Log("no longer sucking!");
-        attacker.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaDefault);
+        attacker.GetComponent<PlayerObjectInteract>().SetState(PlayerStates.DraculaDefault);
         AudioManager.instance.PlaySound(SoundType.DraculaDrinkDone);
 
     }

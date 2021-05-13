@@ -6,14 +6,14 @@ public class DirectionToLair : MonoBehaviour
 {
     SpriteRenderer lairFinder;
     Transform target;
-    PlayerState playerState;
+    OldPlayerState playerState;
     PlayerManager playerManager;
     // Start is called before the first frame update
     void Awake()
     {
         lairFinder = gameObject.GetComponent<SpriteRenderer>();
         target = GameObject.FindGameObjectWithTag("Lair").transform;
-        playerState = transform.parent.GetComponent<PlayerState>();
+        playerState = transform.parent.GetComponent<OldPlayerState>();
         playerManager = transform.parent.GetComponent<PlayerManager>();
 
     }

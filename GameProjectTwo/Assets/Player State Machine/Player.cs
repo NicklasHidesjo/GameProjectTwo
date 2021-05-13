@@ -1,0 +1,81 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player : MonoBehaviour, IPlayer
+{
+	[SerializeField] PlayerStats stats;
+
+	[SerializeField] GameObject dracula;
+	[SerializeField] GameObject bat;
+
+	private PlayerStatsManager statsManager;
+
+	public PlayerStats Stats => stats;
+
+	public PlayerStates currentState { get; set; }
+
+	private CharacterController controller;
+	public CharacterController Controller => controller;
+
+	public Transform Transform => transform;
+
+	private Transform alingCamera;
+	public Transform AlignCamera => alingCamera;
+
+	public float Speed { get; set; }
+	public float CurrentStamina { get; set; }
+
+	public bool InSun { get; set; }
+
+	public bool IsDead { get; set; }
+
+	public float StateTime { get; set; }
+
+	public bool LeaveBat { get; set; }
+
+	private void Awake()
+	{
+		controller = GetComponent<CharacterController>();
+		statsManager = GetComponent<PlayerStatsManager>();
+		alingCamera = Camera.main.transform;
+
+		bat.SetActive(false);
+		dracula.SetActive(true);
+
+		CurrentStamina = stats.MaxStamina;
+	}
+
+	private void OnControllerColliderHit(ControllerColliderHit hit)
+	{
+		LeaveBat = true;
+	}
+
+	public void ActivateBatForm()
+	{
+		dracula.SetActive(false);
+		bat.SetActive(true);
+	}
+	public void ActivateDraculaForm()
+	{
+		var rotation = transform.rotation;
+		rotation.x = 0;
+		rotation.z = 0;
+		transform.rotation = rotation;
+
+		dracula.SetActive(true);
+		bat.SetActive(false);
+	}
+
+	public void DecreaseStamina(float decrease)
+	{
+		CurrentStamina = Mathf.Clamp(CurrentStamina - (decrease * Time.deltaTime), 0, stats.MaxStamina);
+		statsManager.SetStaminaBar(CurrentStamina);
+	}
+	// make this vary based on the state that the player is in (for example Idle will increase stamina faster then walking)
+	public void RecoverStamina(float increase)
+	{
+		CurrentStamina = Mathf.Clamp(CurrentStamina + (increase * Time.deltaTime), 0, stats.MaxStamina);
+		statsManager.SetStaminaBar(CurrentStamina);
+	}
+}
