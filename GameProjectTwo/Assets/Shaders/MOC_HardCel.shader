@@ -34,7 +34,7 @@ Shader "Roberts/MOC_HardArtist" {
 		SubShader{
 			Tags { "RenderType" = "Opaque" }
 			CGPROGRAM
-			#pragma surface surf Robert addshadow fullforwardshadows //noambient
+			#pragma surface surf Robert //addshadow fullforwardshadows //noambient
 
 			float _Cel;
 			half4 _SpColor;
@@ -54,7 +54,7 @@ Shader "Roberts/MOC_HardArtist" {
 
 				float nh = max(0, dot(s.Normal, h));
 				float spec = pow(nh, _Specular);
-				spec = round(spec);
+				spec = round(spec * atten);
 
 				//Rim
 				half rim = 1- saturate(dot(normalize(viewDir), s.Normal));
@@ -64,24 +64,13 @@ Shader "Roberts/MOC_HardArtist" {
 
 				//Ramp
 				diff -= _ExtCutOff;
+				diff *= atten;
 				float ramp = diff;
-				float rampTwo = diff;
-
-				ramp = clamp(diff , 0.0, 0.01) * 50;// smoothstep(0.0, 0.1, diff);
-				diff -= 0.5;
-				rampTwo = clamp(diff, 0.0, 0.01) * 50;// smoothstep(_ExtCutOff, 1, diff);
-				ramp += rampTwo;
-
-
-				//Blend
-				diff = lerp(ramp , diff, _Cel);
-				diff = lerp(ramp * atten , .5, rim);
+				ramp = floor(0.9 + ramp * 2);
+				ramp *= 0.5;
 				
 				half4 c;
-				///c.rgb = rim;
-
-				c.rgb = (s.Albedo * _LightColor0.rgb * diff + _LightColor0.rgb * spec * _SpColor);
-				//c.rgb = lerp(c.rgb, s.Albedo* 0.5, rim);
+				c.rgb = (s.Albedo * _LightColor0.rgb * ramp + _LightColor0.rgb * spec * _SpColor);
 				c.a = s.Alpha;
 				return c;
 			}
