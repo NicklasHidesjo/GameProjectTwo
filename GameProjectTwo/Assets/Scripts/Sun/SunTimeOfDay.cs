@@ -6,6 +6,7 @@ public class SunTimeOfDay : MonoBehaviour
 {
     [SerializeField] float sunLightAngle = 30;
     [SerializeField] float timeOfDay = 0f;
+    [SerializeField] float intensetyMultiplyer = 4.0f;
     private Coroutine runningClock;
     private Coroutine animClock;
 
@@ -105,13 +106,15 @@ public class SunTimeOfDay : MonoBehaviour
 
     private void EnableDisableByAngle()
     {
-        if(Vector3.Dot(Vector3.up, transform.forward) > 0)
+        float d = Vector3.Dot(Vector3.down, transform.forward);
+        if(d < 0)
         {
             GetComponent<Light>().enabled = false;
         }
         else
         {
             GetComponent<Light>().enabled = true;
+            GetComponent<Light>().intensity = d * intensetyMultiplyer;
         }
     }
 }
