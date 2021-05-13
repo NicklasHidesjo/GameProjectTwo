@@ -32,7 +32,7 @@ Shader "WorldUV/Bumped Diffuse" {
 					LOD 400
 
 					CGPROGRAM
-					#pragma surface surf Robert
+					#pragma surface surf Robert fullforwardshadows noambient
 
 
 					struct Input
@@ -100,8 +100,7 @@ Shader "WorldUV/Bumped Diffuse" {
 							fixed4 texTwo = tex2D(_HTex, uv) * _HColor;
 
 							//lerp(tex2D(_HTex, IN.uv_MainTex).rgb * _HColor, tex2D(_MainTex, IN.uv_MainTex).rgb * _MainColor.rgb, hMap)
-
-							o.Albedo = IN.color * lerp( texTwo.rgb, tex.rgb, hMap);
+						o.Albedo = IN.color;// *lerp(texTwo.rgb, tex.rgb, hMap);
 							o.Normal = UnpackNormal(tex2D(_BumpMap, uv));
 					}
 
@@ -114,9 +113,11 @@ Shader "WorldUV/Bumped Diffuse" {
 					half4 LightingRobert(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten) {
 						
 						//Light
+						half NdotL = dot(s.Normal, lightDir);
+						half diff = NdotL * 0.5 + 0.5;
+						
+						
 						half3 h = normalize(lightDir + viewDir);
-						half diff = max(0, dot(s.Normal, lightDir));
-
 						float nh = max(0, dot(s.Normal, h));
 						float spec = pow(nh, _Specular);
 						spec = round(spec);
@@ -133,10 +134,12 @@ Shader "WorldUV/Bumped Diffuse" {
 
 						diff = ramp + rampTwo;
 						//set light
+						
 						half4 c;
-
-						c.rgb = (s.Albedo * _LightColor0.rgb * diff + _LightColor0.rgb * spec * _SpColor);
-						c.a = s.Alpha;
+						
+						c.rgb = (s.Albedo * _LightColor0.rgb * diff + _LightColor0.rgb * spec * _SpColor) * atten;
+//						c.rgb = s.Albedo * _LightColor0.rgb * atten;
+						c.a = 0;// s.Alpha;
 						return c;
 					}
 
