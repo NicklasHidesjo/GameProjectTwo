@@ -11,7 +11,7 @@ Shader "Roberts/WorldUV" {
 		_Scale("UV scale", Range(0.01,1)) = 0.2
 
 		[Header(Basic Color)]
-		_MainColor("Color", Color) = (0.5,0.5,0.5,0)
+		_MainColor("Color", Color) = (1,1,1,0)
 		_MainTex("Texture", 2D) = "white" {}
 		_BumpMap("Normalmap", 2D) = "bump" {}
 
