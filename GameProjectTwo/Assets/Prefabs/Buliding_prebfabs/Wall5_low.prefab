@@ -92,7 +92,6 @@ GameObject:
   - component: {fileID: 8699318116625743530}
   - component: {fileID: 5279902611170447063}
   - component: {fileID: 3812672463553919847}
-  - component: {fileID: 7616114503646528756}
   - component: {fileID: 5653448824328651133}
   m_Layer: 0
   m_Name: Wall5_woodplank1_low
@@ -164,20 +163,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &7616114503646528756
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2772345294854923648}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7054136665842018197, guid: bd693e72bd1db8a46a8c5f52e8113f79, type: 3}
 --- !u!65 &5653448824328651133
 BoxCollider:
   m_ObjectHideFlags: 0
