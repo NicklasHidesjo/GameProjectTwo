@@ -10,8 +10,11 @@ public class NPCSpawner : MonoBehaviour
 	[SerializeField] NPC guard;
 	[SerializeField] NPC stationaryGuard;
 	[SerializeField] SpawnPath[] civilianSpawnPos;
-	[SerializeField] SpawnPath[] guardSpawnPos;
+	[SerializeField] SpawnPath[] stationaryCivSpawnPos;
+	[SerializeField] SpawnPath[] stationaryGuardSpawnPos;
+ 	[SerializeField] SpawnPath[] guardSpawnPos;
 
+	[SerializeField] int startCivilians = 5;
 	[SerializeField] private int civilianPoolSize = 5;
 	[SerializeField] private float respawnRate = 5f;
 
@@ -33,7 +36,8 @@ public class NPCSpawner : MonoBehaviour
 
 
 	List<NPC> activeCivs = new List<NPC>();
-	List<NPC> inactiveCivs = new List<NPC>();	
+	List<NPC> inactiveCivs = new List<NPC>();
+	List<NPC> stationaryCivs = new List<NPC>();
 	
 	List<NPC> activeGuards= new List<NPC>();
 	List<NPC> inactiveGuards = new List<NPC>();
@@ -44,45 +48,6 @@ public class NPCSpawner : MonoBehaviour
 		InitializeNPCs();
 	}
 
-	private void InitializeNPCs()
-	{
-		foreach (var npc in inactiveCivs)
-		{
-			List<PathPoint> path;
-			Transform currentSpawn;
-
-			if(npc.Stationary)
-			{
-				currentSpawn = npc.startingPath.SpawnPos;
-				path = null;
-			}
-			else
-			{
-				int i = Random.Range(0, civilianSpawnPos.Length);
-				currentSpawn = civilianSpawnPos[i].SpawnPos;
-				path = civilianSpawnPos[i].GetPath().ToList();
-			}
-
-			activeCivs.Add(npc);
-
-			npc.transform.position = currentSpawn.position;
-			npc.gameObject.SetActive(true);
-			npc.InitializeNPC(path);
-		}
-		inactiveCivs.Clear();
-
-		foreach (var npc in inactiveGuards)
-		{
-			activeGuards.Add(npc);
-			npc.transform.position = npc.startingPath.SpawnPos.position;
-			npc.gameObject.SetActive(true);
-			npc.InitializeNPC(npc.startingPath.GetPath(), npc.startingPath.BackTrack);
-		}
-		inactiveGuards.Clear();
-
-		respawnTimerCivilian = 0f;
-		respawnTimerGuard = 0f;
-	}
 
 	private void InstantiateNPCs()
 	{
@@ -92,24 +57,25 @@ public class NPCSpawner : MonoBehaviour
 		}
 		foreach (var spawnPoint in civilianSpawnPos)
 		{
-			if (spawnPoint.Stationary)
-			{
-				CreateStationaryNPC(true, spawnPoint);
-			}
+			CreateStationaryNPC(true, spawnPoint);
 		}
 
 		foreach (var spawnPoint in guardSpawnPos)
 		{
-			if(spawnPoint.Stationary)
-			{
-				CreateStationaryNPC(false, spawnPoint);
-				continue;
-			}
-
 			for (int i = 0; i < spawnPoint.NumOfGuards; i++)
 			{
 				CreateNPC(false, spawnPoint);
 			}
+		}
+
+		foreach (var spawnPoint in stationaryCivSpawnPos)
+		{
+			CreateStationaryNPC(true, spawnPoint);
+		}
+
+		foreach (var spawnPoint in stationaryGuardSpawnPos)
+		{
+			CreateStationaryNPC(false, spawnPoint);
 		}
 	}
 	private void CreateNPC(bool isCivilian, SpawnPath startingPath = null)
@@ -117,7 +83,7 @@ public class NPCSpawner : MonoBehaviour
 		NPC npc;
 		if (isCivilian)
 		{
-			Transform currentSpawn = civilianSpawnPos[Random.Range(0,civilianSpawnPos.Length)].SpawnPos;
+			Transform currentSpawn = civilianSpawnPos[Random.Range(0, civilianSpawnPos.Length)].SpawnPos;
 			npc = Instantiate(civilian, currentSpawn.position, Quaternion.identity, transform);
 			inactiveCivs.Add(npc);
 		}
@@ -146,6 +112,73 @@ public class NPCSpawner : MonoBehaviour
 		}
 		npc.gameObject.SetActive(false);
 	}
+
+
+	private void InitializeNPCs()
+	{
+		List<PathPoint> path;
+		Transform currentSpawn;
+
+		for (int i = 0; i < startCivilians; i++)
+		{
+			int j = Random.Range(0, civilianSpawnPos.Length);
+			currentSpawn = civilianSpawnPos[j].SpawnPos;
+			path = civilianSpawnPos[j].GetPath().ToList();
+
+			activeCivs.Add(inactiveCivs[i]);
+
+			inactiveCivs[i].transform.position = currentSpawn.position;
+			inactiveCivs[i].gameObject.SetActive(true);
+			inactiveCivs[i].InitializeNPC(path);
+
+			inactiveCivs[i] = null;
+		}
+		inactiveCivs.RemoveAll(civ => civ == null);
+
+		foreach (var npc in stationaryCivs)
+		{
+			currentSpawn = npc.startingPath.SpawnPos;
+			path = null;
+
+			npc.transform.position = currentSpawn.position;
+			npc.gameObject.SetActive(true);
+			npc.InitializeNPC(path);
+		}
+/*		foreach (var npc in inactiveCivs)
+		{
+			if(npc.Stationary)
+			{
+				currentSpawn = npc.startingPath.SpawnPos;
+				path = null;
+			}
+			else
+			{
+				int i = Random.Range(0, civilianSpawnPos.Length);
+				currentSpawn = civilianSpawnPos[i].SpawnPos;
+				path = civilianSpawnPos[i].GetPath().ToList();
+			}
+
+			activeCivs.Add(npc);
+
+			npc.transform.position = currentSpawn.position;
+			npc.gameObject.SetActive(true);
+			npc.InitializeNPC(path);
+		}
+		inactiveCivs.Clear();*/
+
+		foreach (var npc in inactiveGuards)
+		{
+			activeGuards.Add(npc);
+			npc.transform.position = npc.startingPath.SpawnPos.position;
+			npc.gameObject.SetActive(true);
+			npc.InitializeNPC(npc.startingPath.GetPath(), npc.startingPath.BackTrack);
+		}
+		inactiveGuards.Clear();
+
+		respawnTimerCivilian = 0f;
+		respawnTimerGuard = 0f;
+	}
+
 
 	private void Update()
 	{
