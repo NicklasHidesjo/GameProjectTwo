@@ -7,9 +7,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Window_wood
+  m_Name: LevelBase
   m_Shader: {fileID: 4800000, guid: eb897f41e468d0d4086261dc6acab7f5, type: 3}
-  m_ShaderKeywords: 
+  m_ShaderKeywords: UseWorldUV
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -19,16 +19,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Amb:
-        m_Texture: {fileID: 2800000, guid: 999f1b00347bbac42b0698ccc2f59cf5, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 49254bf9b8943f944a445c01a5dc7488, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Cube:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 9ee9e008426fc3248a4e7fab5aad1789, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -43,6 +35,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _DetailTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Emission:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -51,12 +47,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _HTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: bddfb3e0750c5f54ca7c60c84bee6ed8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8a7c546682140764cac31af8472c2fcf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -72,37 +64,32 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ZfadeTexture:
-        m_Texture: {fileID: 2800000, guid: bddfb3e0750c5f54ca7c60c84bee6ed8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 8a7c546682140764cac31af8472c2fcf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
     - _Cel: 0
-    - _CelGray: 0
+    - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _HmapA: 0
-    - _Hscale: 0.1
     - _Metallic: 0
-    - _MinH: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ReflectPure: 0
-    - _RimPower: 3
-    - _RimReflPower: 3
     - _Scale: 0.2
     - _SmoothnessTextureChannel: 0
-    - _Specular: 94.6
+    - _Specular: 75
     - _SpecularHighlights: 1
-    - _SpecularStr: 0.137
+    - _SpecularStr: 0
     - _SrcBlend: 1
     - _UVSec: 0
-    - _UseWorldUV: 0
+    - _UseWorldUV: 1
+    - _WindQuality: 0
     - _ZWrite: 1
     - _ZfadeAdmount: 1
     - _ZfadeScale: 0.1
@@ -110,11 +97,8 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HColor: {r: 1, g: 1, b: 1, a: 0}
+    - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
     - _MainColor: {r: 1, g: 1, b: 1, a: 0}
-    - _ReflectColor: {r: 0, g: 0, b: 0, a: 0}
-    - _RimColor: {r: 0, g: 0, b: 0, a: 0}
-    - _SpColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 0}
-    - _SpecularColor: {r: 0, g: 0, b: 0, a: 0}
-    - _ZfadeColor: {r: 0.376, g: 0.322, b: 0.251, a: 0}
+    - _SpecularColor: {r: 0.38679248, g: 0.38131902, b: 0.38131902, a: 0}
+    - _ZfadeColor: {r: 0.3764706, g: 0.32156864, b: 0.2509804, a: 0}
   m_BuildTextureStacks: []
