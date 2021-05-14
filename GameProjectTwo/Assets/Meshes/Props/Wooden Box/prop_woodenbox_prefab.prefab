@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3888105384796639943}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3888105384796639943
 Transform:
@@ -41,12 +41,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4749504536101743003}
   - component: {fileID: 7444189465388627258}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: metal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4749504536101743003
 Transform:
@@ -128,12 +128,12 @@ GameObject:
   - component: {fileID: 2236757423985243476}
   - component: {fileID: 6014486257474346128}
   - component: {fileID: 6910780827777315212}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wood frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2236757423985243476
 Transform:
@@ -233,12 +233,13 @@ GameObject:
   m_Component:
   - component: {fileID: 5279773943568106073}
   - component: {fileID: 682157620485290806}
-  m_Layer: 0
+  - component: {fileID: 8385079207759403844}
+  m_Layer: 8
   m_Name: prop_woodenbox_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5279773943568106073
 Transform:
@@ -279,6 +280,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!208 &8385079207759403844
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4759837244079855843}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.5, y: 2, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &4937161167991610735
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,12 +305,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9178281641186085125}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9178281641186085125
 Transform:
@@ -319,12 +336,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5589862253441813766}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: box_top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5589862253441813766
 Transform:
@@ -349,12 +366,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8592986643547823417}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: box_bottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8592986643547823417
 Transform:
@@ -387,7 +404,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7727620269485973420
 Transform:
@@ -445,7 +462,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &10761202633854973
 Transform:
@@ -534,12 +551,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4850932783693410791}
   - component: {fileID: 4888698003788109975}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wood inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4850932783693410791
 Transform:
@@ -620,12 +637,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1773804054670155649}
   - component: {fileID: 702570254621880614}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: wood outside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1773804054670155649
 Transform:

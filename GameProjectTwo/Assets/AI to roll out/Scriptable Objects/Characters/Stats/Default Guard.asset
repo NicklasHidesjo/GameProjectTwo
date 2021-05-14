@@ -28,7 +28,7 @@ MonoBehaviour:
   AlertedFOV: 120
   SearchAngle: 45
   SuspisciousSpeed: 1
-  WalkSpeed: 10
+  WalkSpeed: 2
   RunSpeed: 5
   SearchSpeed: 4
   FearSpeed: 0.2
