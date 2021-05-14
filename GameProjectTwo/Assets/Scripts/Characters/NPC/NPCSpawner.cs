@@ -55,10 +55,6 @@ public class NPCSpawner : MonoBehaviour
 		{
 			CreateNPC(true);
 		}
-		foreach (var spawnPoint in civilianSpawnPos)
-		{
-			CreateStationaryNPC(true, spawnPoint);
-		}
 
 		foreach (var spawnPoint in guardSpawnPos)
 		{
@@ -102,7 +98,7 @@ public class NPCSpawner : MonoBehaviour
 		{
 			npc = Instantiate(stationaryCivilian, startingPath.SpawnPos.position, startingPath.SpawnPos.rotation, transform);
 			npc.startingPath = startingPath;
-			inactiveCivs.Add(npc);
+			stationaryCivs.Add(npc);
 		}
 		else
 		{
@@ -137,6 +133,11 @@ public class NPCSpawner : MonoBehaviour
 
 		foreach (var npc in stationaryCivs)
 		{
+			if(npc.IsDead)
+			{
+				continue;
+			}
+
 			currentSpawn = npc.startingPath.SpawnPos;
 			path = null;
 
