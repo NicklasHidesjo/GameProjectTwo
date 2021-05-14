@@ -18,7 +18,6 @@ public class EnviromentFX : MonoBehaviour
         RenderSettings.fog = true;
         RenderSettings.fogEndDistance = fogDistNight;
         RenderSettings.fogColor = fogNightCol;
-        lightSwitch = false;
     }
 
     // Update is called once per frame
