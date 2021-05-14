@@ -19,7 +19,6 @@ public class DeadBody : Interactable
 
     private void Start()
     {
-        standardMaterial = GetComponent<MeshRenderer>().material;
         gameObject.GetComponent<Rigidbody>().AddRelativeTorque(transform.forward * -100, ForceMode.Impulse);
         startingLayer = gameObject.layer;
     }
