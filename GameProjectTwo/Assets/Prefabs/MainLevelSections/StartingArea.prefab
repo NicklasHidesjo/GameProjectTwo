@@ -8358,7 +8358,6 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
-<<<<<<< Updated upstream
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a2e85a3fec296f41aea804854ba7861, type: 3}
 --- !u!1 &2592665587004479244 stripped
@@ -8381,11 +8380,6 @@ PrefabInstance:
     - target: {fileID: 1356622039541685845, guid: 87bd011311174304e8caabb656fea213, type: 3}
       propertyPath: m_Name
       value: Roof_medium (1)
-=======
-    - target: {fileID: 530075796939857784, guid: f134db5cb35d123439eae8dccd0e638b, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 570546431320948008, guid: f134db5cb35d123439eae8dccd0e638b, type: 3}
       propertyPath: m_StaticEditorFlags
