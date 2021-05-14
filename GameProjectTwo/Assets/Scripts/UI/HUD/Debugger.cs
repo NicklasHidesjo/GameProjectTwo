@@ -34,7 +34,7 @@ public class Debugger : MonoBehaviour
     {
         //if (!Application.isEditor) //Do not display in editor ( or you can use the UNITY_EDITOR macro to also disable the rest)
         {
-            myLog = GUI.TextArea(new Rect(10, 10, Screen.width / 3,380), myLog);
+            myLog = GUI.TextArea(new Rect(10, 10, Screen.width / 3,100), myLog);
         }
     }
     //#endif
