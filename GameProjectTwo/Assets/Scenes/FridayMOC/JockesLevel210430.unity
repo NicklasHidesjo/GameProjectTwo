@@ -208,6 +208,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15d97bfccbf29c0429b3812a3b5ab9de, type: 3}
+--- !u!4 &2273222 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 2273221}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2615883
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,7 +558,7 @@ Transform:
   m_LocalScale: {x: 10, y: 6, z: 1}
   m_Children: []
   m_Father: {fileID: 2141385119}
-  m_RootOrder: 32
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!65 &92828676
 BoxCollider:
@@ -617,11 +622,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 92828674}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &144387031 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 15d97bfccbf29c0429b3812a3b5ab9de, type: 3}
-  m_PrefabInstance: {fileID: 496347975}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &147819717
 GameObject:
   m_ObjectHideFlags: 0
@@ -2330,7 +2330,7 @@ Transform:
   m_LocalScale: {x: 10, y: 15.443399, z: 1}
   m_Children: []
   m_Father: {fileID: 2141385119}
-  m_RootOrder: 33
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!65 &482203491
 BoxCollider:
@@ -2604,10 +2604,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15d97bfccbf29c0429b3812a3b5ab9de, type: 3}
---- !u!4 &509753295 stripped
+--- !u!4 &496347976 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 15d97bfccbf29c0429b3812a3b5ab9de, type: 3}
-  m_PrefabInstance: {fileID: 591814418}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 496347975}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &526496503
 PrefabInstance:
@@ -3066,6 +3066,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15d97bfccbf29c0429b3812a3b5ab9de, type: 3}
+--- !u!4 &591814419 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 591814418}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &612045770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3123,11 +3128,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd6fcba2fcad2941961a29096d2cd6c, type: 3}
---- !u!4 &612793693 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 15d97bfccbf29c0429b3812a3b5ab9de, type: 3}
-  m_PrefabInstance: {fileID: 2050683568}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &628904753
 GameObject:
   m_ObjectHideFlags: 0
@@ -3366,11 +3366,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cd6fcba2fcad2941961a29096d2cd6c, type: 3}
---- !u!4 &647425871 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 15d97bfccbf29c0429b3812a3b5ab9de, type: 3}
-  m_PrefabInstance: {fileID: 2273221}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &662329698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4071,7 +4066,7 @@ Transform:
   m_LocalScale: {x: 10, y: 6, z: 1}
   m_Children: []
   m_Father: {fileID: 2141385119}
-  m_RootOrder: 31
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!65 &830380931
 BoxCollider:
@@ -8879,6 +8874,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15d97bfccbf29c0429b3812a3b5ab9de, type: 3}
+--- !u!4 &2050683569 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 2050683568}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2083151169 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2656486698216491673, guid: 4f53833e1d178f045843385b6e64b542, type: 3}
@@ -9281,13 +9281,13 @@ Transform:
   - {fileID: 27031232}
   - {fileID: 341088764}
   - {fileID: 1378171726}
-  - {fileID: 144387031}
-  - {fileID: 612793693}
-  - {fileID: 509753295}
-  - {fileID: 647425871}
+  - {fileID: 2273222}
+  - {fileID: 496347976}
+  - {fileID: 591814419}
   - {fileID: 830380930}
   - {fileID: 92828675}
   - {fileID: 482203490}
+  - {fileID: 2050683569}
   - {fileID: 317127237}
   - {fileID: 1641957480}
   m_Father: {fileID: 0}

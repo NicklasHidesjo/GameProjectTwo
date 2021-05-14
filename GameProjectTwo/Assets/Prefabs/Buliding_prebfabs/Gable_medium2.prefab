@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 4460651925689047047}
   - component: {fileID: 2986170716932921707}
   - component: {fileID: 4104361481937676490}
-  - component: {fileID: 510372624184312387}
+  - component: {fileID: 1389465793484438005}
   m_Layer: 0
   m_Name: Gable_medium2_wall_low
   m_TagString: Untagged
@@ -196,7 +196,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &510372624184312387
+--- !u!64 &1389465793484438005
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

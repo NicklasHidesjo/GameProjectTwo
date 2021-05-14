@@ -18,7 +18,7 @@ public class Container : Interactable
     private void Start()
     {
         Debug.DrawRay(transform.position, transform.forward, Color.blue, 999f);
-        standardMaterial = GetComponent<MeshRenderer>().material;
+        //standardMaterial = GetComponent<MeshRenderer>().material;
     }
 
 
@@ -65,6 +65,7 @@ public class Container : Interactable
         {
             playerInside = true;           
             StartCoroutine(MoveTowardsPosition(player.transform, transform.position, 1f, PlayerState.playerStates.DraculaHidden));
+            print(transform.position);
         }
     }
 

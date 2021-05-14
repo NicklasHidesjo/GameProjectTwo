@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4079098875050281637}
   - component: {fileID: 1967307173245731044}
   - component: {fileID: 6035354279746148287}
-  - component: {fileID: 108609001103475305}
+  - component: {fileID: 3045423911832342702}
   m_Layer: 0
   m_Name: Roof_small
   m_TagString: Untagged
@@ -82,7 +82,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &108609001103475305
+--- !u!64 &3045423911832342702
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

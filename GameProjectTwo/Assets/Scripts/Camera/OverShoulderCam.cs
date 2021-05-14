@@ -55,7 +55,7 @@ public class OverShoulderCam : MonoBehaviour
     }
 
     // Update is called once per frame
-    void LateUpdate()
+    void Update()
     {
         if (Time.timeScale != 0)
         {
@@ -70,7 +70,8 @@ public class OverShoulderCam : MonoBehaviour
             offsett = RayCam(tOffsett, offsett);
             dummy.position = offsett;
 
-            cam.position = Vector3.MoveTowards(cam.position, offsett, speed * Time.deltaTime);
+         //   cam.position = Vector3.MoveTowards(cam.position, offsett, speed * Time.deltaTime);
+            cam.position = offsett;
             cam.LookAt(tOffsett);
         }
     }

@@ -12,7 +12,6 @@ public class BloodSuckTarget : Interactable
 
     void Start()
     {
-        standardMaterial = GetComponent<MeshRenderer>().material;
         npcController = GetComponent<NPC>();
     }
 

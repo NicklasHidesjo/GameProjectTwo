@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1770705418905578421}
   - component: {fileID: 374850567925091909}
   - component: {fileID: 8282001279701828580}
-  - component: {fileID: 4405916392667772153}
+  - component: {fileID: 1299394060238500141}
   m_Layer: 0
   m_Name: Gable_small1_wall_low
   m_TagString: Untagged
@@ -82,7 +82,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4405916392667772153
+--- !u!64 &1299394060238500141
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
