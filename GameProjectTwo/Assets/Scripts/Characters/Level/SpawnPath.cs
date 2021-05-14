@@ -19,6 +19,9 @@ public class SpawnPath : MonoBehaviour
     [SerializeField] int numOfGuards = 1;
     public int NumOfGuards => numOfGuards;
 
+    [SerializeField] Transform spawnPos;
+    public Transform SpawnPos => SpawnPos;
+
     //Call to get an array of pathpoints
     public List<PathPoint> GetPath()
     {
