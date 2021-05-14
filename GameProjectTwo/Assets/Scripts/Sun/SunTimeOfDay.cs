@@ -10,6 +10,10 @@ public class SunTimeOfDay : MonoBehaviour
     private Coroutine runningClock;
     private Coroutine animClock;
 
+    float dot;
+
+
+    [SerializeField] EnviromentFX eFX;
 
 
     public void MoveSunRealTimeStep()
@@ -106,15 +110,20 @@ public class SunTimeOfDay : MonoBehaviour
 
     private void EnableDisableByAngle()
     {
-        float d = Vector3.Dot(Vector3.down, transform.forward);
-        if(d < 0)
+        float dot = Vector3.Dot(Vector3.down, transform.forward);
+        if(dot < 0)
         {
             GetComponent<Light>().enabled = false;
         }
         else
         {
             GetComponent<Light>().enabled = true;
-            GetComponent<Light>().intensity = d * intensetyMultiplyer;
+            GetComponent<Light>().intensity = dot * intensetyMultiplyer;
+        }
+
+        if (eFX)
+        {
+            eFX.UpdateEnviroment(dot * intensetyMultiplyer);
         }
     }
 }
