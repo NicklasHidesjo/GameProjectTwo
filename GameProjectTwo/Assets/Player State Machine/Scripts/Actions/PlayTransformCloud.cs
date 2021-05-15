@@ -8,6 +8,6 @@ public class PlayTransformCloud : PlayerAction
 	public override void Execute(IPlayer player)
 	{
 		GameObject puff = Instantiate(smokePuff, player.Transform.position, Quaternion.identity);
-		Destroy(puff, 5);
+		Destroy(puff, destroyDelay);
 	}
 }
