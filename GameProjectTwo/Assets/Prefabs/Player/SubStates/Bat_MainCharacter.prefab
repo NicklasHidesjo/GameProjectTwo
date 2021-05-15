@@ -112,8 +112,6 @@ GameObject:
   - component: {fileID: 4996842985696655274}
   - component: {fileID: 4996842985696655275}
   - component: {fileID: 4996842985696655276}
-  - component: {fileID: 4996842985696655277}
-  - component: {fileID: 4996842985696655278}
   - component: {fileID: 5044858774671472444}
   m_Layer: 6
   m_Name: Bat_MainCharacter
@@ -202,47 +200,6 @@ CapsuleCollider:
   m_Height: 0.6
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!143 &4996842985696655277
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4996842985696655279}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 0.6
-  m_Radius: 0.3
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4996842985696655278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4996842985696655279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aff83300ff65534598112c85ee72834, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugRays: 1
-  flySpeed: 7
-  flightHight: 2
-  checkLayerForFlight:
-    serializedVersion: 2
-    m_Bits: 1
-  batCostPerSec: 10
-  steerSpeed: 100
-  downForce: 4
-  damping: 2
-  bankAmount: 30
 --- !u!82 &5044858774671472444
 AudioSource:
   m_ObjectHideFlags: 0
