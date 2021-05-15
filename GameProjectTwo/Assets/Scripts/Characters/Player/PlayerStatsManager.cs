@@ -31,7 +31,7 @@ public class PlayerStatsManager : MonoBehaviour
     [SerializeField] int currentHealth = 0;
     [SerializeField] int maxHealth = 100;
         
-    //[SerializeField] GameObject Lairfinder;
+    [SerializeField] GameObject Lairfinder;
     
     public int CurrentHealth { get => currentHealth; }
     public int MaxHealth { get => maxHealth; }
@@ -118,7 +118,7 @@ public class PlayerStatsManager : MonoBehaviour
         if (currentSatiation >= maxSatiation)
         {
             Debug.Log("Coffin Active");
-            //Lairfinder.SetActive(true);
+            Lairfinder.SetActive(true);
         }
     }
 
@@ -140,8 +140,7 @@ public class PlayerStatsManager : MonoBehaviour
 	}
     
     public void ResetStats()
-    {
-        
+    {     
         currentSatiation = 0;
         
         if (GameObject.FindWithTag("Lair") != null)
@@ -154,7 +153,7 @@ public class PlayerStatsManager : MonoBehaviour
         }
         currentHealth = maxHealth;
  
-        //Lairfinder.SetActive(false);
+        Lairfinder.SetActive(false);
 
         currentSatiationNumber = currentSatiation.ToString();
         maxSatiationNumber = maxSatiation.ToString();

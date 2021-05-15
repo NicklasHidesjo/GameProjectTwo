@@ -16,6 +16,7 @@ public class NPC : MonoBehaviour, ICharacter
     private Transform player;
     private List<PathPoint> path;
 
+
     public LayerMask NpcLayer => npcLayer;
 
     public NPC Self => this;
@@ -105,7 +106,7 @@ public class NPC : MonoBehaviour, ICharacter
     public void GetComponents()
     {
         agent = GetComponent<NavMeshAgent>();
-        player = FindObjectOfType<PlayerManager>().GetPlayerPoint();
+        player = FindObjectOfType<Player>().transform;
         bloodSuckTarget = GetComponent<BloodSuckTarget>();
     }
 
@@ -186,7 +187,7 @@ public class NPC : MonoBehaviour, ICharacter
     public void Attack()
     {
         Debug.Log("i am now attacking the player. I deal this much damage: " + stats.Damage);
-        PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>().DecreaseHealthValue(stats.Damage);
+        player.GetComponent<PlayerStatsManager>().DecreaseHealthValue(stats.Damage);
     }
     public void Move(Vector3 destination)
     {
@@ -297,7 +298,7 @@ public class NPC : MonoBehaviour, ICharacter
             return;
         }
 
-        float value = PlayerManager.instance.NotoriousLevel.GetPlayerNotoriousLevel() * stats.AlertIncrease * Time.deltaTime;
+        float value = /*player.GetComponent<PlayerNotoriousLevels>().GetPlayerNotoriousLevel() **/ stats.AlertIncrease * Time.deltaTime;
 
         if (inFOV)
         {
@@ -329,9 +330,11 @@ public class NPC : MonoBehaviour, ICharacter
     public void Dead()
     {
         isDead = true;
-        AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
         gameObject.AddComponent<DeadBody>();
         agent.enabled = false;
+    }
+    public void RemoveBloodSuckTarget()
+	{
         Destroy(bloodSuckTarget);
     }
 

@@ -58,7 +58,7 @@ public class FieldOfView : MonoBehaviour
 		}
 		foreach (var player in playersDetected)
 		{
-			PlayerStates playerState = PlayerManager.instance.PlayerState.CurrentState;
+			PlayerStates playerState = FindObjectOfType<Player>().CurrentState;
 
 			if (playerState == PlayerStates.DraculaHidden)
 			{

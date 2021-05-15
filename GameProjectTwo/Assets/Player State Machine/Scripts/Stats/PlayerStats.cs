@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "ScriptableObjects/PlayerStats")]
 public class PlayerStats : ScriptableObject
 {
-    [Header("Other settings`")]
+    [Header("Other settings")]
     public float TransformDuration;
     public float Gravity = 20f;
 

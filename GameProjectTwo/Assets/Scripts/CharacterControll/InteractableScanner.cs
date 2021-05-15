@@ -90,6 +90,4 @@ public class InteractableScanner : MonoBehaviour
 
         interactables.Remove(newInteractable);
     }
-
-
 }

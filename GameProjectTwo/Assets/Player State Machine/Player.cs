@@ -11,9 +11,15 @@ public class Player : MonoBehaviour, IPlayer
 
 	private PlayerStatsManager statsManager;
 
+	private InteractableScanner iScanner;
+	public InteractableScanner IScanner => iScanner;
+
+	private PlayerObjectInteract playerObjectInteract;
+	public PlayerObjectInteract PlayerObjectInteract => playerObjectInteract;
+
 	public PlayerStats Stats => stats;
 
-	public PlayerStates currentState { get; set; }
+	public PlayerStates CurrentState { get; set; }
 
 	private CharacterController controller;
 	public CharacterController Controller => controller;
@@ -30,6 +36,11 @@ public class Player : MonoBehaviour, IPlayer
 
 	public bool IsDead { get; set; }
 
+	public bool SuckingBlood { get; set; }
+	public bool DraggingBody { get; set; }
+	public bool Hidding { get; set; }
+	public bool ContainerInteractionDone { get; set; }
+
 	public float StateTime { get; set; }
 
 	public bool LeaveBat { get; set; }
@@ -38,6 +49,8 @@ public class Player : MonoBehaviour, IPlayer
 	{
 		controller = GetComponent<CharacterController>();
 		statsManager = GetComponent<PlayerStatsManager>();
+		iScanner = GetComponent<InteractableScanner>();
+		playerObjectInteract = GetComponent<PlayerObjectInteract>();
 		alingCamera = Camera.main.transform;
 
 		bat.SetActive(false);

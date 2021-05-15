@@ -5,7 +5,10 @@ public interface IPlayer
 {
 	public PlayerStats Stats { get; }
 
-	public PlayerStates currentState { get; set; }
+	public InteractableScanner IScanner { get; }
+	public PlayerObjectInteract PlayerObjectInteract { get; }
+
+	public PlayerStates CurrentState { get; set; }
 
 	public CharacterController Controller { get; }
 
@@ -20,6 +23,11 @@ public interface IPlayer
 	public bool IsDead { get; set; }
 
 	public bool LeaveBat { get; set; }
+
+	public bool SuckingBlood { get; set; }
+	public bool DraggingBody { get; set; }
+	public bool Hidding { get; set; }
+	public bool ContainerInteractionDone { get; set; }
 
 	public float StateTime { get; set; }
 
