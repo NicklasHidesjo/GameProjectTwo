@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RApier
-  m_Shader: {fileID: 4800000, guid: 407f9ace121340e4792100da1c4c21e8, type: 3}
+  m_Shader: {fileID: 4800000, guid: 115d7c5a997e08a42ac2c86e8b2e5233, type: 3}
   m_ShaderKeywords: _METALLICGLOSSMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

@@ -7,4 +7,9 @@ public class PointGenerator : MonoBehaviour
 	[Tooltip("This determines if the npc should go idle once it reaches this point")]
 	[SerializeField] bool idlePoint;
 	public bool IdlePoint => idlePoint;
+
+	private void Start()
+	{
+		GetComponent<MeshRenderer>().enabled = false;
+	}
 }
