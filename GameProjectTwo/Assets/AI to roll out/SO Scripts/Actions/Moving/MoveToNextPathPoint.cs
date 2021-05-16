@@ -8,6 +8,6 @@ public class MoveToNextPathPoint : Action
 	public override void Execute(ICharacter character)
 	{
 		character.targetPoint = character.Path[character.PathIndex];
-		character.Move(character.targetPoint.Position);
+		character.Move(character.targetPoint.GetPosition());
 	}
 }

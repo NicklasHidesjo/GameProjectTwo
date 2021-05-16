@@ -14,13 +14,13 @@ public class NPC : MonoBehaviour, ICharacter
 
     private NavMeshAgent agent;
     private Transform player;
-    private List<PathPoint> path;
+    private PathPoint[] path;
 
 
     public LayerMask NpcLayer => npcLayer;
 
     public NPC Self => this;
-    public List<PathPoint> Path => path;
+    public PathPoint[] Path => path;
     public PathPoint targetPoint { get; set; }
 
     public Transform Transform => transform;
@@ -110,7 +110,7 @@ public class NPC : MonoBehaviour, ICharacter
         bloodSuckTarget = GetComponent<BloodSuckTarget>();
     }
 
-    public void InitializeNPC(List<PathPoint> path = null, bool backTrack = false)
+    public void InitializeNPC(PathPoint[] path = null, bool backTrack = false)
     {
         Destroy(GetComponent<DeadBody>());
 
