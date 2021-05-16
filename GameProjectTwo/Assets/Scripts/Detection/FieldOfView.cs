@@ -136,6 +136,11 @@ public class FieldOfView : MonoBehaviour
 					npc.NoticedPlayer = false;
 					return;
 				}
+				if(playerState == PlayerStates.DraculaSucking || 
+				   playerState == PlayerStates.DraculaBurning)
+				{
+					npc.SetAlertnessToMax();
+				}
 				npc.NoticedPlayer = true;
 				npc.RaiseAlertness(false);
 				npc.TimeSinceLastSeenPlayer = 0;
@@ -149,14 +154,29 @@ public class FieldOfView : MonoBehaviour
 
 		foreach (var part in bodyParts)
 		{
-			if (Physics.Linecast(transform.position, part.position, out hit))
+			if (player.CurrentState == PlayerStates.DraculaSucking)
 			{
-				if (hit.collider.CompareTag("Player"))
+				if (Physics.Linecast(transform.position, part.position, out hit, ~npcLayer))
 				{
-					Debug.DrawRay(transform.position, part.position, Color.red);
-					return true;
+					if (hit.collider.CompareTag("Player"))
+					{
+						Debug.DrawRay(transform.position, part.position, Color.red);
+						return true;
+					}
 				}
 			}
+			else
+			{
+				if (Physics.Linecast(transform.position, part.position, out hit))
+				{
+					if (hit.collider.CompareTag("Player"))
+					{
+						Debug.DrawRay(transform.position, part.position, Color.red);
+						return true;
+					}
+				}
+			}
+
 		}
 
 		return false;
@@ -174,7 +194,7 @@ public class FieldOfView : MonoBehaviour
 			NPC character = deadNpc.gameObject.GetComponentInParent<NPC>();
 			if (!character.IsDead)
 			{
-				return;
+				continue;
 			}
 
 			Transform[] rayPoints = character.BodyParts;
