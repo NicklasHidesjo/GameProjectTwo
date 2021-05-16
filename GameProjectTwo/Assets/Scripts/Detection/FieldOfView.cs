@@ -8,20 +8,12 @@ public class FieldOfView : MonoBehaviour
 	[SerializeField] LayerMask targetMask;
 	[SerializeField] LayerMask npcLayer;
 
-	[Header("ConeCastFromToHeads")]
-	[SerializeField] int segmentsInCone = 4;
-	[SerializeField] float plHeadRadius = 0.45f;
-	[SerializeField] float plNeckHight = 0.5f;
-	[SerializeField] float nPCNeckHight = 0.5f;
-
-
-
 	NPC npc;
 	public NPC NPC => npc;
 
 	void Start()
 	{
-		npc = GetComponent<NPC>();
+		npc = GetComponentInParent<NPC>();
 	}
 	private void FixedUpdate()
 	{
@@ -58,7 +50,8 @@ public class FieldOfView : MonoBehaviour
 		}
 		foreach (var player in playersDetected)
 		{
-			PlayerStates playerState = FindObjectOfType<Player>().CurrentState;
+			Player playerObject = FindObjectOfType<Player>();
+			PlayerStates playerState = playerObject.CurrentState;
 
 			if (playerState == PlayerStates.DraculaHidden)
 			{
@@ -88,8 +81,17 @@ public class FieldOfView : MonoBehaviour
 			RaycastHit hit;
 			if (Vector3.Angle(transform.forward, dirToTarget) < npc.FOV / 2)
 			{
-				//Robert was here!
-				bool seesPlayer = ConeCast(transform.position, player.transform.position, npc.Stats.SightLenght);
+				Transform[] targets;
+				if(playerState == PlayerStates.BatDefault)
+				{
+					targets = playerObject.BatParts;
+				}
+				else
+				{
+					targets = playerObject.BodyParts;
+				}
+				bool seesPlayer = SeesPlayer(targets, playerObject);
+
 				if (!seesPlayer)
 				{
 					continue;
@@ -140,32 +142,23 @@ public class FieldOfView : MonoBehaviour
 			}
 		}
 	}
-	private bool ConeCast(Vector3 from, Vector3 to, float rayLength)
+
+	private bool SeesPlayer(Transform[] bodyParts, Player player)
 	{
-		Vector3 fromToEye = from + Vector3.up * nPCNeckHight;
-		Vector3 toToHead = to + Vector3.up * plNeckHight;
-		Vector3 dir = fromToEye - toToHead;
-
-		float radius = plHeadRadius;
-		int numberOfRays = segmentsInCone;
-		float angStep = 360 / segmentsInCone;
-
 		RaycastHit hit;
-		for (int i = 0; i < numberOfRays; i++)
-		{
-			Vector3 offDir = (Quaternion.LookRotation(dir) * Quaternion.Euler(0, 0, angStep * i)) * (Vector3.up * radius);
-			Debug.DrawLine(fromToEye, toToHead + offDir, Color.magenta);
 
-			if (Physics.Linecast(fromToEye, toToHead + offDir, out hit))
+		foreach (var part in bodyParts)
+		{
+			if (Physics.Linecast(transform.position, part.position, out hit))
 			{
 				if (hit.collider.CompareTag("Player"))
 				{
-					Debug.DrawRay(fromToEye, toToHead + offDir, Color.red);
+					Debug.DrawRay(transform.position, part.position, Color.red);
 					return true;
 				}
-
 			}
 		}
+
 		return false;
 	}
 
@@ -207,4 +200,41 @@ public class FieldOfView : MonoBehaviour
 			}
 		}
 	}
+
+
+	// not in use anymore
+	/*	[Header("ConeCastFromToHeads")]
+	[SerializeField] int segmentsInCone = 4;
+	[SerializeField] float plHeadRadius = 0.45f;
+	[SerializeField] float plNeckHight = 0.5f;
+	[SerializeField] float nPCNeckHight = 0.5f;
+	private bool ConeCast(Vector3 from, Vector3 to, float rayLength)
+	{
+		Vector3 fromToEye = from + Vector3.up * nPCNeckHight;
+		Vector3 toToHead = to + Vector3.up * plNeckHight;
+		Vector3 dir = fromToEye - toToHead;
+
+		float radius = plHeadRadius;
+		int numberOfRays = segmentsInCone;
+		float angStep = 360 / segmentsInCone;
+
+		RaycastHit hit;
+		for (int i = 0; i < numberOfRays; i++)
+		{
+			Vector3 offDir = (Quaternion.LookRotation(dir) * Quaternion.Euler(0, 0, angStep * i)) * (Vector3.up * radius);
+			Debug.DrawLine(fromToEye, toToHead + offDir, Color.magenta);
+
+			if (Physics.Linecast(fromToEye, toToHead + offDir, out hit))
+			{
+				if (hit.collider.CompareTag("Player"))
+				{
+					Debug.DrawRay(fromToEye, toToHead + offDir, Color.red);
+					return true;
+				}
+
+			}
+		}
+		return false;
+	}
+	*/
 }

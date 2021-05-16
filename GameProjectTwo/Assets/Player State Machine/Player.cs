@@ -45,6 +45,12 @@ public class Player : MonoBehaviour, IPlayer
 
 	public bool LeaveBat { get; set; }
 
+	[SerializeField] Transform[] bodyParts;
+	public Transform[] BodyParts => bodyParts;
+
+	[SerializeField] Transform[] batParts;
+	public Transform[] BatParts => batParts;
+
 	private void Awake()
 	{
 		controller = GetComponent<CharacterController>();
