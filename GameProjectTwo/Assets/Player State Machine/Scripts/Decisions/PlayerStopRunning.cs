@@ -5,6 +5,6 @@ public class PlayerStopRunning : PlayerDecision
 {
 	public override bool Decide(IPlayer player)
 	{
-		return !Input.GetButton("Run");
+		return !Input.GetButton("Run") || player.CurrentStamina <= 0;
 	}
 }

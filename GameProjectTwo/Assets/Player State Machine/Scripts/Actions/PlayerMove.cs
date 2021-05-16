@@ -7,7 +7,9 @@ public class PlayerMove : PlayerAction
 	{
 		Vector3 playerVelocity  =
 			Input.GetAxis("Horizontal") * FlatAlignTo(player.AlignCamera.right) +
-			Input.GetAxis("Vertical") * FlatAlignTo(player.AlignCamera.forward).normalized;
+			Input.GetAxis("Vertical") * FlatAlignTo(player.AlignCamera.forward);
+
+		playerVelocity.Normalize();
 
 		playerVelocity *= player.Speed;
 
