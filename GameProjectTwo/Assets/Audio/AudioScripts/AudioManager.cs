@@ -6,10 +6,11 @@ using UnityEngine.Audio;
 public enum SoundType
 {
     Default,
-    DraculaBite, DraculaDrink, DraculaDrinkDone, DraculaDamage,
+    DraculaBite, DraculaDrink, DraculaDrinkDone, DraculaDamage, DraculaTransform, DraculaCoffin,
     GuardShout, GuardAttack, GuardSuspicious, GuardAlert, GuardSearching, GuardSearchingEnd,
     CivilianShout, CivilianDie, CivilianNotice, 
-    SunDamage,
+    SunDamage, BatTransform, HideInContainer,
+    MorningBell, NightAmbience,
 }
 
 
@@ -84,8 +85,9 @@ public class AudioManager : MonoBehaviour
         SoundCue cue = GetCue(soundType);
 
         AudioSource source = GetIdleAudioSource();
-        source.clip = cue.sounds[Random.Range(0, cue.sounds.Count - 1)];
+        source.clip = cue.sounds[Random.Range(0, cue.sounds.Count)];
         source.loop = cue.loop;
+        source.outputAudioMixerGroup = cue.channel;
         if (fadeInTime == 0f)
         {
             source.Play();
@@ -113,8 +115,9 @@ public class AudioManager : MonoBehaviour
             
         }
         
-        source.clip = cue.sounds[Random.Range(0, cue.sounds.Count - 1)];
+        source.clip = cue.sounds[Random.Range(0, cue.sounds.Count)];
         source.loop = cue.loop;
+
         source.Play();
 
     }
@@ -134,8 +137,9 @@ public class AudioManager : MonoBehaviour
             source.dopplerLevel = 0f;
 
         }
-
-        source.PlayOneShot(cue.sounds[Random.Range(0, cue.sounds.Count - 1)]);
+        
+        source.outputAudioMixerGroup = cue.channel;
+        source.PlayOneShot(cue.sounds[Random.Range(0, cue.sounds.Count)]);
 
     }
 
@@ -225,7 +229,6 @@ public class AudioManager : MonoBehaviour
 
         source.volume = currentVolume;
         print("finished fade");
-
 
     }
 

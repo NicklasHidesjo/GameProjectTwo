@@ -29,7 +29,7 @@ public class Container : Interactable
 
         if (isInteractable != null)
         {
-            Debug.Log("Placed " + obj + "in " + gameObject);
+            //Debug.Log("Placed " + obj + "in " + gameObject);
             AddToContainer(obj);
             obj.GetComponent<DeadBody>().SetHidden(true);
 
@@ -38,6 +38,8 @@ public class Container : Interactable
         {
             HideInContainer(obj);
         }
+        //TODO call playsound on the animation for better timing
+        AudioManager.instance.PlayOneShot(SoundType.HideInContainer, gameObject);
 
     }
 

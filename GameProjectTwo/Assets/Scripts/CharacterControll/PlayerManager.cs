@@ -139,8 +139,9 @@ public class PlayerManager : MonoBehaviour
 
         batGO.SetActive(false);
         SetPooledActive(draculaGO);
+        AudioManager.instance.PlaySound(SoundType.DraculaTransform, draculaGO);
 
-       // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
+        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.low, spawnPoint);
         playerState.SetState(PlayerState.playerStates.DraculaDefault);
     }
 
@@ -151,7 +152,7 @@ public class PlayerManager : MonoBehaviour
 
         draculaGO.SetActive(false);
         SetPooledActive(batGO);
-        
+        AudioManager.instance.PlaySound(SoundType.BatTransform, batGO);
        // playerCam.GetComponent<CameraController>().SetNewTarget(CameraController.cameraPriority.high, spawnPoint);
         playerState.SetState(PlayerState.playerStates.BatDefault);
     }

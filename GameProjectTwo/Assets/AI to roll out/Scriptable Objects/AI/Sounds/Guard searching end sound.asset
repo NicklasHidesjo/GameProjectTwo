@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe95a985823e23f42a180dae1db7efa5, type: 3}
   m_Name: Guard searching end sound
   m_EditorClassIdentifier: 
-  audio: 10
+  audio: 12
