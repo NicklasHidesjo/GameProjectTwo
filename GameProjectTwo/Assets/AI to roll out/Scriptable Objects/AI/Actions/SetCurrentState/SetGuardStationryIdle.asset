@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e8c6c9a40b5c584797764eb3786ad82, type: 3}
   m_Name: SetGuardStationryIdle
   m_EditorClassIdentifier: 
-  state: 0
+  state: 18
