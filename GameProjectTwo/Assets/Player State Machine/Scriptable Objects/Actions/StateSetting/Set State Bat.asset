@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84d846fdefbe3da489ccc99b50ddff98, type: 3}
   m_Name: Set State Bat
   m_EditorClassIdentifier: 
-  state: 1
+  state: 12
