@@ -5,6 +5,6 @@ public class Hide : PlayerDecision
 {
 	public override bool Decide(IPlayer player)
 	{
-		return player.Hidding;
+		return player.Hiding;
 	}
 }

@@ -60,7 +60,7 @@ public class PlayerObjectInteract : MonoBehaviour
                         if (player.CurrentState == PlayerStates.DraculaHidden)
                         {
                             Debug.Log("Leaving " + C.gameObject);
-                            player.Hidding = false;
+                            player.Hiding = false;
                             GetComponent<CharacterController>().enabled = true;                        
                             interactable.Interact(gameObject);
                         }
@@ -69,7 +69,7 @@ public class PlayerObjectInteract : MonoBehaviour
                             Debug.Log("Entering " + C.gameObject);
                             GetComponent<CharacterController>().enabled = false;                           
                             interactable.Interact(gameObject);
-                            player.Hidding = true;
+                            player.Hiding = true;
   
                         }
                     }

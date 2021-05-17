@@ -15,8 +15,6 @@ public class NPC : MonoBehaviour, ICharacter
     private NavMeshAgent agent;
     private Transform player;
     private PathPoint[] path;
-
-
     public LayerMask NpcLayer => npcLayer;
 
     public NPC Self => this;
@@ -186,8 +184,8 @@ public class NPC : MonoBehaviour, ICharacter
 
     public void Attack()
     {
-        Debug.Log("i am now attacking the player. I deal this much damage: " + stats.Damage);
         player.GetComponent<PlayerStatsManager>().DecreaseHealthValue(stats.Damage);
+        player.GetComponent<Player>().Hiding = false;
     }
     public void Move(Vector3 destination)
     {
