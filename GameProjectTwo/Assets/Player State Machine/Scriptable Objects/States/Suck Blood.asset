@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eddc914854c02dc44873451d8f8c99ea, type: 3}
+  m_Name: Suck Blood
+  m_EditorClassIdentifier: 
+  enterActions:
+  - {fileID: 11400000, guid: bf252e5e941d91e42b4ae2d60c634dfa, type: 2}
+  executeActions:
+  - {fileID: 11400000, guid: a9f779cfdf8f2b94da51aeaa08550259, type: 2}
+  exitActions:
+  - {fileID: 11400000, guid: 1ea845f2028b769409ab755d8010f3d8, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: c766585e450a6504b9d996a5bf6e81ce, type: 2}
+    newState: {fileID: 11400000, guid: f372ca619fcf5cd44bbf1e2c5e146215, type: 2}
+  - decision: {fileID: 11400000, guid: 5da5423b3a16a894a8c55382e3f33bbb, type: 2}
+    newState: {fileID: 11400000, guid: f372ca619fcf5cd44bbf1e2c5e146215, type: 2}
+  - decision: {fileID: 11400000, guid: 92eccaffeda7d2b4f863f054578070f1, type: 2}
+    newState: {fileID: 11400000, guid: 07e834ab213fcb54fa56a65a1af30ddf, type: 2}

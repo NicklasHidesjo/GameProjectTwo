@@ -112,14 +112,14 @@ public class NPCSpawner : MonoBehaviour
 
 	private void InitializeNPCs()
 	{
-		List<PathPoint> path;
+		PathPoint[] path;
 		Transform currentSpawn;
 
 		for (int i = 0; i < startCivilians; i++)
 		{
 			int j = Random.Range(0, civilianSpawnPos.Length);
 			currentSpawn = civilianSpawnPos[j].SpawnPos;
-			path = civilianSpawnPos[j].GetPath().ToList();
+			path = civilianSpawnPos[j].GetPath();
 
 			activeCivs.Add(inactiveCivs[i]);
 
@@ -235,7 +235,7 @@ public class NPCSpawner : MonoBehaviour
 
 	private void NpcSpawn(bool isCivilian)
 	{
-		List<PathPoint> path;
+		PathPoint[] path;
 		Transform currentSpawn;
 		bool backTrack = false;
 
@@ -259,7 +259,7 @@ public class NPCSpawner : MonoBehaviour
 			{
 				int i = Random.Range(0, civilianSpawnPos.Length);
 				currentSpawn = civilianSpawnPos[i].SpawnPos;
-				path = civilianSpawnPos[i].GetPath().ToList();
+				path = civilianSpawnPos[i].GetPath();
 			}
 
 			inactiveCivs.Remove(npc);

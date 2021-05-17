@@ -8,20 +8,12 @@ public class FieldOfView : MonoBehaviour
 	[SerializeField] LayerMask targetMask;
 	[SerializeField] LayerMask npcLayer;
 
-	[Header("ConeCastFromToHeads")]
-	[SerializeField] int segmentsInCone = 4;
-	[SerializeField] float plHeadRadius = 0.45f;
-	[SerializeField] float plNeckHight = 0.5f;
-	[SerializeField] float nPCNeckHight = 0.5f;
-
-
-
 	NPC npc;
 	public NPC NPC => npc;
 
 	void Start()
 	{
-		npc = GetComponent<NPC>();
+		npc = GetComponentInParent<NPC>();
 	}
 	private void FixedUpdate()
 	{
@@ -58,9 +50,10 @@ public class FieldOfView : MonoBehaviour
 		}
 		foreach (var player in playersDetected)
 		{
-			PlayerState.playerStates playerState = PlayerManager.instance.PlayerState.CurrentState;
+			Player playerObject = FindObjectOfType<Player>();
+			PlayerStates playerState = playerObject.CurrentState;
 
-			if (playerState == PlayerState.playerStates.DraculaHidden)
+			if (playerState == PlayerStates.DraculaHidden)
 			{
 				if (npc.SawHiding)
 				{
@@ -71,7 +64,7 @@ public class FieldOfView : MonoBehaviour
 				}
 				continue;
 			}
-			if (playerState == PlayerState.playerStates.BatDefault)
+			if (playerState == PlayerStates.BatDefault)
 			{
 				if (npc.SawTransforming)
 				{
@@ -88,8 +81,17 @@ public class FieldOfView : MonoBehaviour
 			RaycastHit hit;
 			if (Vector3.Angle(transform.forward, dirToTarget) < npc.FOV / 2)
 			{
-				//Robert was here!
-				bool seesPlayer = ConeCast(transform.position, player.transform.position, npc.Stats.SightLenght);
+				Transform[] targets;
+				if(playerState == PlayerStates.BatDefault)
+				{
+					targets = playerObject.BatParts;
+				}
+				else
+				{
+					targets = playerObject.BodyParts;
+				}
+				bool seesPlayer = SeesPlayer(targets, playerObject);
+
 				if (!seesPlayer)
 				{
 					continue;
@@ -99,29 +101,29 @@ public class FieldOfView : MonoBehaviour
 				npc.RaiseAlertness(true);
 				npc.TimeSinceLastSeenPlayer = 0;
 
-				if (playerState == PlayerState.playerStates.DraculaHideing)
+				if (playerState == PlayerStates.DraculaHideing)
 				{
 					npc.SawHiding = true;
 				}
-				else if (playerState != PlayerState.playerStates.DraculaHidden)
+				else if (playerState != PlayerStates.DraculaHidden)
 				{
 					npc.SawHiding = false;
 				}
-				if (playerState == PlayerState.playerStates.TransformToBat)
+				if (playerState == PlayerStates.TransformToBat)
 				{
 					npc.SawTransforming = true;
 				}
-				else if (playerState != PlayerState.playerStates.BatDefault)
+				else if (playerState != PlayerStates.BatDefault)
 				{
 					npc.SawTransforming = false;
 				}
 
 
-				if (playerState != PlayerState.playerStates.DraculaSucking &&
-					playerState != PlayerState.playerStates.TransformToDracula &&
-					playerState != PlayerState.playerStates.TransformToBat &&
-					playerState != PlayerState.playerStates.DraculaDragBody &&
-					playerState != PlayerState.playerStates.DraculaBurning)
+				if (playerState != PlayerStates.DraculaSucking &&
+					playerState != PlayerStates.TransformToDracula &&
+					playerState != PlayerStates.TransformToBat &&
+					playerState != PlayerStates.DraculaDragBody &&
+					playerState != PlayerStates.DraculaBurning)
 				{
 					return;
 				}
@@ -134,12 +136,98 @@ public class FieldOfView : MonoBehaviour
 					npc.NoticedPlayer = false;
 					return;
 				}
+				if(playerState == PlayerStates.DraculaSucking || 
+				   playerState == PlayerStates.DraculaBurning)
+				{
+					npc.SetAlertnessToMax();
+				}
 				npc.NoticedPlayer = true;
 				npc.RaiseAlertness(false);
 				npc.TimeSinceLastSeenPlayer = 0;
 			}
 		}
 	}
+
+	private bool SeesPlayer(Transform[] bodyParts, Player player)
+	{
+		RaycastHit hit;
+
+		foreach (var part in bodyParts)
+		{
+			if (player.CurrentState == PlayerStates.DraculaSucking)
+			{
+				if (Physics.Linecast(transform.position, part.position, out hit, ~npcLayer))
+				{
+					if (hit.collider.CompareTag("Player"))
+					{
+						Debug.DrawRay(transform.position, part.position, Color.red);
+						return true;
+					}
+				}
+			}
+			else
+			{
+				if (Physics.Linecast(transform.position, part.position, out hit))
+				{
+					if (hit.collider.CompareTag("Player"))
+					{
+						Debug.DrawRay(transform.position, part.position, Color.red);
+						return true;
+					}
+				}
+			}
+
+		}
+
+		return false;
+	}
+
+	private void CheckForDeadNpc()
+	{
+		Collider[] NearbyNPCs = Physics.OverlapSphere(transform.position, npc.Stats.SightLenght, npcLayer);
+		if (NearbyNPCs.Length < 1)
+		{
+			return;
+		}
+		foreach (var deadNpc in NearbyNPCs)
+		{
+			NPC character = deadNpc.gameObject.GetComponentInParent<NPC>();
+			if (!character.IsDead)
+			{
+				continue;
+			}
+
+			Transform[] rayPoints = character.BodyParts;
+
+			RaycastHit hit;
+
+			foreach (var point in rayPoints)
+			{
+				Vector3 dirToTarget = (point.transform.position - transform.position).normalized;
+				if (Vector3.Angle(transform.forward, dirToTarget) > npc.FOV / 2)
+				{
+					continue;
+				}
+				if (Physics.Linecast(transform.position, point.position, out hit))
+				{
+					if (!hit.collider.CompareTag("Civilian"))
+					{
+						continue;
+					}
+					npc.HandleSeeingDeadNPC(character);
+					return;
+				}
+			}
+		}
+	}
+
+
+	// not in use anymore
+	/*	[Header("ConeCastFromToHeads")]
+	[SerializeField] int segmentsInCone = 4;
+	[SerializeField] float plHeadRadius = 0.45f;
+	[SerializeField] float plNeckHight = 0.5f;
+	[SerializeField] float nPCNeckHight = 0.5f;
 	private bool ConeCast(Vector3 from, Vector3 to, float rayLength)
 	{
 		Vector3 fromToEye = from + Vector3.up * nPCNeckHight;
@@ -168,43 +256,5 @@ public class FieldOfView : MonoBehaviour
 		}
 		return false;
 	}
-
-	private void CheckForDeadNpc()
-	{
-		Collider[] NearbyNPCs = Physics.OverlapSphere(transform.position, npc.Stats.SightLenght, npcLayer);
-		if (NearbyNPCs.Length < 1)
-		{
-			return;
-		}
-		foreach (var deadNpc in NearbyNPCs)
-		{
-			NPC character = deadNpc.gameObject.GetComponentInParent<NPC>();
-			if (!character.IsDead)
-			{
-				return;
-			}
-
-			Transform[] rayPoints = character.BodyParts;
-
-			RaycastHit hit;
-
-			foreach (var point in rayPoints)
-			{
-				Vector3 dirToTarget = (point.transform.position - transform.position).normalized;
-				if (Vector3.Angle(transform.forward, dirToTarget) > npc.FOV / 2)
-				{
-					continue;
-				}
-				if (Physics.Linecast(transform.position, point.position, out hit))
-				{
-					if (!hit.collider.CompareTag("Civilian"))
-					{
-						continue;
-					}
-					npc.HandleSeeingDeadNPC(character);
-					return;
-				}
-			}
-		}
-	}
+	*/
 }

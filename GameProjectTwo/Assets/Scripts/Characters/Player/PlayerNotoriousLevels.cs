@@ -28,12 +28,6 @@ public class PlayerNotoriousLevels : MonoBehaviour
     //TODO : Remove
     public float GetPlayerNotoriousLerpLevel()
     {
-        if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.BatDefault)
-            return 0;
-
-        if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHidden)
-            return 0;
-
         return (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3;
     }
 
@@ -42,7 +36,6 @@ public class PlayerNotoriousLevels : MonoBehaviour
         float nLevel = (plLongSuspiciousLevel + plShortSuspiciousLevel) / 2;
         nLevel += 1;
         nLevel *= plLuminosity;
-        //print("NLevel : " + nLevel + "  long : " + plLongSuspiciousLevel + "  Short : " + plShortSuspiciousLevel);
         return nLevel;
     }
 
