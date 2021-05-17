@@ -11,8 +11,8 @@ public class Interact : PlayerAction
             {
                 return;
             }
-            Interactable interactable = player.IScanner.CurrentInteractable;
-            player.PlayerObjectInteract.InteractWithObject(interactable);
+            player.Interactable = player.IScanner.CurrentInteractable;
+            player.PlayerObjectInteract.InteractWithObject(player.Interactable);
         }
     }
 }

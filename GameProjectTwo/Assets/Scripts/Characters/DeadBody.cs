@@ -11,16 +11,12 @@ public class DeadBody : Interactable
     private bool isHidden;
     public bool IsHidden => isHidden;
 
-    private int startingLayer;
-
-
-    private SpringJoint joint;
-    [SerializeField] SpringJoint jointDefault;
-
+   
+   
     private void Start()
     {
         gameObject.GetComponent<Rigidbody>().AddRelativeTorque(transform.forward * -100, ForceMode.Impulse);
-        startingLayer = gameObject.layer;
+
     }
 
     public override void Interact(GameObject player)
@@ -28,21 +24,17 @@ public class DeadBody : Interactable
         if (isGrabbed)
         {
             // transform.parent = null;
-            //GetComponent<Rigidbody>().isKinematic = false;
+            GetComponent<Rigidbody>().isKinematic = false;
 
-            //RemoveJoint here
-            RemoveJoint();
-            gameObject.layer = startingLayer;
             isGrabbed = false;
         }
         else
         {
-            //  GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<Rigidbody>().isKinematic = true;
             //  transform.SetParent(player.transform, true);
 
-            //Add joint here
-            AddJoint(player, gameObject);
-            gameObject.layer = 0;
+
+
             isGrabbed = true;
         }
 
@@ -62,18 +54,5 @@ public class DeadBody : Interactable
         }
     }
 
-
-    private void AddJoint(GameObject player, GameObject dragObject)
-    {
-        joint = player.AddComponent<SpringJoint>();
-        joint.autoConfigureConnectedAnchor = false;
-        joint.connectedAnchor = player.transform.forward + player.transform.up;
-        joint.anchor = dragObject.transform.up;
-        joint.connectedBody = dragObject.GetComponent<Rigidbody>();
-    }
-
-    private void RemoveJoint()
-    {
-        Destroy(joint);
-    }
+  
 }

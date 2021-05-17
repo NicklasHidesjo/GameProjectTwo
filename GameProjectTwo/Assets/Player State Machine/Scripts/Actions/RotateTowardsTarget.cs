@@ -9,5 +9,13 @@ public class RotateTowardsTarget : PlayerAction
 		{
 			return;
 		}
+
+        
+		player.Transform.rotation = Quaternion.Slerp(player.originRot, player.TargetRotation, player.StateTime * 2);
+        if (player.Transform.rotation == player.TargetRotation)
+		{
+			player.DoneRotating = true;
+        }
+
 	}
 }

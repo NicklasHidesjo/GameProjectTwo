@@ -33,6 +33,7 @@ public class PlayerObjectInteract : MonoBehaviour
                     }
                     Debug.Log("Interact deadbody: " + D.gameObject);
                     heldInteractable = D;
+                    //transform.LookAt(D.transform);
                     interactable.Interact(gameObject);
                     iScanner.RemoveInteractableFromList(heldInteractable);
                     player.DraggingBody = true;

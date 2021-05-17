@@ -8,6 +8,10 @@ public interface IPlayer
 	public InteractableScanner IScanner { get; }
 	public PlayerObjectInteract PlayerObjectInteract { get; }
 
+	public Interactable Interactable { get; set; }
+	
+	public Quaternion TargetRotation { get; set; }
+
 	public PlayerStates CurrentState { get; set; }
 
 	public CharacterController Controller { get; }
@@ -35,8 +39,9 @@ public interface IPlayer
 	public float StateTime { get; set; }
 
 	public float CurrentStamina { get; set; }
+    public Quaternion originRot { get; set; }
 
-	public void ActivateBatForm();
+    public void ActivateBatForm();
 
 	public void ActivateDraculaForm();
 

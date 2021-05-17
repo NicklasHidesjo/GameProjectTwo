@@ -54,7 +54,11 @@ public class Player : MonoBehaviour, IPlayer
 	[SerializeField] Transform[] batParts;
 	public Transform[] BatParts => batParts;
 
-	private void Awake()
+    public Interactable Interactable { get; set; }
+    public Quaternion TargetRotation { get; set; }
+    public Quaternion originRot { get; set; }
+
+    private void Awake()
 	{
 		controller = GetComponent<CharacterController>();
 		statsManager = GetComponent<PlayerStatsManager>();
