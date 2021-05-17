@@ -17,8 +17,8 @@ public class PlayerStatsManager : MonoBehaviour
     public int MaxSatiation { get => maxSatiation; }
     public int CurrentSatiation { get => currentSatiation; }
 
-    private String maxSatiationNumber = "";
-    private String currentSatiationNumber = "";
+    private string maxSatiationNumber = "";
+    private string currentSatiationNumber = "";
     
     [Header("Stamina Variables")]
     [SerializeField] float maxStamina = 100;
@@ -30,15 +30,21 @@ public class PlayerStatsManager : MonoBehaviour
     [Header("Health Variables")]
     [SerializeField] int currentHealth = 0;
     [SerializeField] int maxHealth = 100;
+        
     [SerializeField] GameObject Lairfinder;
+    
     public int CurrentHealth { get => currentHealth; }
     public int MaxHealth { get => maxHealth; }
     
     private bool isDead = false;
     public bool IsDead => isDead;
 
+    private Player player;
+
     void Start()
     {
+        player = GetComponent<Player>();
+
         if (GameObject.FindWithTag("Lair") != null)
         {
             endLevelCheck = GameObject.FindWithTag("Lair").GetComponent<EndLevelCheck>();
@@ -93,7 +99,7 @@ public class PlayerStatsManager : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth - healthDecrease, 0, maxHealth);
         SetCurrentBarValue(barControllerHealth, currentHealth);
         isDead = currentHealth <= 0;
-        
+        player.IsDead = isDead;        
         //Only for debug, to be removed later
         if (isDead)
         {
@@ -126,10 +132,14 @@ public class PlayerStatsManager : MonoBehaviour
         currentStamina = Mathf.Clamp(currentStamina - staminaDecrease, 0, maxStamina);
         SetCurrentBarValue(barControllerStamina, currentStamina);
     }
+
+    public void SetStaminaBar(float stamina)
+	{
+        SetCurrentBarValue(barControllerStamina, stamina);
+	}
     
     public void ResetStats()
-    {
-        
+    {     
         currentSatiation = 0;
         
         if (GameObject.FindWithTag("Lair") != null)

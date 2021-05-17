@@ -8,7 +8,7 @@ using UnityEngine.AI;
 public class BloodSuckTarget : Interactable
 {
     private NPC npcController;
-    private GameObject attacker;
+    private Player player;
 
     void Start()
     {
@@ -20,10 +20,9 @@ public class BloodSuckTarget : Interactable
         if (npcController.IsSuckable)
         {
             npcController.GettingSucked = true;
-            attacker = player;
+            this.player = player.GetComponent<Player>();
+            this.player.SuckingBlood = true;
             StartCoroutine(SuckingBlood(10, 1f));
-            player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaSucking);
-            
         }
         else
         {
@@ -42,7 +41,7 @@ public class BloodSuckTarget : Interactable
 
     private IEnumerator SuckingBlood(int bloodPerSec, float tickRate)
     {
-        PlayerStatsManager playerStats = PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>();
+        PlayerStatsManager playerStats = player.GetComponent<PlayerStatsManager>();
         AudioManager.instance.PlaySound(SoundType.DraculaBite);
         while (!npcController.IsDead)
         {
@@ -56,21 +55,18 @@ public class BloodSuckTarget : Interactable
             Debug.Log("Currently Drinking!");
             yield return new WaitForSeconds(tickRate);
             AudioManager.instance.PlaySound(SoundType.DraculaDrink);
-
         }
+        player.SuckingBlood = false;
         KillNPC();
-
         //Debug.Log("no longer sucking!");
-        attacker.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaDefault);
         AudioManager.instance.PlaySound(SoundType.DraculaDrinkDone);
-
+        npcController.RemoveBloodSuckTarget();
     }
     
     //TODO: do this one correctly
     private void KillNPC()
     {
         //kill NPC
-
         AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
         GetComponent<Rigidbody>().isKinematic = false;
         npcController.Dead();

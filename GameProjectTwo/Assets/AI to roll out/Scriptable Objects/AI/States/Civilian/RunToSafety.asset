@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: RunToSafety
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: 65275b07b8b267848acddae8921d9e05, type: 2}
   - {fileID: 11400000, guid: 02003f8292042d94b8eeb452639af61c, type: 2}
   - {fileID: 11400000, guid: 14c05d805dde86840b7cbdf5ee6f254c, type: 2}
   - {fileID: 11400000, guid: e6bad799f9e30c448bb5c4e7294d74e4, type: 2}

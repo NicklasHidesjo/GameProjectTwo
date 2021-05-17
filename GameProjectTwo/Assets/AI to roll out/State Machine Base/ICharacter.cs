@@ -4,9 +4,10 @@ using UnityEngine.AI;
 public interface ICharacter
 {
 	public float Alertness { get; set; }	
-	public int PathIndex { get; set; }	
+	public int PathIndex { get; set; }
+	public NPCStates CurrentState { get; set; }
 	public float StateTime { get; set; }
-	public List<PathPoint> Path { get; }	
+	public PathPoint[] Path { get; }	
 	public PathPoint targetPoint { get; set; }
 	public Transform Transform { get; }
 	public Transform Player { get; }
@@ -65,7 +66,7 @@ public interface ICharacter
 
 	public SpawnPath startingPath { get; set; }
 
-	public void InitializeNPC(List<PathPoint> path = null, bool backTrack = false);
+	public void InitializeNPC(PathPoint[] path = null, bool backTrack = false);
 
 
 	/// <summary>

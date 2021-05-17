@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Guard Disposing Of Body
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: 9c737e8fd00204c4eb82e34a725ec96e, type: 2}
   - {fileID: 11400000, guid: fa931f0fd93061549b2c4c96ded1ed47, type: 2}
   executeActions: []
   exitActions:

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LeaveState
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: f8f11c090b5d84943b6555015e26d2ea, type: 2}
   - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
   - {fileID: 11400000, guid: 14c05d805dde86840b7cbdf5ee6f254c, type: 2}
   - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}

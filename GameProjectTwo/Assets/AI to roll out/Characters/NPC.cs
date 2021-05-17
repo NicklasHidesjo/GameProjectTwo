@@ -14,13 +14,14 @@ public class NPC : MonoBehaviour, ICharacter
 
     private NavMeshAgent agent;
     private Transform player;
-    private List<PathPoint> path;
-
+    private PathPoint[] path;
     public LayerMask NpcLayer => npcLayer;
 
     public NPC Self => this;
-    public List<PathPoint> Path => path;
+    public PathPoint[] Path => path;
     public PathPoint targetPoint { get; set; }
+
+    public NPCStates CurrentState { get; set; }
 
     public Transform Transform => transform;
 
@@ -105,11 +106,11 @@ public class NPC : MonoBehaviour, ICharacter
     public void GetComponents()
     {
         agent = GetComponent<NavMeshAgent>();
-        player = FindObjectOfType<PlayerManager>().GetPlayerPoint();
+        player = FindObjectOfType<Player>().transform;
         bloodSuckTarget = GetComponent<BloodSuckTarget>();
     }
 
-    public void InitializeNPC(List<PathPoint> path = null, bool backTrack = false)
+    public void InitializeNPC(PathPoint[] path = null, bool backTrack = false)
     {
         Destroy(GetComponent<DeadBody>());
 
@@ -185,8 +186,8 @@ public class NPC : MonoBehaviour, ICharacter
 
     public void Attack()
     {
-        Debug.Log("i am now attacking the player. I deal this much damage: " + stats.Damage);
-        PlayerManager.instance.gameObject.GetComponent<PlayerStatsManager>().DecreaseHealthValue(stats.Damage);
+        player.GetComponent<PlayerStatsManager>().DecreaseHealthValue(stats.Damage);
+        player.GetComponent<Player>().StopHiding = true;
     }
     public void Move(Vector3 destination)
     {
@@ -297,7 +298,7 @@ public class NPC : MonoBehaviour, ICharacter
             return;
         }
 
-        float value = PlayerManager.instance.NotoriousLevel.GetPlayerNotoriousLevel() * stats.AlertIncrease * Time.deltaTime;
+        float value = /*player.GetComponent<PlayerNotoriousLevels>().GetPlayerNotoriousLevel() **/ stats.AlertIncrease * Time.deltaTime;
 
         if (inFOV)
         {
@@ -329,9 +330,11 @@ public class NPC : MonoBehaviour, ICharacter
     public void Dead()
     {
         isDead = true;
-        AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
         gameObject.AddComponent<DeadBody>();
         agent.enabled = false;
+    }
+    public void RemoveBloodSuckTarget()
+	{
         Destroy(bloodSuckTarget);
     }
 

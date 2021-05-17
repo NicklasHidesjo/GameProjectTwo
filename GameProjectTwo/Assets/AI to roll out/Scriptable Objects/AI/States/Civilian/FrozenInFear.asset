@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: FrozenInFear
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: e8be68760a43ed84391e6be09cb5dd2c, type: 2}
   - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}
   - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}
   - {fileID: 11400000, guid: 99c10a7bd000f0e44a1f68c8089d022f, type: 2}

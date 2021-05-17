@@ -6,16 +6,13 @@ public class DirectionToLair : MonoBehaviour
 {
     SpriteRenderer lairFinder;
     Transform target;
-    PlayerState playerState;
-    PlayerManager playerManager;
+    Player player;
     // Start is called before the first frame update
     void Awake()
     {
         lairFinder = gameObject.GetComponent<SpriteRenderer>();
         target = GameObject.FindGameObjectWithTag("Lair").transform;
-        playerState = transform.parent.GetComponent<PlayerState>();
-        playerManager = transform.parent.GetComponent<PlayerManager>();
-
+        player = GetComponentInParent<Player>();
     }
 
     // Update is called once per frame
@@ -23,7 +20,7 @@ public class DirectionToLair : MonoBehaviour
     {
         if (gameObject.activeSelf == true)
         {
-        Transform playerPos = playerManager.GetPlayerPoint();
+        Transform playerPos = player.transform;
         transform.position = playerPos.position;
             //get player.state bat or dracula, and set y position after that...-0.7 ca for draculas placeholder.
             transform.position = transform.position + new Vector3(0, -0.8f, 0);

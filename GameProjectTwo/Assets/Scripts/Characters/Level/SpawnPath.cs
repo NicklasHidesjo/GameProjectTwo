@@ -8,6 +8,8 @@ public class SpawnPath : MonoBehaviour
     [Tooltip("Use this to make the path reverse (makes it possible to copy a path and have it be walked backwards instead of making a brand new path")]
     [SerializeField] bool flippedPath;
 
+    [SerializeField] PathPoint[] path;
+
     [Tooltip("True = guards will walk back the way they came, False = guards will loop")]
     [SerializeField] bool backTrack;
     public bool BackTrack => backTrack;
@@ -16,6 +18,7 @@ public class SpawnPath : MonoBehaviour
     [SerializeField] bool stationary;
     public bool Stationary => stationary;
 
+    [Tooltip("The number of moving guards to spawn")]
     [SerializeField] int numOfGuards = 1;
     public int NumOfGuards => numOfGuards;
 
@@ -23,54 +26,18 @@ public class SpawnPath : MonoBehaviour
     public Transform SpawnPos => spawnPos;
 
     //Call to get an array of pathpoints
-    public List<PathPoint> GetPath()
+    public PathPoint[] GetPath()
     {
-        List<PathPoint> path = new List<PathPoint>();
-
-        List<PointGenerator> points = GetComponentsInChildren<PointGenerator>().ToList();
-
-		foreach (var point in points)
-		{
-            Vector3 pos = point.transform.position;
-            Vector3 bounds = point.GetComponent<Renderer>().bounds.extents;
-            pos += new Vector3(Mathf.Lerp(-bounds.x, bounds.x, Random.value), 0, Mathf.Lerp(-bounds.z, bounds.z, Random.value));
-
-            RaycastHit hit;
-            if (Physics.Raycast(pos + Vector3.up * 100, Vector3.down, out hit, 200, checkLayers, QueryTriggerInteraction.Ignore))
-            {
-                pos.y = hit.point.y + 1;
-            }
-
-            path.Add(new PathPoint(pos, point.IdlePoint));
-        }
-
-
-/*        //Randomize a point in each spawn area to create a path
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Vector3 pos = transform.GetChild(i).position;
-            Vector3 bounds = transform.GetChild(i).GetComponent<Renderer>().bounds.extents;
-            pos += new Vector3(Mathf.Lerp(-bounds.x, bounds.x, Random.value), 0, Mathf.Lerp(-bounds.z, bounds.z, Random.value));
-
-            RaycastHit hit;
-            if (Physics.Raycast(pos + Vector3.up * 100, Vector3.down, out hit, 200, checkLayers, QueryTriggerInteraction.Ignore))
-            {
-                pos.y = hit.point.y + 1;
-            }
-
-            points.Add(new PathPoint(pos, transform.GetChild(i).GetComponent<PointGenerator>().IdlePoint));
-        }*/
-
         if (flippedPath)
         {
-                PathPoint[] newPath = new PathPoint[path.Count];
-                int y = path.Count - 1;
-                for (int x = 0; x < points.Count; x++)
-                {
-                    newPath[y] = path[x];
-                    y--;
-                }
-                path = newPath.ToList();
+            PathPoint[] newPath = new PathPoint[path.Length];
+            int y = path.Length - 1;
+            for (int x = 0; x < path.Length; x++)
+            {
+                newPath[y] = path[x];
+                y--;
+            }
+            path = newPath;
         }
         return path;
     }
