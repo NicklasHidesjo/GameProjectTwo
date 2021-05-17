@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Guard Idle
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: 7aff751e898bf6b4c917e1b9a3b995fb, type: 2}
   - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
   - {fileID: 11400000, guid: 6170562ae5629014197fdf38e62b7e42, type: 2}
   - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}

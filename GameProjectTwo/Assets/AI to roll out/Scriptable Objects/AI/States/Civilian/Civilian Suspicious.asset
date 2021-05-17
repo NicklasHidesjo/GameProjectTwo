@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Civilian Suspicious
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: dc67d0e3ff6a9c34c95f72164de63121, type: 2}
   - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}
   - {fileID: 11400000, guid: 89a19419d1a9da24587c5c995d629799, type: 2}
   - {fileID: 11400000, guid: 99c10a7bd000f0e44a1f68c8089d022f, type: 2}

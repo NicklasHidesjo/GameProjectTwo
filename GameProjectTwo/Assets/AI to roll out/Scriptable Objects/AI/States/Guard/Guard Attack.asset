@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Guard Attack
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: f7b2465519f8d504e9f17a58287faf74, type: 2}
   - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}
   - {fileID: 11400000, guid: e6bad799f9e30c448bb5c4e7294d74e4, type: 2}
   - {fileID: 11400000, guid: 02003f8292042d94b8eeb452639af61c, type: 2}

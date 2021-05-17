@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CivilianReactToDeadBody
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: 4306ed3d0ed398b4b9d8f3696faaf39a, type: 2}
   - {fileID: 11400000, guid: cf9c1ec79f62b9248be11a87cceebc38, type: 2}
   - {fileID: 11400000, guid: e6bad799f9e30c448bb5c4e7294d74e4, type: 2}
   executeActions:
