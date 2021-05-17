@@ -21,6 +21,8 @@ public class NPC : MonoBehaviour, ICharacter
     public PathPoint[] Path => path;
     public PathPoint targetPoint { get; set; }
 
+    public NPCStates CurrentState { get; set; }
+
     public Transform Transform => transform;
 
     public Transform Player => player;

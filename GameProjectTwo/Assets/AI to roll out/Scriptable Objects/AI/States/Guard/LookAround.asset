@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: LookAround
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: e0ad64c0fa324b14db2f1b28263aa380, type: 2}
   - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}
   - {fileID: 11400000, guid: cf48e1153fa52db40bd634b90b98ea8f, type: 2}
   - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}

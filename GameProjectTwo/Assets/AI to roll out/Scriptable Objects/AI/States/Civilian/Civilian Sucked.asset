@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Civilian Sucked
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: dddfcbf3c72a7f84391b18ee23b3e430, type: 2}
   - {fileID: 11400000, guid: 02003f8292042d94b8eeb452639af61c, type: 2}
   - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}
   - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}

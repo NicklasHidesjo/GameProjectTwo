@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Civilian Flee
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: a98743ca908a5674bbf3d54feadbef7b, type: 2}
   - {fileID: 11400000, guid: 14c05d805dde86840b7cbdf5ee6f254c, type: 2}
   - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}
   - {fileID: 11400000, guid: e6bad799f9e30c448bb5c4e7294d74e4, type: 2}

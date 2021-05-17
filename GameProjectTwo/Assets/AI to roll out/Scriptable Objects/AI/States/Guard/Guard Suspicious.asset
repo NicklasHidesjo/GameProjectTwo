@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Guard Suspicious
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: fcd56840bd788a046ad8a6275d73e8ca, type: 2}
   - {fileID: 11400000, guid: 89a19419d1a9da24587c5c995d629799, type: 2}
   - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}
   - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}

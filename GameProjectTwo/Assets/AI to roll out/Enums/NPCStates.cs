@@ -1,0 +1,25 @@
+public enum NPCStates
+{
+	CivCharmed,
+	CivFlee,
+	CivMovIdle,
+	CivStationaryIdle,
+	CivSucked,
+	CivSuspicious,
+	CivWalk,
+	CivReactToDeadBody,
+	FrozenInFear,
+	GoToExit,
+	LeaveState,
+	RunToSafety,
+	GuardAttack,
+	GuardChasing,
+	GuardDisposeBody,
+	GuardIdle,
+	GuardPatrol,
+	GuardSearchStanding,
+	GuardStationaryIdle,
+	GuardSuspicious,
+	GuardReactToDeadBody,
+	LookAround
+}

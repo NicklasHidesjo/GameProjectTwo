@@ -4,7 +4,8 @@ using UnityEngine.AI;
 public interface ICharacter
 {
 	public float Alertness { get; set; }	
-	public int PathIndex { get; set; }	
+	public int PathIndex { get; set; }
+	public NPCStates CurrentState { get; set; }
 	public float StateTime { get; set; }
 	public PathPoint[] Path { get; }	
 	public PathPoint targetPoint { get; set; }
