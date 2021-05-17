@@ -8,6 +8,8 @@ public class PlayerStats : ScriptableObject
     [Header("Other settings")]
     public float TransformDuration;
     public float Gravity = 20f;
+    [Tooltip("The time in seconds it takes to interact with bodies")]
+    public float InteractionTime = 1f; 
 
     [Header("Stamina settings")]
     public float MaxStamina = 100f;

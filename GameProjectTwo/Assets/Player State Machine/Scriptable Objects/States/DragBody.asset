@@ -15,9 +15,14 @@ MonoBehaviour:
   enterActions:
   - {fileID: 11400000, guid: d61393a88edc7f146817509966323af5, type: 2}
   - {fileID: 11400000, guid: c535a5dab3fc51440bc69e99aaac3d17, type: 2}
+  - {fileID: 11400000, guid: b8ee52d4007521342bbf8b2403ff7922, type: 2}
+  - {fileID: 11400000, guid: 97563be772141cf45a2e09a884754d6e, type: 2}
+  - {fileID: 11400000, guid: a85f8a4f66fe9f44782d4c558649a7c8, type: 2}
   executeActions:
+  - {fileID: 11400000, guid: 91c0465a5d2625f44baa719c15012af0, type: 2}
+  - {fileID: 11400000, guid: dbe8ed0f1aacf51419e8749776e69ae9, type: 2}
   - {fileID: 11400000, guid: a9f779cfdf8f2b94da51aeaa08550259, type: 2}
-  - {fileID: 11400000, guid: 5defde2c4e2ee1742aecc7aca8da794e, type: 2}
+  - {fileID: 11400000, guid: 01e63ed912f6c8a4cb900fb2fffe5765, type: 2}
   exitActions:
   - {fileID: 11400000, guid: 1ea845f2028b769409ab755d8010f3d8, type: 2}
   transitions:

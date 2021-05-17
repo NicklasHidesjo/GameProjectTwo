@@ -41,6 +41,8 @@ public class Player : MonoBehaviour, IPlayer
 	public bool Hiding { get; set; }
 	public bool StopHiding { get; set; }
 	public bool ContainerInteractionDone { get; set; }
+	public bool DoneRotating { get; set; }
+
 
 	public float StateTime { get; set; }
 

@@ -30,6 +30,8 @@ public interface IPlayer
 	public bool StopHiding { get; set; }
 	public bool ContainerInteractionDone { get; set; }
 
+	public bool DoneRotating { get; set; }
+
 	public float StateTime { get; set; }
 
 	public float CurrentStamina { get; set; }
