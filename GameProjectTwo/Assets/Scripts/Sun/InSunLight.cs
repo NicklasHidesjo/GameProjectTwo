@@ -29,8 +29,12 @@ public class InSunLight : MonoBehaviour
 
     AudioSource sunSound;
 
+    Player player;
+
     void Start()
     {
+        player = GetComponent<Player>();
+        playerStats = GetComponent<PlayerStatsManager>();
         SunInit();
     }
 
@@ -40,8 +44,6 @@ public class InSunLight : MonoBehaviour
         inSunlight = InSun();
         if (inSunlight)
         {
-            PlayerManager.instance.PlayerState.SetState(PlayerState.playerStates.DraculaBurning);
-
             if (sunDamage == null)
             {
                 sunDamage = StartCoroutine(TakeDamageInSunLight());
@@ -49,7 +51,7 @@ public class InSunLight : MonoBehaviour
                 {
                     sunSound = AudioManager.instance.PlaySound(SoundType.SunDamage);
                 }
-                
+
 
                 //activateSunIndicator(gracePeriod);
             }
@@ -60,16 +62,13 @@ public class InSunLight : MonoBehaviour
             if (sunDamage != null)
             {
                 //GameUiManager.instance.DeactivateSunIndicator();
+                player.InSun = false;
 
-                StopCoroutine(sunDamage);                
+                StopCoroutine(sunDamage);
                 sunDamage = null;
             }
 
             graceTimer = Mathf.Clamp(graceTimer - Time.fixedDeltaTime, 0, gracePeriod);
-
-
-            if (PlayerManager.instance.PlayerState.GetCurrentState() == PlayerState.playerStates.DraculaBurning)
-                PlayerManager.instance.PlayerState.SetState(PlayerState.playerStates.DraculaDefault);
         }
 
         if (sunSound != null)
@@ -93,6 +92,8 @@ public class InSunLight : MonoBehaviour
         {
             yield return null;
         }
+        
+        player.InSun = true;
 
         while (inSunlight && !playerStats.IsDead)
         {
@@ -130,7 +131,7 @@ public class InSunLight : MonoBehaviour
             playerPoint = FindObjectOfType<CharacterController>().transform;
             // Debug.Log("<color=red> dracula is missing. Auto assigned : </color>" + dracula.name);
         }
-        playerStats = PlayerManager.instance.GetComponent<PlayerStatsManager>();
+        //playerStats = PlayerManager.instance.GetComponent<PlayerStatsManager>();
         GetOffsettFromCollider();
 
     }

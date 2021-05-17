@@ -6,5 +6,6 @@ public class MoveToStartPosition : Action
 	public override void Execute(ICharacter character)
 	{
 		character.Agent.destination = character.StartingPosition;
+		character.Agent.updateRotation = true;
 	}
 }

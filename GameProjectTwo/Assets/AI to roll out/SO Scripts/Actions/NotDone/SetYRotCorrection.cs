@@ -6,6 +6,7 @@ public class SetYRotCorrection : Action
 	public override void Execute(ICharacter character)
 	{
 		if(character.RotationStarted) { return; }
+		if (character.Agent.velocity != Vector3.zero) { return; }
 		character.YRotCorrection = 0;
 
 		bool hitLeft = GetHit(character, -character.Transform.right);

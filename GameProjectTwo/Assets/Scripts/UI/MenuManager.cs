@@ -21,9 +21,11 @@ public class MenuManager : MonoBehaviour
 
     public delegate void LevelStart();
     public static event LevelStart OnLevelStart;
+    private Player player;
 
     private void Start()
     {
+        player = FindObjectOfType<Player>();
         inDeathScreen = false;
         Cursor.visible = false;
     }
@@ -44,7 +46,7 @@ public class MenuManager : MonoBehaviour
             }
         }
 
-        if (PlayerManager.instance.StatsManager.IsDead && !inDeathScreen)
+        if (player.IsDead)
         {
             PlayerDeathScreen();
         }
@@ -55,7 +57,7 @@ public class MenuManager : MonoBehaviour
         TogglePause();
         //TODO Load correct scene
         AudioManager.instance.StopAll2DSounds();
-        String currentScene = SceneManager.GetActiveScene().name;
+        string currentScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentScene, LoadSceneMode.Single);
     }
 
@@ -63,21 +65,20 @@ public class MenuManager : MonoBehaviour
     {
         AudioManager.instance.StopAll2DSounds();
         Time.timeScale = 1f;
-        levelChanger.GetComponent<LevelChanger>().FadeToLevel(0);
+		levelChanger.GetComponent<LevelChanger>().FadeToLevel(0);
+
     }
 
     public void TogglePause()
     {
         if (gamePaused)
         {
-            PlayerManager.instance.PlayerState.SetState(PlayerState.playerStates.DraculaDefault);
             Cursor.visible = false;
             Time.timeScale = 1f;
             gamePaused = false;
         }
         else
         {
-            PlayerManager.instance.PlayerState.SetState(PlayerState.playerStates.Stoped);
             Cursor.visible = true;
             Time.timeScale = 0f;
             gamePaused = true;
