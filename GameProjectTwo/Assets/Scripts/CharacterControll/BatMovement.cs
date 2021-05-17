@@ -120,7 +120,7 @@ public class BatMovement : MonoBehaviour
            Input.GetAxis("Horizontal") * FlatAlignTo(PlayerManager.instance.GetPlayerCam().transform.right) +
            Input.GetAxis("Vertical") * FlatAlignTo(PlayerManager.instance.GetPlayerCam().transform.forward);
 
-
+        inputFormplayer = inputFormplayer.normalized;
         if (Vector3.Dot(inputFormplayer, transform.right) < 0)
         {
 
