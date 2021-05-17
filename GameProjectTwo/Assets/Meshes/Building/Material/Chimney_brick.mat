@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Window_glass
-  m_Shader: {fileID: 4800000, guid: eb897f41e468d0d4086261dc6acab7f5, type: 3}
+  m_Name: Chimney_brick
+  m_Shader: {fileID: 4800000, guid: 407f9ace121340e4792100da1c4c21e8, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -20,15 +20,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Amb:
-        m_Texture: {fileID: 2800000, guid: d744487aee49b5c4c851b19eec24dc7e, type: 3}
+        m_Texture: {fileID: 2800000, guid: cb8e3063d1279b94fb59130246afaa1b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: da15192e60aa51d4a9de95fd815547b5, type: 3}
+        m_Texture: {fileID: 2800000, guid: b9a6a0b156006f14a8907deb4f5a3b58, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Cube:
-        m_Texture: {fileID: 8900000, guid: 6fc6e6a9540f2084aba6c8e46a78dd0d, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -43,10 +43,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Emission:
-        m_Texture: {fileID: 2800000, guid: d744487aee49b5c4c851b19eec24dc7e, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -56,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9c5206acdc899024f8d3266d64112da8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 6771f02f204c20d4cb3cbc242420401c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -71,17 +67,13 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _ZfadeTexture:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
     - _Cel: 0
-    - _CelGray: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _ExtCutOff: 0.15
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -94,26 +86,18 @@ Material:
     - _Parallax: 0.02
     - _ReflectPure: 0
     - _RimPower: 0.5
-    - _RimReflPower: 0.5
-    - _Scale: 0.2
+    - _RimReflPower: 3
     - _SmoothnessTextureChannel: 0
-    - _Specular: 63.5
+    - _Specular: 90
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _UseWorldUV: 0
     - _ZWrite: 1
-    - _ZfadeAdmount: 1
-    - _ZfadeScale: 0.1
-    - _ZfadeStart: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HColor: {r: 1, g: 1, b: 1, a: 0}
-    - _MainColor: {r: 1, g: 0.9764151, b: 0.9764151, a: 0}
-    - _ReflectColor: {r: 1, g: 1, b: 1, a: 0}
-    - _RimColor: {r: 1, g: 0.8980392, b: 0, a: 0}
-    - _SpColor: {r: 1, g: 1, b: 1, a: 0}
-    - _SpecularColor: {r: 0, g: 0, b: 0, a: 0}
-    - _ZfadeColor: {r: 0.376, g: 0.322, b: 0.251, a: 0}
+    - _MainColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - _ReflectColor: {r: 0, g: 0, b: 0, a: 0}
+    - _SpColor: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
