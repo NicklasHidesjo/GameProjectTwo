@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// This can be optimised by changein to only one colorchanel.
+/// </summary>
 public class LightSensor : MonoBehaviour
 {
     [SerializeField] Transform follow;
@@ -11,6 +15,9 @@ public class LightSensor : MonoBehaviour
     private RenderTexture lightTexB;
     [SerializeField] Texture2D mask2DTexure;
     private int[] indexInCircle;
+    Color[] colors;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +30,7 @@ public class LightSensor : MonoBehaviour
         Color[] colors = mask2DTexure.GetPixels();
         int length = colors.Length;
 
-
+        //TODO : rewright this function to math
         for (int i = 0; i < length; i++)
         {
             if(colors[i].r > 0.9f)
@@ -33,7 +40,10 @@ public class LightSensor : MonoBehaviour
         }
 
         indexInCircle = indexInC.ToArray();
+
         
+        mask2DTexure = new Texture2D(lightTexB.width, lightTexB.height);
+        colors = new Color[lightTexB.width * lightTexB.height];
     }
 
 
@@ -46,22 +56,24 @@ public class LightSensor : MonoBehaviour
     {
         FollowTarget();
         float maxL = GetLuminosity();
+        //print(maxL);
+        
         notoriousLevels.SetPlLuminosity(maxL);
     }
     
     void FollowTarget()
     {
-        transform.position = follow.position;
+        transform.position = follow.position + Vector3.up * 1.5f;
     }
 
     Color[] GetColors()
     {
         //THX: https://www.youtube.com/watch?v=NYysvuyivc4
         //TODO : GET/RELICE TEMP IS NOT NESSSESERY ???
+        
         lightTexB = RenderTexture.GetTemporary(lightTexA.width, lightTexA.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.Linear);
-
         Graphics.Blit(lightTexA, lightTexB);
-        mask2DTexure = new Texture2D(lightTexB.width, lightTexB.height);
+        
         mask2DTexure.ReadPixels(new Rect(0, 0, lightTexB.width, lightTexB.height), 0, 0);
         mask2DTexure.Apply();
 
@@ -73,7 +85,7 @@ public class LightSensor : MonoBehaviour
     float GetLuminosity()
     {
         Color avgColor = Color.black;
-        Color[] colors = GetColors();
+        colors = GetColors();
 
         for (int i = 0; i < indexInCircle.Length; i++)
         {
