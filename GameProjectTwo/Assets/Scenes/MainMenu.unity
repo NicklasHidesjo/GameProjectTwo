@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -187,7 +187,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &184479007
 GameObject:
@@ -853,13 +853,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 743399042}
   m_HandleRect: {fileID: 1238174647}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1133342502}
+        m_TargetAssemblyTypeName: AudioOptions, Assembly-CSharp
+        m_MethodName: SetMusicVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &444881134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1259,13 +1271,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 229616916}
   m_HandleRect: {fileID: 308832161}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1133342502}
+        m_TargetAssemblyTypeName: AudioOptions, Assembly-CSharp
+        m_MethodName: SetSoundVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &600745667
 GameObject:
   m_ObjectHideFlags: 0
@@ -2175,13 +2199,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1357402738}
   m_HandleRect: {fileID: 1932383450}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.0001
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1133342502}
+        m_TargetAssemblyTypeName: AudioOptions, Assembly-CSharp
+        m_MethodName: SetMasterVolume
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &826172732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2348,7 +2384,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &928541831
 GameObject:
@@ -2794,6 +2830,7 @@ GameObject:
   - component: {fileID: 1133342499}
   - component: {fileID: 1133342501}
   - component: {fileID: 1133342500}
+  - component: {fileID: 1133342502}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -2877,7 +2914,7 @@ RectTransform:
   - {fileID: 1337485019}
   - {fileID: 289951895}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2899,6 +2936,7 @@ MonoBehaviour:
   baseMenuPanel: {fileID: 2040792623}
   howToPlayPanel: {fileID: 1337485018}
   optionsPanel: {fileID: 289951892}
+  audioOptions: {fileID: 0}
 --- !u!114 &1133342500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2937,6 +2975,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133342494}
   m_CullTransparentMesh: 1
+--- !u!114 &1133342502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133342494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ed5f40e0388f34f97dac48d970aa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 5a073ff4842204344ac262589efaab3d, type: 2}
+  musicSlider: {fileID: 387938317}
+  soundSlider: {fileID: 598502878}
+  masterSlider: {fileID: 783462211}
 --- !u!1 &1206258557
 GameObject:
   m_ObjectHideFlags: 0
@@ -3480,6 +3534,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357402737}
   m_CullTransparentMesh: 1
+--- !u!1001 &1368160419
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928195, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
 --- !u!1 &1429427139
 GameObject:
   m_ObjectHideFlags: 0
@@ -3561,7 +3672,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1489243395
 GameObject:
@@ -3836,7 +3947,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1730693713
 GameObject:
@@ -5241,7 +5352,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3265314013287152936, guid: a80e3734db23eb246ab890f55fb2a41a, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3265314013287152936, guid: a80e3734db23eb246ab890f55fb2a41a, type: 3}
       propertyPath: m_LocalPosition.x

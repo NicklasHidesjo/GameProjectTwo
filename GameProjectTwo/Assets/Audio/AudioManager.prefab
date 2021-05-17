@@ -198,3 +198,4 @@ MonoBehaviour:
     sounds:
     - {fileID: 8300000, guid: ee189905fdab6604791c1f87fa2311f9, type: 3}
   audioSources: []
+  audioMixer: {fileID: 24100000, guid: 5a073ff4842204344ac262589efaab3d, type: 2}

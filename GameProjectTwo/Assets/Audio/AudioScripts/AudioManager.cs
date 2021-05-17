@@ -25,7 +25,7 @@ public class AudioManager : MonoBehaviour
 
     private GameObject audioListGameObject;
     [SerializeField] List<AudioSource> audioSources;
-    
+    [SerializeField] AudioMixer audioMixer;
 
     private void Awake()
     {
@@ -52,6 +52,23 @@ public class AudioManager : MonoBehaviour
             AudioSource a = audioListGameObject.AddComponent<AudioSource>();         
             audioSources.Add(a);
         }
+
+        float musicVolume = PlayerPrefs.GetFloat("musicVolume");    
+        float soundVolume = PlayerPrefs.GetFloat("soundVolume");    
+        float masterVolume = PlayerPrefs.GetFloat("masterVolume");   
+        
+        if (!PlayerPrefs.HasKey("musicVolume"))
+        {
+            SaveVolumeSettings(0.75f, 0.75f, 0.75f);
+            musicVolume = PlayerPrefs.GetFloat("musicVolume");
+            soundVolume = PlayerPrefs.GetFloat("soundVolume");
+            masterVolume = PlayerPrefs.GetFloat("masterVolume");
+
+            
+        }
+
+        SetMixerVolume(musicVolume, soundVolume, masterVolume);
+
     }
 
     private SoundCue GetCue(SoundType soundType)
@@ -229,6 +246,21 @@ public class AudioManager : MonoBehaviour
 
         source.volume = currentVolume;
         print("finished fade");
+
+    }
+
+    public void SetMixerVolume(float musicVolume, float soundVolume, float masterVolume)
+    {
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume) * 20);
+        audioMixer.SetFloat("SoundVolume", Mathf.Log10(soundVolume) * 20);
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(masterVolume) * 20);
+    }
+
+    public void SaveVolumeSettings(float musicVolume, float soundVolume, float masterVolume)
+    {
+        PlayerPrefs.SetFloat("musicVolume", musicVolume);
+        PlayerPrefs.SetFloat("soundVolume", soundVolume);
+        PlayerPrefs.SetFloat("masterVolume", masterVolume);
 
     }
 
