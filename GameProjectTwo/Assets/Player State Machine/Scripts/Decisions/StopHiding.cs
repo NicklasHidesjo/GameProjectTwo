@@ -5,6 +5,6 @@ public class StopHiding : PlayerDecision
 {
 	public override bool Decide(IPlayer player)
 	{
-		return !player.Hiding;
+		return player.StopHiding;
 	}
 }

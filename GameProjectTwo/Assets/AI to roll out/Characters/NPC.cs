@@ -185,7 +185,7 @@ public class NPC : MonoBehaviour, ICharacter
     public void Attack()
     {
         player.GetComponent<PlayerStatsManager>().DecreaseHealthValue(stats.Damage);
-        player.GetComponent<Player>().Hiding = false;
+        player.GetComponent<Player>().StopHiding = true;
     }
     public void Move(Vector3 destination)
     {

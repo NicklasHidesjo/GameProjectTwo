@@ -99,8 +99,7 @@ public class PlayerStatsManager : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth - healthDecrease, 0, maxHealth);
         SetCurrentBarValue(barControllerHealth, currentHealth);
         isDead = currentHealth <= 0;
-        player.IsDead = isDead;
-        
+        player.IsDead = isDead;        
         //Only for debug, to be removed later
         if (isDead)
         {

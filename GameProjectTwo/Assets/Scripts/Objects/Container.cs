@@ -36,6 +36,7 @@ public class Container : Interactable
         }
         else if (obj.CompareTag("Player"))
         {
+            Debug.Log("hiding in container");
             HideInContainer(obj);
         }
 
@@ -57,7 +58,6 @@ public class Container : Interactable
         {         
             playerInside = false;   
             StartCoroutine(MoveTowardsPosition(player.transform, gameObject.transform.position + gameObject.transform.forward * 2F, 1f, player.GetComponent<Player>()));
-
         }
         else
         {

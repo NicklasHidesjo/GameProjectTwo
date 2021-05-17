@@ -27,6 +27,7 @@ public interface IPlayer
 	public bool SuckingBlood { get; set; }
 	public bool DraggingBody { get; set; }
 	public bool Hiding { get; set; }
+	public bool StopHiding { get; set; }
 	public bool ContainerInteractionDone { get; set; }
 
 	public float StateTime { get; set; }

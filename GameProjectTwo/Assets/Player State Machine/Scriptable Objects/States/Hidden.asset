@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enterActions:
   - {fileID: 11400000, guid: cabf4214b5decd44dbc7dbc9805ed79b, type: 2}
+  - {fileID: 11400000, guid: d524e477ce68f6749a0665a05f9bfb53, type: 2}
   executeActions:
-  - {fileID: 11400000, guid: a9f779cfdf8f2b94da51aeaa08550259, type: 2}
-  exitActions: []
+  - {fileID: 11400000, guid: 9403e6f83e1640d4690f5d73f5e5e8bc, type: 2}
+  exitActions:
+  - {fileID: 11400000, guid: 1ea845f2028b769409ab755d8010f3d8, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: 92eccaffeda7d2b4f863f054578070f1, type: 2}
     newState: {fileID: 11400000, guid: 07e834ab213fcb54fa56a65a1af30ddf, type: 2}

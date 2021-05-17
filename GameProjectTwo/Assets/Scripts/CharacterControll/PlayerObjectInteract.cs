@@ -9,7 +9,7 @@ using UnityEngine;
 public class PlayerObjectInteract : MonoBehaviour
 {
     InteractableScanner iScanner;
-    //Interactable interactable;
+    Interactable interactedBarrel;
     Interactable heldInteractable;
     private Player player;
     
@@ -57,21 +57,11 @@ public class PlayerObjectInteract : MonoBehaviour
                     }
                     else
                     {
-                        if (player.CurrentState == PlayerStates.DraculaHidden)
-                        {
-                            Debug.Log("Leaving " + C.gameObject);
-                            player.Hiding = false;
-                            GetComponent<CharacterController>().enabled = true;                        
-                            interactable.Interact(gameObject);
-                        }
-                        else
-                        {
-                            Debug.Log("Entering " + C.gameObject);
-                            GetComponent<CharacterController>().enabled = false;                           
-                            interactable.Interact(gameObject);
-                            player.Hiding = true;
-  
-                        }
+                        Debug.Log("Entering " + C.gameObject);
+                        GetComponent<CharacterController>().enabled = false;
+                        interactable.Interact(gameObject);
+                        player.Hiding = true;
+                        interactedBarrel = interactable;
                     }
                     break;
                 }
@@ -105,10 +95,17 @@ public class PlayerObjectInteract : MonoBehaviour
                     heldInteractable = null;
                     player.SuckingBlood = false;
                     break;
-
                 default:
                     break;
             }
+        }
+        if (interactedBarrel != null)
+        {
+            Debug.Log("Leaving " + interactedBarrel.gameObject);
+            player.Hiding = false;
+            GetComponent<CharacterController>().enabled = true;
+            interactedBarrel.Interact(gameObject);
+            interactedBarrel = null;
         }
     }
 }
