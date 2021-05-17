@@ -10,7 +10,8 @@ public interface ICharacter
 	public PathPoint[] Path { get; }	
 	public PathPoint targetPoint { get; set; }
 	public Transform Transform { get; }
-	public Transform Player { get; }
+	public Transform PlayerTransform { get; }
+	public Player Player { get; }
 	public NavMeshAgent Agent { get; }
 	public NPCStats Stats { get; }
 	public NPC Self { get; }

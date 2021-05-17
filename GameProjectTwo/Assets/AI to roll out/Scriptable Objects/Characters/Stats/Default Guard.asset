@@ -49,3 +49,4 @@ MonoBehaviour:
   AttackedShoutRange: 2
   Damage: 20
   AttacksPerSecond: 1
+  KnockbackForce: 20

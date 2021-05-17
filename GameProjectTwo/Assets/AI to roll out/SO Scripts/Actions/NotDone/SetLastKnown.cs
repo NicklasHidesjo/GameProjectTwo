@@ -5,6 +5,6 @@ public class SetLastKnown : Action
 {
 	public override void Execute(ICharacter character)
 	{
-		character.PlayerLastSeen = character.Player.position;
+		character.PlayerLastSeen = character.PlayerTransform.position;
 	}
 }

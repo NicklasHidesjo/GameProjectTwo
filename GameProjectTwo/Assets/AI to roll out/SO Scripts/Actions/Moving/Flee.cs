@@ -15,14 +15,14 @@ public class Flee : Action
 		{
 			return;
 		}
-		Vector3 direction = character.Player.position - character.Transform.position;
+		Vector3 direction = character.PlayerTransform.position - character.Transform.position;
 		if(!character.RayHitPlayer(direction, character.Stats.SightLenght))
 		{
 			return;
 		}
 
 		fleeAngles.Clear();
-		Vector3 chaserDir = character.Player.position - character.Transform.position;
+		Vector3 chaserDir = character.PlayerTransform.position - character.Transform.position;
 
 		foreach (var angle in character.RunAngles)
 		{

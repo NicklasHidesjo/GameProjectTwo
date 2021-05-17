@@ -14,7 +14,7 @@ public class StopFleeing : Decision
 		{ 
 			return false; 
 		}
-		Vector3 direction = character.Player.position - character.Transform.position;
+		Vector3 direction = character.PlayerTransform.position - character.Transform.position;
 		return !character.RayHitPlayer(direction, character.Stats.SightLenght);
 	}
 }

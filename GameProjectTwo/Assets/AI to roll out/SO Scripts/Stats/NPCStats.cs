@@ -88,4 +88,5 @@ public class NPCStats : ScriptableObject
 	[Header("Attack Settings")]
 	public int Damage = 10;
 	public float AttacksPerSecond = 1f;
+	public float KnockbackForce = 5f;
 }

@@ -9,6 +9,6 @@ public class TrySetLastKnown : Action
 		{
 			return;
 		}
-		character.PlayerLastSeen = character.Player.position;
+		character.PlayerLastSeen = character.PlayerTransform.position;
 	}
 }
