@@ -6,6 +6,8 @@ using System.Linq;
 
 public class NPC : MonoBehaviour, ICharacter
 {
+    [SerializeField] bool debugDead;
+
     [SerializeField] NPCStats stats;
     [Tooltip("Set this to true if we want the npc to be stationary")]
     [SerializeField] bool stationary;
@@ -112,6 +114,7 @@ public class NPC : MonoBehaviour, ICharacter
 
     public void InitializeNPC(PathPoint[] path = null, bool backTrack = false)
     {
+        if (debugDead) { isDead = true; return; }
         Destroy(GetComponent<DeadBody>());
 
         if (gameObject.CompareTag("Civilian"))
