@@ -90,7 +90,10 @@ public class PlayerManager : MonoBehaviour
         statsManager = gameObject.GetComponent<PlayerStatsManager>();
     }
 
-    
+    public Camera GetPlayerCam()
+    {
+        return playerCam;
+    }
 
     public void SpawnNewPlayer()
     {
