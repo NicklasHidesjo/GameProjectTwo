@@ -19,7 +19,7 @@ MonoBehaviour:
   Gravity: 50
   MaxStamina: 100
   StaminaRecovery: 10
-  FlyStaminaCost: 40
+  FlyStaminaCost: 10
   RunStaminaCost: 10
   WalkSpeed: 5
   RunSpeed: 10
@@ -27,11 +27,13 @@ MonoBehaviour:
   DragBodySpeed: 2
   InSunSpeed: 2
   FlySpeed: 5
-  SteerSpeed: 100
-  DownForce: 4
-  Damping: 2
-  FlightHeight: 2
-  BankAmount: 30
-  CheckLayerForFlight:
+  flightSpeed: 5
+  turnSpeed: 2
+  flightHight: 4
+  maxFlightHight: 4
+  minFlightHight: 2
+  damping: 2
+  downForce: 10
+  checkLayerForFlight:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 769

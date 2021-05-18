@@ -32,10 +32,16 @@ public class PlayerStats : ScriptableObject
     public float FlySpeed = 5f;
 
     [Header("Fly settings")]
-    public float SteerSpeed = 100;
-    public float DownForce = 10.0f;
-    public float Damping = 2.0f;
-    public float FlightHeight = 2.0f;
-    public float BankAmount = 30;
-    public LayerMask CheckLayerForFlight;
+    [Header("InputSettings")]
+    public float flightSpeed = 5.0f;
+    public float turnSpeed = 2.0f;
+    public float flightHight = 2.0f;
+    public float maxFlightHight = 4.0f;
+    public float minFlightHight = 2.0f;
+
+
+    [Header("PhysicsSettings")]
+    public float damping = 2;
+    public float downForce = 10;
+    public LayerMask checkLayerForFlight;
 }

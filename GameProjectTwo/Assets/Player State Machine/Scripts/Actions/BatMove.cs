@@ -3,56 +3,111 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BatMove", menuName = "Player/Action/BatMove")]
 public class BatMove : PlayerAction
 {
-    Vector3 playerVelocity;
-    CharacterController controller;
+    CharacterController cc;
+    Vector3 input;
+    Vector3 batRotationVector = Vector3.up;
+    Vector3 realInput = Vector3.zero;
+    Transform cam;
     PlayerStats stats;
-    Transform transform;
+    float banking = 0;
 
-	public override void Execute(IPlayer player)
-	{
-        controller = player.Controller;
+    public override void Execute(IPlayer player)
+    {
+        cc = player.Controller;
         stats = player.Stats;
-        transform = player.Transform;
-        playerVelocity = BatControl(player);
-        controller.Move(playerVelocity * Time.deltaTime);
-        SetFaceForward();
+        cam = player.AlignCamera;
+
+        InputRotateTowards();
+        InputFlightHight();
+
+        realInput.x = batRotationVector.x * stats.flightSpeed;
+        realInput.z = batRotationVector.z * stats.flightSpeed;
+        realInput.y = SphareCastGround(realInput);
+
+        cc.Move(realInput * Time.deltaTime);
+
+
+        AnimateBatRotation();
     }
 
-    private void SetFaceForward()
+    void InputRotateTowards()
     {
-        transform.rotation = Quaternion.LookRotation(playerVelocity) * Quaternion.Euler(0, 0, -stats.BankAmount * Input.GetAxis("Horizontal"));
-    }
-    Vector3 BatControl(IPlayer player)
-    {
-        Vector3 controllerDir = Quaternion.Euler(0, Input.GetAxis("Horizontal") * stats.SteerSpeed * Time.deltaTime, 0) * transform.forward;
-        controllerDir = (controllerDir) * player.Speed;
-        controllerDir.y = Mathf.Clamp(SphereCastGround(), 0, 3);
-        return controllerDir;
-    }
-    float SphereCastGround()
-    {
-		float yAxisSmoothAdjust = playerVelocity.y;
+        //Rotates axis towards input
+        input.x = Input.GetAxis("Horizontal");
+        input.z = Input.GetAxis("Vertical");
 
-		if (Physics.SphereCast(transform.position + Vector3.up * controller.radius, controller.radius, -Vector3.up, out RaycastHit hit, stats.FlightHeight, stats.CheckLayerForFlight))
+        float x = Mathf.Abs(input.x);
+        float z = Mathf.Abs(input.z);
+
+        input.y = 1 - Mathf.Clamp01(x + z);
+        input = input.normalized;
+        input = AlignInput(input);
+        batRotationVector = Vector3.RotateTowards(batRotationVector, input, stats.turnSpeed * Time.deltaTime, 0.0f);
+
+        //Y is set to zero to avoid extrem spining
+        Vector3 brv = Quaternion.Euler(0, 90, 0) * batRotationVector;
+        brv.y = 0;
+        input.y = 0;
+        banking = Vector3.Dot(brv, input);
+    }
+
+    Vector3 AlignInput(Vector3 input)
+    {
+        //aligns to cam
+        Vector3 camFrw = cam.transform.forward;
+        camFrw.y = 0;
+        Quaternion align = Quaternion.LookRotation(camFrw);
+        return (align * input);
+    }
+
+    void InputFlightHight()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            stats.flightHight = stats.maxFlightHight;
+        }
+        if (Input.GetButtonDown("Crouch"))
+        {
+            stats.flightHight = stats.minFlightHight;
+        }
+    }
+
+    float SphareCastGround(Vector3 velocity)
+    {
+        RaycastHit hit;
+
+        float yAxisSmoothAdjust = velocity.y;
+
+        if (Physics.SphereCast(cc.transform.position + Vector3.up * cc.radius, cc.radius, -Vector3.up, out hit, stats.flightHight, stats.checkLayerForFlight))
         {
             //WARNING : Checking for standing still (Never happens)
-            if (hit.point != transform.position - Vector3.up * stats.FlightHeight)
+            if (hit.point != cc.transform.position - Vector3.up * stats.flightHight)
             {
-                Vector3 desiredPos = hit.point + Vector3.up * hit.normal.y * stats.FlightHeight;
-                float hightOff = 1 / stats.FlightHeight * (desiredPos.y - transform.position.y);
+                Vector3 desiredPos = hit.point + Vector3.up * hit.normal.y * stats.flightHight;
+                float hightOff = 1 / stats.flightHight * (desiredPos.y - cc.transform.position.y);
 
                 hightOff *= hightOff;
 
-                yAxisSmoothAdjust += hightOff + (Mathf.Abs(playerVelocity.y)) * Time.deltaTime;
-                yAxisSmoothAdjust *= 1 - stats.Damping * Time.deltaTime;
-
+                yAxisSmoothAdjust += hightOff + (Mathf.Abs(velocity.y)) * Time.fixedDeltaTime;
+                yAxisSmoothAdjust *= 1 - stats.damping * Time.fixedDeltaTime;
             }
         }
         else
         {
-            yAxisSmoothAdjust -= stats.DownForce * Time.deltaTime;
+            yAxisSmoothAdjust -= stats.downForce * Time.fixedDeltaTime;
         }
 
         return yAxisSmoothAdjust;
+    }
+
+    void AnimateBatRotation()
+    {
+
+        float yAng = Vector3.Angle(cc.transform.forward, batRotationVector);
+        Debug.DrawRay(cc.transform.position, cc.transform.forward, Color.yellow);
+        Debug.DrawRay(cc.transform.position, batRotationVector, Color.red);
+
+        cc.transform.rotation = Quaternion.LookRotation(batRotationVector, cc.transform.up + Vector3.up);
+        cc.transform.rotation *= Quaternion.Euler(0, 0, -banking * 45);
     }
 }
