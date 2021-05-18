@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dracula_MAT
+  m_Name: NPC_Cloth2
   m_Shader: {fileID: 4800000, guid: eb897f41e468d0d4086261dc6acab7f5, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -89,7 +89,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
+    - _MainColor: {r: 0.4647122, g: 0.37900499, b: 0.4811321, a: 0}
     - _SpecularColor: {r: 0, g: 0, b: 0, a: 0}
     - _ZfadeColor: {r: 0.376, g: 0.322, b: 0.251, a: 0}
   m_BuildTextureStacks: []
