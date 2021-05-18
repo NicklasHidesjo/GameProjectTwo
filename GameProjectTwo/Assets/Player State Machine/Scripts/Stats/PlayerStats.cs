@@ -5,11 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "ScriptableObjects/PlayerStats")]
 public class PlayerStats : ScriptableObject
 {
-    [Header("Other settings")]
-    public float TransformDuration;
-    public float Gravity = 20f;
+    [Header("Time settings")]
+    public float TransformDuration = 0.5f;
     [Tooltip("The time in seconds it takes to interact with bodies")]
-    public float InteractionTime = 1f; 
+    public float InteractionTime = 1f;
+
+    [Header("Physics settings ")]
+    public float Mass = 3f;
+    public float Drag = 5f;
+    public float Gravity = 20f;
 
     [Header("Stamina settings")]
     public float MaxStamina = 100f;
@@ -28,7 +32,6 @@ public class PlayerStats : ScriptableObject
     public float FlySpeed = 5f;
 
     [Header("Fly settings")]
-
     public float SteerSpeed = 100;
     public float DownForce = 10.0f;
     public float Damping = 2.0f;

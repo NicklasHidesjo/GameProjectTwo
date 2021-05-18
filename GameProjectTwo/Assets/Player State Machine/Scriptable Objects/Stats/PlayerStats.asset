@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   TransformDuration: 0.5
+  InteractionTime: 1
+  Mass: 1
+  Drag: 10
   Gravity: 50
   MaxStamina: 100
   StaminaRecovery: 10

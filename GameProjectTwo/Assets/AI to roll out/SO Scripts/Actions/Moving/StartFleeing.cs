@@ -6,7 +6,7 @@ public class StartFleeing : Action
 {
 	public override void Execute(ICharacter character)
 	{
-		Vector3 direction = character.Player.position - character.Transform.position;
+		Vector3 direction = character.PlayerTransform.position - character.Transform.position;
 		if (character.RayHitPlayer(direction, character.Stats.SightLenght))
 		{
 			GetRunDestination(character);
@@ -16,7 +16,7 @@ public class StartFleeing : Action
 	{
 		float distance = Random.Range(10, character.Stats.MaxFleeDistance);
 
-		Vector3 dir = character.Transform.position - character.Player.transform.position;
+		Vector3 dir = character.Transform.position - character.PlayerTransform.transform.position;
 		float angle = Random.Range(0, character.Stats.FleeDeadAngle) * (Random.Range(0, 1) * 2 - 1);
 
 		Vector3 randomDir = Quaternion.AngleAxis(angle, dir) * dir;
