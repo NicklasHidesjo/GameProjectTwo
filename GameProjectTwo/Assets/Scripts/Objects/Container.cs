@@ -10,7 +10,7 @@ public class Container : Interactable
     public GameObject ObjectInside { get => objectInside; }
 
     public delegate void OnMoveCompleted();
-
+    [SerializeField] Animator animator;
 
     private bool playerInside = false;
 
@@ -19,6 +19,7 @@ public class Container : Interactable
     {
         Debug.DrawRay(transform.position, transform.forward, Color.blue, 999f);
         //standardMaterial = GetComponent<MeshRenderer>().material;
+        animator = GetComponentInParent<Animator>();
     }
 
 
@@ -39,6 +40,8 @@ public class Container : Interactable
             Debug.Log("hiding in container");
             HideInContainer(obj);
         }
+
+        
 
     }
 
@@ -70,7 +73,7 @@ public class Container : Interactable
     //To Move Objects
     IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time)
     {
-        
+        animator.SetBool("Open", true);
         yield return new WaitForSeconds(0.3f);
         float startTime = Time.time;
         float journeyTime = time;
@@ -90,6 +93,7 @@ public class Container : Interactable
         }
 
         targetToMove.rotation = transform.rotation;
+        animator.SetBool("Open", false);
 
         //Debug.Log("finished moving");     
     }
@@ -97,6 +101,8 @@ public class Container : Interactable
     // To Move Player
     IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time, Player player)
     {
+        animator.SetBool("Open", true);
+
         targetToMove.LookAt(targetPosition);
         yield return new WaitForSeconds(time * 0.5f);
         float startTime = Time.time;
@@ -115,6 +121,8 @@ public class Container : Interactable
             yield return null;
         }
         //Debug.Log("finished moving");
+        animator.SetBool("Open", false);
+
         player.ContainerInteractionDone = true;
     }
 }
