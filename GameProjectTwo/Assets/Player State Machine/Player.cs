@@ -58,7 +58,6 @@ public class Player : MonoBehaviour, IPlayer
     public Quaternion TargetRotation { get; set; }
     public Quaternion originRot { get; set; }
 
-    private void Awake()
 	private Vector3 impact;
 
 	private void Awake()

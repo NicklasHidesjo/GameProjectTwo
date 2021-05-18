@@ -24,7 +24,7 @@ public class CivilianAnimationControl : MonoBehaviour
         else
         {
             UpdateAnimator((int)npc.CurrentState);
-            Debug.Log($"This villager is {npc.CurrentState}, this equals {(int)npc.CurrentState}");
+            //Debug.Log($"This villager is {npc.CurrentState}, this equals {(int)npc.CurrentState}");
         }
     }
 
