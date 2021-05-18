@@ -12,7 +12,7 @@ public class MoveAwayFromPlayer : Action
 		if(character.Agent.velocity != Vector3.zero && !character.NoticedPlayer) { return; }
 		if(character.StateTime < 1f) { return; }
 		character.StateTime = 0;
-		Vector3 direction = character.Player.position - character.Transform.position;
+		Vector3 direction = character.PlayerTransform.position - character.Transform.position;
 		if (character.RayHitPlayer(direction, character.Stats.SightLenght))
 		{
 			GetRunDestination(character);
@@ -22,7 +22,7 @@ public class MoveAwayFromPlayer : Action
 	{
 		float distance = Random.Range(10, character.Stats.MaxFleeDistance);
 
-		Vector3 dir = character.Player.transform.position - character.Transform.position;
+		Vector3 dir = character.PlayerTransform.transform.position - character.Transform.position;
 		float angle = Random.Range(0, character.Stats.FleeDeadAngle) * (Random.Range(0, 2) * 2 - 1);
 
 		Vector3 randomDir = Quaternion.AngleAxis(angle, dir) * dir;

@@ -56,6 +56,8 @@ public class Player : MonoBehaviour, IPlayer
 	[SerializeField] Transform[] batParts;
 	public Transform[] BatParts => batParts;
 
+	private Vector3 impact;
+
 	private void Awake()
 	{
 		controller = GetComponent<CharacterController>();
@@ -73,6 +75,20 @@ public class Player : MonoBehaviour, IPlayer
 	private void OnControllerColliderHit(ControllerColliderHit hit)
 	{
 		LeaveBat = true;
+	}
+
+	private void Update()
+	{
+		if (impact.magnitude > 0.2)
+		{
+			controller.Move(impact * Time.deltaTime);
+		}
+		impact = Vector3.Lerp(impact, Vector3.zero, stats.Drag * Time.deltaTime);
+	}
+
+	public void KnockBack(Vector3 dir, float force)
+	{
+		impact += dir.normalized * force / stats.Mass;
 	}
 
 	public void ActivateBatForm()

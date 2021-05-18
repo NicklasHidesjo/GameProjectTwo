@@ -5,6 +5,6 @@ public class MoveToPlayer : Action
 {
 	public override void Execute(ICharacter character)
 	{
-		character.Move(character.Player.position);
+		character.Move(character.PlayerTransform.position);
 	}
 }
