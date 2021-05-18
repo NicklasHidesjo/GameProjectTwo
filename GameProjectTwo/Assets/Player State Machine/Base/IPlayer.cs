@@ -20,6 +20,8 @@ public interface IPlayer
 
 	public Transform AlignCamera { get; }
 
+	public Transform batModellTransform { get; }
+
 	public float Speed { get; set; }
 
 	public bool InSun { get; set; }

@@ -26,8 +26,10 @@ public class Player : MonoBehaviour, IPlayer
 
 	public Transform Transform => transform;
 
-	private Transform alingCamera;
-	public Transform AlignCamera => alingCamera;
+	private Transform alignCamera;
+	public Transform AlignCamera => alignCamera;
+
+	public Transform batModellTransform => bat.transform;
 
 	public float Speed { get; set; }
 	public float CurrentStamina { get; set; }
@@ -66,7 +68,7 @@ public class Player : MonoBehaviour, IPlayer
 		statsManager = GetComponent<PlayerStatsManager>();
 		iScanner = GetComponent<InteractableScanner>();
 		playerObjectInteract = GetComponent<PlayerObjectInteract>();
-		alingCamera = Camera.main.transform;
+		alignCamera = Camera.main.transform;
 
 		bat.SetActive(false);
 		dracula.SetActive(true);
