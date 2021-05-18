@@ -99,6 +99,6 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HueVariation: {r: 1, g: 0.5, b: 0, a: 0.1}
     - _MainColor: {r: 1, g: 1, b: 1, a: 0}
-    - _SpecularColor: {r: 0.38679248, g: 0.38131902, b: 0.38131902, a: 0}
+    - _SpecularColor: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 0}
     - _ZfadeColor: {r: 0.3764706, g: 0.32156864, b: 0.2509804, a: 0}
   m_BuildTextureStacks: []
