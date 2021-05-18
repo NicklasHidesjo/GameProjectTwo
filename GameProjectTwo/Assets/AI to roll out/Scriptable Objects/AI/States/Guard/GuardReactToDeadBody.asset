@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GuardReactToDeadBody
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: 0868b4d687dad284887aa1f20b01ad11, type: 2}
   - {fileID: 11400000, guid: 7a69066f91ad7f740bd309e3dc2aacd8, type: 2}
   - {fileID: 11400000, guid: e6bad799f9e30c448bb5c4e7294d74e4, type: 2}
   - {fileID: 11400000, guid: b2837432a9174614ca2c3bc717bb2ab5, type: 2}

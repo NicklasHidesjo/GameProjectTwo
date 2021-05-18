@@ -16,7 +16,7 @@ public class Shout : Action
 		}
 
 		SetNearbyCharacters(character);
-		PlayerManager.instance.NotoriousLevel.AddPlShortSuspiciousLevel(1);
+		character.Player.GetComponent<PlayerNotoriousLevels>().AddPlShortSuspiciousLevel(1);
 		foreach (var npc in nearbyCharacters)
 		{
 			if (npc == null)

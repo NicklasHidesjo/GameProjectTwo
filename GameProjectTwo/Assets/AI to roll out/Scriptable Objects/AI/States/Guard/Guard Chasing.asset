@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Guard Chasing
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: 4dd4bcf4b44459441ac39cda81ebb741, type: 2}
   - {fileID: 11400000, guid: e6bad799f9e30c448bb5c4e7294d74e4, type: 2}
   - {fileID: 11400000, guid: 835c8fe8285a322438134e75491dc738, type: 2}
   - {fileID: 11400000, guid: cf9967ed55c615841a53dc7e4532be18, type: 2}

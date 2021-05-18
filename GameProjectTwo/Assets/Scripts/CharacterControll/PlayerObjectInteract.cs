@@ -8,65 +8,20 @@ using UnityEngine;
 [RequireComponent(typeof(InteractableScanner))]
 public class PlayerObjectInteract : MonoBehaviour
 {
-
     InteractableScanner iScanner;
-    Interactable interactable;
+    Interactable interactedBarrel;
     Interactable heldInteractable;
-    public PlayerState playerState;
+    private Player player;
     
 
     void Start()
     {
-        iScanner = GetComponent<InteractableScanner>(); 
+        iScanner = GetComponent<InteractableScanner>();
+        player = GetComponent<Player>();
     }
 
-    void Update()
+    public void InteractWithObject(Interactable interactable)
     {
-
-        if (Input.GetButtonDown("Interact"))
-        {
-            if (iScanner.CurrentInteractable == null)
-            {
-                return;
-            }
-            interactable = iScanner.CurrentInteractable;
-            InteractWithObject();
-
-        }
-
-        //Cancel Button
-        if (Input.GetButtonDown("Run"))
-        {
-            CancelInteraction();
-
-        }
-
-    }
-
-
-    private void InteractWithObject()
-    {
-        // Switch to check if state is valid for interaction
-        switch (playerState.CurrentState)
-        {
-
-            case PlayerState.playerStates.DraculaDefault:
-                break;
-            case PlayerState.playerStates.DraculaRunning:
-                break;
-            case PlayerState.playerStates.DraculaCrouching:
-                break;
-            case PlayerState.playerStates.DraculaDragBody:
-                break;
-            case PlayerState.playerStates.DraculaHidden:
-                break;
-            //case PlayerState.playerStates.DraculaSucking:
-            //    break;
-            default:
-                    print(playerState.CurrentState + " state does not allow interaction");
-                return;
-        }
-
         switch (interactable)
         {
             case DeadBody D: //checks on player to see if interaction is valid
@@ -80,7 +35,7 @@ public class PlayerObjectInteract : MonoBehaviour
                     heldInteractable = D;
                     interactable.Interact(gameObject);
                     iScanner.RemoveInteractableFromList(heldInteractable);
-                    playerState.SetState(PlayerState.playerStates.DraculaDragBody);
+                    player.DraggingBody = true;
                     break;
                 }
                 
@@ -98,25 +53,15 @@ public class PlayerObjectInteract : MonoBehaviour
                         heldInteractable.Interact(gameObject);
                         interactable.Interact(heldInteractable.gameObject);
                         heldInteractable = null;
-                        SetState(PlayerState.playerStates.DraculaDefault);
+                        player.DraggingBody = false;
                     }
                     else
                     {
-                        if (playerState.CurrentState == PlayerState.playerStates.DraculaHidden)
-                        {
-                            Debug.Log("Leaving " + C.gameObject);
-                            playerState.SetState(PlayerState.playerStates.DraculaHideing);
-                            GetComponent<CharacterController>().enabled = true;                        
-                            interactable.Interact(gameObject);
-                        }
-                        else
-                        {
-                            Debug.Log("Entering " + C.gameObject);
-                            GetComponent<CharacterController>().enabled = false;                           
-                            interactable.Interact(gameObject);
-                            playerState.SetState(PlayerState.playerStates.DraculaHideing);
-
-                        }
+                        Debug.Log("Entering " + C.gameObject);
+                        GetComponent<CharacterController>().enabled = false;
+                        interactable.Interact(gameObject);
+                        player.Hiding = true;
+                        interactedBarrel = interactable;
                     }
                     break;
                 }
@@ -126,7 +71,6 @@ public class PlayerObjectInteract : MonoBehaviour
                     interactable.Interact(gameObject);
                     heldInteractable = B;
                     transform.LookAt(interactable.transform);
-
                     break;
                 }
 
@@ -138,34 +82,30 @@ public class PlayerObjectInteract : MonoBehaviour
     {
         if (heldInteractable != null)
         {
-
             switch (heldInteractable)
             {
                 case DeadBody D:
                     heldInteractable.Interact(gameObject);
                     heldInteractable = null;
-                    playerState.SetState(PlayerState.playerStates.DraculaDefault);
+                    player.DraggingBody = false;
                     break;
 
                 case BloodSuckTarget B:
                     B.CancelSucking();
                     heldInteractable = null;
-                    playerState.SetState(PlayerState.playerStates.DraculaDefault);
+                    player.SuckingBlood = false;
                     break;
-
                 default:
                     break;
             }
-
+        }
+        if (interactedBarrel != null)
+        {
+            Debug.Log("Leaving " + interactedBarrel.gameObject);
+            player.Hiding = false;
+            GetComponent<CharacterController>().enabled = true;
+            interactedBarrel.Interact(gameObject);
+            interactedBarrel = null;
         }
     }
-
-    public void SetState(PlayerState.playerStates newState)
-    {
-        playerState.SetState(newState);
-    }
-
-
-
-
 }

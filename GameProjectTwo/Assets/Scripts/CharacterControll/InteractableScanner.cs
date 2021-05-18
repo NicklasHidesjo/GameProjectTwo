@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class InteractableScanner : MonoBehaviour
 {
-
     [SerializeField] HashSet<Interactable> interactables;
     [SerializeField] Interactable currentInteractable;
     public Interactable CurrentInteractable { get => currentInteractable;}
@@ -91,6 +90,4 @@ public class InteractableScanner : MonoBehaviour
 
         interactables.Remove(newInteractable);
     }
-
-
 }

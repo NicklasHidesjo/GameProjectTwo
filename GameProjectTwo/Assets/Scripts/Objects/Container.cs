@@ -36,6 +36,7 @@ public class Container : Interactable
         }
         else if (obj.CompareTag("Player"))
         {
+            Debug.Log("hiding in container");
             HideInContainer(obj);
         }
 
@@ -49,8 +50,6 @@ public class Container : Interactable
         objectInside.GetComponent<Rigidbody>().isKinematic = true;
         thingToHide.GetComponent<Collider>().enabled = false;
         StartCoroutine(MoveTowardsPosition(thingToHide.transform, transform.position, 1f));
-        
-
     }
 
     private void HideInContainer(GameObject player)
@@ -58,14 +57,12 @@ public class Container : Interactable
         if (playerInside)
         {         
             playerInside = false;   
-            StartCoroutine(MoveTowardsPosition(player.transform, gameObject.transform.position + gameObject.transform.forward * 2F, 1f, PlayerState.playerStates.DraculaDefault));
-
+            StartCoroutine(MoveTowardsPosition(player.transform, gameObject.transform.position + gameObject.transform.forward * 2F, 1f, player.GetComponent<Player>()));
         }
         else
         {
             playerInside = true;           
-            StartCoroutine(MoveTowardsPosition(player.transform, transform.position, 1f, PlayerState.playerStates.DraculaHidden));
-            print(transform.position);
+            StartCoroutine(MoveTowardsPosition(player.transform, transform.position, 1f, player.GetComponent<Player>()));
         }
     }
 
@@ -92,9 +89,8 @@ public class Container : Interactable
     }
 
     // To Move Player
-    IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time, PlayerState.playerStates state)
-    {
-        
+    IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time, Player player)
+    {   
         if (time == 0f)
         {
             time = 0.0001f;
@@ -110,13 +106,6 @@ public class Container : Interactable
             yield return new WaitForEndOfFrame();
         }
         Debug.Log("finished moving");
-        //player.GetComponent<PlayerObjectInteract>().SetState(PlayerState.playerStates.DraculaDefault);
-        SetState(state);
+        player.ContainerInteractionDone = true;
     }
-
-    public void SetState(PlayerState.playerStates newState)
-    {
-        PlayerManager.instance.GetComponent<PlayerState>().SetState(newState);       
-    }
-
 }

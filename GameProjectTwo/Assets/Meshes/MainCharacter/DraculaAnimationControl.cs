@@ -6,6 +6,7 @@ public class DraculaAnimationControl : MonoBehaviour
 {
     Animator anim;
     CharacterController cc;
+    Player player;
     enum animStates { idle, walk, run, suck, pickUp };
     [SerializeField] animStates animState;
 
@@ -17,6 +18,7 @@ public class DraculaAnimationControl : MonoBehaviour
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        player = GetComponent<Player>();
         cc = GetComponent<CharacterController>();
     }
 
@@ -33,13 +35,13 @@ public class DraculaAnimationControl : MonoBehaviour
             animState = animStates.run;
 
 
-        if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaSucking)
+        if (player.CurrentState == PlayerStates.DraculaSucking)
         {
             animState = animStates.suck;
         }
-        if (PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHideing ||
-            PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaHidden ||
-            PlayerManager.instance.PlayerState.CurrentState == PlayerState.playerStates.DraculaDragBody)
+        if (player.CurrentState == PlayerStates.DraculaHideing ||
+            player.CurrentState == PlayerStates.DraculaHidden ||
+            player.CurrentState == PlayerStates.DraculaDragBody)
         {
             animState = animStates.pickUp;
         }

@@ -5,16 +5,16 @@ public class CivilianWalkAlongPath : Action
 {
 	public override void Execute(ICharacter character)
 	{
-		if (character.PathIndex >=  character.Path.Count)
+		if (character.PathIndex >=  character.Path.Length)
 		{
 			character.Leave = true;
 			return;
 		}
 
-		PathPoint pathPoint = character.Path[character.PathIndex];
+		Vector3 point = character.Path[character.PathIndex].GetPosition();
 
-		character.targetPoint = pathPoint;
+		character.targetPoint = character.Path[character.PathIndex];
 
-		character.Move(pathPoint.Position);
+		character.Move(point);
 	}
 }

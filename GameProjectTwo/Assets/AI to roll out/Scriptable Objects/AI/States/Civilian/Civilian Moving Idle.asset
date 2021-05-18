@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Civilian Moving Idle
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: 42335948a0d4d304bbb152cfd0d2d5b0, type: 2}
   - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}
   - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
   - {fileID: 11400000, guid: 37c1ba28c9ce5d34ca77bcf68ccb92fe, type: 2}

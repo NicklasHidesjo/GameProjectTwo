@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6226733090646191749}
   - component: {fileID: 4259979716014005760}
   - component: {fileID: 2591138144316233300}
-  - component: {fileID: 2836800432249343555}
+  - component: {fileID: 8676999185429946582}
   m_Layer: 0
   m_Name: Path point
   m_TagString: Untagged
@@ -82,7 +82,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2836800432249343555
+--- !u!114 &8676999185429946582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,7 +91,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6140303358540792145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12e4799026950724a85e431c98efbcee, type: 3}
+  m_Script: {fileID: 11500000, guid: 9648764963caff44eb8194f00029d5fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkLayers:
+    serializedVersion: 2
+    m_Bits: 769
   idlePoint: 0

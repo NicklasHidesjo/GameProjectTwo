@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GoToExit
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: d7928c92542747847ada4a9def832578, type: 2}
   - {fileID: 11400000, guid: 9d4b0457f62f2724087398c8ae4bb98d, type: 2}
   - {fileID: 11400000, guid: 37c1ba28c9ce5d34ca77bcf68ccb92fe, type: 2}
   - {fileID: 11400000, guid: bc7b682462a4e7a48807ea32de186197, type: 2}
@@ -23,3 +24,5 @@ MonoBehaviour:
     newState: {fileID: 11400000, guid: 720dde0af3c73fd41ad6aa61d3ebae5e, type: 2}
   - decision: {fileID: 11400000, guid: 8ec007f7855587c4c985d0b79a83fa39, type: 2}
     newState: {fileID: 11400000, guid: 0366fa8c74898e841a3fa01d99edf71e, type: 2}
+  - decision: {fileID: 11400000, guid: ebdc551eee068cc4594b37ae8722ef5f, type: 2}
+    newState: {fileID: 11400000, guid: 53e6c94010028b940918b7865e5739e3, type: 2}
