@@ -10,7 +10,7 @@ public class StopAttacking : Decision
 				float distance = character.Agent.stoppingDistance + 1f; // make this use a stat attack range
 				return !character.RayHitTarget(character.Transform.forward, distance,mask);*/
 
-		float distance = Vector3.Distance(character.Player.position, character.Transform.position);
+		float distance = Vector3.Distance(character.PlayerTransform.position, character.Transform.position);
 		return distance > character.Agent.stoppingDistance + 1f;
 	}
 }

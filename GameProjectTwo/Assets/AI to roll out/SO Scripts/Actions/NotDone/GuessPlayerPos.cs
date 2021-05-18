@@ -8,15 +8,15 @@ public class GuessPlayerPos : Action
 	{
 		if(character.TimeSinceLastSeenPlayer <= 0) { return; }
 
-		Vector3 velocity = character.Player.GetComponentInParent<CharacterController>().velocity.normalized;
-		float distance = Vector3.Distance(character.Transform.position, character.Player.position);
+		Vector3 velocity = character.PlayerTransform.GetComponentInParent<CharacterController>().velocity.normalized;
+		float distance = Vector3.Distance(character.Transform.position, character.PlayerTransform.position);
 
-		Vector3 guessPos = character.Player.position + (velocity * distance);
-		guessPos.y = character.Player.position.y;
+		Vector3 guessPos = character.PlayerTransform.position + (velocity * distance);
+		guessPos.y = character.PlayerTransform.position.y;
 
 		RaycastHit hit;
 		int layerMask = 1 << 9;
-		if (Physics.Raycast(character.Player.position, velocity, out hit, distance, layerMask))
+		if (Physics.Raycast(character.PlayerTransform.position, velocity, out hit, distance, layerMask))
 		{
 			if (hit.collider.CompareTag("Building"))
 			{

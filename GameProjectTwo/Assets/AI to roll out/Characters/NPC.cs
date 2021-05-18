@@ -11,23 +11,25 @@ public class NPC : MonoBehaviour, ICharacter
     [SerializeField] bool stationary;
     [Tooltip("The layer that npc's are at (used when trying to hit player and also when finding other npc's")]
     [SerializeField] LayerMask npcLayer;
-
-    private NavMeshAgent agent;
-    private Transform player;
-    private PathPoint[] path;
     public LayerMask NpcLayer => npcLayer;
 
+    private NavMeshAgent agent;
+    public NavMeshAgent Agent => agent;
+
+    public Transform Transform => transform;
     public NPC Self => this;
+
+    private PathPoint[] path;
     public PathPoint[] Path => path;
     public PathPoint targetPoint { get; set; }
 
     public NPCStates CurrentState { get; set; }
 
-    public Transform Transform => transform;
+    private Transform playerTransform;
+    public Transform PlayerTransform => playerTransform;
 
-    public Transform Player => player;
-
-    public NavMeshAgent Agent => agent;
+    private Player player;
+    public Player Player => player;
 
     public NPCStats Stats => stats;
 
@@ -106,7 +108,8 @@ public class NPC : MonoBehaviour, ICharacter
     public void GetComponents()
     {
         agent = GetComponent<NavMeshAgent>();
-        player = FindObjectOfType<Player>().transform;
+        player = FindObjectOfType<Player>();
+        playerTransform = player.transform;
         bloodSuckTarget = GetComponent<BloodSuckTarget>();
     }
 
@@ -186,8 +189,11 @@ public class NPC : MonoBehaviour, ICharacter
 
     public void Attack()
     {
+        StateTime = 0;
         player.GetComponent<PlayerStatsManager>().DecreaseHealthValue(stats.Damage);
-        player.GetComponent<Player>().StopHiding = true;
+        player.StopHiding = true;
+        var dir = playerTransform.position - transform.position;
+        player.KnockBack(dir, stats.KnockbackForce);
     }
     public void Move(Vector3 destination)
     {
@@ -200,7 +206,7 @@ public class NPC : MonoBehaviour, ICharacter
 
     public void RotateTowardsPlayer()
     {
-        Quaternion target = Quaternion.LookRotation(player.position - transform.position);
+        Quaternion target = Quaternion.LookRotation(playerTransform.position - transform.position);
 
         float compensation = stats.TurnSpeedCompensation - Vector3.Angle(target.eulerAngles, transform.forward);
         float speedIncrease = Mathf.Clamp(compensation, 0, stats.TurnSpeedCompensation);
@@ -252,7 +258,7 @@ public class NPC : MonoBehaviour, ICharacter
         if (gameObject.CompareTag("Civilian"))
         {
             // have this be a check if we se the player instead
-            if (Vector3.Distance(transform.position, player.position) > stats.SightLenght)
+            if (Vector3.Distance(transform.position, playerTransform.position) > stats.SightLenght)
             {
                 return;
             }
@@ -266,7 +272,7 @@ public class NPC : MonoBehaviour, ICharacter
         if (gameObject.CompareTag("Civilian"))
         {
             // have this be a check if we se the corpse instead
-            if (Vector3.Distance(transform.position, player.position) > stats.SightLenght)
+            if (Vector3.Distance(transform.position, playerTransform.position) > stats.SightLenght)
             {
                 return;
             }

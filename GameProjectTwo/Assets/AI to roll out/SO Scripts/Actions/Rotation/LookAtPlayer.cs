@@ -13,7 +13,7 @@ public class LookAtPlayer : Action
 		}
 		if (character.Alertness >= character.Stats.AlertActionThreshold)
 		{
-			character.LookAt(character.Player.position);
+			character.LookAt(character.PlayerTransform.position);
 		}
 		else
 		{

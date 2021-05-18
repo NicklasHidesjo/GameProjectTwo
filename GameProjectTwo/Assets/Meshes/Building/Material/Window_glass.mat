@@ -112,7 +112,7 @@ Material:
     - _HColor: {r: 1, g: 1, b: 1, a: 0}
     - _MainColor: {r: 1, g: 0.9764151, b: 0.9764151, a: 0}
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0}
-    - _RimColor: {r: 1, g: 0.8965088, b: 0, a: 0}
+    - _RimColor: {r: 1, g: 0.8980392, b: 0, a: 0}
     - _SpColor: {r: 1, g: 1, b: 1, a: 0}
     - _SpecularColor: {r: 0, g: 0, b: 0, a: 0}
     - _ZfadeColor: {r: 0.376, g: 0.322, b: 0.251, a: 0}
