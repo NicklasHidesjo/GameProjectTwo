@@ -10,7 +10,7 @@ public class Container : Interactable
     public GameObject ObjectInside { get => objectInside; }
 
     public delegate void OnMoveCompleted();
-
+    [SerializeField] Animator animator;
 
     private bool playerInside = false;
 
@@ -19,6 +19,7 @@ public class Container : Interactable
     {
         Debug.DrawRay(transform.position, transform.forward, Color.blue, 999f);
         //standardMaterial = GetComponent<MeshRenderer>().material;
+        animator = GetComponentInParent<Animator>();
     }
 
 
@@ -40,6 +41,8 @@ public class Container : Interactable
             HideInContainer(obj);
         }
 
+        
+
     }
 
     private void AddToContainer(GameObject thingToHide)
@@ -49,7 +52,7 @@ public class Container : Interactable
         //Physics.IgnoreCollision(thingToHide.GetComponent<Collider>(), GetComponent<Collider>());
         objectInside.GetComponent<Rigidbody>().isKinematic = true;
         thingToHide.GetComponent<Collider>().enabled = false;
-        StartCoroutine(MoveTowardsPosition(thingToHide.transform, transform.position, 1f));
+        StartCoroutine(MoveTowardsPosition(thingToHide.transform, transform.position, 0.5f));
     }
 
     private void HideInContainer(GameObject player)
@@ -57,12 +60,12 @@ public class Container : Interactable
         if (playerInside)
         {         
             playerInside = false;   
-            StartCoroutine(MoveTowardsPosition(player.transform, gameObject.transform.position + gameObject.transform.forward * 2F, 1f, player.GetComponent<Player>()));
+            StartCoroutine(MoveTowardsPosition(player.transform, gameObject.transform.position + gameObject.transform.forward * 2F, 0.3f, player.GetComponent<Player>()));
         }
         else
         {
             playerInside = true;           
-            StartCoroutine(MoveTowardsPosition(player.transform, transform.position, 1f, player.GetComponent<Player>()));
+            StartCoroutine(MoveTowardsPosition(player.transform, transform.position, 0.5f, player.GetComponent<Player>()));
         }
     }
 
@@ -70,42 +73,56 @@ public class Container : Interactable
     //To Move Objects
     IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time)
     {
+        animator.SetBool("Open", true);
+        yield return new WaitForSeconds(0.3f);
+        float startTime = Time.time;
+        float journeyTime = time;
         
-        if (time == 0f)
-        {
-            time = 0.0001f;
-        }
         Vector3 startPos = targetToMove.position;
+        Vector3 center = startPos - Vector3.up;
+        Vector3 startRelCenter = startPos - center;
+        Vector3 endRelCenter = targetPosition - center;
 
-        float elapsedTime = 0;
 
-        while (elapsedTime < time)
-        {        
-            targetToMove.position = Vector3.Lerp(startPos, targetPosition, elapsedTime / time);
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+        while (targetToMove.position != targetPosition)
+        {
+            float fracComplete = (Time.time - startTime) / journeyTime;
+            targetToMove.position = Vector3.Slerp(startRelCenter, endRelCenter, fracComplete);
+            targetToMove.position += center;
+            yield return null;
         }
-        Debug.Log("finished moving");     
+
+        targetToMove.rotation = transform.rotation;
+        animator.SetBool("Open", false);
+
+        //Debug.Log("finished moving");     
     }
 
     // To Move Player
     IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time, Player player)
-    {   
-        if (time == 0f)
-        {
-            time = 0.0001f;
-        }
+    {
+        animator.SetBool("Open", true);
+
+        targetToMove.LookAt(targetPosition);
+        yield return new WaitForSeconds(time * 0.5f);
+        float startTime = Time.time;
+        float journeyTime = time;
+
         Vector3 startPos = targetToMove.position;
+        Vector3 center = startPos - Vector3.up;
+        Vector3 startRelCenter = startPos - center;
+        Vector3 endRelCenter = targetPosition - center;
 
-        float elapsedTime = 0;
-
-        while (elapsedTime < time)
+        while (targetToMove.position != targetPosition)
         {
-            targetToMove.position = Vector3.Lerp(startPos, targetPosition, elapsedTime / time);
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            float fracComplete = (Time.time - startTime) / journeyTime;
+            targetToMove.position = Vector3.Slerp(startRelCenter, endRelCenter, fracComplete);
+            targetToMove.position += center;
+            yield return null;
         }
-        Debug.Log("finished moving");
+        //Debug.Log("finished moving");
+        animator.SetBool("Open", false);
+
         player.ContainerInteractionDone = true;
     }
 }
