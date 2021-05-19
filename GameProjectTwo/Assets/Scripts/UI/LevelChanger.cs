@@ -9,6 +9,7 @@ public class LevelChanger : MonoBehaviour
 
     public void FadeToLevel(int levelIndex)
     {
+        AudioManager.instance.PlaySound(SoundType.DraculaCoffin);
         levelToLoad = levelIndex;
         animator.SetTrigger("FadeOut");
         //Fades out current music
