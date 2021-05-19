@@ -9,8 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c27479aacd2c964bbf95c460e3ce338, type: 3}
-  m_Name: SetCharmed (true)
+  m_Script: {fileID: 11500000, guid: 3a23eba24477e03409c7c813939a0c28, type: 3}
+  m_Name: EnterCharmedState
   m_EditorClassIdentifier: 
-  setBool: 4
-  isTrue: 1

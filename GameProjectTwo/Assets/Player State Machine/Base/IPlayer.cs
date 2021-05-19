@@ -4,6 +4,7 @@ using UnityEngine.AI;
 public interface IPlayer
 {
 	public PlayerStats Stats { get; }
+	public Player MyPlayer { get; }
 
 	public InteractableScanner IScanner { get; }
 	public PlayerObjectInteract PlayerObjectInteract { get; }
@@ -43,10 +44,14 @@ public interface IPlayer
 	public float CurrentStamina { get; set; }
     public Quaternion originRot { get; set; }
 
-    public void ActivateBatForm();
+	public NPC charmTarget { get; set; }
+	public bool CharmingTarget { get; set; }
+
+	public void ActivateBatForm();
 
 	public void ActivateDraculaForm();
 
+	public void DecreaseStaminaPerSecond(float decrease);
 	public void DecreaseStamina(float decrease);
 	public void RecoverStamina(float increase);
 }

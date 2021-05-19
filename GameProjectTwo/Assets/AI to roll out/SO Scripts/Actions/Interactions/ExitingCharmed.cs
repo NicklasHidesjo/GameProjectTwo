@@ -5,13 +5,16 @@ public class ExitingCharmed : Action
 {
 	public override void Execute(ICharacter character)
 	{
-        if(character.SeesPlayer)
+		PlayerStates currentState = character.Player.CurrentState;
+
+        if(character.SeesPlayer && (currentState != PlayerStates.TransformToBat || currentState != PlayerStates.BatDefault))
 		{
-			character.SetAlertnessToMax();
+			character.SetAlertness(character.Stats.AlertActionThreshold);
 		}
 		else
 		{
-			character.SetAlertness(character.Stats.ExitCharmIncrease);
+			character.SetAlertness(character.Stats.CautiousThreshold * 1.2f);
 		}
+		character.Player.CharmingTarget = false;
 	}
 }

@@ -9,11 +9,11 @@ public class DrainStamina : PlayerAction
 		switch (cost)
 		{
 			case StaminaCosts.FlyCost:
-				player.DecreaseStamina(player.Stats.FlyStaminaCost);
+				player.DecreaseStaminaPerSecond(player.Stats.FlyStaminaCost);
 				break;
 			case StaminaCosts.RunCost:
 				if(player.Controller.velocity == Vector3.zero) { return; }
-				player.DecreaseStamina(player.Stats.RunStaminaCost);
+				player.DecreaseStaminaPerSecond(player.Stats.RunStaminaCost);
 				break;
 		}
 	}

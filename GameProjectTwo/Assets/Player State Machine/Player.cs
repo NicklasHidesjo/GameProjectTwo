@@ -18,6 +18,7 @@ public class Player : MonoBehaviour, IPlayer
 	public PlayerObjectInteract PlayerObjectInteract => playerObjectInteract;
 
 	public PlayerStats Stats => stats;
+	public Player MyPlayer => this;
 
 	public PlayerStates CurrentState { get; set; }
 
@@ -30,6 +31,9 @@ public class Player : MonoBehaviour, IPlayer
 	public Transform AlignCamera => alignCamera;
 
 	public Transform batModellTransform => bat.transform;
+
+	public NPC charmTarget { get; set; }
+	public bool CharmingTarget { get; set; }
 
 	public float Speed { get; set; }
 	public float CurrentStamina { get; set; }
@@ -111,9 +115,14 @@ public class Player : MonoBehaviour, IPlayer
 		bat.SetActive(false);
 	}
 
-	public void DecreaseStamina(float decrease)
+	public void DecreaseStaminaPerSecond(float decrease)
 	{
 		CurrentStamina = Mathf.Clamp(CurrentStamina - (decrease * Time.deltaTime), 0, stats.MaxStamina);
+		statsManager.SetStaminaBar(CurrentStamina);
+	}
+	public void DecreaseStamina(float decrease)
+	{
+		CurrentStamina = Mathf.Clamp(CurrentStamina - decrease, 0, stats.MaxStamina);
 		statsManager.SetStaminaBar(CurrentStamina);
 	}
 	// make this vary based on the state that the player is in (for example Idle will increase stamina faster then walking)
