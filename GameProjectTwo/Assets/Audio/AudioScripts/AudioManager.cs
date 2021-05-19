@@ -6,10 +6,11 @@ using UnityEngine.Audio;
 public enum SoundType
 {
     Default,
-    DraculaBite, DraculaDrink, DraculaDrinkDone, DraculaDamage,
+    DraculaBite, DraculaDrink, DraculaDrinkDone, DraculaDamage, DraculaTransform, DraculaCoffin,
     GuardShout, GuardAttack, GuardSuspicious, GuardAlert, GuardSearching, GuardSearchingEnd,
-    CivilianShout, CivilianDie, CivilianNotice, 
-    SunDamage,
+    CivilianShout, CivilianDie, CivilianNotice,
+    SunDamage, BatTransform, HideInContainer,
+    MorningBell, NightAmbience,
 }
 
 
@@ -24,7 +25,8 @@ public class AudioManager : MonoBehaviour
 
     private GameObject audioListGameObject;
     [SerializeField] List<AudioSource> audioSources;
-    
+    [SerializeField] AudioMixer audioMixer;
+
 
     private void Awake()
     {
@@ -51,6 +53,22 @@ public class AudioManager : MonoBehaviour
             AudioSource a = audioListGameObject.AddComponent<AudioSource>();         
             audioSources.Add(a);
         }
+
+        float musicVolume = PlayerPrefs.GetFloat("musicVolume");
+        float soundVolume = PlayerPrefs.GetFloat("soundVolume");
+        float masterVolume = PlayerPrefs.GetFloat("masterVolume");
+
+        if (!PlayerPrefs.HasKey("musicVolume"))
+        {
+            SaveVolumeSettings(0.75f, 0.75f, 0.75f);
+            musicVolume = PlayerPrefs.GetFloat("musicVolume");
+            soundVolume = PlayerPrefs.GetFloat("soundVolume");
+            masterVolume = PlayerPrefs.GetFloat("masterVolume");
+
+
+        }
+
+        SetMixerVolume(musicVolume, soundVolume, masterVolume);
     }
 
     private SoundCue GetCue(SoundType soundType)
@@ -84,8 +102,9 @@ public class AudioManager : MonoBehaviour
         SoundCue cue = GetCue(soundType);
 
         AudioSource source = GetIdleAudioSource();
-        source.clip = cue.sounds[Random.Range(0, cue.sounds.Count - 1)];
+        source.clip = cue.sounds[Random.Range(0, cue.sounds.Count)];
         source.loop = cue.loop;
+        source.outputAudioMixerGroup = cue.channel;
         if (fadeInTime == 0f)
         {
             source.Play();
@@ -113,7 +132,7 @@ public class AudioManager : MonoBehaviour
             
         }
         
-        source.clip = cue.sounds[Random.Range(0, cue.sounds.Count - 1)];
+        source.clip = cue.sounds[Random.Range(0, cue.sounds.Count)];
         source.loop = cue.loop;
         source.Play();
 
@@ -135,7 +154,8 @@ public class AudioManager : MonoBehaviour
 
         }
 
-        source.PlayOneShot(cue.sounds[Random.Range(0, cue.sounds.Count - 1)]);
+        source.outputAudioMixerGroup = cue.channel;
+        source.PlayOneShot(cue.sounds[Random.Range(0, cue.sounds.Count)]);
 
     }
 
@@ -206,7 +226,6 @@ public class AudioManager : MonoBehaviour
         source.volume = currentVolume;
         print("finished fade");
 
-
     }
 
     private IEnumerator AudioFadeIn(AudioSource source, float fadeInTime)
@@ -239,6 +258,22 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    public void SetMixerVolume(float musicVolume, float soundVolume, float masterVolume)
+    {
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(musicVolume) * 20);
+        audioMixer.SetFloat("SoundVolume", Mathf.Log10(soundVolume) * 20);
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(masterVolume) * 20);
+    }
+
+    public void SaveVolumeSettings(float musicVolume, float soundVolume, float masterVolume)
+    {
+        PlayerPrefs.SetFloat("musicVolume", musicVolume);
+        PlayerPrefs.SetFloat("soundVolume", soundVolume);
+        PlayerPrefs.SetFloat("masterVolume", masterVolume);
+
+    }
+
 
 
 }
