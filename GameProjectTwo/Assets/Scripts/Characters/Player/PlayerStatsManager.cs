@@ -8,18 +8,15 @@ public class PlayerStatsManager : MonoBehaviour
 {
     private BarController barControllerHealth;
     private BarController barControllerStamina;
+    private BarController barControllerSatiation;
     private EndLevelCheck endLevelCheck;
-    private Text satiationText;
-    
+
     [Header("Hunger Variables")]
     [SerializeField] int maxSatiation;
     [SerializeField] int currentSatiation;
     public int MaxSatiation { get => maxSatiation; }
     public int CurrentSatiation { get => currentSatiation; }
 
-    private string maxSatiationNumber = "";
-    private string currentSatiationNumber = "";
-    
     [Header("Stamina Variables")]
     [SerializeField] float maxStamina = 100;
     [SerializeField] float currentStamina = 100;
@@ -54,12 +51,12 @@ public class PlayerStatsManager : MonoBehaviour
             Debug.LogWarningFormat("EndOfLevelTrigger not found in scene");
         }
 
-        satiationText = GameObject.FindGameObjectWithTag("HungerMeter").GetComponent<Text>();
-        
         barControllerHealth = GameObject.FindGameObjectWithTag("HealthBar").GetComponent<BarController>();
         barControllerStamina = GameObject.FindGameObjectWithTag("StaminaBar").GetComponent<BarController>();
+        barControllerSatiation = GameObject.FindGameObjectWithTag("HungerMeter").GetComponent<BarController>();
         barControllerHealth.Init();
         barControllerStamina.Init();
+        barControllerSatiation.Init();
         ResetStats();
     }
     
@@ -111,9 +108,8 @@ public class PlayerStatsManager : MonoBehaviour
     {
         currentSatiation = Mathf.Clamp(currentSatiation + satiationIncrease, 0, maxSatiation);
 
-        currentSatiationNumber = currentSatiation.ToString();
-        satiationText.text = currentSatiationNumber + " / " + maxSatiationNumber;
-        
+        SetCurrentBarValue(barControllerSatiation, currentSatiation);
+
         if (currentSatiation >= maxSatiation)
         {
             Debug.Log("Coffin Active");
@@ -154,14 +150,12 @@ public class PlayerStatsManager : MonoBehaviour
  
         Lairfinder.SetActive(false);
 
-        currentSatiationNumber = currentSatiation.ToString();
-        maxSatiationNumber = maxSatiation.ToString();
-
         SetMaxBarValue(barControllerStamina, maxStamina);
         SetMaxBarValue(barControllerHealth, maxHealth);
+        SetMaxBarValue(barControllerSatiation, maxSatiation);
         SetCurrentBarValue(barControllerStamina, currentStamina);
         SetCurrentBarValue(barControllerHealth, currentHealth);
-        satiationText.text = currentSatiationNumber + " / " + maxSatiationNumber;
+        SetCurrentBarValue(barControllerSatiation, currentSatiation);
     }
     
 }

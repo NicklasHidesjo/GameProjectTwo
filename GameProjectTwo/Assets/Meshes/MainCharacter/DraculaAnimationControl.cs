@@ -7,7 +7,7 @@ public class DraculaAnimationControl : MonoBehaviour
     Animator anim;
     CharacterController cc;
     Player player;
-    enum animStates { idle, walk, run, suck, pickUp };
+    enum animStates { idle, walk, run, suck, pickUp, hiding, unhiding, };
     [SerializeField] animStates animState;
 
     [SerializeField] float walkthreshold = 0.25f;
@@ -34,20 +34,34 @@ public class DraculaAnimationControl : MonoBehaviour
         if (speed >= runthreshold)
             animState = animStates.run;
 
-
-        if (player.CurrentState == PlayerStates.DraculaSucking)
+        switch (player.CurrentState)
         {
-            animState = animStates.suck;
-        }
-        if (player.CurrentState == PlayerStates.DraculaHideing ||
-            player.CurrentState == PlayerStates.DraculaHidden ||
-            player.CurrentState == PlayerStates.DraculaDragBody)
-        {
-            animState = animStates.pickUp;
+            case PlayerStates.DraculaDragBody:
+                animState = animStates.pickUp;
+                break;
+            case PlayerStates.DraculaHideing: 
+                animState = animStates.hiding;
+                break;
+            case PlayerStates.DraculaStopHiding:
+                animState = animStates.unhiding;
+                break;
+            case PlayerStates.DraculaHidden:                
+                break;
+            case PlayerStates.DraculaSucking:
+                animState = animStates.suck;
+                break;
+            case PlayerStates.DraculaBurning:
+                break;
+            case PlayerStates.TransformToBat:
+                break;
+            case PlayerStates.BatDefault:
+                break;
+            default:
+                break;
         }
 
 
-        //print((int)animState + " <<State>> " + anim.GetInteger("state") + " velocity : " + speed);
+        //print((int)animState + " <<State>> " + anim.GetInteger("state") + " velocity : " + speed );
         UpdateAnimator((int)animState, speed);
     }
 
