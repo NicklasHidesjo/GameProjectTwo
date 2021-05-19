@@ -35,7 +35,7 @@ Shader "Roberts/WorldUV" {
 			LOD 400
 
 			CGPROGRAM
-			#pragma surface surf Robert  //noambient
+			#pragma surface surf Robert fullforwardshadows addshadow  dualforward  //noambient
 			#pragma shader_feature UseWorldUV
 
 			half _Scale;
