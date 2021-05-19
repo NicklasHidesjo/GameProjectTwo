@@ -17,23 +17,26 @@ MonoBehaviour:
   Mass: 1
   Drag: 10
   Gravity: 50
+  Damping: 2
+  DownForce: 10
   MaxStamina: 100
   StaminaRecovery: 10
   FlyStaminaCost: 10
   RunStaminaCost: 10
+  CharmStaminaCost: 70
   WalkSpeed: 5
   RunSpeed: 10
   CrouchSpeed: 1
   DragBodySpeed: 2
   InSunSpeed: 2
   FlySpeed: 5
-  flightSpeed: 5
-  turnSpeed: 2
-  flightHight: 4
-  maxFlightHight: 4
-  minFlightHight: 2
-  damping: 2
-  downForce: 10
-  checkLayerForFlight:
+  FlightSpeed: 5
+  TurnSpeed: 2
+  FlightHight: 4
+  MaxFlightHight: 4
+  MinFlightHight: 2
+  CheckLayerForFlight:
     serializedVersion: 2
     m_Bits: 769
+  CharmRange: 15
+  CharmFOV: 90

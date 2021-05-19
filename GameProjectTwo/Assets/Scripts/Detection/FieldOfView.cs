@@ -32,6 +32,7 @@ public class FieldOfView : MonoBehaviour
 	void FindVisibleCharacters()
 	{
 		if (npc.IsDead) { return; }
+		if(npc.IsCharmed) { return; }
 		DetectVisiblePlayer();
 		CheckForDeadNpc();
 	}

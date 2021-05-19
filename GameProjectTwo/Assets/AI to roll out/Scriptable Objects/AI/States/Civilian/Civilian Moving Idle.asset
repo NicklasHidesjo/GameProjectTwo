@@ -42,3 +42,5 @@ MonoBehaviour:
     newState: {fileID: 11400000, guid: 0b10f5a581509f844ae74709536556dc, type: 2}
   - decision: {fileID: 11400000, guid: 0d4eb2f546a449247a1dfcef0113f726, type: 2}
     newState: {fileID: 11400000, guid: 8b275f0cdaf7083459ed3c74295c88b2, type: 2}
+  - decision: {fileID: 11400000, guid: 6a0d8868740c7a54cba0cad7d859e9f5, type: 2}
+    newState: {fileID: 11400000, guid: 947fda6e9befaab498c6ac65a7514133, type: 2}

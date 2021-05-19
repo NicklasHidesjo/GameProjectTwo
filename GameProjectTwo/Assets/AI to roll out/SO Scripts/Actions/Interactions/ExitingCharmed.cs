@@ -5,7 +5,9 @@ public class ExitingCharmed : Action
 {
 	public override void Execute(ICharacter character)
 	{
-        if(character.SeesPlayer)
+		PlayerStates currentState = character.Player.CurrentState;
+
+        if(character.SeesPlayer && (currentState != PlayerStates.TransformToBat || currentState != PlayerStates.BatDefault))
 		{
 			character.SetAlertnessToMax();
 		}
@@ -13,5 +15,6 @@ public class ExitingCharmed : Action
 		{
 			character.SetAlertness(character.Stats.ExitCharmIncrease);
 		}
+		character.Player.CharmingTarget = false;
 	}
 }
