@@ -78,15 +78,18 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cel: 0
+    - _Compress: 0.33
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _ExtCutOff: 0.15
+    - _Gain: 9.98
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _HmapA: 0
     - _Hscale: 0.1
+    - _Knee: -1.07
     - _Metallic: 0
     - _MinH: 0
     - _Mode: 0
