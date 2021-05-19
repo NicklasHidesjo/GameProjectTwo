@@ -4936,7 +4936,7 @@ MonoBehaviour:
   pauseScreen: {fileID: 1248479896}
   deathScreen: {fileID: 8038028367940923569}
   victoryScreen: {fileID: 1532012822}
-  levelChanger: {fileID: 3265314013287152942, guid: a80e3734db23eb246ab890f55fb2a41a, type: 3}
+  levelChanger: {fileID: 0}
 --- !u!114 &3995001142474740211
 MonoBehaviour:
   m_ObjectHideFlags: 0
