@@ -72,7 +72,7 @@ public class AudioManager : MonoBehaviour
         SetMixerVolume(musicVolume, soundVolume, masterVolume);
 
         musicPlayer = GetComponent<AudioSource>();
-        PlayMusic(1, 2f);
+        //PlayMusic(1, 2f);
     }
 
     public void PlayMusic(int songNumber, float fadeInTime = 0f)
