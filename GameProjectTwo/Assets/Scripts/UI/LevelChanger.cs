@@ -11,10 +11,14 @@ public class LevelChanger : MonoBehaviour
     {
         levelToLoad = levelIndex;
         animator.SetTrigger("FadeOut");
+        //Fades out current music
+        AudioManager.instance.StopSound(AudioManager.instance.gameObject, 0.99f); 
+
     }
 
     public void OnFadeComplete()
     {
         SceneManager.LoadScene(levelToLoad);
+        AudioManager.instance.PlayMusic(levelToLoad, 2f);
     }
 }
