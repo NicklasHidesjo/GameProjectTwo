@@ -46,7 +46,7 @@ public class MenuManager : MonoBehaviour
             }
         }
 
-        if (player.IsDead)
+        if (player.IsDead && !inDeathScreen)
         {
             PlayerDeathScreen();
         }
