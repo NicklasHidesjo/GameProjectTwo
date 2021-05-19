@@ -29,9 +29,6 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource musicPlayer;
 
-
-
-
     private void Awake()
     {
         if (_instance == null)
@@ -75,7 +72,7 @@ public class AudioManager : MonoBehaviour
         SetMixerVolume(musicVolume, soundVolume, masterVolume);
 
         musicPlayer = GetComponent<AudioSource>();
-        PlayMusic(0, 2f);
+        PlayMusic(1, 2f);
     }
 
     public void PlayMusic(int songNumber, float fadeInTime = 0f)
@@ -153,6 +150,7 @@ public class AudioManager : MonoBehaviour
         
         source.clip = cue.sounds[Random.Range(0, cue.sounds.Count)];
         source.loop = cue.loop;
+        source.outputAudioMixerGroup = cue.channel;
         source.Play();
 
     }

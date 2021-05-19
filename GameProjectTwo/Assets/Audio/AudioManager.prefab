@@ -103,7 +103,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: fc95484088be91847a07b4bd1a558476, type: 3}
   - type: 8
     loop: 0
-    channel: {fileID: 3729295796443458510, guid: 5a073ff4842204344ac262589efaab3d, type: 2}
+    channel: {fileID: -1061552072720580746, guid: 5a073ff4842204344ac262589efaab3d, type: 2}
     sounds:
     - {fileID: 8300000, guid: ee73f48805cbf5f43b0d2b5893bff87a, type: 3}
   - type: 9
