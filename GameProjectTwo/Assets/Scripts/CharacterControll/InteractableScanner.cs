@@ -11,8 +11,6 @@ public class InteractableScanner : MonoBehaviour
     public Interactable CurrentInteractable { get => currentInteractable;}
 
     [SerializeField] float interactRange;
-
-    public float InteractRange { get => interactRange;}
     [SerializeField] LayerMask layersToSearch;
 
     void Start()

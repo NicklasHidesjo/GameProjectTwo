@@ -11,6 +11,7 @@ public class NPC : MonoBehaviour, ICharacter
     [SerializeField] bool stationary;
     [Tooltip("The layer that npc's are at (used when trying to hit player and also when finding other npc's")]
     [SerializeField] LayerMask npcLayer;
+    [SerializeField] SpriteRenderer charmInteractionRenderer;
     public LayerMask NpcLayer => npcLayer;
 
     private NavMeshAgent agent;
@@ -138,11 +139,13 @@ public class NPC : MonoBehaviour, ICharacter
         SetFloatsAndInts();
         SetArrays();
         GetComponent<StateMachine>().InitializeStateMachine();
+        SetCharmInteraction(false);
     }
 
 	private void SetBools(bool backTrack)
 	{
 		IsSuckable = true;
+        IsCharmed = false;
 		GettingSucked = false;
 		isDead = false;
 		ShouldShout = true;
@@ -283,12 +286,22 @@ public class NPC : MonoBehaviour, ICharacter
 
     public void SetAlertnessToMax()
     {
+        if (IsCharmed)
+        {
+            return;
+        }
+
         Alertness = stats.MaxAlerted;
         Run = true;
     }
 
     public void SetAlertness(float value)
     {
+        if (IsCharmed)
+        {
+            return;
+        }
+
         Alertness = value;
 
         if (Alertness >= stats.MaxAlerted)
@@ -355,4 +368,16 @@ public class NPC : MonoBehaviour, ICharacter
             NPCSpawner.Instance.NpcDespawn(true, this);
         }
     }
+
+    public void SetCharmInteraction(bool isCharmTarget)
+	{
+        if(isCharmTarget)
+		{
+            charmInteractionRenderer.enabled = true;
+		}
+        else
+		{
+            charmInteractionRenderer.enabled = false;
+		}
+	}
 }

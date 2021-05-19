@@ -5,6 +5,6 @@ public class ExitCharmed : Decision
 {
 	public override bool Decide(ICharacter character)
 	{
-		return false;
+		return !character.IsCharmed;
 	}
 }

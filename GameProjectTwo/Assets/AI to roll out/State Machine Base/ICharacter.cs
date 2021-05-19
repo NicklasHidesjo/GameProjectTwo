@@ -114,4 +114,6 @@ public interface ICharacter
 	public void ReactToShout(NPC deadNPC);
 
 	public void Dispose();
+
+	public void SetCharmInteraction(bool isCharmTarget);
 }

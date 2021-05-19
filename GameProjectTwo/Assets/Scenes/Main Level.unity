@@ -13192,7 +13192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5411675286189782530, guid: 6ca6ad7f637d4c2438dd72c3dc98f35a, type: 3}
       propertyPath: guardSpawnPos.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5411675286189782530, guid: 6ca6ad7f637d4c2438dd72c3dc98f35a, type: 3}
       propertyPath: civilianSpawnPos.Array.size
@@ -13244,7 +13244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5411675286189782530, guid: 6ca6ad7f637d4c2438dd72c3dc98f35a, type: 3}
       propertyPath: stationaryGuardSpawnPos.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5411675286189782530, guid: 6ca6ad7f637d4c2438dd72c3dc98f35a, type: 3}
       propertyPath: stationaryCivSpawnPos.Array.data[0]
