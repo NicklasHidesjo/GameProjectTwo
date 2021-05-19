@@ -57,6 +57,7 @@ public class SunTimeOfDay : MonoBehaviour
     {
         yield return new WaitForSeconds(timeTillSunRise);
         print("Sun is rising");
+        AudioManager.instance.PlaySound(SoundType.MorningBell, gameObject);
         runningClock = null;
 
         MoveTimeOfDayTo(clockStopTime, sunRiseAnimTime);
