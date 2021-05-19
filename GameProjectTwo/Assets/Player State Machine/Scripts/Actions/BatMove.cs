@@ -20,8 +20,8 @@ public class BatMove : PlayerAction
         InputRotateTowards();
         InputFlightHight();
 
-        realInput.x = batRotationVector.x * stats.flightSpeed;
-        realInput.z = batRotationVector.z * stats.flightSpeed;
+        realInput.x = batRotationVector.x * stats.FlightSpeed;
+        realInput.z = batRotationVector.z * stats.FlightSpeed;
         realInput.y = SphareCastGround(realInput);
 
         cc.Move(realInput * Time.deltaTime);
@@ -42,7 +42,7 @@ public class BatMove : PlayerAction
         input.y = 1 - Mathf.Clamp01(x + z);
         input = input.normalized;
         input = AlignInput(input);
-        batRotationVector = Vector3.RotateTowards(batRotationVector, input, stats.turnSpeed * Time.deltaTime, 0.0f);
+        batRotationVector = Vector3.RotateTowards(batRotationVector, input, stats.TurnSpeed * Time.deltaTime, 0.0f);
 
         //Y is set to zero to avoid extrem spining
         Vector3 brv = Quaternion.Euler(0, 90, 0) * batRotationVector;
@@ -64,11 +64,11 @@ public class BatMove : PlayerAction
     {
         if (Input.GetButtonDown("Jump"))
         {
-            stats.flightHight = stats.maxFlightHight;
+            stats.FlightHight = stats.MaxFlightHight;
         }
         if (Input.GetButtonDown("Crouch"))
         {
-            stats.flightHight = stats.minFlightHight;
+            stats.FlightHight = stats.MinFlightHight;
         }
     }
 
@@ -78,23 +78,23 @@ public class BatMove : PlayerAction
 
         float yAxisSmoothAdjust = velocity.y;
 
-        if (Physics.SphereCast(cc.transform.position + Vector3.up * cc.radius, cc.radius, -Vector3.up, out hit, stats.flightHight, stats.checkLayerForFlight))
+        if (Physics.SphereCast(cc.transform.position + Vector3.up * cc.radius, cc.radius, -Vector3.up, out hit, stats.FlightHight, stats.CheckLayerForFlight))
         {
             //WARNING : Checking for standing still (Never happens)
-            if (hit.point != cc.transform.position - Vector3.up * stats.flightHight)
+            if (hit.point != cc.transform.position - Vector3.up * stats.FlightHight)
             {
-                Vector3 desiredPos = hit.point + Vector3.up * hit.normal.y * stats.flightHight;
-                float hightOff = 1 / stats.flightHight * (desiredPos.y - cc.transform.position.y);
+                Vector3 desiredPos = hit.point + Vector3.up * hit.normal.y * stats.FlightHight;
+                float hightOff = 1 / stats.FlightHight * (desiredPos.y - cc.transform.position.y);
 
                 hightOff *= hightOff;
 
                 yAxisSmoothAdjust += hightOff + (Mathf.Abs(velocity.y)) * Time.fixedDeltaTime;
-                yAxisSmoothAdjust *= 1 - stats.damping * Time.fixedDeltaTime;
+                yAxisSmoothAdjust *= 1 - stats.Damping * Time.fixedDeltaTime;
             }
         }
         else
         {
-            yAxisSmoothAdjust -= stats.downForce * Time.fixedDeltaTime;
+            yAxisSmoothAdjust -= stats.DownForce * Time.fixedDeltaTime;
         }
 
         return yAxisSmoothAdjust;

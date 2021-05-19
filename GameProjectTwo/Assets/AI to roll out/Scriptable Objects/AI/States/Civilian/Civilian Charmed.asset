@@ -13,19 +13,21 @@ MonoBehaviour:
   m_Name: Civilian Charmed
   m_EditorClassIdentifier: 
   enterActions:
-  - {fileID: 11400000, guid: d0270b6e262af114692cd50df2788a5a, type: 2}
   - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}
   - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
   - {fileID: 11400000, guid: d6d5ca4885aca4344968d555dee7edbd, type: 2}
-  - {fileID: 11400000, guid: 64570a973ff3fe242aedbe8e96322cbb, type: 2}
+  - {fileID: 11400000, guid: 5232f678969edf5428c7258d990ec543, type: 2}
   executeActions:
   - {fileID: 11400000, guid: e84ab536d49c6e649a28b91582f858c2, type: 2}
   - {fileID: 11400000, guid: d82118bf12b88694cbea91153e4dd5ff, type: 2}
+  - {fileID: 11400000, guid: 850bae6ce9a25e04c89d891723162314, type: 2}
   exitActions:
-  - {fileID: 11400000, guid: 454befa6d20058946aea262f56282159, type: 2}
   - {fileID: 11400000, guid: 9d4b0457f62f2724087398c8ae4bb98d, type: 2}
   - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
   - {fileID: 11400000, guid: 561f6c07545657e4eba432d7b38f88c0, type: 2}
+  - {fileID: 11400000, guid: 86ec4a3f50f1ff64a9abc4aabd73862a, type: 2}
   transitions:
+  - decision: {fileID: 11400000, guid: ebdc551eee068cc4594b37ae8722ef5f, type: 2}
+    newState: {fileID: 11400000, guid: 53e6c94010028b940918b7865e5739e3, type: 2}
   - decision: {fileID: 11400000, guid: e46ce1ad0710e6c47b1e75d849a7f2f7, type: 2}
     newState: {fileID: 11400000, guid: b5d23397c8d7b2442a6455017e231594, type: 2}
