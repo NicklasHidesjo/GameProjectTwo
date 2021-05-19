@@ -15,5 +15,6 @@ public enum PlayerStates
     DraculaBurning,
 
     TransformToBat,
-    BatDefault
+    BatDefault,
+    DraculaStopHiding,
 }

@@ -17,14 +17,20 @@ public class CivilianAnimationControl : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        if (npc.IsDead == false && anim.enabled== false)
+        {
+            anim.enabled = true;
+        }
+
         if (npc.IsDead == true)
         {
-            anim.SetInteger("VillagerState", 100);
+           anim.SetInteger("VillagerState", 100);
+           anim.enabled = false;
         }
         else
         {
             UpdateAnimator((int)npc.CurrentState);
-            Debug.Log($"This villager is {npc.CurrentState}, this equals {(int)npc.CurrentState}");
+            //Debug.Log($"This villager is {npc.CurrentState}, this equals {(int)npc.CurrentState}");
         }
     }
 
@@ -40,7 +46,7 @@ public class CivilianAnimationControl : MonoBehaviour
         //6 is walking atm.
         if (i ==6)
         {
-            anim.speed = 2;
+            anim.speed = 3;
         }
         else
         {

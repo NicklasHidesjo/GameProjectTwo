@@ -11,16 +11,34 @@ public class DeadBody : Interactable
     private bool isHidden;
     public bool IsHidden => isHidden;
 
-    private int startingLayer;
-
-
-    private SpringJoint joint;
-    [SerializeField] SpringJoint jointDefault;
+    private GameObject objToFollow;
+    private bool moveComplete;
+    private Quaternion offset;
 
     private void Start()
     {
         gameObject.GetComponent<Rigidbody>().AddRelativeTorque(transform.forward * -100, ForceMode.Impulse);
-        startingLayer = gameObject.layer;
+
+    }
+
+    private void Update()
+    {
+        if (!isGrabbed)
+        {
+            return;
+        }
+
+        if (objToFollow != null)
+        {
+
+            transform.position = objToFollow.transform.position + objToFollow.transform.up * 2f;           
+            transform.rotation = objToFollow.transform.rotation * offset;
+            return;
+
+
+        }
+
+
     }
 
     public override void Interact(GameObject player)
@@ -28,22 +46,18 @@ public class DeadBody : Interactable
         if (isGrabbed)
         {
             // transform.parent = null;
-            //GetComponent<Rigidbody>().isKinematic = false;
-
-            //RemoveJoint here
-            RemoveJoint();
-            gameObject.layer = startingLayer;
+            GetComponent<Rigidbody>().isKinematic = false;
+            Physics.IgnoreCollision(GetComponent<Collider>(), player.GetComponent<Collider>(), false);
             isGrabbed = false;
+            objToFollow = null;
         }
         else
         {
-            //  GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<Rigidbody>().isKinematic = true;
             //  transform.SetParent(player.transform, true);
-
-            //Add joint here
-            AddJoint(player, gameObject);
-            gameObject.layer = 0;
+            Physics.IgnoreCollision(GetComponent<Collider>(), player.GetComponent<Collider>());        
             isGrabbed = true;
+            StartCoroutine(MoveAboveHead(player.transform));
         }
 
     }
@@ -62,18 +76,30 @@ public class DeadBody : Interactable
         }
     }
 
-
-    private void AddJoint(GameObject player, GameObject dragObject)
+    IEnumerator MoveAboveHead(Transform player)
     {
-        joint = player.AddComponent<SpringJoint>();
-        joint.autoConfigureConnectedAnchor = false;
-        joint.connectedAnchor = player.transform.forward + player.transform.up;
-        joint.anchor = dragObject.transform.up;
-        joint.connectedBody = dragObject.GetComponent<Rigidbody>();
+
+        yield return new WaitForSeconds(0.5f); //sync with anim
+        float startTime = Time.time;
+        float journeyTime = 0.7f;
+        Vector3 targetPos = player.position + player.up * 2f;
+        Vector3 startPos = transform.position;
+        Vector3 center = player.position - Vector3.up;
+        Vector3 startRelCenter = startPos - center;
+        Vector3 endRelCenter = targetPos - center;
+
+
+        while (transform.position != targetPos)
+        {
+            float fracComplete = (Time.time - startTime) / journeyTime;
+            transform.position = Vector3.Slerp(startRelCenter, endRelCenter, fracComplete);
+            transform.position += center;
+            yield return null;
+        }
+
+        objToFollow = player.gameObject;
+        offset = transform.rotation * Quaternion.Inverse(objToFollow.transform.rotation);
+
     }
 
-    private void RemoveJoint()
-    {
-        Destroy(joint);
-    }
 }
