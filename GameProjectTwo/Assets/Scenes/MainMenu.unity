@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1195,6 +1195,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 444881134}
   m_CullTransparentMesh: 1
+--- !u!1001 &545600219
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928193, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512052885426928195, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 312c4fd51db565c439bddda535dbe310, type: 3}
 --- !u!1 &557577357
 GameObject:
   m_ObjectHideFlags: 0
@@ -3550,6 +3607,7 @@ GameObject:
   - component: {fileID: 1133342499}
   - component: {fileID: 1133342501}
   - component: {fileID: 1133342500}
+  - component: {fileID: 1133342502}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -3656,6 +3714,7 @@ MonoBehaviour:
   baseMenuPanel: {fileID: 2040792623}
   howToPlayPanel: {fileID: 1337485018}
   optionsPanel: {fileID: 289951892}
+  audioOptions: {fileID: 0}
 --- !u!114 &1133342500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3694,6 +3753,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133342494}
   m_CullTransparentMesh: 1
+--- !u!114 &1133342502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133342494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14a906c3884bbcf41a16ec2ca05ade63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 5a073ff4842204344ac262589efaab3d, type: 2}
+  musicSlider: {fileID: 387938317}
+  soundSlider: {fileID: 598502878}
+  masterSlider: {fileID: 783462211}
 --- !u!1 &1206258557
 GameObject:
   m_ObjectHideFlags: 0
