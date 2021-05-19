@@ -50,9 +50,7 @@ public class FieldOfView : MonoBehaviour
 			npc.SawTransforming = false;
 			return;
 		}
-
-		Player playerObject = FindObjectOfType<Player>();
-		PlayerStates playerState = playerObject.CurrentState;
+		PlayerStates playerState = player.CurrentState;
 
 		if (playerState == PlayerStates.DraculaHidden)
 		{
@@ -82,7 +80,7 @@ public class FieldOfView : MonoBehaviour
 		RaycastHit hit;
 		if (Vector3.Angle(transform.forward, dirToTarget) < npc.FOV / 2)
 		{
-			CheckIfSeesPlayer(playerObject, playerState);
+			CheckIfSeesPlayer(playerState);
 		}
 		else if (Physics.Raycast(transform.position, dirToTarget, out hit, npc.Stats.NoticeRange))
 		{
@@ -90,18 +88,18 @@ public class FieldOfView : MonoBehaviour
 		}
 	}
 
-	private void CheckIfSeesPlayer(Player playerObject, PlayerStates playerState)
+	private void CheckIfSeesPlayer(PlayerStates playerState)
 	{
 		Transform[] targets;
 		if (playerState == PlayerStates.BatDefault)
 		{
-			targets = playerObject.BatParts;
+			targets = player.BatParts;
 		}
 		else
 		{
-			targets = playerObject.BodyParts;
+			targets = player.BodyParts;
 		}
-		if (!SeesPlayer(targets, playerObject))
+		if (!SeesPlayer(targets))
 		{
 			return;
 		}
@@ -156,7 +154,7 @@ public class FieldOfView : MonoBehaviour
 		npc.TimeSinceLastSeenPlayer = 0;
 	}
 
-	private bool SeesPlayer(Transform[] bodyParts, Player player)
+	private bool SeesPlayer(Transform[] bodyParts)
 	{
 		RaycastHit hit;
 
