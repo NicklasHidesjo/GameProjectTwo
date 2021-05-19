@@ -10,7 +10,6 @@ public class SetCharmTarget : PlayerAction
 
 	public override void Execute(IPlayer player)
 	{
-		Debug.Log("starting to set charm");
 		if (player.charmTarget != null)
 		{
 			player.charmTarget.SetCharmInteraction(false);
@@ -25,7 +24,6 @@ public class SetCharmTarget : PlayerAction
 			return;
 		}
 
-		Debug.Log("Did not return so proceeding to set charm");
 
 		playerTransform = player.Transform;
 
@@ -48,7 +46,6 @@ public class SetCharmTarget : PlayerAction
 			   npc.CurrentState == NPCStates.CivReactToDeadBody ||
 			   npc.CurrentState == NPCStates.CivSucked)
 			{
-				Debug.Log("Found a un charmable npc");
 				continue;
 			}
 
@@ -61,7 +58,6 @@ public class SetCharmTarget : PlayerAction
 				{
 					if (hit.collider.CompareTag("Civilian"))
 					{
-						Debug.Log("Adding a charmable NPC");
 						targets.Add(npc);
 					}
 				}

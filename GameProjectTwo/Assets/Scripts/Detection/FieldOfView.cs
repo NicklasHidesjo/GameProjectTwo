@@ -8,11 +8,14 @@ public class FieldOfView : MonoBehaviour
 	[SerializeField] LayerMask targetMask;
 	[SerializeField] LayerMask npcLayer;
 
+	Player player;
+
 	NPC npc;
 	public NPC NPC => npc;
 
 	void Start()
 	{
+		player = FindObjectOfType<Player>();
 		npc = GetComponentInParent<NPC>();
 	}
 	private void FixedUpdate()
@@ -32,121 +35,125 @@ public class FieldOfView : MonoBehaviour
 	void FindVisibleCharacters()
 	{
 		if (npc.IsDead) { return; }
-		if(npc.IsCharmed) { return; }
 		DetectVisiblePlayer();
 		CheckForDeadNpc();
 	}
 
 	private void DetectVisiblePlayer()
 	{
-		Collider[] playersDetected = Physics.OverlapSphere(transform.position, npc.Stats.SightLenght, targetMask);
 		npc.NoticedPlayer = false;
 		npc.SeesPlayer = false;
 
-		if (playersDetected.Length < 1)
+		if(Vector3.Distance(transform.position, player.transform.position) > npc.Stats.SightLenght)
 		{
 			npc.SawHiding = false;
 			npc.SawTransforming = false;
 			return;
 		}
-		foreach (var player in playersDetected)
+
+		Player playerObject = FindObjectOfType<Player>();
+		PlayerStates playerState = playerObject.CurrentState;
+
+		if (playerState == PlayerStates.DraculaHidden)
 		{
-			Player playerObject = FindObjectOfType<Player>();
-			PlayerStates playerState = playerObject.CurrentState;
-
-			if (playerState == PlayerStates.DraculaHidden)
+			if (npc.SawHiding)
 			{
-				if (npc.SawHiding)
-				{
-					npc.RaiseAlertness(true);
-					npc.SeesPlayer = true;
-					npc.NoticedPlayer = true;
-					npc.TimeSinceLastSeenPlayer = 0;
-				}
-				continue;
-			}
-			if (playerState == PlayerStates.BatDefault)
-			{
-				if (npc.SawTransforming)
-				{
-					npc.RaiseAlertness(true);
-					npc.SeesPlayer = true;
-					npc.NoticedPlayer = true;
-					npc.TimeSinceLastSeenPlayer = 0;
-				}
-				continue;
-			}
-
-
-			Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
-			RaycastHit hit;
-			if (Vector3.Angle(transform.forward, dirToTarget) < npc.FOV / 2)
-			{
-				Transform[] targets;
-				if(playerState == PlayerStates.BatDefault)
-				{
-					targets = playerObject.BatParts;
-				}
-				else
-				{
-					targets = playerObject.BodyParts;
-				}
-				bool seesPlayer = SeesPlayer(targets, playerObject);
-
-				if (!seesPlayer)
-				{
-					continue;
-				}
-
-				npc.SeesPlayer = true;
 				npc.RaiseAlertness(true);
-				npc.TimeSinceLastSeenPlayer = 0;
-
-				if (playerState == PlayerStates.DraculaHideing)
-				{
-					npc.SawHiding = true;
-				}
-				else if (playerState != PlayerStates.DraculaHidden)
-				{
-					npc.SawHiding = false;
-				}
-				if (playerState == PlayerStates.TransformToBat)
-				{
-					npc.SawTransforming = true;
-				}
-				else if (playerState != PlayerStates.BatDefault)
-				{
-					npc.SawTransforming = false;
-				}
-
-
-				if (playerState != PlayerStates.DraculaSucking &&
-					playerState != PlayerStates.TransformToDracula &&
-					playerState != PlayerStates.TransformToBat &&
-					playerState != PlayerStates.DraculaDragBody &&
-					playerState != PlayerStates.DraculaBurning)
-				{
-					return;
-				}
-				npc.SetAlertnessToMax();
-			}
-			else if (Physics.Raycast(transform.position, dirToTarget, out hit, npc.Stats.NoticeRange))
-			{
-				if (!hit.collider.CompareTag("Player"))
-				{
-					npc.NoticedPlayer = false;
-					return;
-				}
-				if(playerState == PlayerStates.DraculaSucking || 
-				   playerState == PlayerStates.DraculaBurning)
-				{
-					npc.SetAlertnessToMax();
-				}
+				npc.SeesPlayer = true;
 				npc.NoticedPlayer = true;
-				npc.RaiseAlertness(false);
 				npc.TimeSinceLastSeenPlayer = 0;
 			}
+			return;
 		}
+		if (playerState == PlayerStates.BatDefault)
+		{
+			if (npc.SawTransforming)
+			{
+				npc.RaiseAlertness(true);
+				npc.SeesPlayer = true;
+				npc.NoticedPlayer = true;
+				npc.TimeSinceLastSeenPlayer = 0;
+			}
+			return;
+		}
+
+
+		Vector3 dirToTarget = (player.transform.position - transform.position).normalized;
+		RaycastHit hit;
+		if (Vector3.Angle(transform.forward, dirToTarget) < npc.FOV / 2)
+		{
+			CheckIfSeesPlayer(playerObject, playerState);
+		}
+		else if (Physics.Raycast(transform.position, dirToTarget, out hit, npc.Stats.NoticeRange))
+		{
+			CheckIfInPersonalSpace(playerState, hit);
+		}
+	}
+
+	private void CheckIfSeesPlayer(Player playerObject, PlayerStates playerState)
+	{
+		Transform[] targets;
+		if (playerState == PlayerStates.BatDefault)
+		{
+			targets = playerObject.BatParts;
+		}
+		else
+		{
+			targets = playerObject.BodyParts;
+		}
+		if (!SeesPlayer(targets, playerObject))
+		{
+			return;
+		}
+
+		npc.SeesPlayer = true;
+		npc.RaiseAlertness(true);
+		npc.TimeSinceLastSeenPlayer = 0;
+
+		if (playerState == PlayerStates.DraculaHideing)
+		{
+			npc.SawHiding = true;
+		}
+		else if (playerState != PlayerStates.DraculaHidden)
+		{
+			npc.SawHiding = false;
+		}
+		if (playerState == PlayerStates.TransformToBat)
+		{
+			npc.SawTransforming = true;
+		}
+		else if (playerState != PlayerStates.BatDefault)
+		{
+			npc.SawTransforming = false;
+		}
+
+
+		if (playerState != PlayerStates.DraculaSucking &&
+			playerState != PlayerStates.TransformToDracula &&
+			playerState != PlayerStates.TransformToBat &&
+			playerState != PlayerStates.DraculaDragBody &&
+			playerState != PlayerStates.DraculaBurning)
+		{
+			return;
+		}
+		npc.SetAlertnessToMax();
+	}
+
+	private void CheckIfInPersonalSpace(PlayerStates playerState, RaycastHit hit)
+	{
+		if (!hit.collider.CompareTag("Player"))
+		{
+			npc.NoticedPlayer = false;
+			return;
+		}
+		if (playerState == PlayerStates.DraculaSucking ||
+		   playerState == PlayerStates.DraculaBurning)
+		{
+			npc.SetAlertnessToMax();
+		}
+		npc.NoticedPlayer = true;
+		npc.RaiseAlertness(false);
+		npc.TimeSinceLastSeenPlayer = 0;
 	}
 
 	private bool SeesPlayer(Transform[] bodyParts, Player player)
@@ -221,41 +228,4 @@ public class FieldOfView : MonoBehaviour
 			}
 		}
 	}
-
-
-	// not in use anymore
-	/*	[Header("ConeCastFromToHeads")]
-	[SerializeField] int segmentsInCone = 4;
-	[SerializeField] float plHeadRadius = 0.45f;
-	[SerializeField] float plNeckHight = 0.5f;
-	[SerializeField] float nPCNeckHight = 0.5f;
-	private bool ConeCast(Vector3 from, Vector3 to, float rayLength)
-	{
-		Vector3 fromToEye = from + Vector3.up * nPCNeckHight;
-		Vector3 toToHead = to + Vector3.up * plNeckHight;
-		Vector3 dir = fromToEye - toToHead;
-
-		float radius = plHeadRadius;
-		int numberOfRays = segmentsInCone;
-		float angStep = 360 / segmentsInCone;
-
-		RaycastHit hit;
-		for (int i = 0; i < numberOfRays; i++)
-		{
-			Vector3 offDir = (Quaternion.LookRotation(dir) * Quaternion.Euler(0, 0, angStep * i)) * (Vector3.up * radius);
-			Debug.DrawLine(fromToEye, toToHead + offDir, Color.magenta);
-
-			if (Physics.Linecast(fromToEye, toToHead + offDir, out hit))
-			{
-				if (hit.collider.CompareTag("Player"))
-				{
-					Debug.DrawRay(fromToEye, toToHead + offDir, Color.red);
-					return true;
-				}
-
-			}
-		}
-		return false;
-	}
-	*/
 }

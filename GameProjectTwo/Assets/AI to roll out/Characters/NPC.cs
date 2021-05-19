@@ -286,12 +286,22 @@ public class NPC : MonoBehaviour, ICharacter
 
     public void SetAlertnessToMax()
     {
+        if (IsCharmed)
+        {
+            return;
+        }
+
         Alertness = stats.MaxAlerted;
         Run = true;
     }
 
     public void SetAlertness(float value)
     {
+        if (IsCharmed)
+        {
+            return;
+        }
+
         Alertness = value;
 
         if (Alertness >= stats.MaxAlerted)
