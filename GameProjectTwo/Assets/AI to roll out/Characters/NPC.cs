@@ -251,10 +251,6 @@ public class NPC : MonoBehaviour, ICharacter
     public void DecreaseHealth(int health)
     {
         currentHealth -= health;
-        if (currentHealth <= 0)
-        {
-            isDead = true;
-        }
     }
 
     public void ReactToShout()
@@ -349,12 +345,12 @@ public class NPC : MonoBehaviour, ICharacter
 
     public void Dead()
     {
-        isDead = true;
+        GettingSucked = false;
         gameObject.AddComponent<DeadBody>();
+        AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
+        GetComponent<Rigidbody>().isKinematic = false;
         agent.enabled = false;
-    }
-    public void RemoveBloodSuckTarget()
-	{
+        isDead = true;
         Destroy(bloodSuckTarget);
     }
 

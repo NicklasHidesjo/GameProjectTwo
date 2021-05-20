@@ -21,5 +21,6 @@ public enum NPCStates
 	GuardStationaryIdle,
 	GuardSuspicious,
 	GuardReactToDeadBody,
-	LookAround
+	LookAround,
+	Dead
 }
