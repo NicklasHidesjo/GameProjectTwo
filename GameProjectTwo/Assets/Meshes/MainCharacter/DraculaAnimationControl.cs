@@ -25,8 +25,12 @@ public class DraculaAnimationControl : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetButtonDown("Charm"))
         {
+            if(player.charmTarget == null)
+            { 
+                return;
+            }
             anim.SetBool("Charm", true);
         }
         else
