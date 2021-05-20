@@ -34,6 +34,8 @@ MonoBehaviour:
     newState: {fileID: 11400000, guid: 53e6c94010028b940918b7865e5739e3, type: 2}
   - decision: {fileID: 11400000, guid: 790c745d50284974ab9c07badb3b76ea, type: 2}
     newState: {fileID: 11400000, guid: 065ab3295b71cdd4a8cc0a134e4c9911, type: 2}
+  - decision: {fileID: 11400000, guid: 6a0d8868740c7a54cba0cad7d859e9f5, type: 2}
+    newState: {fileID: 11400000, guid: 947fda6e9befaab498c6ac65a7514133, type: 2}
   - decision: {fileID: 11400000, guid: 8045b33cc6d86224796c52a1ec982385, type: 2}
     newState: {fileID: 11400000, guid: 8b275f0cdaf7083459ed3c74295c88b2, type: 2}
   - decision: {fileID: 11400000, guid: 8ec007f7855587c4c985d0b79a83fa39, type: 2}
@@ -42,5 +44,3 @@ MonoBehaviour:
     newState: {fileID: 11400000, guid: 0b10f5a581509f844ae74709536556dc, type: 2}
   - decision: {fileID: 11400000, guid: 0d4eb2f546a449247a1dfcef0113f726, type: 2}
     newState: {fileID: 11400000, guid: 8b275f0cdaf7083459ed3c74295c88b2, type: 2}
-  - decision: {fileID: 11400000, guid: 6a0d8868740c7a54cba0cad7d859e9f5, type: 2}
-    newState: {fileID: 11400000, guid: 947fda6e9befaab498c6ac65a7514133, type: 2}

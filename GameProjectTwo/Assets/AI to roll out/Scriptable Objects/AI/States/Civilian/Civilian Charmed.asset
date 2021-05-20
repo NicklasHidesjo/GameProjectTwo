@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Civilian Charmed
   m_EditorClassIdentifier: 
   enterActions:
+  - {fileID: 11400000, guid: d0270b6e262af114692cd50df2788a5a, type: 2}
   - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}
   - {fileID: 11400000, guid: 3455783a6e742a248934a1ee111be952, type: 2}
   - {fileID: 11400000, guid: d6d5ca4885aca4344968d555dee7edbd, type: 2}
