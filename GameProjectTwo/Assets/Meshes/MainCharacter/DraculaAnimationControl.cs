@@ -23,6 +23,19 @@ public class DraculaAnimationControl : MonoBehaviour
         cc = GetComponent<CharacterController>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Debug.Log("you pressed 2, wow");
+            anim.SetBool("Charm", true);
+        }
+        else
+        {
+            anim.SetBool("Charm", false);
+        }
+    }
+
     private void LateUpdate()
     {
         //Set AnimationState by character movement

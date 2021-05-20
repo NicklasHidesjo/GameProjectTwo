@@ -44,7 +44,7 @@ public class CivilianAnimationControl : MonoBehaviour
 
         //Adjust the animationspeed on the fly
         //6 is walking atm.
-        if (i ==6)
+        if (i ==6 || i== 9 || i == 0)
         {
             anim.speed = 3;
         }
