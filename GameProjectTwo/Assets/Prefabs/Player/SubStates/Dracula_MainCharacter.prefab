@@ -231,6 +231,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6450800751750442940, guid: c9230a2b20c11f34a89ab0ab4cbe47e9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b2891171f16ad3d42a4efe75c0235ef1, type: 2}
+    - target: {fileID: -2011456207711252547, guid: c9230a2b20c11f34a89ab0ab4cbe47e9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5d395bba3ac83eb428e8a1ed0c6b45d3, type: 2}
     - target: {fileID: 919132149155446097, guid: c9230a2b20c11f34a89ab0ab4cbe47e9, type: 3}
       propertyPath: m_Name
       value: Dracula 1
@@ -239,6 +247,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 212132b249115cd449332b01176d8308, type: 2}
+    - target: {fileID: 7347502132639513398, guid: c9230a2b20c11f34a89ab0ab4cbe47e9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b2891171f16ad3d42a4efe75c0235ef1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9230a2b20c11f34a89ab0ab4cbe47e9, type: 3}
 --- !u!4 &2744754952127391780 stripped
