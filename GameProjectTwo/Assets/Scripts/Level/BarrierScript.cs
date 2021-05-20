@@ -9,6 +9,13 @@ public class BarrierScript : MonoBehaviour
     void Start()
     {
         MenuManager.OnLevelStart += LevelChange;
+
+        foreach(GameObject o in barrierLevels)
+        {
+            o.SetActive(false);
+        }
+
+        barrierLevels[0].SetActive(true);
     }
 
     void Update()
@@ -28,6 +35,7 @@ public class BarrierScript : MonoBehaviour
     {
         barrierLevels[activeLevel].SetActive(false);
         activeLevel++;
+        barrierLevels[activeLevel].SetActive(true);
     }
 
     void ResetAll()
