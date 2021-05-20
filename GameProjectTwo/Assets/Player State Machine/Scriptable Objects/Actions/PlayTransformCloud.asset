@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   smokePuff: {fileID: 5185001187354487102, guid: 18ab637ad2dee21419c6df26bfd3f258, type: 3}
   destroyDelay: 5
+  TransformToBat: 1

@@ -10,7 +10,8 @@ public enum SoundType
     GuardShout, GuardAttack, GuardSuspicious, GuardAlert, GuardSearching, GuardSearchingEnd,
     CivilianShout, CivilianDie, CivilianNotice,
     SunDamage, BatTransform, HideInContainer,
-    MorningBell, NightAmbience, MusicStinger1, MusicStinger2, MusicStinger3, MusicStinger4
+    MorningBell, NightAmbience, MusicStinger1, MusicStinger2, MusicStinger3, MusicStinger4,
+    DraculaCharm
 }
 
 
@@ -71,9 +72,8 @@ public class AudioManager : MonoBehaviour
 
         SetMixerVolume(musicVolume, soundVolume, masterVolume);
 
-        musicPlayer = GetComponent<AudioSource>();
-        musicPlayer.priority = 0;
-        PlayMusic(1, 2f);
+        musicPlayer = GetComponent<AudioSource>();       
+        PlayMusic(0, 2f);
 
         
     }

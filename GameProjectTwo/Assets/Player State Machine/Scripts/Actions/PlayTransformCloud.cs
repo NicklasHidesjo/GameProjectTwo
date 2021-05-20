@@ -13,11 +13,13 @@ public class PlayTransformCloud : PlayerAction
         if (TransformToBat)
         {
 			AudioManager.instance.PlaySound(SoundType.BatTransform, player.Transform.gameObject);
-        }
+			TransformToBat = false;
+
+		}
         else
         {
 			AudioManager.instance.PlaySound(SoundType.DraculaTransform, player.Transform.gameObject);
-
+			TransformToBat = true;
 		}
 	}
 }
