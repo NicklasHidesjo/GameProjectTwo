@@ -57,7 +57,22 @@ ModelImporter:
   - first:
       74: 8349542763059015795
     second: dracula_walk
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: body.001
+    second: {fileID: 2100000, guid: 22adca10b618cbc4eaa9c9cd9063b098, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cape.001
+    second: {fileID: 2100000, guid: 22adca10b618cbc4eaa9c9cd9063b098, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye.001
+    second: {fileID: 2100000, guid: 22adca10b618cbc4eaa9c9cd9063b098, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

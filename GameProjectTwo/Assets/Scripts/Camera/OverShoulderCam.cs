@@ -42,7 +42,6 @@ public class OverShoulderCam : MonoBehaviour
         dummy.rotation = MouseRotation(dummy.eulerAngles);
 
         Vector3 offsett = maxOffsett;
-        //offsett = Lean(offsett);
 
         //Rotate offsett
         Vector3 tOffsett = target.position + dummy.rotation * new Vector3(offsett.x, offsett.y, 0);
@@ -62,7 +61,6 @@ public class OverShoulderCam : MonoBehaviour
             dummy.rotation = MouseRotation(dummy.eulerAngles);
 
             Vector3 offsett = maxOffsett;
-            //offsett = Lean(offsett);
 
             //Rotate offsett
             Vector3 tOffsett = target.position + dummy.rotation * new Vector3(offsett.x, offsett.y, 0);
@@ -94,6 +92,8 @@ public class OverShoulderCam : MonoBehaviour
 
     Vector3 Lean(Vector3 offsett)
     {
+        return offsett;
+        /* CUT
         lean *= 1 - leanSpeed * Time.deltaTime;
         lean += Input.GetAxis("Lean") * leanSpeed * 2 * Time.deltaTime;
 
@@ -114,6 +114,7 @@ public class OverShoulderCam : MonoBehaviour
 
         offsett.x = lean;
         return offsett;
+        */
     }
 
     Vector3 RayCam(Vector3 from, Vector3 to)
