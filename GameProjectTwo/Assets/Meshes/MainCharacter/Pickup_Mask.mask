@@ -18,17 +18,17 @@ AvatarMask:
   - m_Path: Armature/ElbowIK.R
     m_Weight: 1
   - m_Path: Armature/FootGRAB.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/FootGRAB.L/ToePivot.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/FootGRAB.L/ToePivot.L/FootIK.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/FootGRAB.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/FootGRAB.R/ToePivot.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/FootGRAB.R/ToePivot.R/FootIK.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/HeadTARGET
     m_Weight: 1
   - m_Path: Armature/HeadTARGET/EyeTARGET.L
@@ -38,23 +38,23 @@ AvatarMask:
   - m_Path: Armature/Root
     m_Weight: 1
   - m_Path: Armature/Root/Pelvis
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Thigh.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Thigh.L/Shin.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Thigh.L/Shin.L/Foot.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Thigh.L/Shin.L/Foot.L/Toe.L
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Thigh.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Thigh.R/Shin.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Thigh.R/Shin.R/Foot.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Thigh.R/Shin.R/Foot.R/Toe.R
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Armature/Root/Pelvis/Torso
     m_Weight: 1
   - m_Path: Armature/Root/Pelvis/Torso/Chest

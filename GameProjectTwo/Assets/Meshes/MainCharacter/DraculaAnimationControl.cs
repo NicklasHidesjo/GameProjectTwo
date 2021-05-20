@@ -7,6 +7,7 @@ public class DraculaAnimationControl : MonoBehaviour
     Animator anim;
     CharacterController cc;
     Player player;
+    bool isWalking;
     enum animStates { idle, walk, run, suck, pickUp, hiding, unhiding, };
     [SerializeField] animStates animState;
 
@@ -60,9 +61,17 @@ public class DraculaAnimationControl : MonoBehaviour
                 break;
         }
 
+        if(speed >0.25f)
+        {
+            isWalking=true;
+        }
+        else
+        {
+            isWalking = false;
+        }
 
         //print((int)animState + " <<State>> " + anim.GetInteger("state") + " velocity : " + speed );
-        UpdateAnimator((int)animState, speed);
+        UpdateAnimator((int)animState, speed, isWalking);
     }
 
     // Update Animator int "state"
@@ -71,9 +80,9 @@ public class DraculaAnimationControl : MonoBehaviour
         // 2 run
         // 3 suck
         // 4 pickup
-    public void UpdateAnimator(int i, float speed)
+    public void UpdateAnimator(int i, float speed, bool isWalking)
     {
-
+        anim.SetBool("IsWalking",isWalking); 
         if (anim.GetInteger("state") != i)
             anim.SetInteger("state", i);
 
