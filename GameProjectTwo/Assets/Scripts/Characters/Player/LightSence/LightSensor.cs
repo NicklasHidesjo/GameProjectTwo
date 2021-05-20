@@ -21,8 +21,8 @@ public class LightSensor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        notoriousLevels = GetComponentInParent<PlayerNotoriousLevels>();
-
+        //  notoriousLevels = GetComponentInParent<PlayerNotoriousLevels>();
+        notoriousLevels = FindObjectOfType<PlayerNotoriousLevels>();
 
         lightTexB = RenderTexture.GetTemporary(lightTexA.width, lightTexA.height, 0, RenderTextureFormat.Default, RenderTextureReadWrite.Linear);
         
@@ -63,6 +63,7 @@ public class LightSensor : MonoBehaviour
     
     void FollowTarget()
     {
+        transform.parent.position = follow.position;
         transform.position = follow.position + Vector3.up * 1.5f;
     }
 

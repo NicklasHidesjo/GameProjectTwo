@@ -50,7 +50,7 @@ GameObject:
   - component: {fileID: 2067832466}
   - component: {fileID: 6169187448108580146}
   - component: {fileID: 7788539191495599168}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: New Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 63e320cbfed77de45b1fe8e492abee00, type: 2}
-  dracula: {fileID: 0}
+  dracula: {fileID: 8001161202134420019}
   bat: {fileID: 4996842987307958975}
   bodyParts:
   - {fileID: 5479556592322313724}
@@ -504,6 +504,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8085239294100043883}
     m_Modifications:
+    - target: {fileID: 2506631202991926116, guid: 914620d1d91ea2b45803e54ded1020b9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2506631202991926116, guid: 914620d1d91ea2b45803e54ded1020b9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2506631202991926116, guid: 914620d1d91ea2b45803e54ded1020b9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6337708183196167800, guid: 914620d1d91ea2b45803e54ded1020b9, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -554,6 +566,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 914620d1d91ea2b45803e54ded1020b9, type: 3}
+--- !u!1 &8001161202134420019 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6337708183196167810, guid: 914620d1d91ea2b45803e54ded1020b9, type: 3}
+  m_PrefabInstance: {fileID: 4106655843232146609}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8001161202134420169 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6337708183196167800, guid: 914620d1d91ea2b45803e54ded1020b9, type: 3}
