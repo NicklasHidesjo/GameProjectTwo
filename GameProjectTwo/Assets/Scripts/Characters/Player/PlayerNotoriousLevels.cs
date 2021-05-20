@@ -25,18 +25,13 @@ public class PlayerNotoriousLevels : MonoBehaviour
         SetPlLongSuspiciousLevel((plLongSuspiciousLevel + plShortSuspiciousLevel)/2);
         SetPlShortSuspiciousLevel(0);
     }
-    //TODO : Remove
-    public float GetPlayerNotoriousLerpLevel()
-    {
-        return (plLongSuspiciousLevel + plShortSuspiciousLevel + plLuminosity) / 3;
-    }
 
     public float GetPlayerNotoriousLevel()
     {
         float nLevel = (plLongSuspiciousLevel + plShortSuspiciousLevel) / 2;
         nLevel += 1;
         nLevel *= plLuminosity;
-        Debug.Log("NotoriosLevel : "+ nLevel);
+        //Debug.Log("NotoriosLevel : "+ nLevel + " Lumin : " + plLuminosity);
         return nLevel;
     }
 
