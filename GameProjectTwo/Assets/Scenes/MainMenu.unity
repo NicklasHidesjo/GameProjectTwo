@@ -7706,7 +7706,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Suck the blood of enough civilians before the sun rises.\nStay out of
-    sight for the guards.\n\nMove:\tWASD\nRun: \tShift\nLean:\tQ - E\nBatform: \t1\nInteract:
+    sight for the guards.\n\nMove:\tWASD\nRun: \tShift\nCharm:\tE\nBatform: \t1\nInteract:
     \tF"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 359ea45ebcf050a4880559edaa2320f3, type: 2}
