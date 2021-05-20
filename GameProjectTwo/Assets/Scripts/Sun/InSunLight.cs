@@ -42,7 +42,7 @@ public class InSunLight : MonoBehaviour
     void FixedUpdate()
     {
         inSunlight = InSun();
-        if (inSunlight)
+        if (inSunlight && !player.Hiding)
         {
             if (sunDamage == null)
             {
