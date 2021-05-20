@@ -35,7 +35,7 @@ public class PlayerNotoriousLevels : MonoBehaviour
     {
         float nLevel = (plLongSuspiciousLevel + plShortSuspiciousLevel) / 2;
         nLevel += 1;
-        nLevel *= plLuminosity;
+        //nLevel *= plLuminosity;
         return nLevel;
     }
 

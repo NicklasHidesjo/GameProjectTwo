@@ -190,7 +190,7 @@ public class FieldOfView : MonoBehaviour
 
 	private void CheckForDeadNpc()
 	{
-		Collider[] NearbyNPCs = Physics.OverlapSphere(transform.position, npc.Stats.SightLenght, npcLayer);
+		Collider[] NearbyNPCs = Physics.OverlapSphere(transform.position, npc.Stats.BodyReactionRange, npcLayer);
 		if (NearbyNPCs.Length < 1)
 		{
 			return;
