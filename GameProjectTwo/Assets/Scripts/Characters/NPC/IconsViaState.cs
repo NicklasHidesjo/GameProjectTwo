@@ -6,16 +6,41 @@ public class IconsViaState : MonoBehaviour
 {
     NPC npc;
     float deathTimer;
+    float charmTimer;
+    float originalCharmTimer;
+    Vector3 originalScale;
 
 
     void Start()
     {
         npc = GetComponent<NPC>();
+        charmTimer = npc.Stats.CharmedTime;
+        originalCharmTimer= npc.Stats.CharmedTime;
+        originalScale = transform.GetChild(3).gameObject.transform.localScale;
     }
 
     void FixedUpdate()
     {
-        ToggleSymbols();
+        if(npc.CurrentState==0)
+        {
+            if(transform.GetChild(3).gameObject.activeSelf == false)
+            {
+                transform.GetChild(0).gameObject.SetActive(false);
+                transform.GetChild(1).gameObject.SetActive(false);
+                transform.GetChild(2).gameObject.SetActive(false);
+                transform.GetChild(3).gameObject.SetActive(true);
+            }
+            float i = 1*(charmTimer/originalCharmTimer);
+            transform.GetChild(3).gameObject.transform.localScale = i * originalScale;
+            charmTimer -= Time.deltaTime;
+        }
+        else
+        {
+            transform.GetChild(3).gameObject.SetActive(false);
+            charmTimer = originalCharmTimer;
+            ToggleSymbols();
+        }
+
     }
 
     private void ToggleSymbols()

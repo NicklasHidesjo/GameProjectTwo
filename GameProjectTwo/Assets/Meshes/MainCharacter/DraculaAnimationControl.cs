@@ -27,7 +27,6 @@ public class DraculaAnimationControl : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            Debug.Log("you pressed 2, wow");
             anim.SetBool("Charm", true);
         }
         else
