@@ -193,6 +193,7 @@ public class NPC : MonoBehaviour, ICharacter
         StateTime = 0;
         player.GetComponent<PlayerStatsManager>().DecreaseHealthValue(stats.Damage);
         player.StopHiding = true;
+        player.SuckingBlood = false;
         var dir = playerTransform.position - transform.position;
         player.KnockBack(dir, stats.KnockbackForce);
         AudioManager.instance.PlayOneShot(SoundType.DraculaDamage, player.gameObject);
