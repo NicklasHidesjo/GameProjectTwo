@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 56bbf311d86ce0743b61f6815c59b2a4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0a8a00f18022f754ea3adc5dd2fb1661, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -406,6 +406,7 @@ MonoBehaviour:
     m_Bits: 128
   charmInteractionRenderer: {fileID: 2736058463017562421}
   currentHealth: 0
+  bodyParts: []
 --- !u!114 &4954188691278848498
 MonoBehaviour:
   m_ObjectHideFlags: 0
