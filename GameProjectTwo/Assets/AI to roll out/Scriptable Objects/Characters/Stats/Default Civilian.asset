@@ -41,7 +41,6 @@ MonoBehaviour:
   MaxFleeDistance: 40
   MinFleeDistance: 5
   IdleTime: 2
-  SuckedStun: 2
   IntuitionTime: 1
   CalmDownTime: 1
   CharmedTime: 5

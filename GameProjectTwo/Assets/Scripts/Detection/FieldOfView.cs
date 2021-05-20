@@ -166,7 +166,6 @@ public class FieldOfView : MonoBehaviour
 				{
 					if (hit.collider.CompareTag("Player"))
 					{
-						Debug.DrawRay(transform.position, part.position, Color.red);
 						return true;
 					}
 				}
@@ -177,14 +176,12 @@ public class FieldOfView : MonoBehaviour
 				{
 					if (hit.collider.CompareTag("Player"))
 					{
-						Debug.DrawRay(transform.position, part.position, Color.red);
 						return true;
 					}
 				}
 			}
 
 		}
-
 		return false;
 	}
 
@@ -198,19 +195,19 @@ public class FieldOfView : MonoBehaviour
 		foreach (var deadNpc in NearbyNPCs)
 		{
 			NPC character = deadNpc.gameObject.GetComponentInParent<NPC>();
-			if (!character.IsDead)
+			
+			if(character.CurrentState != NPCStates.Dead)
 			{
 				continue;
 			}
 
 			Transform[] rayPoints = character.BodyParts;
-
 			RaycastHit hit;
 
 			foreach (var point in rayPoints)
 			{
 				Vector3 dirToTarget = (point.transform.position - transform.position).normalized;
-				if (Vector3.Angle(transform.forward, dirToTarget) > npc.FOV / 2)
+				if (Vector3.Angle(transform.forward, dirToTarget) > npc.FOV)
 				{
 					continue;
 				}
