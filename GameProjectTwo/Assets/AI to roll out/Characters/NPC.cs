@@ -197,6 +197,7 @@ public class NPC : MonoBehaviour, ICharacter
         player.StopHiding = true;
         var dir = playerTransform.position - transform.position;
         player.KnockBack(dir, stats.KnockbackForce);
+        AudioManager.instance.PlayOneShot(SoundType.DraculaDamage, player.gameObject);
     }
     public void Move(Vector3 destination)
     {

@@ -10,7 +10,7 @@ public enum SoundType
     GuardShout, GuardAttack, GuardSuspicious, GuardAlert, GuardSearching, GuardSearchingEnd,
     CivilianShout, CivilianDie, CivilianNotice,
     SunDamage, BatTransform, HideInContainer,
-    MorningBell, NightAmbience,
+    MorningBell, NightAmbience, MusicStinger1, MusicStinger2, MusicStinger3, MusicStinger4
 }
 
 
@@ -22,11 +22,12 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance { get => _instance; }
 
     public List<SoundCue> soundCues;
-
+    public List<SoundCue> musicCues;
     private GameObject audioListGameObject;
     [SerializeField] List<AudioSource> audioSources;
     [SerializeField] AudioMixer audioMixer;
 
+    private AudioSource musicPlayer;
 
     private void Awake()
     {
@@ -50,7 +51,7 @@ public class AudioManager : MonoBehaviour
         audioListGameObject.transform.parent = gameObject.transform;
         for (int i = 0; i < 10; i++)
         {
-            AudioSource a = audioListGameObject.AddComponent<AudioSource>();         
+            AudioSource a = audioListGameObject.AddComponent<AudioSource>();
             audioSources.Add(a);
         }
 
@@ -69,6 +70,24 @@ public class AudioManager : MonoBehaviour
         }
 
         SetMixerVolume(musicVolume, soundVolume, masterVolume);
+
+        musicPlayer = GetComponent<AudioSource>();
+        musicPlayer.priority = 0;
+        PlayMusic(1, 2f);
+
+        
+    }
+
+    public void PlayMusic(int songNumber, float fadeInTime = 0f)
+    {
+        musicPlayer.clip = musicCues[songNumber].sounds[0];
+        musicPlayer.loop = musicCues[songNumber].loop;
+        musicPlayer.outputAudioMixerGroup = musicCues[songNumber].channel;
+        if (fadeInTime == 0f)
+        {
+            musicPlayer.Play();
+        }
+        StartCoroutine(AudioFadeIn(musicPlayer, 2f));
     }
 
     private SoundCue GetCue(SoundType soundType)
@@ -134,6 +153,7 @@ public class AudioManager : MonoBehaviour
         
         source.clip = cue.sounds[Random.Range(0, cue.sounds.Count)];
         source.loop = cue.loop;
+        source.outputAudioMixerGroup = cue.channel;
         source.Play();
 
     }
@@ -216,7 +236,7 @@ public class AudioManager : MonoBehaviour
         print($"Fading out {source.clip}");
         
         float currentVolume = source.volume;
-        for (float f = source.volume; f > 0; f -= Time.deltaTime/fadeOutTime)
+        for (float f = currentVolume; f > 0; f -= Time.deltaTime/fadeOutTime)
         {
             source.volume = f;
             yield return null;
@@ -236,9 +256,9 @@ public class AudioManager : MonoBehaviour
         float currentVolume = source.volume;
         
         source.Play();
-        for (float f = 0f; f > currentVolume; f += Time.deltaTime / fadeInTime)
+        for (float f = 0f; f < currentVolume; f += Time.deltaTime / fadeInTime)
         {
-            source.volume = f;
+            source.volume = f;           
             yield return null;
         }
 
@@ -247,6 +267,8 @@ public class AudioManager : MonoBehaviour
 
 
     }
+
+    
 
     public void StopAll2DSounds()
     {

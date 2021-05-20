@@ -55,6 +55,7 @@ public class EndLevelCheck : MonoBehaviour
 						OnLevelEnded(currentLevel);
 					}
 					NPCSpawner.Instance.ResetNPCs();
+					AudioManager.instance.PlaySound(SoundType.DraculaCoffin);
 				}
 				
 			}

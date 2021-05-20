@@ -10,8 +10,8 @@ public class AttackPlayer : Action
 		{
 			character.TimeSinceLastAction = 0;
 			character.Attack();
-			// remove this once we play the sound using animation
-			AudioManager.instance.PlaySound(SoundType.GuardAttack, character.Self.gameObject); 
+			
+			
 		}
 	}
 }
