@@ -23,8 +23,8 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.27825737, g: 0.29848576, b: 0.3490566, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0.31
-  m_AmbientMode: 1
+  m_AmbientIntensity: 3.65
+  m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.35978106, g: 0.40286708, b: 0.5188679, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 3cf07c3a511803b4c98d8ea49aba23eb, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 6e08f3d312ed4d740969551a45fce1eb, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 8c2126ad496aa304893bcfef010570f9, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -4666,7 +4666,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4705,7 +4705,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -7792,6 +7792,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: ccfbde889e04c7846bafbcee5760b170, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ccfbde889e04c7846bafbcee5760b170, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: ccfbde889e04c7846bafbcee5760b170, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 132d1e6b2879da54daeb7e0ffef1800c, type: 2}
@@ -10117,9 +10125,9 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.15864186, g: 0.20015913, b: 0.2924528, a: 1}
-  m_Intensity: 1.11
-  m_Range: 10
+  m_Color: {r: 0.33708617, g: 0.4549601, b: 0.7075472, a: 1}
+  m_Intensity: 1
+  m_Range: 161.7
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -10157,9 +10165,9 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 1
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
+  m_AreaSize: {x: 200, y: 200}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
@@ -10175,13 +10183,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615019290}
-  m_LocalRotation: {x: -0.080043055, y: 0.24477102, z: -0.9656724, w: -0.034018263}
-  m_LocalPosition: {x: 32.64, y: 0.944, z: -74.41}
+  m_LocalRotation: {x: 0.5217911, y: -0, z: -0, w: 0.8530733}
+  m_LocalPosition: {x: 32.64, y: 4.94, z: -74.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
-  m_LocalEulerAnglesHint: {x: 28.567, y: 369.036, z: 178.27}
+  m_LocalEulerAnglesHint: {x: 62.905, y: 0, z: 0}
 --- !u!1001 &1618055264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13672,6 +13680,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2141385119}
     m_Modifications:
+    - target: {fileID: 589657905894058727, guid: 57ed048a92d25814a81f04430acf58f9, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 589657905894058727, guid: 57ed048a92d25814a81f04430acf58f9, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 932793499340891358, guid: 57ed048a92d25814a81f04430acf58f9, type: 3}
+      propertyPath: m_Range
+      value: 7.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 4797715523435751745, guid: 57ed048a92d25814a81f04430acf58f9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.05203
+      objectReference: {fileID: 0}
+    - target: {fileID: 4797715523435751745, guid: 57ed048a92d25814a81f04430acf58f9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.00004
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810926938164088208, guid: 57ed048a92d25814a81f04430acf58f9, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4810926938712069500, guid: 57ed048a92d25814a81f04430acf58f9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6223792630007178943, guid: 57ed048a92d25814a81f04430acf58f9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6281268968652630560, guid: 57ed048a92d25814a81f04430acf58f9, type: 3}
       propertyPath: m_Name
       value: Upper Elevation
