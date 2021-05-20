@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: CivilianReactToDeadBody
   m_EditorClassIdentifier: 
   enterActions:
-  - {fileID: 11400000, guid: 4306ed3d0ed398b4b9d8f3696faaf39a, type: 2}
+  - {fileID: 11400000, guid: 1b6a28b5ca29c654b92c7939f4e0e64b, type: 2}
+  - {fileID: 11400000, guid: a98743ca908a5674bbf3d54feadbef7b, type: 2}
   - {fileID: 11400000, guid: cf9c1ec79f62b9248be11a87cceebc38, type: 2}
+  - {fileID: 11400000, guid: c793e29bc8e90334bb168f745cfbc73e, type: 2}
   - {fileID: 11400000, guid: e6bad799f9e30c448bb5c4e7294d74e4, type: 2}
   executeActions:
   - {fileID: 11400000, guid: ba41e5c48ed50f048a71a3947f6d681e, type: 2}
   exitActions:
   - {fileID: 11400000, guid: fd5855b1ff814f348880b86b911e5752, type: 2}
   - {fileID: 11400000, guid: 9d4b0457f62f2724087398c8ae4bb98d, type: 2}
-  - {fileID: 11400000, guid: fd5855b1ff814f348880b86b911e5752, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: ceb114e862f087b44b599f1259559ecd, type: 2}
     newState: {fileID: 11400000, guid: c3ca48413e1d7fa45ae145ed62921c9d, type: 2}

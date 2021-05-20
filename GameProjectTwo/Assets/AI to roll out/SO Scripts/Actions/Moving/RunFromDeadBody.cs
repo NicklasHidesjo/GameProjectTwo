@@ -17,13 +17,13 @@ public class RunFromDeadBody : Action
 	{
 		float distance = Random.Range(10, character.Stats.MaxFleeDistance);
 
-		Vector3 dir = character.Transform.position - character.DeadNpc.transform.position;
+		Vector3 dir = character.DeadNpc.transform.position - character.Transform.position;
 		float angle = Random.Range(0, character.Stats.FleeDeadAngle) * (Random.Range(0, 2) * 2 - 1);
 
-		Vector3 randomDir = Quaternion.AngleAxis(angle, dir) * dir;
+		Vector3 randomDir = Quaternion.AngleAxis(angle, character.Transform.up) * dir;
 		randomDir.Normalize();
 
-		Vector3 randomPos = (randomDir * distance) + character.Transform.position;
+		Vector3 randomPos = character.Transform.position + (-randomDir * distance);
 
 		NavMeshHit hit;
 		if (NavMesh.SamplePosition(randomPos, out hit, 5, NavMesh.AllAreas))

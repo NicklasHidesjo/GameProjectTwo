@@ -34,6 +34,9 @@ public class NPCStats : ScriptableObject
 	[Tooltip("The amount of alertness that Npc's will get when leaving a charmed state (and not seeing the player)")]
 	public float ExitCharmIncrease = 20f;
 
+	[Tooltip("The range at where the Npc will react to a dead body")]
+	public float BodyReactionRange = 10f;
+
 	[Header("Sight Settings")]
 	[Tooltip("How far the character will be able to see in-front of them")]
 	public float SightLenght = 10f;
