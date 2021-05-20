@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1290637081943863885
 Transform:
@@ -43,13 +43,12 @@ GameObject:
   - component: {fileID: 4556228226972461371}
   - component: {fileID: 1467444442493081823}
   - component: {fileID: 4935755446056885171}
-  - component: {fileID: 1613408981954873490}
   m_Layer: 0
   m_Name: Road_corner_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4556228226972461371
 Transform:
@@ -114,20 +113,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1613408981954873490
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3516075765534059216}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5287135683509769063, guid: 39404ed7fd98c144e9fb713428dd863c, type: 3}
 --- !u!1 &7950313741432688577
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,13 +124,12 @@ GameObject:
   - component: {fileID: 8924905867166473723}
   - component: {fileID: 3929350200620354033}
   - component: {fileID: 7851858493246068681}
-  - component: {fileID: 1613408981973587067}
   m_Layer: 0
   m_Name: Roadrock_corner_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8924905867166473723
 Transform:
@@ -210,17 +194,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1613408981973587067
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7950313741432688577}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6534771656414777549, guid: 39404ed7fd98c144e9fb713428dd863c, type: 3}

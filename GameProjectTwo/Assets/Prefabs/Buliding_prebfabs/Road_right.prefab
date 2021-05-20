@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 4076039883199268566}
   - component: {fileID: 3075534547441639719}
   - component: {fileID: 2870843888160076733}
-  - component: {fileID: 4692469638008384719}
   m_Layer: 0
   m_Name: Road_right_low
   m_TagString: Untagged
@@ -114,20 +113,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4692469638008384719
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8248741128741030799}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6248246889068182339, guid: ba737595a8151264aa4ce922eb3bbd3a, type: 3}
 --- !u!1 &8395691253385961792
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +124,6 @@ GameObject:
   - component: {fileID: 2166118951698743616}
   - component: {fileID: 4489829597476865808}
   - component: {fileID: 7333727902467470130}
-  - component: {fileID: 3212134422864935342}
   m_Layer: 0
   m_Name: Roadrock_right_low
   m_TagString: Untagged
@@ -210,17 +194,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3212134422864935342
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8395691253385961792}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 1862939568356608618, guid: ba737595a8151264aa4ce922eb3bbd3a, type: 3}

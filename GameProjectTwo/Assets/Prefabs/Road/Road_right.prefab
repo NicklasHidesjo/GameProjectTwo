@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4663895223382106426
 Transform:
@@ -43,13 +43,12 @@ GameObject:
   - component: {fileID: 1753393335787113189}
   - component: {fileID: 4041347880009256117}
   - component: {fileID: 7177742665796008087}
-  - component: {fileID: 5308028885118732503}
   m_Layer: 0
   m_Name: Roadrock_right_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1753393335787113189
 Transform:
@@ -114,19 +113,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5308028885118732503
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8275831544450558693}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.0038242147, y: 0.039828215, z: 0.0021693332}
-  m_Center: {x: -0.021480687, y: 0.017914152, z: 0.0008944498}
 --- !u!1 &8368741566040080426
 GameObject:
   m_ObjectHideFlags: 0
@@ -138,13 +124,12 @@ GameObject:
   - component: {fileID: 4524944354836794739}
   - component: {fileID: 3239401118357088898}
   - component: {fileID: 2417761239053629464}
-  - component: {fileID: 1514940530245959927}
   m_Layer: 0
   m_Name: Road_right_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4524944354836794739
 Transform:
@@ -209,17 +194,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1514940530245959927
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8368741566040080426}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 6248246889068182339, guid: ba737595a8151264aa4ce922eb3bbd3a, type: 3}

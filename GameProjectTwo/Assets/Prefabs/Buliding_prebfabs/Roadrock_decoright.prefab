@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 588605563041234823}
   - component: {fileID: 4577062609331367970}
   - component: {fileID: 1756414268728394984}
-  - component: {fileID: 5645733160215367362}
   m_Layer: 0
   m_Name: Roadrock_decoright
   m_TagString: Untagged
@@ -82,17 +81,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5645733160215367362
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 243463796789896509}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5740537226187630353, guid: be2da734352ddc148a429681bad1e013, type: 3}
