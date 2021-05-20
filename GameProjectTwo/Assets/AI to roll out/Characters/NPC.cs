@@ -89,7 +89,7 @@ public class NPC : MonoBehaviour, ICharacter
     public bool GettingDisposed { get; set; }
     public bool Disposed { get; set; }
 
-    Transform[] bodyParts;
+    [SerializeField] Transform[] bodyParts;
     public Transform[] BodyParts => bodyParts;
 
     public bool Leave { get; set; }
@@ -177,8 +177,6 @@ public class NPC : MonoBehaviour, ICharacter
 	}
 	private void SetArrays()
 	{
-		bodyParts = GetComponentsInChildren<Transform>().Where(t => t.CompareTag("NpcPart")).ToArray();
-
         RunAngles = new Vector3[8];
         RunAngles[0] = transform.forward;
         RunAngles[1] = transform.forward + transform.right;
@@ -318,7 +316,7 @@ public class NPC : MonoBehaviour, ICharacter
             return;
         }
 
-        float value = /*player.GetComponent<PlayerNotoriousLevels>().GetPlayerNotoriousLevel() **/ stats.AlertIncrease * Time.deltaTime;
+        float value = player.GetComponent<PlayerNotoriousLevels>().GetPlayerNotoriousLevel() * stats.AlertIncrease * Time.deltaTime;
 
         if (inFOV)
         {
