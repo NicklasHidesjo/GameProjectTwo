@@ -42,7 +42,7 @@ public class OverShoulderCam : MonoBehaviour
         dummy.rotation = MouseRotation(dummy.eulerAngles);
 
         Vector3 offsett = maxOffsett;
-        offsett = Lean(offsett);
+        //offsett = Lean(offsett);
 
         //Rotate offsett
         Vector3 tOffsett = target.position + dummy.rotation * new Vector3(offsett.x, offsett.y, 0);
@@ -62,7 +62,7 @@ public class OverShoulderCam : MonoBehaviour
             dummy.rotation = MouseRotation(dummy.eulerAngles);
 
             Vector3 offsett = maxOffsett;
-            offsett = Lean(offsett);
+            //offsett = Lean(offsett);
 
             //Rotate offsett
             Vector3 tOffsett = target.position + dummy.rotation * new Vector3(offsett.x, offsett.y, 0);
