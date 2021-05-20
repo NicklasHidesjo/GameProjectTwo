@@ -63,3 +63,4 @@ crashlytics-build.properties
 **/GameProjectTwo/UserSettings/EditorUserSettings.asset
 **.idea/
 GameProjectTwo/UserSettings/EditorUserSettings.asset
+GameProjectTwo/ProjectSettings/Packages/com.unity.polybrush/Settings.json

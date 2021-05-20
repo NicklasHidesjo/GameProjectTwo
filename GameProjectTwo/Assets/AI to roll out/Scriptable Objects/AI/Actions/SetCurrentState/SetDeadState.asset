@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6095630232cf2249a8fbec870938102, type: 3}
-  m_Name: PlayTransformCloud
+  m_Script: {fileID: 11500000, guid: 4e8c6c9a40b5c584797764eb3786ad82, type: 3}
+  m_Name: SetDeadState
   m_EditorClassIdentifier: 
-  smokePuff: {fileID: 5185001187354487102, guid: 18ab637ad2dee21419c6df26bfd3f258, type: 3}
-  destroyDelay: 5
-  TransformToBat: 1
+  state: 22

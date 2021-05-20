@@ -193,6 +193,7 @@ public class NPC : MonoBehaviour, ICharacter
         StateTime = 0;
         player.GetComponent<PlayerStatsManager>().DecreaseHealthValue(stats.Damage);
         player.StopHiding = true;
+        player.SuckingBlood = false;
         var dir = playerTransform.position - transform.position;
         player.KnockBack(dir, stats.KnockbackForce);
         AudioManager.instance.PlayOneShot(SoundType.DraculaDamage, player.gameObject);
@@ -249,10 +250,6 @@ public class NPC : MonoBehaviour, ICharacter
     public void DecreaseHealth(int health)
     {
         currentHealth -= health;
-        if (currentHealth <= 0)
-        {
-            isDead = true;
-        }
     }
 
     public void ReactToShout()
@@ -347,12 +344,12 @@ public class NPC : MonoBehaviour, ICharacter
 
     public void Dead()
     {
-        isDead = true;
+        GettingSucked = false;
         gameObject.AddComponent<DeadBody>();
+        AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
+        GetComponent<Rigidbody>().isKinematic = false;
         agent.enabled = false;
-    }
-    public void RemoveBloodSuckTarget()
-	{
+        isDead = true;
         Destroy(bloodSuckTarget);
     }
 

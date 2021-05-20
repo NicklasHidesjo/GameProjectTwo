@@ -6,6 +6,7 @@ public class SunTimeOfDay : MonoBehaviour
 {
     [SerializeField] float sunLightAngle = 30;
     [SerializeField] float timeOfDay = 0f;
+    public float TimeOfDay { get => timeOfDay; }
     [SerializeField] float intensetyMultiplyer = 4.0f;
     private Coroutine runningClock;
     private Coroutine animClock;
@@ -57,7 +58,7 @@ public class SunTimeOfDay : MonoBehaviour
     {
         yield return new WaitForSeconds(timeTillSunRise);
         print("Sun is rising");
-        AudioManager.instance.PlaySound(SoundType.MorningBell, gameObject);
+        AudioManager.instance.PlayOneShot(SoundType.MorningBell, gameObject);
         runningClock = null;
 
         MoveTimeOfDayTo(clockStopTime, sunRiseAnimTime);
