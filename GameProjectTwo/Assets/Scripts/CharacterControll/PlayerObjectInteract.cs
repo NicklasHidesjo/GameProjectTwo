@@ -68,7 +68,6 @@ public class PlayerObjectInteract : MonoBehaviour
                 }
             case BloodSuckTarget B: //see if the object itself can validate interaction
                 {
-                    CancelInteraction();
                     interactable.Interact(gameObject);
                     heldInteractable = B;
                     transform.LookAt(interactable.transform);
