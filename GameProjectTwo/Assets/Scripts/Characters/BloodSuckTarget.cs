@@ -30,26 +30,20 @@ public class BloodSuckTarget : Interactable
         }
     }
 
-
     public void CancelSucking()
     {
-        npcController.GettingSucked = false;
         StopCoroutine("SuckingBlood");        
         StopAllCoroutines();
-        //Debug.Log("sucking Cancel!");
+        npcController.Dead();
     }
 
     private IEnumerator SuckingBlood(int bloodPerSec, float tickRate)
     {
         PlayerStatsManager playerStats = player.GetComponent<PlayerStatsManager>();
         AudioManager.instance.PlaySound(SoundType.DraculaBite);
-        while (!npcController.IsDead)
+        while (npcController.CurrentHealth > 0)
         {
-            //TODO Increase satiation!
-
-
             npcController.DecreaseHealth(bloodPerSec);
-            //playerHealth.GainHealth(bloodPerSec);
             playerStats.IncreaseSatiationValue(bloodPerSec);
             playerStats.IncreaseHealthValue(bloodPerSec);
             Debug.Log("Currently Drinking!");
@@ -57,19 +51,7 @@ public class BloodSuckTarget : Interactable
             AudioManager.instance.PlaySound(SoundType.DraculaDrink);
         }
         player.SuckingBlood = false;
-        KillNPC();
-        //Debug.Log("no longer sucking!");
         AudioManager.instance.PlaySound(SoundType.DraculaDrinkDone);
-        npcController.RemoveBloodSuckTarget();
-    }
-    
-    //TODO: do this one correctly
-    private void KillNPC()
-    {
-        //kill NPC
-        AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
-        GetComponent<Rigidbody>().isKinematic = false;
         npcController.Dead();
     }
-
 }
