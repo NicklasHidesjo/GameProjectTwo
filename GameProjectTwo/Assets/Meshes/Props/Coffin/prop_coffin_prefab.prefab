@@ -477,8 +477,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8726804265093384970}
   - component: {fileID: 281460348047506254}
+  - component: {fileID: 4715327804319122441}
   m_Layer: 0
-  m_Name: prop_coffin
+  m_Name: prop_coffin_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -522,3 +523,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &4715327804319122441
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8237090945010569648}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.67, y: 0.81, z: 1.21}
+  m_Center: {x: -0.22, y: 0.42, z: 0}
