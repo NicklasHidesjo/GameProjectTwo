@@ -80,11 +80,6 @@ public class Player : MonoBehaviour, IPlayer
 		CurrentStamina = stats.MaxStamina;
 	}
 
-	private void OnControllerColliderHit(ControllerColliderHit hit)
-	{
-		LeaveBat = true;
-	}
-
 	private void Update()
 	{
 		if (impact.magnitude > 0.2)

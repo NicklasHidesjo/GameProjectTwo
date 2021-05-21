@@ -45,7 +45,6 @@ public class SunTimeOfDay : MonoBehaviour
 
     public void SetRiseTimer(float timeTillSunRise, float clockStopTime, float sunRiseAnimTime)
     {
-
         if (runningClock != null)
         {
             //print("STOPP : " + runningClock);
@@ -65,6 +64,7 @@ public class SunTimeOfDay : MonoBehaviour
         MoveTimeOfDayTo(clockStopTime, sunRiseAnimTime);
     }
 
+    // this should be called once dracula is full 
     public void MoveTimeOfDayTo(float toTimeOfDay, float sunAnimTime)
     {
         if (animClock != null)
@@ -72,7 +72,7 @@ public class SunTimeOfDay : MonoBehaviour
             // print("STOPP : " + runningClock);
             StopCoroutine(animClock);
         }
-
+        Debug.Log("Sun is rising");
         animClock = StartCoroutine(MoveTimeToOverTime(toTimeOfDay, sunAnimTime));
     }
 

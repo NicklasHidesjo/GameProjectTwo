@@ -13,8 +13,11 @@ public class InteractableScanner : MonoBehaviour
     [SerializeField] float interactRange;
     [SerializeField] LayerMask layersToSearch;
 
+    Player player;
+
     void Start()
     {
+        player = GetComponent<Player>();
         interactables = new HashSet<Interactable>();
     }
 
@@ -47,17 +50,32 @@ public class InteractableScanner : MonoBehaviour
 
         if (currentInteractable != null)
         {
-            currentInteractable.SetSelected(true, this);
-            if (newInteractable != currentInteractable)
-            {
-                currentInteractable.SetSelected(false, this);
-            }
+            currentInteractable.SetSelected(false, this);
+            currentInteractable = null;
         }
 
         currentInteractable = newInteractable;
-    }
 
-    private Interactable GetClosestInteractable()
+        if(currentInteractable != null)
+		{
+			if (UnInteractableState())
+			{
+				return;
+			}
+
+			currentInteractable.SetSelected(true, this);
+		}
+	}
+
+	private bool UnInteractableState()
+	{
+		return player.CurrentState == PlayerStates.DraculaSucking ||
+			   player.CurrentState == PlayerStates.BatDefault ||
+			   player.CurrentState == PlayerStates.TransformToBat || 
+               player.CurrentState == PlayerStates.DraculaRunning;
+	}
+
+	private Interactable GetClosestInteractable()
     {
         Interactable closestContainer = null;
         float closestDistance = interactRange;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class HiddenCheck : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class HiddenCheck : MonoBehaviour
 
     private int notHiddenCorpses;
     public int  NotHiddenCorpses { get { return notHiddenCorpses; } }
-    List<Transform> spawnGuards= new List<Transform>();
+    List<Vector3> spawnGuards= new List<Vector3>();
 
     private EndLevelCheck endlevelcheck;
     private MenuManager menuManager;
@@ -28,27 +29,34 @@ public class HiddenCheck : MonoBehaviour
     void CheckForUnhiddenBodies(int currentlevel)
     {
         notHiddenCorpses = 0;
-        spawnGuards = new List<Transform>();
+        spawnGuards = new List<Vector3>();
 
         GameObject[] deadbodies = GameObject.FindGameObjectsWithTag("Civilian");
                
 
           for (int i = 0; i<deadbodies.Length; i++)
           {
-                if (deadbodies[i].GetComponent<DeadBody>() != null)
+            if (deadbodies[i].GetComponent<DeadBody>() != null)
+            {
+                if (deadbodies[i].GetComponent<DeadBody>().IsHidden == false)
                 {
-                    if (deadbodies[i].GetComponent<DeadBody>().IsHidden == false)
-                    {
                     notHiddenCorpses++;
                     Debug.Log($"The dead body is at {deadbodies[i].transform.position}");
-                    spawnGuards.Add(deadbodies[i].transform);
-                    deadbodies[i].SetActive(false);
+
+
+
+                    NavMeshHit hit;
+                    if (NavMesh.SamplePosition(deadbodies[i].transform.position, out hit, 4, NavMesh.AllAreas))
+                    {
+                        spawnGuards.Add(hit.position);
                     }
+                    deadbodies[i].SetActive(false);
                 }
-                else
-                {
+            }
+            else
+            {
                 continue;
-                }
+            }
 
           }
           Debug.Log($"Number of unhidden bodies is {notHiddenCorpses}");
@@ -58,10 +66,10 @@ public class HiddenCheck : MonoBehaviour
     {
         for (int i = 0; i < spawnGuards.Count; i++)
         {
-            if (spawnGuards[i] !=null)
+            if (spawnGuards[i] != null)
             {
-                Instantiate(Staticguard,spawnGuards[i].transform.position, Quaternion.identity);
-                Debug.Log($"Spawned Guard at {spawnGuards[i].transform.position}");
+                Instantiate(Staticguard,spawnGuards[i], Quaternion.identity);
+                Debug.Log($"Spawned Guard at {spawnGuards[i]}");
             }
         }
     }
