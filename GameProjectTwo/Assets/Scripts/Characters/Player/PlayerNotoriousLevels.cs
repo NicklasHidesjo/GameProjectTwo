@@ -30,7 +30,7 @@ public class PlayerNotoriousLevels : MonoBehaviour
     {
         float nLevel = (plLongSuspiciousLevel + plShortSuspiciousLevel) / 2;
         nLevel += 1;
-        nLevel *= plLuminosity;
+        //nLevel *= plLuminosity;
         //Debug.Log("NotoriosLevel : "+ nLevel + " Lumin : " + plLuminosity);
         return nLevel;
     }
