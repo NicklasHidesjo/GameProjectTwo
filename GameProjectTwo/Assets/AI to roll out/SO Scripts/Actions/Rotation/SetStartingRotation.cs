@@ -5,7 +5,7 @@ public class SetStartingRotation : Action
 {
 	public override void Execute(ICharacter character)
 	{
-        if(character.Agent.velocity != Vector3.zero)
+		if (character.Agent.remainingDistance > character.Agent.stoppingDistance)
 		{
 			return;
 		}
@@ -24,6 +24,6 @@ public class SetStartingRotation : Action
 		character.RotationSpeed = character.RotationSpeed * 2;
 
 		character.Agent.updateRotation = false;
-		character.RotationStarted = true;
+		character.RotationStarted = true; 
 	}
 }
