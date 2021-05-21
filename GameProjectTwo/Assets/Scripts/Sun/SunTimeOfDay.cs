@@ -11,12 +11,11 @@ public class SunTimeOfDay : MonoBehaviour
     private Coroutine runningClock;
     private Coroutine animClock;
 
-    float dot;
-
-
     [SerializeField] EnviromentFX eFX;
 
-
+    //TODO : Niceify
+    DisableLightAtDay[] nightLights;
+    bool nightLightsON;
     public void MoveSunRealTimeStep()
     {
         //TODO : Can be moved to start if function used
@@ -37,6 +36,7 @@ public class SunTimeOfDay : MonoBehaviour
     }
     public void SetTimeOfDayTo(float time)
     {
+        nightLights = FindObjectsOfType<DisableLightAtDay>();
         timeOfDay = time;
         float degOfDay = time * 15;
         transform.rotation = Quaternion.Euler(degOfDay - 90, sunLightAngle, 0);
@@ -45,6 +45,7 @@ public class SunTimeOfDay : MonoBehaviour
 
     public void SetRiseTimer(float timeTillSunRise, float clockStopTime, float sunRiseAnimTime)
     {
+
         if (runningClock != null)
         {
             //print("STOPP : " + runningClock);
@@ -113,19 +114,31 @@ public class SunTimeOfDay : MonoBehaviour
     private void EnableDisableByAngle()
     {
         float dot = Vector3.Dot(Vector3.down, transform.forward);
-        if(dot < 0)
-        {
+        if (dot < 0)
+        { //Sun is down
             GetComponent<Light>().enabled = false;
+            SetAllNightLights(true);
         }
         else
-        {
+        { //Sun is up
             GetComponent<Light>().enabled = true;
             GetComponent<Light>().intensity = dot * intensetyMultiplyer;
+            SetAllNightLights(false);
         }
 
         if (eFX)
         {
             eFX.UpdateEnviroment(dot * intensetyMultiplyer);
+        }
+    }
+
+    void SetAllNightLights(bool to)
+    {
+        Debug.Log("SetLights to : " + to);
+        foreach (DisableLightAtDay l in nightLights)
+        {
+            l.EnableLight(to);
+            nightLightsON = to;
         }
     }
 }

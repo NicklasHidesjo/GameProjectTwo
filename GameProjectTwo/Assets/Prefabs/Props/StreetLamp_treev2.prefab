@@ -110,6 +110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 827236893906302181}
   - component: {fileID: 622777740213491732}
+  - component: {fileID: 4608803804904504580}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -193,6 +194,18 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &4608803804904504580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4510377480070871503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d9108d9fe4d974f8db89f92a724dc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8949891966430334180
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,6 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3368703454062550406}
   - component: {fileID: 2474274492087656392}
+  - component: {fileID: 5944955056875025845}
   m_Layer: 0
   m_Name: w
   m_TagString: Untagged
@@ -286,3 +300,15 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &5944955056875025845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8949891966430334180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d9108d9fe4d974f8db89f92a724dc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
