@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 7500900345783863252}
   - component: {fileID: 7500900345783863253}
   - component: {fileID: 7500900345783863248}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Lair
   m_TagString: Lair
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d56ba17e6186c4fa01adc0e81b01ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeTillSunrise: 90
+  timeTillSunrise: 180
 --- !u!1001 &4050729889552055051
 PrefabInstance:
   m_ObjectHideFlags: 0
