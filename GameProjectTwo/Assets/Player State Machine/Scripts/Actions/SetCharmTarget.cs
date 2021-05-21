@@ -44,7 +44,8 @@ public class SetCharmTarget : PlayerAction
 			   npc.CurrentState == NPCStates.FrozenInFear ||
 			   npc.CurrentState == NPCStates.CivFlee ||
 			   npc.CurrentState == NPCStates.CivReactToDeadBody ||
-			   npc.CurrentState == NPCStates.CivSucked)
+			   npc.CurrentState == NPCStates.CivSucked ||
+               npc.CurrentState == NPCStates.Dead)
 			{
 				continue;
 			}
