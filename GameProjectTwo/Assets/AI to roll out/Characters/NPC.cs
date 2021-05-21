@@ -314,7 +314,6 @@ public class NPC : MonoBehaviour, ICharacter
         }
 
         float value = player.GetComponent<PlayerNotoriousLevels>().GetPlayerNotoriousLevel() * stats.AlertIncrease * Time.deltaTime;
-
         if (inFOV)
         {
             value *= stats.InSightMultiplier;
@@ -344,12 +343,12 @@ public class NPC : MonoBehaviour, ICharacter
 
     public void Dead()
     {
+        isDead = true;
         GettingSucked = false;
         gameObject.AddComponent<DeadBody>();
         AudioManager.instance.PlaySound(SoundType.CivilianDie, gameObject);
         GetComponent<Rigidbody>().isKinematic = false;
         agent.enabled = false;
-        isDead = true;
         Destroy(bloodSuckTarget);
     }
 
