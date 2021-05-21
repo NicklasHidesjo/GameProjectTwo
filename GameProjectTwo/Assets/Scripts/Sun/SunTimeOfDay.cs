@@ -134,7 +134,6 @@ public class SunTimeOfDay : MonoBehaviour
 
     void SetAllNightLights(bool to)
     {
-        Debug.Log("SetLights to : " + to);
         foreach (DisableLightAtDay l in nightLights)
         {
             l.EnableLight(to);
