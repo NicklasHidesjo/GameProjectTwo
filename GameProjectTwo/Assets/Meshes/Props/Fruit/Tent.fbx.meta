@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: baf32140f2374734ba7d771f2b18cfd8
+guid: 088218a32f9c090479427aec93152bd8
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,13 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Glass.001
-    second: {fileID: 2100000, guid: e51f9f9bc205c9142953c6dd79b4710f, type: 2}
+      name: Wood
+    second: {fileID: 2100000, guid: 4a34462575f5acb49a5124c79e097ebb, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Metal.001
-    second: {fileID: 2100000, guid: 7166497bd1d0c1841a2654ebcfcbe096, type: 2}
+      name: tent1
+    second: {fileID: 2100000, guid: b38d1f3581959654398264c1629ab633, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tent2
+    second: {fileID: 2100000, guid: f8849d463c1734b41aea4143fadf2837, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -55,7 +60,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
