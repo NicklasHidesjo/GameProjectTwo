@@ -77,7 +77,8 @@ public class Container : Interactable
         yield return new WaitForSeconds(0.3f);
         float startTime = Time.time;
         float journeyTime = time;
-        
+        AudioManager.instance.PlaySound(SoundType.HideInContainer, gameObject);
+
         Vector3 startPos = targetToMove.position;
         Vector3 center = startPos - Vector3.up;
         Vector3 startRelCenter = startPos - center;
@@ -105,6 +106,7 @@ public class Container : Interactable
 
         targetToMove.LookAt(targetPosition);
         yield return new WaitForSeconds(time * 0.5f);
+        AudioManager.instance.PlaySound(SoundType.HideInContainer, gameObject);
         float startTime = Time.time;
         float journeyTime = time;
 
