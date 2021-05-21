@@ -52,7 +52,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 5358ec8045a81af438d42e1457a635f9, type: 3}
   - type: 1
     loop: 0
-    channel: {fileID: 7729675397900063681, guid: 5a073ff4842204344ac262589efaab3d, type: 2}
+    channel: {fileID: -2973446719659395353, guid: 5a073ff4842204344ac262589efaab3d, type: 2}
     sounds:
     - {fileID: 8300000, guid: 4a9291ebece46ac45b8bfa0b99f468d1, type: 3}
     - {fileID: 8300000, guid: 6764a256d60e4e04f86dcda0919163f5, type: 3}
@@ -202,6 +202,12 @@ MonoBehaviour:
     channel: {fileID: 2326152586473605953, guid: 5a073ff4842204344ac262589efaab3d, type: 2}
     sounds:
     - {fileID: 8300000, guid: 3c2ee73b1f05e2043af66e931b2629e2, type: 3}
+  - type: 18
+    loop: 0
+    channel: {fileID: -8278114316441286313, guid: 5a073ff4842204344ac262589efaab3d, type: 2}
+    sounds:
+    - {fileID: 8300000, guid: b26b3020b28b658438e128db674bd9ac, type: 3}
+    - {fileID: 8300000, guid: a9d9dab48e05bf340956e00a7050f5c8, type: 3}
   musicCues:
   - type: 0
     loop: 1
@@ -301,7 +307,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
