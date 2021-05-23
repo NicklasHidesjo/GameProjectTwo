@@ -19,11 +19,12 @@ public class AudioManager : MonoBehaviour
 {
 
     private static AudioManager _instance;
-    //[SerializeField] AudioList audioList; For use later if prefab gets too big
+    
     public static AudioManager instance { get => _instance; }
 
     public List<SoundCue> soundCues;
     public List<SoundCue> musicCues;
+    
     private GameObject audioListGameObject;
     [SerializeField] List<AudioSource> audioSources;
     [SerializeField] AudioMixer audioMixer;
@@ -47,6 +48,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        //preload some Audiosources to use
         audioSources = new List<AudioSource>();
         audioListGameObject = new GameObject("AudioSources");
         audioListGameObject.transform.parent = gameObject.transform;
@@ -56,20 +58,19 @@ public class AudioManager : MonoBehaviour
             audioSources.Add(a);
         }
 
+        //Load mixer settings. if none exist make new ones and load those.
         float musicVolume = PlayerPrefs.GetFloat("musicVolume");
         float soundVolume = PlayerPrefs.GetFloat("soundVolume");
         float masterVolume = PlayerPrefs.GetFloat("masterVolume");
-
         if (!PlayerPrefs.HasKey("musicVolume"))
         {
             SaveVolumeSettings(0.75f, 0.75f, 0.75f);
-            musicVolume = PlayerPrefs.GetFloat("musicVolume");
-            soundVolume = PlayerPrefs.GetFloat("soundVolume");
-            masterVolume = PlayerPrefs.GetFloat("masterVolume");
+            musicVolume = 0.75f;
+            soundVolume = 0.75f;
+            masterVolume = 0.75f;
 
 
         }
-
         SetMixerVolume(musicVolume, soundVolume, masterVolume);
 
         musicPlayer = GetComponent<AudioSource>();       
@@ -250,7 +251,7 @@ public class AudioManager : MonoBehaviour
 
     private IEnumerator AudioFadeIn(AudioSource source, float fadeInTime)
     {
-        //Maybe problematic when used together with fadeout on the same audiosource
+        
         print($"Fading In {source.clip}");
 
         float currentVolume = source.volume;
@@ -268,8 +269,7 @@ public class AudioManager : MonoBehaviour
 
     }
 
-    
-
+    //used to stop Looping sounds from playing when changing/reloading scene
     public void StopAll2DSounds()
     {
         foreach (AudioSource a in audioSources)
