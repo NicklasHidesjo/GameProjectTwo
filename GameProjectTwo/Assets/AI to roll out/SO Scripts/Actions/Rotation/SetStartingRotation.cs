@@ -5,7 +5,8 @@ public class SetStartingRotation : Action
 {
 	public override void Execute(ICharacter character)
 	{
-		if (character.Agent.remainingDistance > character.Agent.stoppingDistance)
+		float distance = Vector3.Distance(character.Transform.position, character.StartingPosition);
+		if (distance > character.Agent.stoppingDistance +1)
 		{
 			return;
 		}

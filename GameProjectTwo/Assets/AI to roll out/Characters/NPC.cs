@@ -327,6 +327,10 @@ public class NPC : MonoBehaviour, ICharacter
     public void LowerAlertness(float value)
     {
         Alertness = Mathf.Clamp(Alertness - Mathf.Abs(value), 0, stats.MaxAlerted);
+        if(Alertness < stats.MaxAlerted)
+		{
+            Run = false;
+		}
     }
 
     public void HandleSeeingDeadNPC(NPC deadNpc)
