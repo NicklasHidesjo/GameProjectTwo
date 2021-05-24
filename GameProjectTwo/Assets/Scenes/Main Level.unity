@@ -14,12 +14,12 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  m_FogMode: 3
+  m_FogMode: 1
   m_FogDensity: 0.01
   m_LinearFogStart: 0
-  m_LinearFogEnd: 300
+  m_LinearFogEnd: 292.04
   m_AmbientSkyColor: {r: 0.27825737, g: 0.29848576, b: 0.3490566, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -9101,6 +9101,7 @@ GameObject:
   - component: {fileID: 705507994}
   - component: {fileID: 705507996}
   - component: {fileID: 705507997}
+  - component: {fileID: 705507998}
   m_Layer: 0
   m_Name: SUN
   m_TagString: Untagged
@@ -9200,7 +9201,7 @@ MonoBehaviour:
   sunLightAngle: -10
   timeOfDay: 0
   intensetyMultiplyer: 4
-  eFX: {fileID: 0}
+  eFX: {fileID: 705507998}
 --- !u!82 &705507997
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9297,6 +9298,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &705507998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705507993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c261e92f56a8764e9ea7ac5951337c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fogNightCol: {r: 0, g: 0, b: 0, a: 0}
+  fogDayCol: {r: 1, g: 0.85882354, b: 0.7019608, a: 0}
+  fogDistNight: 80
+  fogDistDay: 200
+  dotMul: 4
 --- !u!1001 &709168762
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11540,6 +11558,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.09
       objectReference: {fileID: 0}
+    - target: {fileID: 7500900345783863248, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
+      propertyPath: timeTillSunrise
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7500900345783863249, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -11583,6 +11605,10 @@ PrefabInstance:
     - target: {fileID: 7500900345783863249, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7500900345783863253, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
+      propertyPath: levelPassedThreshold.Array.data[0]
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7500900345783863254, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
       propertyPath: m_Name
@@ -18405,7 +18431,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.33708617, g: 0.4549601, b: 0.7075472, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2
   m_Range: 161.7
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
