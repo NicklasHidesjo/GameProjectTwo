@@ -19,7 +19,7 @@ RenderSettings:
   m_FogMode: 1
   m_FogDensity: 0.01
   m_LinearFogStart: 0
-  m_LinearFogEnd: 292.04
+  m_LinearFogEnd: 100
   m_AmbientSkyColor: {r: 0.27825737, g: 0.29848576, b: 0.3490566, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
@@ -1752,6 +1752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Staticguard: {fileID: 8534732390339874264, guid: 0ceb5780bc74064428c64e8b3c1202b0, type: 3}
+  GuardRemovedCorpses: []
 --- !u!1001 &154446828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11608,7 +11609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7500900345783863253, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
       propertyPath: levelPassedThreshold.Array.data[0]
-      value: 10
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7500900345783863254, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
       propertyPath: m_Name
