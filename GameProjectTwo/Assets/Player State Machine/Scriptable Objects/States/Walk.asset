@@ -37,7 +37,5 @@ MonoBehaviour:
     newState: {fileID: 11400000, guid: ba3ce98eb1463164c8bd9fbde2d1b6e5, type: 2}
   - decision: {fileID: 11400000, guid: 5383ddcc76b833640b938ad29b24dc49, type: 2}
     newState: {fileID: 11400000, guid: 4d5ca611c9be5624bbf8768fdff146b5, type: 2}
-  - decision: {fileID: 11400000, guid: e0fd0dd725e51904f8bb81418d87a102, type: 2}
-    newState: {fileID: 11400000, guid: ff7ef087bb506274da8c59d620dd6d38, type: 2}
   - decision: {fileID: 11400000, guid: d5a2a844f93be15409e6a801ea160ae2, type: 2}
     newState: {fileID: 11400000, guid: f372ca619fcf5cd44bbf1e2c5e146215, type: 2}
