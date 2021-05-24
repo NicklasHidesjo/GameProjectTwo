@@ -15,6 +15,8 @@ public interface ICharacter
 	public NavMeshAgent Agent { get; }
 	public NPCStats Stats { get; }
 	public NPC Self { get; }
+	public HiddenCheck HiddenCheck { get; }
+
 	public float TimeSinceLastAction { get; set; }
 	public float TimeSinceLastSeenPlayer { get; set; }
 	public float RotationTime { get; set; }	

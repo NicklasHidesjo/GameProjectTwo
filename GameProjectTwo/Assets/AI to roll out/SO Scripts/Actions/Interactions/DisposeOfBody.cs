@@ -9,5 +9,6 @@ public class DisposeOfBody : Action
 		character.DeadNpc.Disposed = true;
 		character.DeadNpc.Dispose();
 		character.SetAlertness(character.Stats.MaxAlerted / 2);
+		character.HiddenCheck.AddGuardRemovedCorpse(character.DeadNpc.gameObject);
 	}
 }

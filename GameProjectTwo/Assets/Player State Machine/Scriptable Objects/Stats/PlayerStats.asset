@@ -23,14 +23,13 @@ MonoBehaviour:
   StaminaRecovery: 10
   FlyStaminaCost: 10
   RunStaminaCost: 10
-  CharmStaminaCost: 70
+  CharmStaminaCost: 80
   WalkSpeed: 5
-  RunSpeed: 10
+  RunSpeed: 7
   CrouchSpeed: 1
   DragBodySpeed: 2
   InSunSpeed: 2
-  FlySpeed: 5
-  FlightSpeed: 5
+  FlySpeed: 8
   TurnSpeed: 2
   FlightHight: 4
   MaxFlightHight: 4
@@ -40,3 +39,5 @@ MonoBehaviour:
     m_Bits: 769
   CharmRange: 15
   CharmFOV: 90
+  SuckTick: 1
+  SuckAmount: 20

@@ -145,27 +145,6 @@ public class NPCSpawner : MonoBehaviour
 			npc.gameObject.SetActive(true);
 			npc.InitializeNPC(path);
 		}
-/*		foreach (var npc in inactiveCivs)
-		{
-			if(npc.Stationary)
-			{
-				currentSpawn = npc.startingPath.SpawnPos;
-				path = null;
-			}
-			else
-			{
-				int i = Random.Range(0, civilianSpawnPos.Length);
-				currentSpawn = civilianSpawnPos[i].SpawnPos;
-				path = civilianSpawnPos[i].GetPath().ToList();
-			}
-
-			activeCivs.Add(npc);
-
-			npc.transform.position = currentSpawn.position;
-			npc.gameObject.SetActive(true);
-			npc.InitializeNPC(path);
-		}
-		inactiveCivs.Clear();*/
 
 		foreach (var npc in inactiveGuards)
 		{
@@ -292,6 +271,10 @@ public class NPCSpawner : MonoBehaviour
 		npc.gameObject.SetActive(false);
 		if (isCivilian)
 		{
+			if(npc.Stationary && npc.IsDead)
+			{
+				return;
+			}
 			activeCivs.Remove(npc);
 			inactiveCivs.Add(npc);
 			activeCivs.RemoveAll(npc => npc == null);
