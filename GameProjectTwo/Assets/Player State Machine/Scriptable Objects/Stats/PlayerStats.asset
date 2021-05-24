@@ -39,5 +39,5 @@ MonoBehaviour:
     m_Bits: 769
   CharmRange: 15
   CharmFOV: 90
-  SuckTick: 0.5
-  SuckAmount: 10
+  SuckTick: 1
+  SuckAmount: 20
