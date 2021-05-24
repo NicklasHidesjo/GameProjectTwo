@@ -15,8 +15,13 @@ public class DirectionToLair : MonoBehaviour
         player = GetComponentInParent<Player>();
     }
 
-    // Update is called once per frame
-    void Update()
+	private void OnEnable()
+	{
+        FindObjectOfType<SunTimeOfDay>().MoveTimeOfDayTo(7, 40);
+	}
+
+	// Update is called once per frame
+	void Update()
     {
         if (gameObject.activeSelf == true)
         {
