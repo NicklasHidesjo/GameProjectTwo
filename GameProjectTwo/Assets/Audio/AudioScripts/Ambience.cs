@@ -11,7 +11,7 @@ public class Ambience : MonoBehaviour
     {
         nightAmbienceSound = GetComponent<AudioSource>();
         sunTimer = GetComponentInParent<SunTimeOfDay>();
-        AudioManager.instance.PlaySound(SoundType.NightAmbience, gameObject);
+        AudioManager.instance.PlaySound(SoundType.NightAmbience, gameObject, false);
     }
 
     private void Update()
