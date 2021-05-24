@@ -20,6 +20,7 @@ public class Container : Interactable
         Debug.DrawRay(transform.position, transform.forward, Color.blue, 999f);
         //standardMaterial = GetComponent<MeshRenderer>().material;
         animator = GetComponentInParent<Animator>();
+        animator.SetBool("Open", true);
     }
 
 
@@ -73,7 +74,7 @@ public class Container : Interactable
     //To Move Objects
     IEnumerator MoveTowardsPosition(Transform targetToMove, Vector3 targetPosition, float time)
     {
-        animator.SetBool("Open", true);
+        //animator.SetBool("Open", true);
         yield return new WaitForSeconds(0.3f);
         float startTime = Time.time;
         float journeyTime = time;
@@ -123,7 +124,10 @@ public class Container : Interactable
             yield return null;
         }
         //Debug.Log("finished moving");
+        if (playerInside==true)
+        {
         animator.SetBool("Open", false);
+        }
 
         player.ContainerInteractionDone = true;
     }
