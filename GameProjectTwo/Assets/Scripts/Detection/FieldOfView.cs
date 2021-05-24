@@ -67,9 +67,12 @@ public class FieldOfView : MonoBehaviour
 		{
 			if (npc.SawTransforming)
 			{
-				npc.RaiseAlertness(true);
+				if (!SeesPlayer(player.BatParts))
+				{
+					return;
+				}
 				npc.SeesPlayer = true;
-				npc.NoticedPlayer = true;
+				npc.RaiseAlertness(true);
 				npc.TimeSinceLastSeenPlayer = 0;
 			}
 			return;
