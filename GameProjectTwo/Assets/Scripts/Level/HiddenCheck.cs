@@ -8,8 +8,6 @@ public class HiddenCheck : MonoBehaviour
 
     [SerializeField] GameObject Staticguard;
 
-    private int notHiddenCorpses;
-    public int  NotHiddenCorpses { get { return notHiddenCorpses; } }
     List<Vector3> spawnGuards= new List<Vector3>();
 
     public List<GameObject> GuardRemovedCorpses = new List<GameObject>();
@@ -30,7 +28,6 @@ public class HiddenCheck : MonoBehaviour
 
     private void CheckForUnhiddenBodies(int currentlevel)
     {
-        notHiddenCorpses = 0;
         spawnGuards = new List<Vector3>();
 
         GameObject[] deadbodies = GameObject.FindGameObjectsWithTag("Civilian");
@@ -46,9 +43,6 @@ public class HiddenCheck : MonoBehaviour
 			{
                 continue;
 			}
-            notHiddenCorpses++;
-            Debug.Log($"The dead body is at {deadbody.transform.position}");
-
             NavMeshHit hit;
             if (NavMesh.SamplePosition(deadbody.transform.position, out hit, 4, NavMesh.AllAreas))
             {
@@ -59,9 +53,6 @@ public class HiddenCheck : MonoBehaviour
 
 		foreach (var deadbody in GuardRemovedCorpses)
 		{
-            Debug.Log("doing stuff to removed body");
-            notHiddenCorpses++;
-            Debug.Log($"The dead body is at {deadbody.transform.position}");
 
             NavMeshHit hit;
             if (NavMesh.SamplePosition(deadbody.transform.position, out hit, 4, NavMesh.AllAreas))
@@ -71,29 +62,6 @@ public class HiddenCheck : MonoBehaviour
             deadbody.SetActive(false);
         }
         GuardRemovedCorpses.Clear();
-
-/*          for (int i = 0; i<deadbodies.Length; i++)
-          {
-            if (deadbodies[i].GetComponent<DeadBody>() != null)
-            {
-                if (deadbodies[i].GetComponent<DeadBody>().IsHidden == false)
-                {
-                    notHiddenCorpses++;
-                    Debug.Log($"The dead body is at {deadbodies[i].transform.position}");
-
-
-
-                    NavMeshHit hit;
-                    if (NavMesh.SamplePosition(deadbodies[i].transform.position, out hit, 4, NavMesh.AllAreas))
-                    {
-                        spawnGuards.Add(hit.position);
-                    }
-                    deadbodies[i].SetActive(false);
-                }
-            }
-          }*/
-          Debug.Log($"Number of unhidden bodies is {notHiddenCorpses}");
-
     }
     private void SpawnGuardsAtMessyKills()
     {
