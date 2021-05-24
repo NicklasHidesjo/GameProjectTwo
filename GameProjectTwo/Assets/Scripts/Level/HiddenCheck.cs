@@ -77,7 +77,6 @@ public class HiddenCheck : MonoBehaviour
 
     public void AddGuardRemovedCorpse(GameObject corpse)
 	{
-        Debug.Log("Added corpse");
         GuardRemovedCorpses.Add(corpse);
 	}
 }
