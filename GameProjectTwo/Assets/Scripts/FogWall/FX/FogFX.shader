@@ -10,8 +10,8 @@ Shader "Roberts/FogFX"
 		SubShader
 	{
 		Tags { "RenderType" = "Transparent" }
- Blend One One
-ZWrite Off
+ Blend SrcAlpha One
+	ZWrite Off
 		LOD 10
 
 		Pass
@@ -67,10 +67,10 @@ ZWrite Off
 				uv2.y += _Time * 2;
 
 
-				fixed4 col = (i.uv.y / 8);
+				fixed4 col = (i.uv.y / 6);
 				col += tex2D(_MainTex, uv) * _Str;
 				col += tex2D(_MainTex, uv2) * _Str;
-				col *= (i.uv.y / 8);
+				col *= (i.uv.y / 6);
 				col *= _Color;
 
 				// apply fog
