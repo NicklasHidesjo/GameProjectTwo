@@ -67,10 +67,10 @@ Shader "Roberts/FogFX"
 				uv2.y += _Time * 2;
 
 
-				fixed4 col = (i.uv.y / 4);
+				fixed4 col = (i.uv.y / 6);
 				col += tex2D(_MainTex, uv) * _Str;
 				col += tex2D(_MainTex, uv2) * _Str;
-				col *= (i.uv.y / 4);
+				col *= (i.uv.y / 6);
 				col *= _Color;
 
 				// apply fog
