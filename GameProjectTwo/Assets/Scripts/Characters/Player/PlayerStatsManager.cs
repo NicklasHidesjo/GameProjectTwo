@@ -10,6 +10,7 @@ public class PlayerStatsManager : MonoBehaviour
     private BarController barControllerStamina;
     private BarController barControllerSatiation;
     private EndLevelCheck endLevelCheck;
+    private Animator coffinAnimator;
 
     [Header("Hunger Variables")]
     [SerializeField] int maxSatiation;
@@ -45,6 +46,8 @@ public class PlayerStatsManager : MonoBehaviour
         if (GameObject.FindWithTag("Lair") != null)
         {
             endLevelCheck = GameObject.FindWithTag("Lair").GetComponent<EndLevelCheck>();
+            coffinAnimator = GameObject.FindWithTag("Lair").GetComponentInChildren<Animator>();
+            coffinAnimator.speed = 0;
         }
         else
         {
@@ -114,6 +117,8 @@ public class PlayerStatsManager : MonoBehaviour
         {
             Debug.Log("Coffin Active");
             Lairfinder.SetActive(true);
+            coffinAnimator.SetBool("BloodFull", true);
+            coffinAnimator.speed = 1;
         }
     }
 
@@ -149,6 +154,7 @@ public class PlayerStatsManager : MonoBehaviour
         currentHealth = maxHealth;
  
         Lairfinder.SetActive(false);
+        coffinAnimator.SetBool("BloodFull", false);
 
         SetMaxBarValue(barControllerStamina, maxStamina);
         SetMaxBarValue(barControllerHealth, maxHealth);

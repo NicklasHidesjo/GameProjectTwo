@@ -6,7 +6,6 @@ using UnityEngine;
 public class EndLevelCheck : MonoBehaviour
 {
     private int currentLevel;
-
     public int CurrentLevel { get => currentLevel; }
 
     private PlayerStatsManager playerStatsManager;
