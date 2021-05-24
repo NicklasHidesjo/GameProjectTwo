@@ -22,7 +22,7 @@ public class CharmTarget : PlayerAction
 			player.DecreaseStamina(player.Stats.CharmStaminaCost);
 			player.charmTarget.IsCharmed = true;
 			player.CharmingTarget = true;
-			AudioManager.instance.PlaySound(SoundType.DraculaCharm);
+			AudioManager.instance.PlaySound(SoundType.DraculaCharm,0 , false);
 		}
 	}
 }

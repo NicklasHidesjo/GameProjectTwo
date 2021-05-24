@@ -117,7 +117,7 @@ public class AudioManager : MonoBehaviour
 
     }
 
-    public AudioSource PlaySound(SoundType soundType, float fadeInTime = 0f) //Play 2D sound
+    public AudioSource PlaySound(SoundType soundType, float fadeInTime = 0f, bool variablePitch = true) //Play 2D sound
     {
         SoundCue cue = GetCue(soundType);
 
@@ -125,6 +125,8 @@ public class AudioManager : MonoBehaviour
         source.clip = cue.sounds[Random.Range(0, cue.sounds.Count)];
         source.loop = cue.loop;
         source.outputAudioMixerGroup = cue.channel;
+        source.pitch = variablePitch ? Random.Range(0.95f, 1.05f) : 1f;
+
         if (fadeInTime == 0f)
         {
             source.Play();
@@ -139,7 +141,7 @@ public class AudioManager : MonoBehaviour
 
     //Plays a sound, based on the enum, on the gameObject sent in.
     //Also returns the Audiosource if further modifications are needed. Made for 3D sounds
-    public void PlaySound(SoundType soundType, GameObject obj) 
+    public void PlaySound(SoundType soundType, GameObject obj, bool variablePitch = true) 
     {
         SoundCue cue = GetCue(soundType);
         AudioSource source = obj.GetComponent<AudioSource>();
@@ -154,6 +156,7 @@ public class AudioManager : MonoBehaviour
         
         source.clip = cue.sounds[Random.Range(0, cue.sounds.Count)];
         source.loop = cue.loop;
+        source.pitch = variablePitch ? Random.Range(0.95f, 1.05f) : 1f;
         source.outputAudioMixerGroup = cue.channel;
         source.Play();
 
