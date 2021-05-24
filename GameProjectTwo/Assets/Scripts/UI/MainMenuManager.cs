@@ -58,9 +58,9 @@ public class MainMenuManager : MonoBehaviour
 
 		HowToPlayTexts[currentPageIndex].SetActive(true);
 		IndexNumber.text = (currentPageIndex + 1) + "/" + (HowToPlayTexts.Length);
-
+		/*
 		currentPageTitle.text = HowToPlayTexts[currentPageIndex].name;
-
+		
 		int nextPage = currentPageIndex + 1;
 		if (nextPage > HowToPlayTexts.Length -1)
 		{
@@ -74,6 +74,7 @@ public class MainMenuManager : MonoBehaviour
 
 		previousPageTitle.text = HowToPlayTexts[previousPage].name;
 		nextPageTitle.text = HowToPlayTexts[nextPage].name;
+		*/
 	}
 
 
