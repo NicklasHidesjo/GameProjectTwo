@@ -117,6 +117,7 @@ public class SunTimeOfDay : MonoBehaviour
         if (dot < 0)
         { //Sun is down
             GetComponent<Light>().enabled = false;
+            GetComponent<Light>().intensity = 0;
             SetAllNightLights(true);
         }
         else

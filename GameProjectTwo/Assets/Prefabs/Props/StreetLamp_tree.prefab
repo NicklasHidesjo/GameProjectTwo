@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 7663791964101098417}
   - component: {fileID: 7663791964101098418}
   m_Layer: 0
-  m_Name: Point Light (1)
+  m_Name: Street Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &7663791964101098417
 Transform:
@@ -43,13 +43,13 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.9716981, g: 0.9281927, b: 0.8204432, a: 1}
-  m_Intensity: 5
-  m_Range: 10
+  m_Intensity: 1
+  m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -85,13 +85,13 @@ Light:
   m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 1.5
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
-  m_ShadowRadius: 0
+  m_ShadowRadius: 0.5
   m_ShadowAngle: 0
 --- !u!1 &8467027370037498414
 GameObject:
@@ -104,13 +104,13 @@ GameObject:
   - component: {fileID: 7663791963551971412}
   - component: {fileID: 6577524657605220860}
   - component: {fileID: 6915493170114847894}
-  - component: {fileID: 6987434571289595426}
+  - component: {fileID: 3924488890582470151}
   m_Layer: 0
   m_Name: StreetLamp_tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &7663791963551971412
 Transform:
@@ -178,8 +178,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6987434571289595426
-MeshCollider:
+--- !u!65 &3924488890582470151
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -188,7 +188,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3703173262421847456, guid: 51c62e1372b7a7f43b872561b8bc4d2d, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.005, y: 0.06280284, z: 0.005}
+  m_Center: {x: 0, y: 0.03140142, z: 0}
