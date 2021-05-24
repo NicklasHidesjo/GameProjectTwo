@@ -1734,25 +1734,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3cfc286e8b69b540bb28ea4f8de36a9, type: 3}
---- !u!1 &148961928 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7500900345783863254, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
-  m_PrefabInstance: {fileID: 944407929}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &148961933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 148961928}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 836435be63457594aba2bb1bd7f4f9a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Staticguard: {fileID: 8534732390339874264, guid: 0ceb5780bc74064428c64e8b3c1202b0, type: 3}
-  GuardRemovedCorpses: []
 --- !u!1001 &154446828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11547,22 +11528,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4696343334540537857, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.34
-      objectReference: {fileID: 0}
-    - target: {fileID: 4696343334540537857, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.19
-      objectReference: {fileID: 0}
-    - target: {fileID: 4696343334540537857, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 7500900345783863248, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
-      propertyPath: timeTillSunrise
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7500900345783863249, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -11606,10 +11571,6 @@ PrefabInstance:
     - target: {fileID: 7500900345783863249, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7500900345783863253, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
-      propertyPath: levelPassedThreshold.Array.data[0]
-      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7500900345783863254, guid: fd35da96d54d06246a73373d7decbb11, type: 3}
       propertyPath: m_Name

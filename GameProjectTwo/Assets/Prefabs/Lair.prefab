@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 7500900345783863252}
   - component: {fileID: 7500900345783863253}
   - component: {fileID: 7500900345783863248}
+  - component: {fileID: 148961933}
   m_Layer: 2
   m_Name: Lair
   m_TagString: Lair
@@ -56,7 +57,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7500900345783863254}
-  m_LocalRotation: {x: 0.2705976, y: -0.6532817, z: -0.2705976, w: -0.6532817}
+  m_LocalRotation: {x: 0.27059805, y: -0.6532815, z: -0.27059805, w: -0.6532815}
   m_LocalPosition: {x: 46.441086, y: 0.32395655, z: -91.061066}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -105,7 +106,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d56ba17e6186c4fa01adc0e81b01ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeTillSunrise: 180
+  timeTillSunrise: 1
+--- !u!114 &148961933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7500900345783863254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836435be63457594aba2bb1bd7f4f9a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Staticguard: {fileID: 8534732390339874264, guid: 0ceb5780bc74064428c64e8b3c1202b0, type: 3}
+  GuardRemovedCorpses: []
 --- !u!1001 &4050729889552055051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -123,15 +138,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8726804265093384970, guid: 79dc65be192b2ac4cb676244c12d17af, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.35
+      value: -0.34
       objectReference: {fileID: 0}
     - target: {fileID: 8726804265093384970, guid: 79dc65be192b2ac4cb676244c12d17af, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.41
+      value: 0.19
       objectReference: {fileID: 0}
     - target: {fileID: 8726804265093384970, guid: 79dc65be192b2ac4cb676244c12d17af, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.58
+      value: -1.09
       objectReference: {fileID: 0}
     - target: {fileID: 8726804265093384970, guid: 79dc65be192b2ac4cb676244c12d17af, type: 3}
       propertyPath: m_LocalRotation.w
