@@ -70,7 +70,6 @@ public class HiddenCheck : MonoBehaviour
             if (spawnGuards[i] != null)
             {
                 Instantiate(Staticguard,spawnGuards[i], Quaternion.identity);
-                Debug.Log($"Spawned Guard at {spawnGuards[i]}");
             }
         }
     }
