@@ -13,16 +13,16 @@ public class BloodSuckTarget : Interactable
     void Start()
     {
         npcController = GetComponent<NPC>();
+        player = FindObjectOfType<Player>();
     }
 
-    public override void Interact(GameObject player)
+    public override void Interact(GameObject gameObject)
     {
         if (npcController.IsSuckable)
         {
             npcController.GettingSucked = true;
-            this.player = player.GetComponent<Player>();
-            this.player.SuckingBlood = true;
-            StartCoroutine(SuckingBlood(10, 1f));
+            player.SuckingBlood = true;
+            StartCoroutine(SuckingBlood(player.Stats.SuckAmount, player.Stats.SuckTick));
         }
         else
         {

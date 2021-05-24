@@ -20,16 +20,17 @@ MonoBehaviour:
   AlertActionThreshold: 7
   AlertDecrease: 1
   AlertIncrease: 1
-  InSightMultiplier: 2
-  NoticeRange: 3
+  InSightMultiplier: 1.5
+  NoticeRange: 3.5
   ExitCharmIncrease: 10
-  SightLenght: 20
-  RelaxedFOV: 90
-  AlertedFOV: 120
-  SearchAngle: 45
-  SuspisciousSpeed: 1
-  WalkSpeed: 2
-  RunSpeed: 5
+  BodyReactionRange: 10
+  SightLenght: 12
+  RelaxedFOV: 100
+  AlertedFOV: 130
+  SearchAngle: 50
+  SuspisciousSpeed: 1.5
+  WalkSpeed: 3
+  RunSpeed: 6
   SearchSpeed: 4
   FearSpeed: 0.2
   CharmedSpeed: 1
@@ -40,8 +41,7 @@ MonoBehaviour:
   MaxFleeDistance: 40
   MinFleeDistance: 5
   IdleTime: 4
-  SuckedStun: 2
-  IntuitionTime: 1
+  IntuitionTime: 1.25
   CalmDownTime: 1
   CharmedTime: 5
   FadeDuration: 1

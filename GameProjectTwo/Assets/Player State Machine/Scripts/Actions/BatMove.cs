@@ -20,8 +20,8 @@ public class BatMove : PlayerAction
         InputRotateTowards();
         InputFlightHight();
 
-        realInput.x = batRotationVector.x * stats.FlightSpeed;
-        realInput.z = batRotationVector.z * stats.FlightSpeed;
+        realInput.x = batRotationVector.x * player.Speed;
+        realInput.z = batRotationVector.z * player.Speed;
         realInput.y = SphareCastGround(realInput);
 
         cc.Move(realInput * Time.deltaTime);

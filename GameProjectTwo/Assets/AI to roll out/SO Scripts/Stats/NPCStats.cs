@@ -72,7 +72,7 @@ public class NPCStats : ScriptableObject
 	[Header("Timers")]
 	public float IdleTime = 2f;
 	[Tooltip("For how long (in seconds) that the character will be able to guess the new position of the player (based on it's position and it's velocity)")]
-	[Range(0.1f, 1f)] public float IntuitionTime = 0.5f;
+	[Range(0.1f, 2f)] public float IntuitionTime = 0.5f;
 	[Tooltip("The time (in seconds) that it takes for the character to calm down and start decreasing in alertness after noticing the player.")]
 	public float CalmDownTime = 5f;
 	[Tooltip("The time (in seconds) that the npc will stay in a charmed state once charmed by the player")]
