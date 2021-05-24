@@ -96,6 +96,9 @@ public class NPC : MonoBehaviour, ICharacter
 
     BloodSuckTarget bloodSuckTarget;
 
+    private HiddenCheck hiddenCheck;
+    public HiddenCheck HiddenCheck => hiddenCheck;
+
     public SpawnPath startingPath { get; set; }
 
     private void Awake()
@@ -112,6 +115,7 @@ public class NPC : MonoBehaviour, ICharacter
         player = FindObjectOfType<Player>();
         playerTransform = player.transform;
         bloodSuckTarget = GetComponent<BloodSuckTarget>();
+        hiddenCheck = FindObjectOfType<HiddenCheck>();
     }
 
     public void InitializeNPC(PathPoint[] path = null, bool backTrack = false)
