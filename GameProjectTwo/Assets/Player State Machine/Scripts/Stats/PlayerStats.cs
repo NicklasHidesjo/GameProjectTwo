@@ -18,7 +18,6 @@ public class PlayerStats : ScriptableObject
     public float Damping = 2;
     public float DownForce = 10;
 
-
     [Header("Stamina settings")]
     public float MaxStamina = 100f;
     public float StaminaRecovery = 10f;
@@ -38,7 +37,6 @@ public class PlayerStats : ScriptableObject
     public float FlySpeed = 5f;
 
     [Header("Fly settings")]
-    public float FlightSpeed = 5.0f;
     public float TurnSpeed = 2.0f;
     public float FlightHight = 2.0f;
     public float MaxFlightHight = 4.0f;
@@ -49,4 +47,11 @@ public class PlayerStats : ScriptableObject
     public float CharmRange = 10f;
     [Tooltip("The angle that the player can charm a npc infront of them")]
     public float CharmFOV = 90f;
+
+
+    [Header("Suck settings")]
+    [Tooltip("The delay (in seconds) between each suck cycle")]
+    public float SuckTick = 1f;
+    [Tooltip("The amount of blood sucked per cycle")]
+    public int SuckAmount = 10;
 }
