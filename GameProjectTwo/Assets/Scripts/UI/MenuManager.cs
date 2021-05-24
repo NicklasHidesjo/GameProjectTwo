@@ -90,7 +90,10 @@ public class MenuManager : MonoBehaviour
     {
         if (OnLevelStart != null)
         {
+            endOfLevelScreen.GetComponent<Animator>().SetTrigger("NewNight");
             OnLevelStart();
+            TogglePause();
+            Invoke("ExitEndOfLevelScreen", 1.0f);
         }
     }
 
@@ -105,10 +108,15 @@ public class MenuManager : MonoBehaviour
     public void EndOfLevelScreen()
     {
         
+        endOfLevelScreen.GetComponent<Animator>().SetTrigger("EndNight");
         endOfLevelScreen.SetActive(true);
         AudioManager.instance.StopAll2DSounds();
+        Invoke("TogglePause",1.0f);
+    }
 
-        TogglePause();
+    public void ExitEndOfLevelScreen()
+    {
+        endOfLevelScreen.SetActive(false);
     }
 
     public void VictoryScreen()
