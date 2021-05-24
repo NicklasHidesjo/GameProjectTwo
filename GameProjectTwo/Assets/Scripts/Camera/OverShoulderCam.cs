@@ -20,12 +20,14 @@ public class OverShoulderCam : MonoBehaviour
     //Debug options
     [SerializeField] bool lockToWindow;
 
-    private float lean;
     Transform dummy;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        mouseSpeed = PlayerPrefs.GetFloat("CameraSensitivity");
+
         if (!cam)
             cam = Camera.main.transform;
 
@@ -56,6 +58,7 @@ public class OverShoulderCam : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        mouseSpeed = PlayerPrefs.GetFloat("CameraSensitivity");
         if (Time.timeScale != 0)
         {
             dummy.rotation = MouseRotation(dummy.eulerAngles);
@@ -74,10 +77,12 @@ public class OverShoulderCam : MonoBehaviour
         }
     }
 
+  
+
     Quaternion MouseRotation(Vector3 camEuler)
     {
-        camEuler.y += Input.GetAxis("Mouse X") * mouseSpeed;
-        camEuler.x -= Input.GetAxis("Mouse Y") * mouseSpeed;
+        camEuler.y += Input.GetAxisRaw("Mouse X") * mouseSpeed;
+        camEuler.x -= Input.GetAxisRaw("Mouse Y") * mouseSpeed;
         if (camEuler.x > maxTilt)
         {
             camEuler.x = maxTilt;

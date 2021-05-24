@@ -13,7 +13,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private GameObject victoryScreen;
     [SerializeField] private GameObject levelChanger;
-
+    [SerializeField] private GameObject optionsMenu;
     
     private bool inDeathScreen;
 
@@ -37,6 +37,7 @@ public class MenuManager : MonoBehaviour
             if (gamePaused)
             {
                 pauseScreen.SetActive(false);
+                optionsMenu.SetActive(false);
                 TogglePause();
             }
             else
