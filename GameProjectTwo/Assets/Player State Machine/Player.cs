@@ -98,6 +98,13 @@ public class Player : MonoBehaviour, IPlayer
 	{
 		dracula.SetActive(false);
 		bat.SetActive(true);
+
+		Vector3 frw = AlignCamera.forward;
+		frw.y = 0;
+		frw = frw.normalized;
+		transform.forward = frw;
+		bat.transform.forward = frw;
+		bat.transform.rotation = Quaternion.LookRotation(frw, Vector3.up);
 	}
 	public void ActivateDraculaForm()
 	{

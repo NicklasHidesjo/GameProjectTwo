@@ -13,9 +13,13 @@ public class BatMove : PlayerAction
 
     public override void Execute(IPlayer player)
     {
+
         cc = player.Controller;
         stats = player.Stats;
         cam = player.AlignCamera;
+
+        //We set this again to make sure it works w. other code.
+        batRotationVector = cc.transform.forward;
 
         InputRotateTowards();
         InputFlightHight();
@@ -102,11 +106,6 @@ public class BatMove : PlayerAction
 
     void AnimateBatRotation()
     {
-
-        float yAng = Vector3.Angle(cc.transform.forward, batRotationVector);
-        Debug.DrawRay(cc.transform.position, cc.transform.forward, Color.yellow);
-        Debug.DrawRay(cc.transform.position, batRotationVector, Color.red);
-
         cc.transform.rotation = Quaternion.LookRotation(batRotationVector, cc.transform.up + Vector3.up);
         cc.transform.rotation *= Quaternion.Euler(0, 0, -banking * 45);
     }
