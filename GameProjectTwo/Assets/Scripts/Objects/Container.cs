@@ -95,6 +95,13 @@ public class Container : Interactable
         }
 
         targetToMove.rotation = transform.rotation;
+        Debug.Log($"the transforms name is {transform.parent.GetChild(2).name}");
+        if (transform.parent.GetChild(2).name=="metal")
+        {
+            targetToMove.rotation = Quaternion.Euler(90.0f, 90.0f, 0.0f);
+            targetToMove.position = Vector3.down;
+        }
+
         animator.SetBool("Open", false);
 
         //Debug.Log("finished moving");     
@@ -122,6 +129,12 @@ public class Container : Interactable
             targetToMove.position = Vector3.Slerp(startRelCenter, endRelCenter, fracComplete);
             targetToMove.position += center;
             yield return null;
+        }
+
+        if (transform.parent.GetChild(2).name == "metal")
+        {
+            //targetToMove.rotation = Quaternion.Euler(90.0f, 90.0f, 0.0f);
+            targetToMove.position = targetPosition - new Vector3(0.0f,0.35f,0.0f);
         }
         //Debug.Log("finished moving");
         if (playerInside==true)
