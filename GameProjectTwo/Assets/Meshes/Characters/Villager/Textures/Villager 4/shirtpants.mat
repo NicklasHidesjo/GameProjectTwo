@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: cloth 2
+  m_Name: shirtpants
   m_Shader: {fileID: 4800000, guid: eb897f41e468d0d4086261dc6acab7f5, type: 3}
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
   m_LightmapFlags: 4
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 55db41a62046f5f468fab10a4629d786, type: 3}
+        m_Texture: {fileID: 2800000, guid: 512108c3f24abd44ead2aaa0c1872c0c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -44,19 +44,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 645b85d5d894ddd4d845380579d467c8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0f78e8003062b4c409b1d99665012129, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: a147bfa0b6e8222408ffbbe03f2959ce, type: 3}
+        m_Texture: {fileID: 2800000, guid: f5e841558a2a9aa408bac9e438eee642, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: b79dd9e7d39ce7d4d93c1ee75a53d0eb, type: 3}
+        m_Texture: {fileID: 2800000, guid: 25fca89407a0a21489f3f27dd9eac402, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: ae9273a70831b614695bbe0716f21c28, type: 3}
+        m_Texture: {fileID: 2800000, guid: cb35831a5097b474696254d14532a4fb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ZfadeTexture:

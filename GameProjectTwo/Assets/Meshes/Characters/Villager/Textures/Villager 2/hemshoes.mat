@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: cloth
+  m_Name: hemshoes
   m_Shader: {fileID: 4800000, guid: eb897f41e468d0d4086261dc6acab7f5, type: 3}
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
   m_LightmapFlags: 4
@@ -20,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 5ab7d82a33a6f16479768f186787719a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5a692c4e7408388439a71e3a78f920fd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -44,19 +44,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c3b47967af885194aaa02a30b5384d24, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2e2838552bb8bd44b90dac410c983e1d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: de9b6fba3053626478b8f9e584b5af8e, type: 3}
+        m_Texture: {fileID: 2800000, guid: af9d3b799dde76449aa745e8f441a581, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 80388b77c408c044fac44bc8fb08b844, type: 3}
+        m_Texture: {fileID: 2800000, guid: 91afc5771494c8d48a36a81adb271317, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: b6baa7e56b28ba744adec1375dc15a0c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 98a08af70566c714583bb10c950ac99b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ZfadeTexture:

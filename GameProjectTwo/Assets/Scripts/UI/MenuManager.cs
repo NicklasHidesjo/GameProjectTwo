@@ -16,8 +16,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject optionsMenu;
     
     private bool inDeathScreen;
-
-    private bool gamePaused = false;
+    private bool inFade;
+    private bool gamePaused;
 
     public delegate void LevelStart();
     public static event LevelStart OnLevelStart;
@@ -25,6 +25,8 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
+        gamePaused = false;
+        inFade = false;
         player = FindObjectOfType<Player>();
         inDeathScreen = false;
         Cursor.visible = false;
@@ -32,7 +34,7 @@ public class MenuManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !inFade)
         {
             if (gamePaused)
             {
@@ -107,7 +109,7 @@ public class MenuManager : MonoBehaviour
 
     public void EndOfLevelScreen()
     {
-        
+        inFade = true;
         endOfLevelScreen.GetComponent<Animator>().SetTrigger("EndNight");
         endOfLevelScreen.SetActive(true);
         AudioManager.instance.StopAll2DSounds();
@@ -116,6 +118,7 @@ public class MenuManager : MonoBehaviour
 
     public void ExitEndOfLevelScreen()
     {
+        inFade = false;
         endOfLevelScreen.SetActive(false);
     }
 

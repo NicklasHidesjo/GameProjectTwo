@@ -219,6 +219,11 @@ MonoBehaviour:
     channel: {fileID: -4715768787927684047, guid: 5a073ff4842204344ac262589efaab3d, type: 2}
     sounds:
     - {fileID: 8300000, guid: ccc2fa48a0d8289459af31c8068c5030, type: 3}
+  - type: 0
+    loop: 1
+    channel: {fileID: -4715768787927684047, guid: 5a073ff4842204344ac262589efaab3d, type: 2}
+    sounds:
+    - {fileID: 8300000, guid: ccc2fa48a0d8289459af31c8068c5030, type: 3}
   audioSources: []
   audioMixer: {fileID: 24100000, guid: 5a073ff4842204344ac262589efaab3d, type: 2}
 --- !u!82 &1540145044570659836
