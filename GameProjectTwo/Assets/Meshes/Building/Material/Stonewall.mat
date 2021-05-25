@@ -104,7 +104,7 @@ Material:
     - _UVSec: 0
     - _UseWorldUV: 0
     - _ZWrite: 1
-    - _ZfadeAdmount: 1
+    - _ZfadeAdmount: 0.56
     - _ZfadeScale: 0.1
     - _ZfadeStart: 0
     m_Colors:
@@ -116,5 +116,5 @@ Material:
     - _RimColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
     - _SpecularColor: {r: 0, g: 0, b: 0, a: 0}
-    - _ZfadeColor: {r: 0.376, g: 0.322, b: 0.251, a: 0}
+    - _ZfadeColor: {r: 0.11320752, g: 0.0933428, b: 0.063545726, a: 0}
   m_BuildTextureStacks: []

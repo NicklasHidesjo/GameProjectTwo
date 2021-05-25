@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8059484230455537615}
   - component: {fileID: 8909782766737678240}
   - component: {fileID: 4820243136163150419}
-  - component: {fileID: 2500668238773966250}
+  - component: {fileID: 9021001881344333623}
   m_Layer: 0
   m_Name: StreetLamp_treev2
   m_TagString: Untagged
@@ -85,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2500668238773966250
-MeshCollider:
+--- !u!65 &9021001881344333623
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,10 +95,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3703173262421847456, guid: 3a2077b34a0ca974c9c4b0d860ad23c8, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.0015, y: 0.062669866, z: 0.015}
+  m_Center: {x: 0, y: 0.031334933, z: 0}
 --- !u!1 &8949891966430334180
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +110,7 @@ GameObject:
   - component: {fileID: 2474274492087656392}
   - component: {fileID: 5944955056875025845}
   m_Layer: 0
-  m_Name: w
+  m_Name: Street Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,7 +124,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8949891966430334180}
   m_LocalRotation: {x: 1.4210855e-14, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.02648, y: 0.03935, z: 0.00007}
+  m_LocalPosition: {x: -0.02648, y: 0.04347, z: 0.00007}
   m_LocalScale: {x: 1.052528, y: 1.052528, z: 1.052528}
   m_Children: []
   m_Father: {fileID: 8059484230455537615}
@@ -143,13 +142,13 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.9716981, g: 0.9281927, b: 0.8204432, a: 1}
-  m_Intensity: 10
-  m_Range: 5
+  m_Intensity: 2
+  m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -185,13 +184,13 @@ Light:
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 1.5
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
-  m_ShadowRadius: 0
+  m_ShadowRadius: 0.5
   m_ShadowAngle: 0
 --- !u!114 &5944955056875025845
 MonoBehaviour:

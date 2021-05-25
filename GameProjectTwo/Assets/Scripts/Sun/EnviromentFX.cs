@@ -24,6 +24,8 @@ public class EnviromentFX : MonoBehaviour
     // Update is called once per frame
     public void UpdateEnviroment(float sunValue)
     {
+        RenderSettings.fog = true;
+        RenderSettings.fogMode = FogMode.Linear;
         RenderSettings.fogEndDistance = Mathf.Lerp(fogDistNight, fogDistDay, sunValue);
         RenderSettings.fogColor = Color.Lerp(fogNightCol, fogDayCol, sunValue);
     }

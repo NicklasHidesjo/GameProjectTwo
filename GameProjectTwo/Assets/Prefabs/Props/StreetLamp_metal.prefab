@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5424814918232297948}
   - component: {fileID: 306620403283850626}
   m_Layer: 0
-  m_Name: Point Light (1)
+  m_Name: Street Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,8 +43,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.9716981, g: 0.9281927, b: 0.8204432, a: 1}
-  m_Intensity: 5
-  m_Range: 8
+  m_Intensity: 2.5
+  m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -91,7 +91,7 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
-  m_ShadowRadius: 0
+  m_ShadowRadius: 0.5
   m_ShadowAngle: 0
 --- !u!1 &9179514136626606755
 GameObject:
@@ -187,7 +187,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.0047976156
+  m_Radius: 0.0015
   m_Height: 0.06062
   m_Direction: 1
   m_Center: {x: 0, y: 0.03031, z: 0}
