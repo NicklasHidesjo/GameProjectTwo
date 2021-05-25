@@ -19,7 +19,7 @@ MonoBehaviour:
   CautiousThreshold: 7
   AlertActionThreshold: 13
   AlertDecrease: 2
-  AlertIncrease: 1
+  AlertIncrease: 0
   InSightMultiplier: 1.5
   NoticeRange: 2
   ExitCharmIncrease: 20

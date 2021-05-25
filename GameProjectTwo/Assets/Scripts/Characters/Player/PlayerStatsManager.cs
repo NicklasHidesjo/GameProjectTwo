@@ -80,7 +80,7 @@ public class PlayerStatsManager : MonoBehaviour
 
     private void SetCurrentBarValue(BarController barController, float value)
     {
-        barController.SetCurrentValue(value);
+        //barController.SetCurrentValue(value);
     }
 
     private void SetMaxBarValue(BarController barController, float maxValue)

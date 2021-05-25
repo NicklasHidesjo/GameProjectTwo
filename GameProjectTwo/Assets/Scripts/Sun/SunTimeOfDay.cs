@@ -17,11 +17,11 @@ public class SunTimeOfDay : MonoBehaviour
     DisableLightAtDay[] nightLights;
     bool nightLightsON;
 
-    //private void Start()
-    //{
-    //    SetTimeOfDayTo(14);
-    //    MoveTimeOfDayTo(22f, 9f);
-    //}
+    private void Start()
+    {
+        SetTimeOfDayTo(14);
+        MoveTimeOfDayTo(22f, 9f);
+    }
 
 
 
