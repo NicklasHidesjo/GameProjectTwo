@@ -469,7 +469,7 @@ MonoBehaviour:
     weijie Lai\n\n\nLEVEL DESIGNERS\n\rChrister H\xF6gberg \n\rJoakim Stenmark\nRobert
     Sandh\r\nTed weijie Lai\n\n\nCHARACTERS DESIGNER\r\nJosefin Ramsberg\n\rIsak
     Alfredsson\r\n\n\nANIMATORS\n\rIsak Alfredsson\r\nFrida Karlsson\n\n\nMUSIC&SFX\r\nJoakim
-    Stenmark\n\n\nUI Graphics\nJosefin Ramsberg\n\n\nUI Programming\nAxel Eriksson"
+    Stenmark\n\n\nUI GRAPHICS\nJosefin Ramsberg\n\n\nUI PROGRAMMING\nAxel Eriksson"
 --- !u!222 &1351026236
 CanvasRenderer:
   m_ObjectHideFlags: 0
