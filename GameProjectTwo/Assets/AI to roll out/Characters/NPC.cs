@@ -136,7 +136,7 @@ public class NPC : MonoBehaviour, ICharacter
         if (stationary)
         {
             StartingPosition = transform.position;
-            StartingRotation = transform.rotation;
+            StartingRotation = SetStartingRotation();
         }
         DeadNpc = null;
         SetBools(backTrack);
@@ -146,7 +146,62 @@ public class NPC : MonoBehaviour, ICharacter
         SetCharmInteraction(false);
     }
 
-	private void SetBools(bool backTrack)
+    private Quaternion SetStartingRotation()
+    {
+        bool hitLeft = GetHit(-Transform.right);
+        bool hitRight = GetHit(Transform.right);
+        bool hitFront = GetHit(Transform.forward);
+
+        float yTweak = 0;
+
+        if (hitLeft && hitRight && hitFront)
+        {
+            yTweak = Transform.rotation.y + 180;
+        }
+        else if (hitFront && hitLeft)
+        {
+            yTweak = Transform.rotation.y + 135;
+        }
+        else if (hitFront && hitRight)
+        {
+            yTweak = Transform.rotation.y - 135;
+        }
+        else if (hitRight && hitLeft)
+        {
+            yTweak = 0;
+        }
+        else if (hitLeft)
+        {
+            yTweak = Transform.rotation.y + 90;
+        }
+        else if (hitRight)
+        {
+            yTweak = Transform.rotation.y - 90;
+        }
+        else if (hitFront)
+        {
+            yTweak = Transform.rotation.y + 180;
+        }
+
+        var rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y + yTweak, transform.rotation.z));
+
+        return rotation;
+    }
+    private bool GetHit(Vector3 direction)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(Transform.position, direction, out hit, Stats.ClearanceDistance))
+        {
+            if (hit.collider != null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private void SetBools(bool backTrack)
 	{
 		IsSuckable = true;
         IsCharmed = false;
