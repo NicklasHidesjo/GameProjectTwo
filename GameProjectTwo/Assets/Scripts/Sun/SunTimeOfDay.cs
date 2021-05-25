@@ -16,6 +16,15 @@ public class SunTimeOfDay : MonoBehaviour
     //TODO : Niceify
     DisableLightAtDay[] nightLights;
     bool nightLightsON;
+
+    //private void Start()
+    //{
+    //    SetTimeOfDayTo(14);
+    //    MoveTimeOfDayTo(22f, 9f);
+    //}
+
+
+
     public void MoveSunRealTimeStep()
     {
         //TODO : Can be moved to start if function used
