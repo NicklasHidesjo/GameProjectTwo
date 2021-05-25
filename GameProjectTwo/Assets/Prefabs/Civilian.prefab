@@ -479,19 +479,19 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 1e79d31874a22ff418c237593488b2a3, type: 2}
   - {fileID: 2100000, guid: 6d4a3273839333c419ff05080383eece, type: 2}
   _jacketMaterials:
+  - {fileID: 2100000, guid: 73e17cf7f2b16a64980a7332c3f2a3ff, type: 2}
+  - {fileID: 2100000, guid: 7c4745c93bac1344b9547db49611b5bd, type: 2}
+  - {fileID: 2100000, guid: 744e3162d965f4b4ca9bffc988430cee, type: 2}
+  - {fileID: 2100000, guid: b63e6ce548a810647b19831d3f4536a2, type: 2}
+  - {fileID: 2100000, guid: b63e6ce548a810647b19831d3f4536a2, type: 2}
+  - {fileID: 2100000, guid: fec11356b63fa26459a4ad51684e61df, type: 2}
+  _pantMaterials:
   - {fileID: 2100000, guid: 152e30e965e20d649a76ccd6b81b5981, type: 2}
   - {fileID: 2100000, guid: 1830902ec5903ab43a6b20bec8af2228, type: 2}
   - {fileID: 2100000, guid: 5e228aa867e561e498b8933c4d63779c, type: 2}
   - {fileID: 2100000, guid: 6bbbbdca746779e4291ffc907790e125, type: 2}
   - {fileID: 2100000, guid: 8d55a20d22bac79468fd5cb6c24e21ed, type: 2}
   - {fileID: 2100000, guid: b48d1c66522277b418ff08f8675b4c19, type: 2}
-  _pantMaterials:
-  - {fileID: 2100000, guid: 73e17cf7f2b16a64980a7332c3f2a3ff, type: 2}
-  - {fileID: 2100000, guid: 7c4745c93bac1344b9547db49611b5bd, type: 2}
-  - {fileID: 2100000, guid: 744e3162d965f4b4ca9bffc988430cee, type: 2}
-  - {fileID: 2100000, guid: b63e6ce548a810647b19831d3f4536a2, type: 2}
-  - {fileID: 2100000, guid: a4b7b165f86fb3a45948af7822b2491f, type: 2}
-  - {fileID: 2100000, guid: fec11356b63fa26459a4ad51684e61df, type: 2}
   _renderer: {fileID: 2704644733722070886}
 --- !u!1 &7068164817956803160
 GameObject:
