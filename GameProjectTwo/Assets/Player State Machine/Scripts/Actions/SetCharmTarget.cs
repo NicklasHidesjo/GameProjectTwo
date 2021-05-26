@@ -24,7 +24,6 @@ public class SetCharmTarget : PlayerAction
 			return;
 		}
 
-
 		playerTransform = player.Transform;
 
 		Collider[] charmTargets = Physics.OverlapSphere(playerTransform.position, player.Stats.CharmRange, targetMask);
@@ -43,9 +42,9 @@ public class SetCharmTarget : PlayerAction
 			if (npc.CurrentState == NPCStates.RunToSafety ||
 			   npc.CurrentState == NPCStates.FrozenInFear ||
 			   npc.CurrentState == NPCStates.CivFlee ||
-			   npc.CurrentState == NPCStates.CivReactToDeadBody ||
 			   npc.CurrentState == NPCStates.CivSucked ||
-               npc.CurrentState == NPCStates.Dead)
+               npc.CurrentState == NPCStates.Dead ||
+			   npc.CurrentState == NPCStates.LeaveState)
 			{
 				continue;
 			}
@@ -75,7 +74,6 @@ public class SetCharmTarget : PlayerAction
 			player.charmTarget = targets[0];
 			targets[0].SetCharmInteraction(true);
 		}
-
 		else
 		{
 			NPC closestTarget = targets[0];
