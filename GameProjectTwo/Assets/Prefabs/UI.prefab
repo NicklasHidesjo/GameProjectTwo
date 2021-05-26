@@ -230,7 +230,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Prerelease Build 0.8
+  m_Text: 'Prerelease build 0.8
+
+'
 --- !u!1 &582692028
 GameObject:
   m_ObjectHideFlags: 0
