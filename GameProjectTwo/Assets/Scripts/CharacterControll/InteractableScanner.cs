@@ -82,6 +82,13 @@ public class InteractableScanner : MonoBehaviour
         
         foreach (Interactable i in interactables)
         {
+            if(i.GetComponent<NPC>() != null)
+			{
+                if(i.GetComponent<NPC>().CurrentState == NPCStates.LeaveState)
+				{
+                    continue;
+				}
+			}
             Vector3 directionToTarget = i.transform.position - transform.position;
             float directionSqrToTarget = directionToTarget.sqrMagnitude;
             if (directionSqrToTarget < closestDistance)
