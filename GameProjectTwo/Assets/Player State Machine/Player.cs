@@ -78,6 +78,7 @@ public class Player : MonoBehaviour, IPlayer
 		dracula.SetActive(true);
 
 		CurrentStamina = stats.MaxStamina;
+		MenuManager.OnLevelStart += ResetStamina;
 	}
 
 	private void Update()
@@ -132,5 +133,16 @@ public class Player : MonoBehaviour, IPlayer
 	{
 		CurrentStamina = Mathf.Clamp(CurrentStamina + (increase * Time.deltaTime), 0, stats.MaxStamina);
 		statsManager.SetStaminaBar(CurrentStamina);
+	}
+
+	public void ResetStamina()
+	{
+		CurrentStamina = stats.MaxStamina;
+	}
+
+
+	private void OnDestroy()
+	{
+		MenuManager.OnLevelStart -= ResetStamina;
 	}
 }
