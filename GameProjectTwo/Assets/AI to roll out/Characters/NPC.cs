@@ -148,6 +148,11 @@ public class NPC : MonoBehaviour, ICharacter
 
     private Quaternion SetStartingRotation()
     {
+        if(gameObject.CompareTag("Civilian"))
+		{
+            return transform.rotation;
+		}
+
         bool hitLeft = GetHit(-Transform.right);
         bool hitRight = GetHit(Transform.right);
         bool hitFront = GetHit(Transform.forward);
