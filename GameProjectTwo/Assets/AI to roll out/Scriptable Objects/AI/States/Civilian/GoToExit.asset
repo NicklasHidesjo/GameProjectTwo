@@ -24,9 +24,9 @@ MonoBehaviour:
     newState: {fileID: 11400000, guid: 720dde0af3c73fd41ad6aa61d3ebae5e, type: 2}
   - decision: {fileID: 11400000, guid: 790c745d50284974ab9c07badb3b76ea, type: 2}
     newState: {fileID: 11400000, guid: 065ab3295b71cdd4a8cc0a134e4c9911, type: 2}
+  - decision: {fileID: 11400000, guid: 6a0d8868740c7a54cba0cad7d859e9f5, type: 2}
+    newState: {fileID: 11400000, guid: 947fda6e9befaab498c6ac65a7514133, type: 2}
   - decision: {fileID: 11400000, guid: 8ec007f7855587c4c985d0b79a83fa39, type: 2}
     newState: {fileID: 11400000, guid: 0366fa8c74898e841a3fa01d99edf71e, type: 2}
   - decision: {fileID: 11400000, guid: ebdc551eee068cc4594b37ae8722ef5f, type: 2}
     newState: {fileID: 11400000, guid: 53e6c94010028b940918b7865e5739e3, type: 2}
-  - decision: {fileID: 11400000, guid: 6a0d8868740c7a54cba0cad7d859e9f5, type: 2}
-    newState: {fileID: 11400000, guid: 947fda6e9befaab498c6ac65a7514133, type: 2}
