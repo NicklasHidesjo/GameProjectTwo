@@ -15,12 +15,10 @@ public class AudioOptions : MonoBehaviour
 
     public void SetSliders()
     {
-        musicSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        soundSlider.value = PlayerPrefs.GetFloat("soundVolume");
-        masterSlider.value = PlayerPrefs.GetFloat("masterVolume");
-        soundVolume = soundSlider.value;
-        musicVolume = musicSlider.value;
-        masterVolume = masterSlider.value;
+        musicSlider.value = PlayerPrefs.GetFloat("musicVolume", 0.75f);
+        soundSlider.value = PlayerPrefs.GetFloat("soundVolume", 0.75f);
+        masterSlider.value = PlayerPrefs.GetFloat("masterVolume", 0.75f);
+
     }
 
     public void SetMusicVolume()

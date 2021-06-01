@@ -58,19 +58,10 @@ public class AudioManager : MonoBehaviour
             audioSources.Add(a);
         }
 
-        //Load mixer settings. if none exist make new ones and load those.
-        float musicVolume = PlayerPrefs.GetFloat("musicVolume");
-        float soundVolume = PlayerPrefs.GetFloat("soundVolume");
-        float masterVolume = PlayerPrefs.GetFloat("masterVolume");
-        if (!PlayerPrefs.HasKey("musicVolume"))
-        {
-            SaveVolumeSettings(0.75f, 0.75f, 0.75f);
-            musicVolume = 0.75f;
-            soundVolume = 0.75f;
-            masterVolume = 0.75f;
-
-
-        }
+        //Load mixer settings. 
+        float musicVolume = PlayerPrefs.GetFloat("musicVolume", 0.75f);
+        float soundVolume = PlayerPrefs.GetFloat("soundVolume", 0.75f);
+        float masterVolume = PlayerPrefs.GetFloat("masterVolume", 0.75f);
         SetMixerVolume(musicVolume, soundVolume, masterVolume);
 
         musicPlayer = GetComponent<AudioSource>();       
@@ -105,8 +96,7 @@ public class AudioManager : MonoBehaviour
     private AudioSource GetIdleAudioSource()
     {
         if (audioSources.Exists(source => !source.isPlaying))
-        {
-            //Debug.Log("Found idle audioSource");
+        {            
             return audioSources.Find(source => !source.isPlaying);
         }
         AudioSource s = audioListGameObject.AddComponent<AudioSource>();      
@@ -290,15 +280,6 @@ public class AudioManager : MonoBehaviour
         audioMixer.SetFloat("SoundVolume", Mathf.Log10(soundVolume) * 20);
         audioMixer.SetFloat("MasterVolume", Mathf.Log10(masterVolume) * 20);
     }
-
-    public void SaveVolumeSettings(float musicVolume, float soundVolume, float masterVolume)
-    {
-        PlayerPrefs.SetFloat("musicVolume", musicVolume);
-        PlayerPrefs.SetFloat("soundVolume", soundVolume);
-        PlayerPrefs.SetFloat("masterVolume", masterVolume);
-
-    }
-
 
 
 }
